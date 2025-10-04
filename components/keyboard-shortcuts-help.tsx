@@ -64,14 +64,16 @@ export function KeyboardShortcutsHelp() {
 
     return () => {
       // Cleanup
-      keyboardShortcuts.unregister('help')
-      keyboardShortcuts.unregister('close-help')
-      keyboardShortcuts.unregister('goto-dashboard')
-      keyboardShortcuts.unregister('goto-workout')
-      keyboardShortcuts.unregister('goto-progress')
-      keyboardShortcuts.unregister('goto-exercises')
-      keyboardShortcuts.unregister('goto-programs')
-      keyboardShortcuts.unregister('goto-settings')
+      if (keyboardShortcuts) {
+        keyboardShortcuts.unregister('help')
+        keyboardShortcuts.unregister('close-help')
+        keyboardShortcuts.unregister('goto-dashboard')
+        keyboardShortcuts.unregister('goto-workout')
+        keyboardShortcuts.unregister('goto-progress')
+        keyboardShortcuts.unregister('goto-exercises')
+        keyboardShortcuts.unregister('goto-programs')
+        keyboardShortcuts.unregister('goto-settings')
+      }
     }
   }, [router])
 

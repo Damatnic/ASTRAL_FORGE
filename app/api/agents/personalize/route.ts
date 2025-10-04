@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           data: {
             userId: user.id,
             name: 'Today\'s Workout',
-            plan: workout,
+            plan: workout as any,
             date: new Date(),
             completed: false,
             globalAdjustment: workout.globalAdjustment,

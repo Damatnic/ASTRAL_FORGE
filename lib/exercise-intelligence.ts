@@ -724,4 +724,27 @@ export class ExerciseIntelligence {
 
     return null
   }
+
+  getExerciseSubstitutions(exerciseId: string, availableEquipment: string[]): ExerciseTechnique[] {
+    const exercise = this.getExerciseTechnique(exerciseId)
+    if (!exercise) return []
+
+    // Find exercises with similar primary muscles and compatible equipment
+    return Array.from(this.exerciseDatabase.values()).filter(ex => {
+      if (ex.exerciseId === exerciseId) return false
+      
+      // Check if equipment is available
+      const hasEquipment = ex.equipment.every(eq => 
+        availableEquipment.some(avail => avail.toLowerCase().includes(eq.toLowerCase()))
+      )
+      if (!hasEquipment) return false
+
+      // Check if targets similar muscle groups
+      const similarMuscles = ex.primaryMuscles.some(muscle => 
+        exercise.primaryMuscles.includes(muscle)
+      )
+      
+      return similarMuscles
+    }).slice(0, 5) // Return top 5 substitutes
+  }
 }

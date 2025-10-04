@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         },
         session: {
           select: {
-            startedAt: true,
+            date: true,
           },
         },
       },
@@ -62,7 +62,7 @@ export async function GET(request: Request) {
     const rpeByDate: Record<string, { total: number; count: number; weight: number; reps: number }> = {}
 
     sets.forEach(set => {
-      const dateStr = set.session.startedAt.toISOString().split('T')[0]
+      const dateStr = set.session.date.toISOString().split('T')[0]
       if (!rpeByDate[dateStr]) {
         rpeByDate[dateStr] = { total: 0, count: 0, weight: 0, reps: 0 }
       }

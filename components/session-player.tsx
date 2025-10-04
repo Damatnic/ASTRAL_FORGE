@@ -87,7 +87,7 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
       const response = await fetch(`/api/exercises/${exerciseId}/last`)
       if (response.ok) {
         const data = await response.json()
-        setLastTimeData(prev => ({ ...prev, [exerciseId]: data }))
+        setLastTimeData((prev: any) => ({ ...prev, [exerciseId]: data }))
       }
     } catch (error) {
       console.error('Failed to load last time data:', error)

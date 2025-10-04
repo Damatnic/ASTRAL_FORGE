@@ -31,7 +31,7 @@ export async function GET() {
       description: session.notes || '',
       exerciseCount: typeof session.plan === 'string' 
         ? JSON.parse(session.plan).exercises?.length || 0
-        : session.plan?.exercises?.length || 0,
+        : (session.plan as any)?.exercises?.length || 0,
       active: !session.completed,
       schedule: {},
     }))

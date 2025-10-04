@@ -319,7 +319,7 @@ export default function AnalyticsPage() {
                 <li>• Optimal workout: 45-90 minutes for most goals</li>
                 <li>• Shorter workouts (30-45min) work great for maintenance</li>
                 <li>• Longer workouts (90+min) = watch for fatigue accumulation</li>
-                <li>• Consistency > duration - better to do 45min regularly than 2hr sporadically</li>
+                <li>• Consistency {'>'}  duration - better to do 45min regularly than 2hr sporadically</li>
               </ul>
             </div>
           </div>

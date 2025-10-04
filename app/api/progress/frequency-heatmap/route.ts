@@ -25,16 +25,16 @@ export async function GET(request: Request) {
       where: {
         userId: user.id,
         completed: true,
-        startedAt: {
+        date: {
           gte: startDate,
         },
       },
       select: {
-        startedAt: true,
+        date: true,
         duration: true,
       },
       orderBy: {
-        startedAt: 'asc',
+        date: 'asc',
       },
     })
 
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
     const heatmapData: Record<string, { count: number; duration: number }> = {}
 
     sessions.forEach(session => {
-      const dateStr = session.startedAt.toISOString().split('T')[0]
+      const dateStr = session.date.toISOString().split('T')[0]
       if (!heatmapData[dateStr]) {
         heatmapData[dateStr] = { count: 0, duration: 0 }
       }

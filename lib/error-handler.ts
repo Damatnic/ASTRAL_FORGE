@@ -44,32 +44,33 @@ export class DatabaseError extends AppError {
 /**
  * Handle API errors and return appropriate response
  */
-export function handleApiError(error: unknown): {
-  error: string
-  code?: string
-  statusCode: number
-} {
+export function handleApiError(error: unknown) {
   if (error instanceof AppError) {
-    return {
-      error: error.message,
-      code: error.code,
-      statusCode: error.statusCode,
-    }
+    const { NextResponse } = require('next/server')
+    return NextResponse.json(
+      {
+        error: error.message,
+        code: error.code,
+      },
+      { status: error.statusCode }
+    )
   }
 
   if (error instanceof Error) {
     console.error('Unhandled error:', error)
-    return {
-      error: error.message || 'Internal server error',
-      statusCode: 500,
-    }
+    const { NextResponse } = require('next/server')
+    return NextResponse.json(
+      { error: error.message || 'Internal server error' },
+      { status: 500 }
+    )
   }
 
   console.error('Unknown error:', error)
-  return {
-    error: 'An unexpected error occurred',
-    statusCode: 500,
-  }
+  const { NextResponse } = require('next/server')
+  return NextResponse.json(
+    { error: 'An unexpected error occurred' },
+    { status: 500 }
+  )
 }
 
 /**

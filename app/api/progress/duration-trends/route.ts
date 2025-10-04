@@ -24,7 +24,7 @@ export async function GET(request: Request) {
       where: {
         userId: user.id,
         completed: true,
-        startedAt: {
+        date: {
           gte: startDate,
         },
       },
@@ -32,14 +32,14 @@ export async function GET(request: Request) {
         sets: true,
       },
       orderBy: {
-        startedAt: 'asc',
+        date: 'asc',
       },
     })
 
     const result = sessions.map(session => {
       const volume = session.sets.reduce((sum, set) => sum + (set.weight * set.reps), 0)
       return {
-        date: session.startedAt.toISOString().split('T')[0],
+        date: session.date.toISOString().split('T')[0],
         duration: session.duration || 0,
         sets: session.sets.length,
         volume,

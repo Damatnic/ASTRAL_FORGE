@@ -20,7 +20,7 @@ export async function GET() {
       where: {
         userId: user.id,
         completed: true,
-        startedAt: {
+        date: {
           gte: thirtyDaysAgo,
         },
       },
@@ -28,7 +28,7 @@ export async function GET() {
         sets: true,
       },
       orderBy: {
-        startedAt: 'asc',
+        date: 'asc',
       },
     })
 
@@ -36,7 +36,7 @@ export async function GET() {
     const volumeByDate = new Map<string, number>()
     
     sessions.forEach(session => {
-      const date = session.startedAt.toISOString().split('T')[0]
+      const date = session.date.toISOString().split('T')[0]
       const volume = session.sets.reduce((sum, set) => sum + (set.weight * set.reps), 0)
       volumeByDate.set(date, (volumeByDate.get(date) || 0) + volume)
     })

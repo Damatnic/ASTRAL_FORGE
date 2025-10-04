@@ -9,7 +9,7 @@ interface Achievement {
   id: string
   title: string
   description: string
-  type: 'pr' | 'streak' | 'volume' | 'consistency'
+  type: 'pr' | 'streak' | 'volume' | 'consistency' | 'milestone'
   rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
   earnedAt?: Date
   icon: string

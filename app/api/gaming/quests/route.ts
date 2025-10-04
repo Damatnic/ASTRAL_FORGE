@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { QuestSystem } from '@/lib/quest-system'
+import { ProgressionSystem } from '@/lib/progression-system'
+import { RPGStatsSystem } from '@/lib/rpg-stats-system'
 
+/**
+ * GET /api/gaming/quests
+ * Get all available quests for the user
+ */
 export async function GET() {
   try {
     // Get demo user
@@ -12,138 +19,63 @@ export async function GET() {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // Get today's workouts
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
+    // Calculate user level
+    const [completedWorkouts, setEntries, prs, achievements, streakData] = await Promise.all([
+      prisma.workoutSession.count({
+        where: { userId: user.id, completed: true },
+      }),
+      prisma.setEntry.count({
+        where: { session: { userId: user.id } },
+      }),
+      prisma.achievement.count({
+        where: { userId: user.id, type: 'pr' },
+      }),
+      prisma.achievement.count({
+        where: { userId: user.id },
+      }),
+      prisma.user.findUnique({
+        where: { id: user.id },
+        select: { currentStreak: true },
+      }),
+    ])
 
-    const todayWorkouts = await prisma.workoutSession.count({
-      where: {
-        userId: user.id,
-        completed: true,
-        date: {
-          gte: today,
-          lt: tomorrow,
-        },
-      },
-    })
+    const workoutXP = completedWorkouts * 50
+    const volumeXP = setEntries * 5
+    const prXP = prs * 100
+    const streakXP = (streakData?.currentStreak || 0) * 10
+    const achievementXP = achievements * 50
+    const totalXP = workoutXP + volumeXP + prXP + streakXP + achievementXP
 
-    // Get this week's data
-    const weekStart = new Date(today)
-    weekStart.setDate(today.getDate() - today.getDay())
+    const levelData = ProgressionSystem.getLevelFromXP(totalXP)
 
-    const weekWorkouts = await prisma.workoutSession.count({
-      where: {
-        userId: user.id,
-        completed: true,
-        date: { gte: weekStart },
-      },
-    })
+    // Calculate user stats
+    const stats = await RPGStatsSystem.calculateStats(prisma, user.id, 0)
 
-    const weekSets = await prisma.setEntry.count({
-      where: {
-        session: {
-          userId: user.id,
-          completed: true,
-          date: { gte: weekStart },
-        },
-      },
-    })
+    // Get all quests
+    const allQuests = await QuestSystem.getAllQuests(prisma, user.id, levelData.level, stats)
 
-    const weekVolume = await prisma.setEntry.findMany({
-      where: {
-        session: {
-          userId: user.id,
-          completed: true,
-          date: { gte: weekStart },
-        },
-      },
-      select: { weight: true, reps: true },
-    })
+    // Separate by type
+    const daily = allQuests.filter((q) => q.type === 'daily')
+    const weekly = allQuests.filter((q) => q.type === 'weekly')
+    const raids = allQuests.filter((q) => q.type === 'raid')
+    const bosses = allQuests.filter((q) => q.type === 'boss')
 
-    const totalWeekVolume = weekVolume.reduce(
-      (sum, set) => sum + (set.weight * set.reps),
-      0
-    )
-
-    // Daily Quests
-    const dailyQuests = [
-      {
-        id: 'daily-workout',
-        type: 'daily' as const,
-        title: 'Complete a Workout',
-        description: 'Finish any workout session today',
-        progress: todayWorkouts,
-        goal: 1,
-        xpReward: 50,
-        completed: todayWorkouts >= 1,
-        icon: '💪',
-      },
-      {
-        id: 'daily-sets',
-        type: 'daily' as const,
-        title: 'Grind 15 Sets',
-        description: 'Complete 15 sets in a single workout',
-        progress: Math.min(todayWorkouts > 0 ? 12 : 0, 15), // Mock progress
-        goal: 15,
-        xpReward: 30,
-        completed: false,
-        icon: '🔥',
-      },
-      {
-        id: 'daily-pr',
-        type: 'daily' as const,
-        title: 'Hit a New PR',
-        description: 'Set a new personal record',
-        progress: 0,
-        goal: 1,
-        xpReward: 100,
-        completed: false,
-        icon: '🏆',
-      },
-    ]
-
-    // Weekly Quests
-    const weeklyQuests = [
-      {
-        id: 'weekly-workouts',
-        type: 'weekly' as const,
-        title: 'Train 4 Times',
-        description: 'Complete 4 workouts this week',
-        progress: weekWorkouts,
-        goal: 4,
-        xpReward: 200,
-        completed: weekWorkouts >= 4,
-        icon: '📅',
-      },
-      {
-        id: 'weekly-volume',
-        type: 'weekly' as const,
-        title: 'Move 10,000kg',
-        description: 'Lift 10,000kg total volume this week',
-        progress: Math.floor(totalWeekVolume / 1000),
-        goal: 10,
-        xpReward: 250,
-        completed: totalWeekVolume >= 10000,
-        icon: '⚡',
-      },
-      {
-        id: 'weekly-sets',
-        type: 'weekly' as const,
-        title: 'Forge 100 Sets',
-        description: 'Complete 100 sets this week',
-        progress: weekSets,
-        goal: 100,
-        xpReward: 300,
-        completed: weekSets >= 100,
-        icon: '🔨',
-      },
-    ]
+    // Calculate overall progress
+    const totalQuests = allQuests.length
+    const completedQuests = allQuests.filter((q) => q.status === 'completed').length
+    const activeQuests = allQuests.filter((q) => q.status === 'active').length
 
     return NextResponse.json({
-      dailyQuests,
-      weeklyQuests,
+      daily,
+      weekly,
+      raids,
+      bosses,
+      summary: {
+        total: totalQuests,
+        completed: completedQuests,
+        active: activeQuests,
+        available: totalQuests - completedQuests - activeQuests,
+      },
     })
   } catch (error) {
     console.error('Error fetching quests:', error)
@@ -153,4 +85,3 @@ export async function GET() {
     )
   }
 }
-

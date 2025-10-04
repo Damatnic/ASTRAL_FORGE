@@ -64,10 +64,10 @@ export default function Dashboard() {
           </h1>
           <div className="flex items-center gap-4">
             <Link
-              href="/dashboard/gaming"
-              className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 rounded-lg transition-opacity text-sm font-bold text-black"
+              href="/forge"
+              className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 rounded-lg transition-opacity text-sm font-bold text-black shadow-lg shadow-yellow-500/30"
             >
-              ⚔️ Gaming View
+              🔨 THE FORGE
             </Link>
             <nav className="flex gap-2">
               <Link

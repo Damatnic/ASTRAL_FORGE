@@ -48,15 +48,15 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <Link
             href="/auth/signin"
-            className="px-8 py-4 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity"
+            className="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl font-bold text-lg hover:opacity-90 transition-opacity text-black shadow-lg shadow-yellow-500/50"
           >
-            🔨 Enter the Forge
+            🔨 ENTER THE FORGE
           </Link>
           <Link
             href="/dashboard"
-            className="px-8 py-4 bg-astral-gray border border-gray-700 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-colors"
+            className="px-8 py-4 bg-gray-800 hover:bg-gray-700 rounded-xl font-semibold text-lg transition-colors border-2 border-gray-700"
           >
-            View Demo Smithy
+            Classic View
           </Link>
         </div>
 

@@ -27,7 +27,7 @@ export default function SignIn() {
       if (result?.error) {
         setError('Invalid email or password')
       } else {
-        router.push('/dashboard')
+        router.push('/forge')
       }
     } catch (err) {
       setError('Something went wrong')

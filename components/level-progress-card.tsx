@@ -16,16 +16,16 @@ interface LevelProgressCardProps {
 }
 
 export function LevelProgressCard({
-  level,
-  title,
-  currentXP,
-  nextLevelXP,
-  totalXP,
+  level = 1,
+  title = 'Novice',
+  currentXP = 0,
+  nextLevelXP = 100,
+  totalXP = 0,
 }: LevelProgressCardProps) {
   const [isLevelUp, setIsLevelUp] = useState(false)
   const [displayLevel, setDisplayLevel] = useState(level)
 
-  const progress = (currentXP / nextLevelXP) * 100
+  const progress = nextLevelXP > 0 ? (currentXP / nextLevelXP) * 100 : 0
 
   useEffect(() => {
     if (level > displayLevel) {

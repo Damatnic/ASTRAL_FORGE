@@ -48,12 +48,12 @@ export default function TheForge() {
         sessionsRes.json(),
       ])
 
-      setLevelData(level)
-      setStatsData(stats)
-      setQuestsData(quests)
-      setAchievementsData(achievements)
-      setNextWorkout(workout)
-      setRecentSessions(sessions)
+      setLevelData(!level.error ? level : null)
+      setStatsData(!stats.error ? stats : null)
+      setQuestsData(!quests.error ? quests : null)
+      setAchievementsData(!achievements.error ? achievements : null)
+      setNextWorkout(!workout.error ? workout : null)
+      setRecentSessions(Array.isArray(sessions) ? sessions : [])
     } catch (error) {
       console.error('Failed to load Forge data:', error)
     } finally {

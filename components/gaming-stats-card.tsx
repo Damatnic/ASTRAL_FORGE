@@ -14,7 +14,7 @@ interface GamingStatsCardProps {
   }
 }
 
-export function GamingStatsCard({ stats }: GamingStatsCardProps) {
+export function GamingStatsCard({ stats = { strength: 0, endurance: 0, discipline: 0, power: 0 } }: GamingStatsCardProps) {
   const getStatColor = (value: number) => {
     if (value >= 90) return 'from-yellow-400 to-orange-500'
     if (value >= 70) return 'from-purple-400 to-pink-500'

@@ -32,15 +32,15 @@ interface VictoryScreenProps {
 }
 
 export function VictoryScreen({
-  workoutName,
-  duration,
-  volume,
-  sets,
-  prsHit,
-  xpBreakdown,
-  lootDrops,
-  leveledUp,
-  newLevel,
+  workoutName = 'Workout',
+  duration = 0,
+  volume = 0,
+  sets = 0,
+  prsHit = 0,
+  xpBreakdown = { base: 0, volume: 0, prs: 0, streak: 0, total: 0 },
+  lootDrops = [],
+  leveledUp = false,
+  newLevel = 1,
   onContinue,
 }: VictoryScreenProps) {
   const [showXP, setShowXP] = useState(false)

@@ -58,15 +58,15 @@ export async function GET() {
     const prestigeRewards = canPrestige ? ProgressionSystem.getPrestigeRewards(0) : []
 
     return NextResponse.json({
-      level: levelData.level,
-      currentXP: levelData.currentXP,
-      xpForNextLevel: levelData.xpForNextLevel,
-      totalXP: levelData.totalXP,
+      level: levelData.level || 1,
+      currentXP: levelData.currentXP || 0,
+      nextLevelXP: levelData.xpForNextLevel || 100,
+      totalXP: levelData.totalXP || 0,
       progress,
-      title: levelData.title,
-      tier: levelData.tier,
-      prestige: levelData.prestige,
-      paragonLevel: levelData.paragonLevel,
+      title: levelData.title || 'Novice',
+      tier: levelData.tier || 0,
+      prestige: levelData.prestige || 0,
+      paragonLevel: levelData.paragonLevel || 0,
       breakdown: {
         workouts: workoutXP,
         volume: volumeXP,

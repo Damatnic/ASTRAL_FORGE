@@ -150,8 +150,8 @@ export default function Dashboard() {
                           <div>
                             <div className="font-medium">{exercise.name}</div>
                             <div className="text-sm text-gray-400">
-                              {exercise.sets}x{exercise.targetReps || exercise.reps}
-                              {exercise.weight > 0 && ` @ ${exercise.weight}kg`}
+                              {Array.isArray(exercise.sets) ? exercise.sets.length : exercise.sets}x{exercise.targetReps || (Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].reps : exercise.reps)}
+                              {((Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].weight : exercise.weight) > 0) && ` @ ${Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].weight : exercise.weight}kg`}
                             </div>
                           </div>
                           <div className="text-sm text-astral-blue">

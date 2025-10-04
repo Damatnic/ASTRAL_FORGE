@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { HabitFormationSystem } from '@/lib/agents/habits'
+import { ProgressionSystem, XP_VALUES } from '@/lib/progression-system'
 
+/**
+ * GET /api/gaming/level
+ * Calculate user level and XP using full 100-level progression system
+ */
 export async function GET() {
   try {
     // Get demo user
@@ -13,64 +17,66 @@ export async function GET() {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // Get user stats
-    const [workoutCount, setEntries, prs] = await Promise.all([
+    // Get XP sources
+    const [completedWorkouts, setEntries, prs, achievements, streakData] = await Promise.all([
       prisma.workoutSession.count({
         where: { userId: user.id, completed: true },
       }),
-      prisma.setEntry.findMany({
+      prisma.setEntry.count({
         where: { session: { userId: user.id } },
-        select: { weight: true, reps: true },
       }),
       prisma.achievement.count({
         where: { userId: user.id, type: 'pr' },
       }),
+      prisma.achievement.count({
+        where: { userId: user.id },
+      }),
+      prisma.user.findUnique({
+        where: { id: user.id },
+        select: { currentStreak: true },
+      }),
     ])
 
-    // Calculate total volume
-    const totalVolume = setEntries.reduce(
-      (sum, set) => sum + (set.weight * set.reps),
-      0
-    )
+    // Calculate XP from various sources
+    const workoutXP = completedWorkouts * XP_VALUES.WORKOUT_COMPLETE
+    const volumeXP = setEntries * XP_VALUES.SET_COMPLETE
+    const prXP = prs * XP_VALUES.WORKOUT_PR
+    const streakXP = (streakData?.currentStreak || 0) * XP_VALUES.DAILY_STREAK_BONUS
+    const achievementXP = achievements * XP_VALUES.ACHIEVEMENT_COMMON
 
-    // Calculate level using HabitFormationSystem
-    const habitSystem = new HabitFormationSystem()
-    const levelData = habitSystem.calculateLevel(
-      workoutCount,
-      totalVolume,
-      prs
-    )
+    const totalXP = workoutXP + volumeXP + prXP + streakXP + achievementXP
 
-    // Calculate total XP
-    const totalXP = (workoutCount * 10) + Math.floor(totalVolume / 1000) + (prs * 50)
+    // Calculate level using progression system
+    const levelData = ProgressionSystem.getLevelFromXP(totalXP)
+    const progress = (levelData.currentXP / levelData.xpForNextLevel) * 100
 
-    // Calculate current XP in level (for progress bar)
-    const levelThresholds = [
-      0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000, 5000,
-      6250, 7750, 9500, 11500, 14000, 17000, 20500, 25000
-    ]
+    // Get next milestone
+    const nextMilestone = ProgressionSystem.getNextMilestone(levelData.level)
 
-    let currentLevelXP = 0
-    let nextLevelXP = levelThresholds[1]
-
-    for (let i = 0; i < levelThresholds.length - 1; i++) {
-      if (totalXP >= levelThresholds[i]) {
-        currentLevelXP = levelThresholds[i]
-        nextLevelXP = levelThresholds[i + 1] || levelThresholds[i] + 5000
-      } else {
-        break
-      }
-    }
-
-    const xpInCurrentLevel = totalXP - currentLevelXP
+    // Check if can prestige
+    const canPrestige = ProgressionSystem.canPrestige(levelData.level)
+    const prestigeRewards = canPrestige ? ProgressionSystem.getPrestigeRewards(0) : []
 
     return NextResponse.json({
       level: levelData.level,
+      currentXP: levelData.currentXP,
+      xpForNextLevel: levelData.xpForNextLevel,
+      totalXP: levelData.totalXP,
+      progress,
       title: levelData.title,
-      currentXP: xpInCurrentLevel,
-      nextLevelXP: nextLevelXP - currentLevelXP,
-      totalXP,
-      progress: levelData.progress,
+      tier: levelData.tier,
+      prestige: levelData.prestige,
+      paragonLevel: levelData.paragonLevel,
+      breakdown: {
+        workouts: workoutXP,
+        volume: volumeXP,
+        prs: prXP,
+        streak: streakXP,
+        achievements: achievementXP,
+      },
+      nextMilestone,
+      canPrestige,
+      prestigeRewards,
     })
   } catch (error) {
     console.error('Error fetching level:', error)
@@ -80,4 +86,3 @@ export async function GET() {
     )
   }
 }
-

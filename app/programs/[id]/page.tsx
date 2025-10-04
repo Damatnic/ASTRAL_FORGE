@@ -115,7 +115,7 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
           </div>
           <div className="bg-astral-gray border border-gray-800 rounded-xl p-4">
             <div className="text-2xl font-bold text-astral-purple mb-1">
-              {exercises.reduce((sum: number, ex: any) => sum + (ex.sets || 0), 0)}
+              {exercises.reduce((sum: number, ex: any) => sum + (Array.isArray(ex.sets) ? ex.sets.length : (ex.sets || 0)), 0)}
             </div>
             <div className="text-sm text-gray-400">Total Sets</div>
           </div>
@@ -143,7 +143,7 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
                   <div>
                     <div className="font-medium">{exercise.name}</div>
                     <div className="text-sm text-gray-400">
-                      {exercise.sets} × {exercise.reps || exercise.targetReps || '?'} reps
+                      {Array.isArray(exercise.sets) ? exercise.sets.length : exercise.sets} × {exercise.reps || exercise.targetReps || (Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].reps : '?')} reps
                       {exercise.targetRPE && ` @ RPE ${exercise.targetRPE}`}
                     </div>
                   </div>

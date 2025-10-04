@@ -8,7 +8,7 @@ export async function GET(
   try {
     // Get demo user
     const user = await prisma.user.findUnique({
-      where: { email: 'demo@astralpower.app' },
+      where: { email: 'demo@astralforge.app' },
     })
 
     if (!user) {
@@ -26,6 +26,11 @@ export async function GET(
       },
       orderBy: {
         timestamp: 'desc',
+      },
+      select: {
+        weight: true,
+        reps: true,
+        rpe: true,
       },
     })
 

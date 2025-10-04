@@ -63,6 +63,12 @@ export default function Dashboard() {
             🔨 Astral Forge
           </h1>
           <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard/gaming"
+              className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 rounded-lg transition-opacity text-sm font-bold text-black"
+            >
+              ⚔️ Gaming View
+            </Link>
             <nav className="flex gap-2">
               <Link
                 href="/exercises"

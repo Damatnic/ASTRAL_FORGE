@@ -431,8 +431,12 @@ export class SkillTreeSystem {
     const trees = this.getAllTrees()
     
     // Get user's unlocked exercises
-    const userExercises = await prisma.set.findMany({
-      where: { userId },
+    const userExercises = await prisma.setEntry.findMany({
+      where: {
+        session: {
+          userId,
+        },
+      },
       include: { exercise: true },
       distinct: ['exerciseId'],
     })

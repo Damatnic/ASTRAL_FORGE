@@ -56,11 +56,25 @@ export class RPGStatsSystem {
         where: { userId },
         orderBy: { date: 'desc' },
         take: 100, // Last 100 sessions
+        include: {
+          sets: {
+            include: {
+              exercise: true,
+            },
+          },
+        },
       }),
-      prisma.set.findMany({
-        where: { userId },
-        orderBy: { createdAt: 'desc' },
+      prisma.setEntry.findMany({
+        where: {
+          session: {
+            userId,
+          },
+        },
+        orderBy: { timestamp: 'desc' },
         take: 1000, // Last 1000 sets
+        include: {
+          exercise: true,
+        },
       }),
       prisma.user.findUnique({
         where: { id: userId },

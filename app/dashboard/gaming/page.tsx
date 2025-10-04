@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useToast } from '@/components/toast'
 import { LevelProgressCard } from '@/components/level-progress-card'
 import { GamingStatsCard } from '@/components/gaming-stats-card'
 import { AchievementShowcase } from '@/components/achievement-showcase'
@@ -20,6 +21,7 @@ export default function GamingDashboard() {
   const [achievementsData, setAchievementsData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const { toast } = useToast()
 
   useEffect(() => {
     loadGamingData()

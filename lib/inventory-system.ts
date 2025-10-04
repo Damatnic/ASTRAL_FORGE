@@ -54,8 +54,8 @@ export class InventorySystem {
     equipment: InventoryItem[]
     cosmetics: InventoryItem[]
   }> {
-    // Get user's workout programs (spell books)
-    const programs = await prisma.workoutPlan.findMany({
+    // Get user's workout programs (spell books) - using WorkoutTemplate as programs
+    const programs = await prisma.workoutTemplate.findMany({
       where: { userId },
     })
     
@@ -64,9 +64,7 @@ export class InventorySystem {
       include: {
         _count: {
           select: {
-            sets: {
-              where: { userId },
-            },
+            sets: true,
           },
         },
       },
@@ -357,7 +355,7 @@ export class InventorySystem {
     try {
       // In full implementation, this would set the program as active
       // For now, just validate it exists
-      const program = await prisma.workoutPlan.findFirst({
+      const program = await prisma.workoutTemplate.findFirst({
         where: { id: programId, userId },
       })
       

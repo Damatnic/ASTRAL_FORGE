@@ -72,7 +72,11 @@ export class LeaderboardSystem {
         id: true,
         name: true,
         email: true,
-        currentStreak: true,
+        streaks: {
+          select: {
+            current: true,
+          },
+        },
       },
     })
 
@@ -235,9 +239,9 @@ export class LeaderboardSystem {
       prisma.achievement.count({
         where: { userId, type: 'pr' },
       }),
-      prisma.user.findUnique({
-        where: { id: userId },
-        select: { currentStreak: true },
+      prisma.streak.findUnique({
+        where: { userId },
+        select: { current: true },
       }),
     ])
 
@@ -245,7 +249,7 @@ export class LeaderboardSystem {
     const workoutXP = workouts * 50
     const volumeXP = Math.floor(totalVolume / 1000) * 5
     const prXP = prs * 100
-    const streakXP = (streakData?.currentStreak || 0) * 10
+    const streakXP = (streakData?.current || 0) * 10
     const totalXP = workoutXP + volumeXP + prXP + streakXP
     
     const level = Math.floor(Math.sqrt(totalXP / 100)) + 1
@@ -258,7 +262,7 @@ export class LeaderboardSystem {
       volume: totalVolume,
       workouts,
       prs,
-      streak: streakData?.currentStreak || 0,
+      streak: streakData?.current || 0,
       guildTag: undefined, // Would fetch from guild membership
     }
   }

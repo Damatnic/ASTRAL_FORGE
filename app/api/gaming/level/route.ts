@@ -31,9 +31,9 @@ export async function GET() {
       prisma.achievement.count({
         where: { userId: user.id },
       }),
-      prisma.user.findUnique({
-        where: { id: user.id },
-        select: { currentStreak: true },
+      prisma.streak.findUnique({
+        where: { userId: user.id },
+        select: { current: true },
       }),
     ])
 
@@ -41,7 +41,7 @@ export async function GET() {
     const workoutXP = completedWorkouts * XP_VALUES.WORKOUT_COMPLETE
     const volumeXP = setEntries * XP_VALUES.SET_COMPLETE
     const prXP = prs * XP_VALUES.WORKOUT_PR
-    const streakXP = (streakData?.currentStreak || 0) * XP_VALUES.DAILY_STREAK_BONUS
+    const streakXP = (streakData?.current || 0) * XP_VALUES.DAILY_STREAK_BONUS
     const achievementXP = achievements * XP_VALUES.ACHIEVEMENT_COMMON
 
     const totalXP = workoutXP + volumeXP + prXP + streakXP + achievementXP

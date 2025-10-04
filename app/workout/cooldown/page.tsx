@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ExerciseIntelligence } from '@/lib/exercise-intelligence'
 
-export default function CooldownPage() {
+function CooldownContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [cooldown, setCooldown] = useState<any>(null)
@@ -253,5 +253,13 @@ export default function CooldownPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function CooldownPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex items-center justify-center"><div className="text-xl">Loading cooldown...</div></div>}>
+      <CooldownContent />
+    </Suspense>
   )
 }

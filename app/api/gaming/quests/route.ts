@@ -66,10 +66,10 @@ export async function GET() {
     const activeQuests = allQuests.filter((q) => q.status === 'active').length
 
     return NextResponse.json({
-      daily,
-      weekly,
-      raids,
-      bosses,
+      dailyQuests: daily || [],
+      weeklyQuests: weekly || [],
+      raids: raids || [],
+      bosses: bosses || [],
       summary: {
         total: totalQuests,
         completed: completedQuests,
@@ -80,7 +80,13 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching quests:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch quests' },
+      { 
+        error: 'Failed to fetch quests',
+        dailyQuests: [],
+        weeklyQuests: [],
+        raids: [],
+        bosses: [],
+      },
       { status: 500 }
     )
   }

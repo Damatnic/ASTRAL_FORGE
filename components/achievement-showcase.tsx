@@ -22,7 +22,7 @@ interface AchievementShowcaseProps {
   recentAchievements: Achievement[]
 }
 
-export function AchievementShowcase({ achievements, recentAchievements }: AchievementShowcaseProps) {
+export function AchievementShowcase({ achievements = [], recentAchievements = [] }: AchievementShowcaseProps) {
   const getRarityColor = (rarity: Achievement['rarity']) => {
     switch (rarity) {
       case 'legendary':

@@ -25,7 +25,7 @@ interface DailyQuestsProps {
   onClaimReward?: (questId: string) => void
 }
 
-export function DailyQuests({ dailyQuests, weeklyQuests, onClaimReward }: DailyQuestsProps) {
+export function DailyQuests({ dailyQuests = [], weeklyQuests = [], onClaimReward }: DailyQuestsProps) {
   const [claimedQuests, setClaimedQuests] = useState<Set<string>>(new Set())
 
   const handleClaim = (questId: string) => {

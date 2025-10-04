@@ -263,7 +263,7 @@ export default function TheForge() {
                         const plan = typeof nextWorkout.plan === 'string' 
                           ? JSON.parse(nextWorkout.plan) 
                           : nextWorkout.plan
-                        return plan?.exercises?.slice(0, 4).map((exercise: any, idx: number) => (
+                        return (plan?.exercises || []).slice(0, 4).map((exercise: any, idx: number) => (
                           <div key={idx} className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-green-500 transition-colors">
                             <div className="text-3xl">
                               {idx === 0 ? '⚔️' : idx === 1 ? '🛡️' : idx === 2 ? '💪' : '🔥'}

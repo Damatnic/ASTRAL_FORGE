@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import DungeonExplorer from '@/components/dungeon-explorer';
 import { ParticleBackground } from '@/components/particle-background';
+import { Card, StatCard, GradientText } from '@/components/ui';
 
 export default function DungeonsPage() {
   const [playerLevel] = useState(32);
@@ -79,36 +80,12 @@ export default function DungeonsPage() {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">⚔️</div>
-            <div className="text-2xl font-bold text-red-400">{playerAttack}</div>
-            <div className="text-sm text-white/60">Attack Power</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">🛡️</div>
-            <div className="text-2xl font-bold text-blue-400">{playerDefense}</div>
-            <div className="text-sm text-white/60">Defense</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">✅</div>
-            <div className="text-2xl font-bold text-green-400">{totalDungeonsCleared}</div>
-            <div className="text-sm text-white/60">Cleared</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">👑</div>
-            <div className="text-2xl font-bold text-purple-400">{bossesDefeated}</div>
-            <div className="text-sm text-white/60">Bosses Slain</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">⚡</div>
-            <div className="text-2xl font-bold text-amber-400">{fastestClear}</div>
-            <div className="text-sm text-white/60">Best Time</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">💎</div>
-            <div className="text-2xl font-bold text-pink-400">{totalLootFound}</div>
-            <div className="text-sm text-white/60">Loot Found</div>
-          </div>
+          <StatCard icon="⚔️" value={playerAttack} label="Attack Power" color="red" />
+          <StatCard icon="🛡️" value={playerDefense} label="Defense" color="blue" />
+          <StatCard icon="✅" value={totalDungeonsCleared} label="Cleared" color="green" />
+          <StatCard icon="👑" value={bossesDefeated} label="Bosses Slain" color="purple" />
+          <StatCard icon="⚡" value={fastestClear} label="Best Time" color="amber" />
+          <StatCard icon="💎" value={totalLootFound} label="Loot Found" color="pink" />
         </div>
       </div>
 
@@ -266,8 +243,8 @@ export default function DungeonsPage() {
 
       {/* Difficulty Tiers */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-purple-400 mb-4">⚡ Difficulty Tiers</h2>
+        <Card variant="surface">
+          <h2 className="text-2xl font-bold text-astral-accent mb-4">⚡ Difficulty Tiers</h2>
           <div className="space-y-3">
             <div className="bg-gradient-to-r from-gray-500/20 to-gray-600/20 border border-gray-500/30 rounded-lg p-4 flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -335,12 +312,12 @@ export default function DungeonsPage() {
               <div className="text-sm text-white/60">Ultimate challenge - only for the strongest!</div>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Pro Tips */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-lg p-6">
+        <Card variant="accent">
           <h2 className="text-2xl font-bold text-blue-400 mb-4">💡 Pro Tips</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="flex items-start gap-3">
@@ -372,7 +349,7 @@ export default function DungeonsPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

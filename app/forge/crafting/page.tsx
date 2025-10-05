@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import CraftingStation from '@/components/crafting-station';
 import { ParticleBackground } from '@/components/particle-background';
+import { Card, StatCard, GradientText } from '@/components/ui';
 
 type MaterialTier = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'mythic';
 type MaterialCategory = 'ore' | 'gem' | 'essence' | 'leather' | 'wood' | 'crystal';

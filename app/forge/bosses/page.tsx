@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import BossBattles from '@/components/boss-battles';
+import { Card, GradientText } from '@/components/ui';
 
 export default function BossesPage() {
   const userLevel = 25; // Sample user level

@@ -5,7 +5,7 @@ import { HabitFormationAgent } from '@/lib/agents/habit-formation'
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
-    const { sessionId, exerciseId, setNumber, weight, reps, rpe, rir, velocity } = data
+    const { sessionId, exerciseId, setNumber, weight, reps, rpe, rir, velocity, notes, isFailure, isWarmup } = data
 
     // Create set entry
     const set = await prisma.setEntry.create({
@@ -18,6 +18,9 @@ export async function POST(request: NextRequest) {
         rpe,
         rir,
         velocity,
+        notes: notes || "",
+        isFailure: isFailure || false,
+        isWarmup: isWarmup || false,
         completed: true,
       },
     })

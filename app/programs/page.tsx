@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import WorkoutTemplates from '@/components/workout-templates';
 
 export default function ProgramsPage() {
@@ -26,6 +27,37 @@ export default function ProgramsPage() {
           <span>{notification}</span>
         </div>
       )}
+
+      {/* Template Marketplace Banner */}
+      <div className="max-w-7xl mx-auto px-6 pt-6">
+        <Link href="/programs/templates">
+          <div className="bg-gradient-to-r from-purple-600/20 via-blue-600/20 to-purple-600/20 border-2 border-purple-500/40 rounded-xl p-6 hover:border-purple-400/60 transition-all duration-300 cursor-pointer group">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg p-3 flex-shrink-0">
+                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-1 flex items-center gap-2 flex-wrap">
+                    🏪 Program Template Marketplace
+                    <span className="text-xs bg-purple-500 px-2 py-1 rounded-full">NEW</span>
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-300">
+                    Browse 10 proven workout programs • One-click setup • StrongLifts, PPL, 5/3/1 & more
+                  </p>
+                </div>
+              </div>
+              <div className="text-purple-400 group-hover:text-purple-300 group-hover:translate-x-1 transition-all duration-300 flex-shrink-0">
+                <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
 
       {/* Main Content */}
       <WorkoutTemplates

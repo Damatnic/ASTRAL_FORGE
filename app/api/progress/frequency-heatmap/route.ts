@@ -1,9 +1,13 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 import { handleApiError } from '@/lib/error-handler'
 
-// GET /api/progress/frequency-heatmap - Training frequency heatmap data
-export async function GET(request: Request) {
+export const dynamic = 'force-dynamic'
+
+// GET /api/progress/frequency-heatmap - Training frequency heatmap
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const weeks = parseInt(searchParams.get('weeks') || '12')

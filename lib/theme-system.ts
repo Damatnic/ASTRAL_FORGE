@@ -3,7 +3,7 @@
  * Multiple visual themes for customization
  */
 
-export type ThemeName = 'cyberpunk' | 'fantasy' | 'retro' | 'minimalist'
+export type ThemeName = 'cyberpunk' | 'fantasy' | 'retro'
 
 export interface Theme {
   id: ThemeName
@@ -58,7 +58,6 @@ export class ThemeSystem {
       this.getCyberpunkTheme(),
       this.getFantasyTheme(),
       this.getRetroTheme(),
-      this.getMinimalistTheme(),
     ]
   }
 
@@ -179,47 +178,6 @@ export class ThemeSystem {
       },
       fonts: {
         heading: 'font-black',
-        body: 'font-normal',
-        mono: 'font-mono',
-      },
-    }
-  }
-
-  /**
-   * Minimalist Theme
-   */
-  private static getMinimalistTheme(): Theme {
-    return {
-      id: 'minimalist',
-      name: 'Minimalist',
-      description: 'Clean and simple design',
-      icon: '◼️',
-      colors: {
-        primary: '#2563eb', // Blue
-        secondary: '#64748b', // Slate
-        accent: '#10b981', // Emerald
-        background: '#ffffff', // White
-        surface: '#f8fafc', // Light gray
-        text: '#0f172a', // Dark slate
-        textSecondary: '#64748b', // Slate
-        success: '#22c55e', // Green
-        warning: '#f59e0b', // Amber
-        danger: '#ef4444', // Red
-      },
-      gradients: {
-        primary: 'from-blue-500 to-blue-600',
-        secondary: 'from-slate-500 to-slate-600',
-        accent: 'from-emerald-500 to-green-600',
-        hero: 'from-gray-50 to-gray-100',
-      },
-      effects: {
-        glow: false,
-        particles: false,
-        scanlines: false,
-        animations: 'reduced',
-      },
-      fonts: {
-        heading: 'font-semibold',
         body: 'font-normal',
         mono: 'font-mono',
       },

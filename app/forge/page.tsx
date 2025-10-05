@@ -7,10 +7,12 @@ import { LevelProgressCard } from '@/components/level-progress-card'
 import { GamingStatsCard } from '@/components/gaming-stats-card'
 import { AchievementShowcase } from '@/components/achievement-showcase'
 import { DailyQuests } from '@/components/daily-quests'
+import { ParticleBackground } from '@/components/particle-background'
 
 /**
- * THE FORGE - Main Gaming Dashboard
- * Complete RPG-style interface with all features
+ * THE FORGE - Ultimate Gaming Dashboard Command Center
+ * Immersive RPG-style interface with forge-themed particles, epic animations,
+ * and complete gaming dashboard experience
  */
 
 export default function TheForge() {
@@ -68,10 +70,20 @@ export default function TheForge() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4 animate-bounce">🔨</div>
-          <div className="text-xl text-white font-bold">Entering The Forge...</div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-950 to-orange-950 flex items-center justify-center relative overflow-hidden">
+        {/* Forge Loading Animation */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.1),transparent_50%)] animate-pulse" />
+        <div className="text-center z-10">
+          <div className="relative">
+            <div className="text-8xl mb-6 animate-bounce">🔨</div>
+            <div className="absolute inset-0 bg-orange-500/20 blur-3xl animate-pulse" />
+          </div>
+          <div className="text-2xl text-white font-bold mb-2 animate-pulse">
+            Entering The Forge...
+          </div>
+          <div className="text-orange-400 text-sm">
+            Stoking the flames • Heating the anvil • Preparing your arsenal
+          </div>
         </div>
       </div>
     )
@@ -133,108 +145,232 @@ export default function TheForge() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
-      {/* Animated background stars */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 50 }).map((_, i) => (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-950 to-orange-950 relative overflow-hidden">
+      {/* Epic Forge-Themed Particle Background */}
+      <ParticleBackground
+        particleCount={80}
+        colors={['#fb923c', '#f97316', '#ea580c', '#c2410c']}
+        speed={0.3}
+        connectionDistance={120}
+      />
+
+      {/* Animated forge embers/sparks */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        {Array.from({ length: 30 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+            className="absolute w-1.5 h-1.5 bg-orange-400 rounded-full animate-ember"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
+              bottom: '-5%',
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+              boxShadow: '0 0 8px rgba(251, 146, 60, 0.8)',
             }}
           />
         ))}
       </div>
 
-      {/* Header */}
-      <header className="relative bg-gray-900/80 backdrop-blur-sm border-b-2 border-yellow-600 p-4 shadow-2xl shadow-yellow-600/20">
+      {/* Dramatic glow effect */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+
+      {/* Epic Header with Forge Theming */}
+      <header className="relative bg-gradient-to-r from-gray-900/90 via-red-950/90 to-gray-900/90 backdrop-blur-md border-b-4 border-orange-600 p-6 shadow-2xl shadow-orange-600/30 z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
-                🔨 THE FORGE
-              </span>
-            </h1>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="text-5xl animate-forge-glow">🔨</div>
+                <div className="absolute inset-0 bg-orange-500/30 blur-2xl animate-pulse" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-black tracking-tight">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 drop-shadow-[0_0_20px_rgba(251,146,60,0.5)]">
+                    THE FORGE
+                  </span>
+                </h1>
+                <p className="text-orange-400 text-sm font-bold tracking-wider">
+                  COMMAND CENTER • WHERE LEGENDS ARE FORGED
+                </p>
+              </div>
+            </div>
 
             <div className="flex items-center gap-3">
               <Link
-                href="/dashboard"
-                className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-xs font-medium"
-              >
-                Classic View
-              </Link>
-              <Link
                 href="/settings"
-                className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-xs"
+                className="px-4 py-2 bg-gray-800/80 hover:bg-gray-700 rounded-lg transition-all hover:scale-105 border border-gray-700 hover:border-orange-500"
               >
-                ⚙️
+                <span className="text-xl">⚙️</span>
               </Link>
               <Link
                 href="/"
-                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 rounded-lg transition-colors text-xs font-medium"
+                className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 rounded-lg transition-all font-bold text-sm hover:scale-105 shadow-lg shadow-red-600/30"
               >
                 Sign Out
               </Link>
             </div>
           </div>
 
-          {/* Navigation Tabs */}
-          <nav className="flex gap-2">
+          {/* Enhanced Navigation Tabs with Epic Styling */}
+          <nav className="flex gap-3 flex-wrap">
             <button
               onClick={() => setActiveTab('home')}
-              className={`px-6 py-2.5 rounded-lg font-bold transition-all ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
                 activeTab === 'home'
-                  ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black shadow-lg'
-                  : 'bg-gray-800 hover:bg-gray-700'
+                  ? 'bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-black shadow-xl shadow-orange-500/50 border-2 border-yellow-400'
+                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-orange-500'
               }`}
             >
-              🏠 Command Center
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🏠</span>
+                <span>COMMAND CENTER</span>
+              </div>
             </button>
             <button
               onClick={() => setActiveTab('train')}
-              className={`px-6 py-2.5 rounded-lg font-bold transition-all ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
                 activeTab === 'train'
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg'
-                  : 'bg-gray-800 hover:bg-gray-700'
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-xl shadow-green-500/50 border-2 border-green-400'
+                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-green-500'
               }`}
             >
-              ⚔️ Training Ground
+              <div className="flex items-center gap-2">
+                <span className="text-xl">⚔️</span>
+                <span>TRAINING GROUND</span>
+              </div>
             </button>
             <button
               onClick={() => setActiveTab('arsenal')}
-              className={`px-6 py-2.5 rounded-lg font-bold transition-all ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
                 activeTab === 'arsenal'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white shadow-lg'
-                  : 'bg-gray-800 hover:bg-gray-700'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white shadow-xl shadow-blue-500/50 border-2 border-blue-400'
+                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-blue-500'
               }`}
             >
-              📚 Arsenal
+              <div className="flex items-center gap-2">
+                <span className="text-xl">📚</span>
+                <span>ARSENAL</span>
+              </div>
             </button>
             <button
               onClick={() => setActiveTab('progress')}
-              className={`px-6 py-2.5 rounded-lg font-bold transition-all ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
                 activeTab === 'progress'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg'
-                  : 'bg-gray-800 hover:bg-gray-700'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-xl shadow-purple-500/50 border-2 border-purple-400'
+                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-purple-500'
               }`}
             >
-              📊 War Room
+              <div className="flex items-center gap-2">
+                <span className="text-xl">📊</span>
+                <span>WAR ROOM</span>
+              </div>
             </button>
           </nav>
         </div>
       </header>
 
+      {/* Quick Stats Banner - Always Visible */}
+      <div className="relative bg-gradient-to-r from-gray-900/80 via-orange-950/80 to-gray-900/80 backdrop-blur-sm border-b-2 border-orange-600/30 py-4 z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Power Level */}
+            <div className="bg-gradient-to-br from-yellow-900/40 to-orange-900/40 rounded-xl p-4 border border-yellow-600/30 hover:border-yellow-500 transition-all hover:scale-105">
+              <div className="text-xs text-yellow-400 font-bold mb-1">POWER LEVEL</div>
+              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                {levelData?.level ? levelData.level * 1000 + (levelData.currentXP || 0) : '9001'}
+              </div>
+            </div>
+
+            {/* Total Workouts */}
+            <div className="bg-gradient-to-br from-green-900/40 to-emerald-900/40 rounded-xl p-4 border border-green-600/30 hover:border-green-500 transition-all hover:scale-105">
+              <div className="text-xs text-green-400 font-bold mb-1">BATTLES WON</div>
+              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">
+                {statsData?.totalWorkouts || '0'}
+              </div>
+            </div>
+
+            {/* Current Streak */}
+            <div className="bg-gradient-to-br from-red-900/40 to-orange-900/40 rounded-xl p-4 border border-red-600/30 hover:border-red-500 transition-all hover:scale-105">
+              <div className="text-xs text-red-400 font-bold mb-1">STREAK 🔥</div>
+              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
+                {statsData?.currentStreak || '0'} days
+              </div>
+            </div>
+
+            {/* Level Progress */}
+            <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl p-4 border border-purple-600/30 hover:border-purple-500 transition-all hover:scale-105">
+              <div className="text-xs text-purple-400 font-bold mb-1">LEVEL {levelData?.level || '1'}</div>
+              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                {levelData ? Math.floor((levelData.currentXP / levelData.nextLevelXP) * 100) : '0'}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto p-6">
         {/* HOME TAB - Command Center */}
         {activeTab === 'home' && (
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Left Column - Level & Stats */}
-            <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6">
+            {/* Epic Quick Actions Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link
+                href="/workout/session"
+                className="group relative bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 border-2 border-green-400 hover:border-green-300 transition-all hover:scale-105 shadow-xl hover:shadow-green-500/50"
+              >
+                <div className="absolute inset-0 bg-green-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                <div className="relative text-center">
+                  <div className="text-5xl mb-2">⚔️</div>
+                  <div className="font-black text-lg">START</div>
+                  <div className="font-black text-lg">WORKOUT</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/programs"
+                className="group relative bg-gradient-to-br from-blue-600 to-cyan-700 rounded-2xl p-6 border-2 border-blue-400 hover:border-blue-300 transition-all hover:scale-105 shadow-xl hover:shadow-blue-500/50"
+              >
+                <div className="absolute inset-0 bg-blue-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                <div className="relative text-center">
+                  <div className="text-5xl mb-2">📋</div>
+                  <div className="font-black text-lg">VIEW</div>
+                  <div className="font-black text-lg">PROGRAMS</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/progress"
+                className="group relative bg-gradient-to-br from-purple-600 to-pink-700 rounded-2xl p-6 border-2 border-purple-400 hover:border-purple-300 transition-all hover:scale-105 shadow-xl hover:shadow-purple-500/50"
+              >
+                <div className="absolute inset-0 bg-purple-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                <div className="relative text-center">
+                  <div className="text-5xl mb-2">📊</div>
+                  <div className="font-black text-lg">TRACK</div>
+                  <div className="font-black text-lg">PROGRESS</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/dashboard/gaming"
+                className="group relative bg-gradient-to-br from-yellow-600 to-orange-700 rounded-2xl p-6 border-2 border-yellow-400 hover:border-yellow-300 transition-all hover:scale-105 shadow-xl hover:shadow-yellow-500/50"
+              >
+                <div className="absolute inset-0 bg-yellow-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                <div className="relative text-center">
+                  <div className="text-5xl mb-2">🏆</div>
+                  <div className="font-black text-lg">VIEW</div>
+                  <div className="font-black text-lg">ACHIEVEMENTS</div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* Left Column - Level & Stats */}
+              <div className="lg:col-span-2 space-y-6">
               {levelData && (
                 <LevelProgressCard
                   level={levelData.level}
@@ -353,6 +489,7 @@ export default function TheForge() {
                   </Link>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         )}

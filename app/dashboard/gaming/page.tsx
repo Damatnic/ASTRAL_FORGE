@@ -165,12 +165,6 @@ export default function GamingDashboard() {
 
           <nav className="flex gap-2">
             <Link
-              href="/dashboard"
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-sm font-medium"
-            >
-              Classic View
-            </Link>
-            <Link
               href="/workout/session"
               className="px-4 py-2 bg-gradient-to-r from-astral-blue to-astral-purple hover:opacity-90 rounded-lg transition-opacity text-sm font-bold"
             >

@@ -1,125 +1,237 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { useState } from 'react';
+import WorkoutTemplates from '@/components/workout-templates';
 
 export default function ProgramsPage() {
-  const [programs, setPrograms] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [notification, setNotification] = useState('');
 
-  useEffect(() => {
-    loadPrograms()
-  }, [])
+  const handleSelectProgram = (program: any) => {
+    console.log('Program selected:', program);
+  };
 
-  const loadPrograms = async () => {
-    try {
-      const response = await fetch('/api/programs')
-      if (response.ok) {
-        const data = await response.json()
-        setPrograms(data)
-      }
-    } catch (error) {
-      console.error('Failed to load programs:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-astral-dark flex items-center justify-center">
-        <div className="text-gray-400">Loading programs...</div>
-      </div>
-    )
-  }
+  const handleStartProgram = (program: any, customizations?: any) => {
+    console.log('Starting program:', program.name);
+    console.log('Customizations:', customizations);
+    setNotification(`🚀 Started ${program.name}! Your first workout is ready.`);
+    setTimeout(() => setNotification(''), 3000);
+  };
 
   return (
-    <div className="min-h-screen bg-astral-dark text-white">
-      {/* Header */}
-      <header className="bg-astral-gray border-b border-gray-800 p-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div>
-            <Link href="/dashboard" className="text-gray-400 hover:text-white mb-2 inline-block">
-              ← Back to Dashboard
-            </Link>
-            <h1 className="text-3xl font-bold">Workout Programs</h1>
-          </div>
-          <Link
-            href="/programs/new"
-            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 transition-opacity"
-          >
-            + Create Program
-          </Link>
+    <div className="relative">
+      {/* Notification Toast */}
+      {notification && (
+        <div className="fixed top-4 right-4 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in-right flex items-center gap-2">
+          <span>✓</span>
+          <span>{notification}</span>
         </div>
-      </header>
+      )}
 
-      <div className="max-w-6xl mx-auto p-6">
-        {programs.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">💪</div>
-            <h2 className="text-2xl font-bold mb-2">No Programs Yet</h2>
-            <p className="text-gray-400 mb-6">Create your first workout program to get started!</p>
-            <Link
-              href="/programs/new"
-              className="inline-block px-8 py-3 bg-astral-blue rounded-lg hover:opacity-90 transition-opacity"
-            >
-              Create Your First Program
-            </Link>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programs.map((program) => (
-              <div
-                key={program.id}
-                className="bg-astral-gray border border-gray-800 rounded-xl p-6 hover:border-astral-blue transition-colors cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-1">{program.name}</h3>
-                    {program.description && (
-                      <p className="text-sm text-gray-400">{program.description}</p>
-                    )}
-                  </div>
-                  {program.active && (
-                    <span className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">
-                      Active
-                    </span>
-                  )}
-                </div>
+      {/* Main Content */}
+      <WorkoutTemplates
+        onSelectProgram={handleSelectProgram}
+        onStartProgram={handleStartProgram}
+      />
 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-sm text-gray-400">
-                    <span className="mr-2">📋</span>
-                    {program.exerciseCount || 0} exercises
-                  </div>
-                  {program.schedule && (
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span className="mr-2">📅</span>
-                      {Object.keys(program.schedule).length} days/week
-                    </div>
-                  )}
-                </div>
+      {/* Info Section */}
+      <div className="max-w-7xl mx-auto p-6 mt-12">
+        <div className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-lg border border-purple-500/30 p-8">
+          <h2 className="text-3xl font-bold mb-6 text-center">Workout Programs Guide</h2>
 
-                <div className="flex gap-2">
-                  <Link
-                    href={`/programs/${program.id}`}
-                    className="flex-1 py-2 bg-astral-blue rounded-lg text-center hover:opacity-90 transition-opacity text-sm"
-                  >
-                    View Details
-                  </Link>
-                  <Link
-                    href={`/programs/${program.id}/edit`}
-                    className="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors text-sm"
-                  >
-                    Edit
-                  </Link>
-                </div>
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* Column 1 */}
+            <div className="space-y-6">
+              {/* Program Categories */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-purple-400">⚡ Program Categories</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>Powerlifting:</strong> Focus on squat, bench, deadlift strength</li>
+                  <li>• <strong>Bodybuilding:</strong> Muscle growth and aesthetics</li>
+                  <li>• <strong>Athletic:</strong> Balanced strength and work capacity</li>
+                  <li>• <strong>Specialization:</strong> Intense programs for specific goals</li>
+                </ul>
               </div>
-            ))}
+
+              {/* Progression Types */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-blue-400">📈 Progression Types</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>Linear:</strong> Add weight each session (best for beginners)</li>
+                  <li>• <strong>Wave:</strong> Undulating intensity across weeks (5/3/1 style)</li>
+                  <li>• <strong>Block:</strong> Focus phases (hypertrophy → strength → peak)</li>
+                  <li>• <strong>Daily Undulating:</strong> Vary intensity each session</li>
+                </ul>
+              </div>
+
+              {/* Popular Programs */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-green-400">🌟 Popular Programs</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>StrongLifts 5×5:</strong> Best beginner strength program</li>
+                  <li>• <strong>PPL:</strong> Most popular bodybuilding split</li>
+                  <li>• <strong>Wendler 5/3/1:</strong> Top intermediate strength program</li>
+                  <li>• <strong>GZCLP:</strong> Excellent balance of strength and size</li>
+                  <li>• <strong>nSuns 531:</strong> High-volume strength specialization</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Column 2 */}
+            <div className="space-y-6">
+              {/* Choosing the Right Program */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-amber-400">🎯 Choosing the Right Program</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>Beginners:</strong> Start with 5×5, Starting Strength, or GZCLP</li>
+                  <li>• <strong>Muscle Building:</strong> PPL, PHUL, or Arnold Split</li>
+                  <li>• <strong>Pure Strength:</strong> Wendler 5/3/1, Texas Method, or nSuns</li>
+                  <li>• <strong>Limited Time:</strong> 3-4 day programs (5×5, PHUL, Upper/Lower)</li>
+                  <li>• <strong>High Volume Tolerance:</strong> PPL 6-day or nSuns</li>
+                </ul>
+              </div>
+
+              {/* Training Max */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-purple-400">💯 Training Max (TM)</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>What is it?</strong> Percentage of your 1RM used for calculations</li>
+                  <li>• <strong>Why use it?</strong> Prevents burnout, ensures progression room</li>
+                  <li>• <strong>Common TM:</strong> 85-90% of true 1RM</li>
+                  <li>• <strong>Adjustment:</strong> Increase after successful cycles</li>
+                </ul>
+              </div>
+
+              {/* Deload Weeks */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-cyan-400">🔄 Deload Weeks</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• <strong>What:</strong> Planned recovery weeks with reduced intensity/volume</li>
+                  <li>• <strong>When:</strong> Every 4-8 weeks or after stalling</li>
+                  <li>• <strong>Why:</strong> Prevents overtraining, allows adaptation</li>
+                  <li>• <strong>How:</strong> Reduce weight 40-60% or cut volume in half</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        )}
+
+          {/* Pro Tips */}
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
+              <h4 className="font-bold mb-2 text-purple-300">🎓 Master the Basics</h4>
+              <p className="text-sm text-gray-300">
+                Don't jump to advanced programs too early. Build a strong foundation with beginner programs first.
+              </p>
+            </div>
+
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+              <h4 className="font-bold mb-2 text-blue-300">📊 Track Your Progress</h4>
+              <p className="text-sm text-gray-300">
+                Log every workout. Progressive overload requires knowing your numbers.
+              </p>
+            </div>
+
+            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+              <h4 className="font-bold mb-2 text-green-300">⏰ Be Consistent</h4>
+              <p className="text-sm text-gray-300">
+                The best program is the one you can stick to. Choose based on your schedule and preferences.
+              </p>
+            </div>
+          </div>
+
+          {/* Program Comparison */}
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold mb-4 text-center">📊 Quick Program Comparison</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-700">
+                    <th className="text-left p-3 text-purple-400">Program</th>
+                    <th className="text-left p-3 text-blue-400">Level</th>
+                    <th className="text-left p-3 text-green-400">Days/Week</th>
+                    <th className="text-left p-3 text-amber-400">Goal</th>
+                    <th className="text-left p-3 text-purple-400">Progression</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-300">
+                  <tr className="border-b border-gray-800">
+                    <td className="p-3 font-semibold">StrongLifts 5×5</td>
+                    <td className="p-3">Beginner</td>
+                    <td className="p-3">3</td>
+                    <td className="p-3">Strength Foundation</td>
+                    <td className="p-3">Linear (+5lbs/session)</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="p-3 font-semibold">Wendler 5/3/1</td>
+                    <td className="p-3">Intermediate</td>
+                    <td className="p-3">4</td>
+                    <td className="p-3">Strength</td>
+                    <td className="p-3">Wave (monthly cycles)</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="p-3 font-semibold">PPL</td>
+                    <td className="p-3">Intermediate</td>
+                    <td className="p-3">6</td>
+                    <td className="p-3">Muscle Growth</td>
+                    <td className="p-3">Linear (weekly)</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="p-3 font-semibold">PHUL</td>
+                    <td className="p-3">Intermediate</td>
+                    <td className="p-3">4</td>
+                    <td className="p-3">Strength + Size</td>
+                    <td className="p-3">Linear (weekly)</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="p-3 font-semibold">GZCLP</td>
+                    <td className="p-3">Beginner</td>
+                    <td className="p-3">4</td>
+                    <td className="p-3">Balanced</td>
+                    <td className="p-3">Linear (auto-regulated)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-semibold">nSuns 531</td>
+                    <td className="p-3">Intermediate</td>
+                    <td className="p-3">5</td>
+                    <td className="p-3">Max Strength</td>
+                    <td className="p-3">Linear (high volume)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Important Notes */}
+          <div className="mt-8 bg-amber-500/10 border border-amber-500/30 rounded-lg p-6">
+            <h3 className="text-xl font-bold mb-3 text-amber-400">⚠️ Important Notes</h3>
+            <ul className="space-y-2 text-gray-300">
+              <li>• <strong>Test Your 1RM Safely:</strong> Use a 1RM calculator or test with a spotter</li>
+              <li>• <strong>Start Light:</strong> Better to start too light than too heavy</li>
+              <li>• <strong>Follow the Program:</strong> Don't add random exercises or change the structure</li>
+              <li>• <strong>Nutrition Matters:</strong> Programs work best with proper diet and sleep</li>
+              <li>• <strong>Form First:</strong> Never sacrifice form for weight or reps</li>
+              <li>• <strong>Be Patient:</strong> Programs take 8-16 weeks to show real results</li>
+            </ul>
+          </div>
+        </div>
       </div>
+
+      {/* Animation CSS */}
+      <style jsx>{`
+        @keyframes slide-in-right {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        .animate-slide-in-right {
+          animation: slide-in-right 0.3s ease-out;
+        }
+      `}</style>
     </div>
-  )
+  );
 }
 

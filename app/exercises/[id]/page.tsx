@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { ExerciseIntelligence } from '@/lib/exercise-intelligence'
 import { ExerciseRating } from '@/components/exercise-rating'
 import { ExerciseNotes } from '@/components/exercise-notes'
+import { ExerciseProgressChart } from '@/components/exercise-progress-chart'
+import { Estimated1RMCard } from '@/components/estimated-1rm'
 
 export default function ExerciseDetailPage({ params }: { params: { id: string } }) {
   const [exercise, setExercise] = useState<any>(null)
@@ -188,6 +190,36 @@ export default function ExerciseDetailPage({ params }: { params: { id: string } 
                     </div>
                     <div className="text-sm text-gray-400">Volume</div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Estimated 1RM Card */}
+            {history.length > 0 && (
+              <Estimated1RMCard history={history} unit="kg" showFormula={true} />
+            )}
+
+            {/* Progress Charts */}
+            {history.length > 3 && (
+              <div className="space-y-6">
+                <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
+                  <h2 className="text-lg font-semibold mb-4">Progress Over Time</h2>
+                  <ExerciseProgressChart
+                    history={history}
+                    metric="weight"
+                    timeRange="3months"
+                    unit="kg"
+                  />
+                </div>
+
+                <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
+                  <h2 className="text-lg font-semibold mb-4">Volume Progression</h2>
+                  <ExerciseProgressChart
+                    history={history}
+                    metric="volume"
+                    timeRange="3months"
+                    unit="kg"
+                  />
                 </div>
               </div>
             )}

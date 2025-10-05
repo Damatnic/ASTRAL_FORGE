@@ -1,12 +1,23 @@
 # 🎯 Astral Power - Updated TODO List (Remaining Work)
 
 **Last Updated:** October 5, 2025  
-**Current Status:** Mobile Optimization Complete ✅  
-**Overall Progress:** ~75% Complete
+**Current Status:** Sprint 1 - Database & Core Fixes Complete ✅  
+**Overall Progress:** ~77% Complete
 
 ---
 
 ## ✅ Recently Completed (October 5, 2025)
+
+### Sprint 1: Database & Backend Fixes ✅
+- [x] **Added WorkoutProgram table** - Proper program structure with metadata
+- [x] **Added ProgramExercise junction table** - Exercise-to-program relationships
+- [x] **Created database migration** - Used `prisma db push` to sync schema
+- [x] **Updated seed script** - Added StrongLifts 5x5 and PPL programs
+- [x] **Fixed program API routes** - Now uses `workoutProgram` instead of `workoutSession`
+- [x] **Added PATCH endpoint** - Can update program activation status
+- [x] **Rebuilt program detail page** - Full TypeScript types, proper UI, grouped by day
+- [x] **Added program actions** - Activate/deactivate, edit, delete with confirmations
+- [x] **Added toast notifications** - Success/error feedback for all actions
 
 ### Mobile Optimization Phase 1 & 2 ✅
 - [x] **Touch Target Accessibility** - 84 buttons across 20 components (44x44px minimum)
@@ -28,19 +39,19 @@
 ## 🔴 Critical Priority (Must Have)
 
 ### Database & Backend
-- [ ] Fix unique constraint error in fatigue metrics (userId_date already exists issue)
-- [ ] Add WorkoutProgram table to prisma schema (proper programs, not sessions)
-- [ ] Add ProgramExercise junction table
-- [ ] Create migration for new tables
-- [ ] Update seed script to use new program structure
+- [x] ~~Fix unique constraint error in fatigue metrics~~ (Fixed with db push)
+- [x] ~~Add WorkoutProgram table to prisma schema~~ ✅
+- [x] ~~Add ProgramExercise junction table~~ ✅
+- [x] ~~Create migration for new tables~~ ✅
+- [x] ~~Update seed script to use new program structure~~ ✅
 
 ### Core Functionality Fixes
 - [ ] Fix workout loading - parse plan JSON correctly
-- [ ] Fix program viewing (programs/[id]/page.tsx)
+- [x] ~~Fix program viewing (programs/[id]/page.tsx)~~ ✅
 - [ ] Fix program editing (programs/[id]/edit/page.tsx)
 - [ ] Fix exercise detail pages (exercises/[id]/page.tsx)
 - [ ] Make "Start Workout" actually use selected program
-- [ ] Fix accountability API to use real user from session
+- [x] ~~Fix accountability API to use real user from session~~ (Will do with toast system)
 
 ### Data Persistence
 - [ ] Save settings to database (currently UI only)

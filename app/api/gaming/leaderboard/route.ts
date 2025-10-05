@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { LeaderboardSystem, LeaderboardCategory } from '@/lib/leaderboard-system'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * GET /api/gaming/leaderboard
  * Get leaderboard by category

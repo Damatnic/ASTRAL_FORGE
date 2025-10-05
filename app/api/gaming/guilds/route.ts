@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { GuildSystem } from '@/lib/guild-system'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * GET /api/gaming/guilds
  * Get all guilds or guild leaderboard

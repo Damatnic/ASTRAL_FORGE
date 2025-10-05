@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { handleApiError } from '@/lib/error-handler'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/exercises/[id]/notes - Get notes for an exercise
 export async function GET(
   request: Request,

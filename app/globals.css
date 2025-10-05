@@ -52,6 +52,17 @@ body {
     }
   }
 
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
   @keyframes ember {
     0% {
       transform: translateY(0) translateX(0) scale(1);
@@ -86,6 +97,10 @@ body {
 
   .animate-float {
     animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
   }
 
   .animate-ember {

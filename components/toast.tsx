@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 
-type ToastType = 'success' | 'error' | 'info' | 'warning'
+export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
-interface Toast {
+export interface Toast {
   id: string
   message: string
   type: ToastType
@@ -13,9 +13,27 @@ interface Toast {
 interface ToastContextType {
   showToast: (message: string, type?: ToastType) => void
   toast: (type: ToastType, message: string) => void
+  success: (message: string) => void
+  error: (message: string) => void
+  info: (message: string) => void
+  warning: (message: string) => void
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined)
+
+const toastIcons = {
+  success: '✓',
+  error: '✕',
+  info: 'ℹ',
+  warning: '⚠',
+}
+
+const toastStyles = {
+  success: 'bg-green-600 border-l-4 border-green-500',
+  error: 'bg-red-600 border-l-4 border-red-500',
+  info: 'bg-blue-600 border-l-4 border-blue-500',
+  warning: 'bg-amber-600 border-l-4 border-amber-500',
+}
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -36,38 +54,51 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     showToast(message, type)
   }, [showToast])
 
+  const success = useCallback((message: string) => {
+    showToast(message, 'success')
+  }, [showToast])
+
+  const error = useCallback((message: string) => {
+    showToast(message, 'error')
+  }, [showToast])
+
+  const info = useCallback((message: string) => {
+    showToast(message, 'info')
+  }, [showToast])
+
+  const warning = useCallback((message: string) => {
+    showToast(message, 'warning')
+  }, [showToast])
+
   const removeToast = useCallback((id: string) => {
     setToasts(prev => prev.filter(t => t.id !== id))
   }, [])
 
   return (
-    <ToastContext.Provider value={{ showToast, toast }}>
+    <ToastContext.Provider value={{ showToast, toast, success, error, info, warning }}>
       {children}
       
       {/* Toast Container */}
-      <div className="fixed bottom-4 right-4 z-50 space-y-2">
+      <div className="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
         {toasts.map(toast => (
           <div
             key={toast.id}
             className={`
-              px-6 py-4 rounded-lg shadow-lg animate-slide-up
-              flex items-center gap-3 min-w-[300px]
-              ${toast.type === 'success' ? 'bg-green-600 text-white' : ''}
-              ${toast.type === 'error' ? 'bg-red-600 text-white' : ''}
-              ${toast.type === 'warning' ? 'bg-yellow-600 text-white' : ''}
-              ${toast.type === 'info' ? 'bg-astral-blue text-white' : ''}
+              ${toastStyles[toast.type]}
+              text-white px-6 py-3 rounded-lg shadow-lg
+              min-w-[300px] max-w-[500px]
+              animate-slide-in-right pointer-events-auto
+              flex items-center gap-3
             `}
           >
-            <span className="text-xl">
-              {toast.type === 'success' && '✓'}
-              {toast.type === 'error' && '✕'}
-              {toast.type === 'warning' && '⚠'}
-              {toast.type === 'info' && 'ℹ'}
+            <span className="text-xl font-bold flex-shrink-0">
+              {toastIcons[toast.type]}
             </span>
             <span className="flex-1">{toast.message}</span>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-white/80 hover:text-white"
+              className="flex-shrink-0 hover:bg-white/20 rounded px-2 py-1 transition"
+              aria-label="Close notification"
             >
               ✕
             </button>
@@ -85,4 +116,3 @@ export function useToast() {
   }
   return context
 }
-

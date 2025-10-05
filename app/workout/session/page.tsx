@@ -17,7 +17,7 @@
  * - Victory/Defeat screens
  */
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SessionPlayer } from '@/components/session-player'
 import { ParticleBackground } from '@/components/particle-background'
@@ -47,7 +47,7 @@ interface BattlePhase {
   message: string
 }
 
-export default function WorkoutSession() {
+function WorkoutSessionContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const programId = searchParams.get('programId')
@@ -518,5 +518,18 @@ export default function WorkoutSession() {
         }
       `}</style>
     </div>
+  )
+}
+
+// Wrap with Suspense to handle useSearchParams
+export default function WorkoutSession() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-astral-dark flex items-center justify-center">
+        <div className="text-white text-xl">Loading workout...</div>
+      </div>
+    }>
+      <WorkoutSessionContent />
+    </Suspense>
   )
 }

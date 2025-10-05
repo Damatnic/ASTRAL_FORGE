@@ -18,7 +18,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { SessionPlayer } from '@/components/session-player'
 import { ParticleBackground } from '@/components/particle-background'
 
@@ -49,6 +49,9 @@ interface BattlePhase {
 
 export default function WorkoutSession() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const programId = searchParams.get('programId')
+  
   const [workoutComplete, setWorkoutComplete] = useState(false)
   const [workout, setWorkout] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -75,35 +78,31 @@ export default function WorkoutSession() {
   const [attackFlash, setAttackFlash] = useState(false)
   const [screenShake, setScreenShake] = useState(false)
 
-  // Fetch REAL workout from database
+  // Fetch workout from database (with optional programId)
   useEffect(() => {
     async function loadWorkout() {
       try {
-        const response = await fetch('/api/workout/next')
+        // Build API URL with programId if provided
+        const url = programId 
+          ? `/api/workout/start?programId=${programId}`
+          : `/api/workout/start`
+        
+        const response = await fetch(url, { method: 'POST' })
         
         if (!response.ok) {
           const data = await response.json()
-          setError(data.message || 'No workout found')
+          setError(data.error || 'No workout found')
           setLoading(false)
           return
         }
 
         const data = await response.json()
         
-        // Parse the workout plan and prepare it for the session player
-        const plan = typeof data.plan === 'string' ? JSON.parse(data.plan) : data.plan
-        
-        if (!plan || !plan.exercises) {
-          setError('Invalid workout format')
-          setLoading(false)
-          return
-        }
-
-        // Transform to expected format
+        // Transform to expected format for SessionPlayer
         const formattedWorkout = {
           id: data.id,
           name: data.name || 'Iron Titan',
-          exercises: plan.exercises.map((ex: any) => ({
+          exercises: data.exercises.map((ex: any) => ({
             id: ex.id,
             name: ex.name,
             sets: Array.from({ length: ex.sets || 3 }, (_, i) => ({
@@ -111,7 +110,11 @@ export default function WorkoutSession() {
               weight: ex.weight || 0,
               reps: ex.reps || 10,
               targetRPE: ex.targetRPE || 7.5,
+              restSeconds: ex.restSeconds || 90,
             })),
+            notes: ex.notes,
+            muscleGroup: ex.muscleGroup,
+            equipment: ex.equipment,
           })),
         }
 
@@ -131,7 +134,7 @@ export default function WorkoutSession() {
     }
 
     loadWorkout()
-  }, [])
+  }, [programId])
 
   // Combat system functions
   function dealDamage(baseDamage: number, isCritical: boolean = false) {

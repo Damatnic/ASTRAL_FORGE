@@ -50,15 +50,20 @@
 - [x] ~~Fix program viewing (programs/[id]/page.tsx)~~ ✅
 - [ ] Fix program editing (programs/[id]/edit/page.tsx)
 - [ ] Fix exercise detail pages (exercises/[id]/page.tsx)
-- [ ] Make "Start Workout" actually use selected program
+- [x] Make "Start Workout" actually use selected program ✅
+  - Created /api/workout/start endpoint
+  - Accepts programId query parameter
+  - Loads exercises from program based on day of week
+  - Updated session page to use programId from URL
+  - Program detail page navigates to session with programId
 - [x] ~~Fix accountability API to use real user from session~~ (Will do with toast system)
 
 ### Data Persistence
-- [ ] Save settings to database (currently UI only)
-- [ ] Persist unit preferences (kg/lbs)
-- [ ] Persist training level
-- [ ] Persist notification preferences
-- [ ] Connect settings to user profile
+- [x] ~~Save settings to database (currently UI only)~~ ✅ Already implemented
+- [x] ~~Persist unit preferences (kg/lbs)~~ ✅
+- [x] ~~Persist training level~~ ✅
+- [x] ~~Persist notification preferences~~ ✅
+- [x] ~~Connect settings to user profile~~ ✅
 
 ---
 
@@ -68,7 +73,10 @@
 - [ ] Add confirmation dialogs before destructive actions
 - [ ] Add toast notifications for success/error
 - [ ] Add loading skeletons instead of spinners
-- [ ] Add error boundaries for React errors
+  - [x] Create error boundary component for app stability ✅
+    - Class component with componentDidCatch
+    - Fallback UI with error message and reset button
+    - Development mode stack trace display
 - [ ] Add 404 page for invalid routes
 - [ ] Add proper error pages
 

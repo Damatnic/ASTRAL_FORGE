@@ -89,7 +89,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
   }
 
   const handleStartWorkout = () => {
-    // Navigate to workout session with this program
     router.push(`/workout/session?programId=${params.id}`)
   }
 
@@ -142,7 +141,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
     )
   }
 
-  // Group exercises by day of week
   const exercisesByDay = program.exercises.reduce((acc, exercise) => {
     if (!acc[exercise.dayOfWeek]) {
       acc[exercise.dayOfWeek] = []
@@ -153,14 +151,12 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-purple-950/20 to-gray-950 text-white">
-      {/* Toast Notification */}
       {toast && (
         <div className="fixed top-4 right-4 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in-right">
           {toast}
         </div>
       )}
 
-      {/* Header */}
       <header className="bg-gray-900/50 border-b border-purple-500/20 p-6">
         <div className="max-w-6xl mx-auto">
           <Link href="/programs" className="text-gray-400 hover:text-white mb-4 inline-flex items-center gap-2 transition">
@@ -184,7 +180,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
             </div>
           </div>
 
-          {/* Program Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
             <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
               <div className="text-sm text-gray-400">Category</div>
@@ -204,7 +199,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
             </div>
           </div>
 
-          {/* Tags */}
           {program.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
               {program.tags.map(tag => (
@@ -215,7 +209,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
             </div>
           )}
 
-          {/* Actions */}
           <div className="flex flex-wrap gap-3 mt-6">
             <button
               onClick={handleStartWorkout}
@@ -249,7 +242,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
         </div>
       </header>
 
-      {/* Workout Days */}
       <main className="max-w-6xl mx-auto p-6">
         <h2 className="text-2xl font-bold mb-6">Workout Schedule</h2>
         
@@ -321,7 +313,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
             ))}
         </div>
 
-        {/* Program Info */}
         {(program.trainingMaxPct || program.deloadWeek || program.weeksTotal) && (
           <div className="mt-8 bg-gradient-to-br from-purple-900/30 to-blue-900/30 border border-purple-500/30 rounded-lg p-6">
             <h3 className="text-xl font-bold mb-4">Program Details</h3>
@@ -357,89 +348,3 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
     </div>
   )
 }
-              </span>
-            )}
-          </div>
-        </div>
-      </header>
-
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
-        {/* Program Stats */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-4">
-            <div className="text-2xl font-bold text-astral-blue mb-1">
-              {exercises.length}
-            </div>
-            <div className="text-sm text-gray-400">Exercises</div>
-          </div>
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-4">
-            <div className="text-2xl font-bold text-astral-purple mb-1">
-              {exercises.reduce((sum: number, ex: any) => sum + (Array.isArray(ex.sets) ? ex.sets.length : (ex.sets || 0)), 0)}
-            </div>
-            <div className="text-sm text-gray-400">Total Sets</div>
-          </div>
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-4">
-            <div className="text-2xl font-bold text-astral-blue mb-1">
-              ~{exercises.length * 10}
-            </div>
-            <div className="text-sm text-gray-400">Minutes</div>
-          </div>
-        </div>
-
-        {/* Exercise List */}
-        <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-4">Exercises</h2>
-          <div className="space-y-3">
-            {exercises.map((exercise: any, index: number) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-astral-blue/20 text-astral-blue rounded-full flex items-center justify-center font-semibold">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <div className="font-medium">{exercise.name}</div>
-                    <div className="text-sm text-gray-400">
-                      {Array.isArray(exercise.sets) ? exercise.sets.length : exercise.sets} × {exercise.reps || exercise.targetReps || (Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].reps : '?')} reps
-                      {exercise.targetRPE && ` @ RPE ${exercise.targetRPE}`}
-                    </div>
-                  </div>
-                </div>
-                {exercise.restSeconds && (
-                  <div className="text-sm text-gray-400">
-                    Rest: {exercise.restSeconds}s
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="flex gap-4">
-          <button
-            onClick={handleStartWorkout}
-            className="flex-1 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 transition-opacity"
-          >
-            Start This Workout
-          </button>
-          <Link
-            href={`/programs/${params.id}/edit`}
-            className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-          >
-            Edit
-          </Link>
-          <button
-            onClick={handleDelete}
-            className="px-6 py-3 bg-red-900/50 text-red-400 hover:bg-red-900 rounded-lg transition-colors"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-

@@ -37,6 +37,7 @@ model User {
   customExercises CustomExercise[]
   exerciseRestTimers ExerciseRestTimer[]
   goals Goal[]
+  workoutPrograms WorkoutProgram[]
   
   @@map("users")
 }
@@ -443,6 +444,61 @@ model Goal {
   
   @@index([userId, status])
   @@map("goals")
+}
+
+// ============================================================================
+// WORKOUT PROGRAMS
+// ============================================================================
+
+model WorkoutProgram {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  description     String?
+  category        String   // 'powerlifting', 'bodybuilding', 'athletic', 'specialization'
+  difficulty      String   // 'beginner', 'intermediate', 'advanced'
+  daysPerWeek     Int
+  weeksTotal      Int?
+  progressionType String   // 'linear', 'wave', 'block', 'daily_undulating'
+  trainingMaxPct  Float?   // Training max as % of 1RM (e.g., 0.9 for 90%)
+  deloadWeek      Int?     // Which week to deload (e.g., 4 for every 4th week)
+  isActive        Boolean  @default(false)
+  isPublic        Boolean  @default(false)
+  tags            String[] // 'strength', 'hypertrophy', 'powerlifting', etc
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises       ProgramExercise[]
+  
+  @@index([userId])
+  @@index([isActive])
+  @@index([isPublic])
+  @@map("workout_programs")
+}
+
+model ProgramExercise {
+  id            String         @id @default(cuid())
+  programId     String
+  exerciseId    String
+  dayOfWeek     Int            // 1-7 (Monday-Sunday)
+  weekNumber    Int?           // For multi-week programs (null = all weeks)
+  orderIndex    Int            // Order in workout
+  sets          Int
+  repsMin       Int?           // For rep ranges
+  repsMax       Int?           // For rep ranges
+  repsTarget    Int?           // For fixed reps
+  weightPct     Float?         // % of training max (null for bodyweight/accessories)
+  rpe           Float?         // Target RPE
+  restSeconds   Int?           // Rest between sets
+  notes         String?        // "AMRAP last set", "superset with X", etc
+  createdAt     DateTime       @default(now())
+  
+  program       WorkoutProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+  
+  @@index([programId])
+  @@index([programId, dayOfWeek, weekNumber])
+  @@map("program_exercises")
 }
 
 // ============================================================================

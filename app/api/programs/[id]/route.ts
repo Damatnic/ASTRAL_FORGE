@@ -6,8 +6,16 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const program = await prisma.workoutSession.findUnique({
+    const program = await prisma.workoutProgram.findUnique({
       where: { id: params.id },
+      include: {
+        exercises: {
+          orderBy: [
+            { dayOfWeek: 'asc' },
+            { orderIndex: 'asc' },
+          ],
+        },
+      },
     })
 
     if (!program) {
@@ -27,12 +35,44 @@ export async function GET(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json()
+    const { name, description, isActive, tags } = body
+
+    const program = await prisma.workoutProgram.update({
+      where: { id: params.id },
+      data: {
+        ...(name && { name }),
+        ...(description !== undefined && { description }),
+        ...(isActive !== undefined && { isActive }),
+        ...(tags && { tags }),
+        updatedAt: new Date(),
+      },
+      include: {
+        exercises: true,
+      },
+    })
+
+    return NextResponse.json(program)
+  } catch (error) {
+    console.error('Error updating program:', error)
+    return NextResponse.json(
+      { error: 'Failed to update program' },
+      { status: 500 }
+    )
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    await prisma.workoutSession.delete({
+    await prisma.workoutProgram.delete({
       where: { id: params.id },
     })
 
@@ -45,4 +85,3 @@ export async function DELETE(
     )
   }
 }
-

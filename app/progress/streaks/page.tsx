@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import StreakTracker from '@/components/streak-tracker';
+import { Card, GradientText } from '@/components/ui';
 
 export default function StreaksPage() {
   // Sample data - would come from database in production
@@ -104,8 +105,8 @@ export default function StreaksPage() {
 
       {/* How It Works Section */}
       <div className="max-w-7xl mx-auto mt-12">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-purple-400 mb-6">🎯 How Streak System Works</h2>
+        <Card variant="surface">
+          <h2 className="text-3xl font-bold text-astral-accent mb-6">🎯 How Streak System Works</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Combo Multiplier */}
@@ -152,12 +153,12 @@ export default function StreaksPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Pro Tips Section */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-lg p-8">
+        <Card variant="accent">
           <h2 className="text-3xl font-bold text-green-400 mb-6">💡 Pro Tips for Maximum Streaks</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -209,13 +210,13 @@ export default function StreaksPage() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Leaderboard Preview */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-pink-400 mb-6">🏅 Top Streaks Leaderboard</h2>
+        <Card variant="surface">
+          <h2 className="text-3xl font-bold mb-6"><GradientText>🏅 Top Streaks Leaderboard</GradientText></h2>
           
           <div className="space-y-3">
             {[
@@ -263,7 +264,7 @@ export default function StreaksPage() {
               View Full Leaderboard
             </a>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

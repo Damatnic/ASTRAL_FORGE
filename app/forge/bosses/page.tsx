@@ -505,8 +505,8 @@ export default function BossesPage() {
 
       {/* Boss Battle Guide */}
       <div className="max-w-7xl mx-auto mt-12">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-purple-400 mb-6">⚔️ How Boss Battles Work</h2>
+        <Card variant="surface">
+          <h2 className="text-3xl font-bold text-astral-accent mb-6">⚔️ How Boss Battles Work</h2>
           
           <div className="space-y-6">
             <div>
@@ -549,13 +549,13 @@ export default function BossesPage() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Boss Types Guide */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-yellow-400 mb-6">🎯 Boss Types Explained</h2>
+        <Card variant="accent">
+          <h2 className="text-3xl font-bold mb-6"><GradientText>🎯 Boss Types Explained</GradientText></h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-red-500/20 to-orange-500/20 border border-red-400/30 rounded-lg p-6">
@@ -614,7 +614,7 @@ export default function BossesPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

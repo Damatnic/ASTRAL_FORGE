@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ChallengeModes from '@/components/challenge-modes';
+import { Card, GradientText } from '@/components/ui';
 
 export default function ChallengesPage() {
   // Sample challenges data
@@ -263,8 +264,8 @@ export default function ChallengesPage() {
 
       {/* Challenge Types Guide */}
       <div className="max-w-7xl mx-auto mt-12">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-purple-400 mb-6">📚 Challenge Types Explained</h2>
+        <Card variant="surface">
+          <h2 className="text-3xl font-bold text-astral-accent mb-6">📚 Challenge Types Explained</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* AMRAP */}
@@ -315,13 +316,13 @@ export default function ChallengesPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Difficulty Tiers */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-pink-400 mb-6">⭐ Difficulty Tiers</h2>
+        <Card variant="accent">
+          <h2 className="text-3xl font-bold mb-6"><GradientText>⭐ Difficulty Tiers</GradientText></h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-lg p-6 text-center">
@@ -356,12 +357,12 @@ export default function ChallengesPage() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Pro Tips */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-lg p-8">
+        <Card variant="accent">
           <h2 className="text-3xl font-bold text-green-400 mb-6">💡 Challenge Pro Tips</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -413,13 +414,13 @@ export default function ChallengesPage() {
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Leaderboard Teaser */}
       <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-yellow-400 mb-6">🏅 Global Leaderboards</h2>
+        <Card variant="surface">
+          <h2 className="text-3xl font-bold mb-6"><GradientText>🏅 Global Leaderboards</GradientText></h2>
           
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🏆</div>
@@ -434,7 +435,7 @@ export default function ChallengesPage() {
               View Leaderboards
             </a>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

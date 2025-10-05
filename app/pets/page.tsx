@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import PetCompanion from '@/components/pet-companion';
 import { ParticleBackground } from '@/components/particle-background';
+import { Card, StatCard, Badge, GradientText } from '@/components/ui';
 
 type PetSpecies = 'phoenix' | 'dragon' | 'wolf' | 'unicorn' | 'griffin' | 'hydra' | 'cosmic';
 type EvolutionStage = 'egg' | 'baby' | 'adult' | 'elder';
@@ -399,47 +400,35 @@ export default function PetsPage() {
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-amber-400 bg-clip-text text-transparent mb-2">
-              🐾 Companion Pets
+            <h1 className="text-4xl font-bold mb-2">
+              <GradientText>🐾 Companion Pets</GradientText>
             </h1>
-            <p className="text-white/60">
+            <p className="text-astral-text-secondary">
               Raise loyal companions to fight alongside you and boost your training!
             </p>
           </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-6 py-3">
-            <div className="text-sm text-white/60 mb-1">Gold</div>
+          <Card variant="glass" className="px-6 py-3">
+            <div className="text-sm text-astral-text-secondary mb-1">Gold</div>
             <div className="text-2xl font-bold text-yellow-400">{gold.toLocaleString()} 💰</div>
-          </div>
+          </Card>
         </div>
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">🐾</div>
-            <div className="text-2xl font-bold text-purple-400">{pets.length}</div>
-            <div className="text-sm text-white/60">Total Pets</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">⭐</div>
-            <div className="text-2xl font-bold text-pink-400">
-              {activePet?.bondLevel || 0}
-            </div>
-            <div className="text-sm text-white/60">Active Pet Bond</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">😊</div>
-            <div className="text-2xl font-bold text-green-400">
-              {Math.round(pets.reduce((sum, p) => sum + p.happiness, 0) / pets.length)}%
-            </div>
-            <div className="text-sm text-white/60">Avg Happiness</div>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-            <div className="text-3xl mb-2">🎯</div>
-            <div className="text-2xl font-bold text-amber-400">
-              {pets.reduce((sum, p) => sum + p.abilities.length, 0)}
-            </div>
-            <div className="text-sm text-white/60">Total Abilities</div>
-          </div>
+          <StatCard icon="🐾" value={pets.length} label="Total Pets" color="purple" />
+          <StatCard icon="⭐" value={activePet?.bondLevel || 0} label="Active Pet Bond" color="pink" />
+          <StatCard 
+            icon="😊" 
+            value={`${Math.round(pets.reduce((sum, p) => sum + p.happiness, 0) / pets.length)}%`}
+            label="Avg Happiness" 
+            color="green" 
+          />
+          <StatCard 
+            icon="🎯" 
+            value={pets.reduce((sum, p) => sum + p.abilities.length, 0)}
+            label="Total Abilities"
+            color="amber"
+          />
         </div>
       </div>
 

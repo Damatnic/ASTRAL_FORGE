@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import PvPChallenges from '@/components/pvp-challenges';
+import { Card, StatCard, GradientText } from '@/components/ui';
 
 export default function PvPPage() {
   // Sample current user

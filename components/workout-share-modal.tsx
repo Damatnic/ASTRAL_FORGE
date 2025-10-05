@@ -46,7 +46,7 @@ export default function WorkoutShareModal({
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <X className="w-6 h-6 text-gray-400" />
           </button>

@@ -324,7 +324,7 @@ export default function GuildHall() {
                 <div className="text-5xl mb-4">🔍</div>
                 <h3 className="text-2xl font-bold mb-2">Find a Guild</h3>
                 <p className="text-gray-400 mb-4">Browse active guilds and join one that fits your style</p>
-                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
                   Browse Guilds
                 </button>
               </div>
@@ -333,7 +333,7 @@ export default function GuildHall() {
                 <div className="text-5xl mb-4">✨</div>
                 <h3 className="text-2xl font-bold mb-2">Create Your Own</h3>
                 <p className="text-gray-400 mb-4">Found your own guild and build a legendary team</p>
-                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
                   Create Guild
                 </button>
               </div>
@@ -459,7 +459,7 @@ export default function GuildHall() {
               >
                 ← The Forge
               </Link>
-              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all font-bold text-sm hover:scale-105 shadow-lg shadow-purple-600/30">
+              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all font-bold text-sm hover:scale-105 shadow-lg shadow-purple-600/30 touch-manipulation min-h-[44px] flex items-center">
                 Guild Settings
               </button>
             </div>
@@ -491,7 +491,7 @@ export default function GuildHall() {
           <nav className="flex gap-3 flex-wrap">
             <button
               onClick={() => setActiveTab('roster')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
                 activeTab === 'roster'
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/50 border-2 border-purple-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-purple-500'
@@ -501,7 +501,7 @@ export default function GuildHall() {
             </button>
             <button
               onClick={() => setActiveTab('challenges')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
                 activeTab === 'challenges'
                   ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-xl shadow-cyan-500/50 border-2 border-cyan-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-cyan-500'
@@ -511,7 +511,7 @@ export default function GuildHall() {
             </button>
             <button
               onClick={() => setActiveTab('leaderboard')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
                 activeTab === 'leaderboard'
                   ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black shadow-xl shadow-yellow-500/50 border-2 border-yellow-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-yellow-500'
@@ -521,7 +521,7 @@ export default function GuildHall() {
             </button>
             <button
               onClick={() => setActiveTab('achievements')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
                 activeTab === 'achievements'
                   ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-xl shadow-green-500/50 border-2 border-green-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-green-500'
@@ -543,7 +543,7 @@ export default function GuildHall() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-2xl font-bold text-white">Guild Roster</h2>
-                  <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-sm transition-colors">
+                  <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-sm transition-colors touch-manipulation min-h-[44px] flex items-center">
                     + Invite Member
                   </button>
                 </div>
@@ -812,13 +812,13 @@ export default function GuildHall() {
                 <span>Quick Actions</span>
               </h3>
               <div className="space-y-2">
-                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
                   💬 Guild Chat
                 </button>
-                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
                   📊 View Stats
                 </button>
-                <button className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                <button className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
                   🎯 Start Challenge
                 </button>
               </div>

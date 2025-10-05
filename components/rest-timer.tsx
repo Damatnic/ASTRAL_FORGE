@@ -377,7 +377,7 @@ export default function RestTimer({
             {timerState === 'idle' && (
               <button
                 onClick={startTimer}
-                className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
               >
                 ▶ Start Timer
               </button>
@@ -387,13 +387,13 @@ export default function RestTimer({
               <>
                 <button
                   onClick={pauseTimer}
-                  className="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                  className="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
                 >
                   ⏸ Pause
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors touch-manipulation min-h-[48px]"
                 >
                   🔄 Reset
                 </button>
@@ -404,13 +404,13 @@ export default function RestTimer({
               <>
                 <button
                   onClick={startTimer}
-                  className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                  className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
                 >
                   ▶ Resume
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors touch-manipulation min-h-[48px]"
                 >
                   🔄 Reset
                 </button>
@@ -420,7 +420,7 @@ export default function RestTimer({
             {timerState === 'completed' && (
               <button
                 onClick={resetTimer}
-                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-lg transition-colors flex items-center gap-2"
+                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
               >
                 🔄 Start New Rest
               </button>

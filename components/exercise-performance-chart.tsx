@@ -120,7 +120,7 @@ export default function ExercisePerformanceChart({
         <div className="flex gap-2">
           <button
             onClick={() => setChartType('strength')}
-            className={`px-3 py-2 rounded-lg transition-colors flex items-center gap-2 ${
+            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
               chartType === 'strength'
                 ? 'bg-purple-600 text-white'
                 : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
@@ -131,7 +131,7 @@ export default function ExercisePerformanceChart({
           </button>
           <button
             onClick={() => setChartType('volume')}
-            className={`px-3 py-2 rounded-lg transition-colors flex items-center gap-2 ${
+            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
               chartType === 'volume'
                 ? 'bg-purple-600 text-white'
                 : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
@@ -142,7 +142,7 @@ export default function ExercisePerformanceChart({
           </button>
           <button
             onClick={() => setChartType('frequency')}
-            className={`px-3 py-2 rounded-lg transition-colors flex items-center gap-2 ${
+            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
               chartType === 'frequency'
                 ? 'bg-purple-600 text-white'
                 : 'bg-gray-700 text-gray-400 hover:bg-gray-600'

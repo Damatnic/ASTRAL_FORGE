@@ -363,7 +363,7 @@ export function SkillTree({ skills, availablePoints, onSkillUnlock, onSkillUpgra
       {/* Legend */}
       <div className="mt-6 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-purple-500/30 rounded-xl p-6 shadow-xl">
         <h3 className="text-lg font-bold text-white mb-4">Skill Categories</h3>
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {[
             { name: 'Strength', category: 'strength', icon: '💪' },
             { name: 'Endurance', category: 'endurance', icon: '🛡️' },

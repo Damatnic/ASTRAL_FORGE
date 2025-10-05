@@ -80,7 +80,7 @@ export function AccountabilityDashboard({ userId }: AccountabilityDashboardProps
       {/* Weekly Calendar */}
       <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
         <h3 className="text-lg font-semibold mb-4">This Week</h3>
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-1 text-xs sm:gap-2 sm:text-sm">
           {weekDays.map((day, idx) => (
             <div key={day} className="text-center">
               <div className="text-xs text-gray-400 mb-2">{day}</div>

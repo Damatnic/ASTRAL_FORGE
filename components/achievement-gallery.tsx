@@ -244,7 +244,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
         <div className="flex gap-2 mb-4">
           <button
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+            className={`px-4 py-2 rounded-lg font-semibold transition-all touch-manipulation min-h-[44px] ${
               filter === 'all'
                 ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/50'
                 : 'bg-slate-800 text-gray-400 hover:text-white'
@@ -254,7 +254,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
           </button>
           <button
             onClick={() => setFilter('unlocked')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+            className={`px-4 py-2 rounded-lg font-semibold transition-all touch-manipulation min-h-[44px] ${
               filter === 'unlocked'
                 ? 'bg-green-500 text-white shadow-lg shadow-green-500/50'
                 : 'bg-slate-800 text-gray-400 hover:text-white'
@@ -264,7 +264,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
           </button>
           <button
             onClick={() => setFilter('locked')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+            className={`px-4 py-2 rounded-lg font-semibold transition-all touch-manipulation min-h-[44px] ${
               filter === 'locked'
                 ? 'bg-red-500 text-white shadow-lg shadow-red-500/50'
                 : 'bg-slate-800 text-gray-400 hover:text-white'
@@ -278,7 +278,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
         <div className="flex gap-2 mb-4 flex-wrap">
           <button
             onClick={() => setCategoryFilter('all')}
-            className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all ${
+            className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all touch-manipulation min-h-[44px] flex items-center ${
               categoryFilter === 'all'
                 ? 'bg-white/20 text-white'
                 : 'bg-slate-800 text-gray-400 hover:text-white'
@@ -309,7 +309,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
         <div className="flex gap-2 mb-4 flex-wrap">
           <button
             onClick={() => setRarityFilter('all')}
-            className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all ${
+            className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all touch-manipulation min-h-[44px] flex items-center ${
               rarityFilter === 'all'
                 ? 'bg-white/20 text-white'
                 : 'bg-slate-800 text-gray-400 hover:text-white'
@@ -321,7 +321,7 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
             <button
               key={rarity}
               onClick={() => setRarityFilter(rarity)}
-              className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all ${
+              className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all touch-manipulation min-h-[44px] flex items-center ${
                 rarityFilter === rarity
                   ? 'text-white'
                   : 'bg-slate-800 text-gray-400 hover:text-white'

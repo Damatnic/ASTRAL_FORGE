@@ -218,7 +218,7 @@ export default function TheForge() {
           <nav className="flex gap-3 flex-wrap">
             <button
               onClick={() => setActiveTab('home')}
-              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] ${
                 activeTab === 'home'
                   ? 'bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-black shadow-xl shadow-orange-500/50 border-2 border-yellow-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-orange-500'
@@ -231,7 +231,7 @@ export default function TheForge() {
             </button>
             <button
               onClick={() => setActiveTab('train')}
-              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] ${
                 activeTab === 'train'
                   ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-xl shadow-green-500/50 border-2 border-green-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-green-500'
@@ -244,7 +244,7 @@ export default function TheForge() {
             </button>
             <button
               onClick={() => setActiveTab('arsenal')}
-              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] ${
                 activeTab === 'arsenal'
                   ? 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white shadow-xl shadow-blue-500/50 border-2 border-blue-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-blue-500'
@@ -257,7 +257,7 @@ export default function TheForge() {
             </button>
             <button
               onClick={() => setActiveTab('progress')}
-              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 ${
+              className={`group px-8 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] ${
                 activeTab === 'progress'
                   ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-xl shadow-purple-500/50 border-2 border-purple-400'
                   : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-purple-500'

@@ -450,7 +450,7 @@ export default function AchievementsPage() {
         {/* Rarity Legend */}
         <div className="mt-8 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-purple-500/30 rounded-xl p-6">
           <h3 className="text-xl font-bold text-white mb-4">Rarity Tiers</h3>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {[
               { rarity: 'common' as AchievementRarity, name: 'Common', icon: '⚪', description: 'Basic achievements for everyone' },
               { rarity: 'rare' as AchievementRarity, name: 'Rare', icon: '🔵', description: 'Requires dedication' },

@@ -165,14 +165,14 @@ export default function WorkoutHistoryPage() {
           <div className="flex gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors flex items-center gap-2 border border-gray-700"
+              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 border border-gray-700"
             >
               <Filter className="w-4 h-4" />
               Filters
             </button>
             <button
               onClick={handleExportData}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
               Export

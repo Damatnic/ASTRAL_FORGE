@@ -431,7 +431,7 @@ export default function EventsPage() {
             <div>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="mb-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-white"
+                className="mb-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-white touch-manipulation min-h-[44px] flex items-center"
               >
                 ← Back to All Events
               </button>
@@ -454,7 +454,7 @@ export default function EventsPage() {
                 <button
                   key={id}
                   onClick={() => setActiveTab(id as any)}
-                  className={`flex-1 px-4 py-3 rounded-md transition-colors font-medium flex items-center justify-center gap-2 ${
+                  className={`flex-1 px-4 py-3 rounded-md transition-colors font-medium flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
                     activeTab === id
                       ? 'bg-purple-600 text-white'
                       : 'text-gray-400 hover:text-white hover:bg-gray-700'

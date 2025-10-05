@@ -157,7 +157,7 @@ export default function SeasonalEventCard({
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-full h-full">
             {/* Decorative background pattern */}
-            <div className="grid grid-cols-8 gap-4 p-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 p-4">
               {[...Array(24)].map((_, i) => (
                 <ThemeIcon key={i} className="w-6 h-6 text-white opacity-10" />
               ))}
@@ -274,7 +274,7 @@ export default function SeasonalEventCard({
           {event.status === 'upcoming' && (
             <button
               onClick={() => onJoinEvent?.(event.id)}
-              className="flex-1 px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors font-medium text-white"
+              className="flex-1 px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors font-medium text-white touch-manipulation min-h-[44px]"
             >
               Set Reminder
             </button>
@@ -283,7 +283,7 @@ export default function SeasonalEventCard({
           {(event.status === 'active' || event.status === 'ending-soon') && (
             <button
               onClick={() => onJoinEvent?.(event.id)}
-              className={`flex-1 px-4 py-3 bg-gradient-to-r ${theme.gradient} hover:opacity-90 rounded-lg transition-opacity font-medium text-white`}
+              className={`flex-1 px-4 py-3 bg-gradient-to-r ${theme.gradient} hover:opacity-90 rounded-lg transition-opacity font-medium text-white touch-manipulation min-h-[44px]`}
             >
               {event.completionPercentage !== undefined ? 'Continue Event' : 'Join Event'}
             </button>
@@ -291,7 +291,7 @@ export default function SeasonalEventCard({
 
           <button
             onClick={() => onViewDetails?.(event.id)}
-            className="px-4 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg transition-colors font-medium text-white flex items-center gap-2"
+            className="px-4 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg transition-colors font-medium text-white flex items-center gap-2 touch-manipulation min-h-[44px]"
           >
             View Details
             <ChevronRight className="w-4 h-4" />

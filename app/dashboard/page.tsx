@@ -57,94 +57,98 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-astral-dark text-white">
       {/* Header */}
-      <header className="bg-astral-gray border-b border-gray-800 p-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-astral-blue to-astral-purple bg-clip-text text-transparent">
+      <header className="bg-astral-gray border-b border-gray-800 p-3 sm:p-4 md:p-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-astral-blue to-astral-purple bg-clip-text text-transparent">
             🔨 Astral Forge
           </h1>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/forge"
-              className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 rounded-lg transition-opacity text-sm font-bold text-black shadow-lg shadow-yellow-500/30"
+              className="px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 rounded-lg transition-opacity text-xs sm:text-sm font-bold text-black shadow-lg shadow-yellow-500/30 touch-manipulation min-h-[44px] flex items-center"
             >
-              🔨 THE FORGE
+              <span className="hidden sm:inline">🔨 </span>THE FORGE
             </Link>
-            <nav className="flex gap-2">
+            <nav className="hidden lg:flex gap-2">
               <Link
                 href="/exercises"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Exercises
               </Link>
               <Link
                 href="/programs"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Programs
               </Link>
               <Link
                 href="/progress"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Progress
               </Link>
               <Link
                 href="/metrics"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Metrics
               </Link>
               <Link
                 href="/goals"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Goals
               </Link>
               <Link
                 href="/settings"
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm min-h-[44px] flex items-center"
               >
                 Settings
               </Link>
             </nav>
             <Link
               href="/"
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-sm"
+              className="hidden sm:inline-flex px-3 sm:px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-xs sm:text-sm min-h-[44px] items-center touch-manipulation"
             >
               Sign Out
             </Link>
+            {/* Mobile Menu Button - Shows on small screens */}
+            <button className="lg:hidden px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors min-h-[44px] min-w-[44px] touch-manipulation">
+              ☰
+            </button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto p-6">
-        <div className="grid md:grid-cols-3 gap-6">
+      <div className="max-w-6xl mx-auto p-3 sm:p-4 md:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Column: Quick Actions & Next Workout */}
-          <div className="md:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-4 sm:space-y-6">
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-                <div className="text-3xl font-bold text-astral-blue">{stats?.totalWorkouts || 0}</div>
-                <div className="text-sm text-gray-400 mt-1">Total Workouts</div>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+              <div className="bg-astral-gray rounded-xl p-3 sm:p-4 md:p-6 border border-gray-800 touch-manipulation">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-astral-blue">{stats?.totalWorkouts || 0}</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1">Total Workouts</div>
               </div>
-              <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-                <div className="text-3xl font-bold text-astral-purple">{stats?.totalVolume || '0'}k</div>
-                <div className="text-sm text-gray-400 mt-1">Total Volume (kg)</div>
+              <div className="bg-astral-gray rounded-xl p-3 sm:p-4 md:p-6 border border-gray-800 touch-manipulation">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-astral-purple">{stats?.totalVolume || '0'}k</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1">Total Volume (kg)</div>
               </div>
-              <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-                <div className="text-3xl font-bold text-astral-blue">{stats?.prs || 0}</div>
-                <div className="text-sm text-gray-400 mt-1">Personal Records</div>
+              <div className="bg-astral-gray rounded-xl p-3 sm:p-4 md:p-6 border border-gray-800 touch-manipulation">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-astral-blue">{stats?.prs || 0}</div>
+                <div className="text-xs sm:text-sm text-gray-400 mt-1">Personal Records</div>
               </div>
             </div>
 
             {/* Next Workout Card */}
-            <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Today's Workout</h2>
-                <span className="text-sm text-gray-400">Ready to train</span>
+            <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <h2 className="text-lg sm:text-xl font-semibold">Today's Workout</h2>
+                <span className="text-xs sm:text-sm text-gray-400">Ready to train</span>
               </div>
 
-              <div className="space-y-3 mb-6">
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                 {nextWorkout && !nextWorkout.error ? (
                   <>
                     {(() => {
@@ -152,10 +156,10 @@ export default function Dashboard() {
                         ? JSON.parse(nextWorkout.plan) 
                         : nextWorkout.plan
                       return plan?.exercises?.slice(0, 3).map((exercise: any, idx: number) => (
-                        <div key={idx} className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                        <div key={idx} className="flex items-center justify-between p-3 sm:p-4 bg-gray-700/50 rounded-lg touch-manipulation min-h-[60px]">
                           <div>
-                            <div className="font-medium">{exercise.name}</div>
-                            <div className="text-sm text-gray-400">
+                            <div className="font-medium text-sm sm:text-base">{exercise.name}</div>
+                            <div className="text-xs sm:text-sm text-gray-400">
                               {Array.isArray(exercise.sets) ? exercise.sets.length : exercise.sets}x{exercise.targetReps || (Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].reps : exercise.reps)}
                               {((Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].weight : exercise.weight) > 0) && ` @ ${Array.isArray(exercise.sets) && exercise.sets[0] ? exercise.sets[0].weight : exercise.weight}kg`}
                             </div>
@@ -180,7 +184,7 @@ export default function Dashboard() {
               {nextWorkout && !nextWorkout.error && (
                 <Link
                   href="/workout/session"
-                  className="block w-full py-4 bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl font-semibold text-center hover:opacity-90 transition-opacity"
+                  className="block w-full py-3 sm:py-4 bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl font-semibold text-sm sm:text-base text-center hover:opacity-90 transition-opacity touch-manipulation min-h-[48px]"
                 >
                   Start {nextWorkout.name || 'Workout'}
                 </Link>
@@ -188,30 +192,30 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Sessions */}
-            <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-              <h2 className="text-xl font-semibold mb-4">Recent Workouts</h2>
+            <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
+              <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Recent Workouts</h2>
               {recentSessions.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {recentSessions.map((session: any) => (
                     <div
                       key={session.id}
-                      className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer"
+                      className="flex items-center justify-between p-3 sm:p-4 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer touch-manipulation min-h-[60px]"
                     >
                       <div>
-                        <div className="font-medium">{session.name}</div>
-                        <div className="text-sm text-gray-400">
+                        <div className="font-medium text-sm sm:text-base">{session.name}</div>
+                        <div className="text-xs sm:text-sm text-gray-400">
                           {new Date(session.date).toLocaleDateString()} · {session.duration} min
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm font-medium text-astral-blue">{session.exercises} exercises</div>
+                        <div className="text-xs sm:text-sm font-medium text-astral-blue">{session.exercises} exercises</div>
                         <div className="text-xs text-gray-400">{session.sets} sets</div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-400">
+                <div className="text-center py-6 sm:py-8 text-gray-400 text-sm sm:text-base">
                   <p>No workout history yet. Start your first workout above!</p>
                 </div>
               )}

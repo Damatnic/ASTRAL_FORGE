@@ -133,21 +133,21 @@ export function HUDInterface({
           {/* Scanline effect */}
           <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,255,255,0.03)_50%)] bg-[length:100%_4px] animate-scanlines pointer-events-none" />
           
-          <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center justify-between gap-6">
+          <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-4 py-1.5 sm:py-2">
+            <div className="flex items-center justify-between gap-2 sm:gap-4 md:gap-6">
               {/* Left: Character Info */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                 {/* Avatar with Combat Pulse */}
                 <div className="relative">
-                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center border-2 shadow-lg transition-all duration-300 ${
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center border-2 shadow-lg transition-all duration-300 ${
                     combatMode 
                       ? 'border-red-400 shadow-red-500/70 animate-pulse' 
                       : 'border-cyan-400 shadow-cyan-500/50'
                   }`}>
-                    <span className="text-2xl">{combatMode ? '⚔️' : '💪'}</span>
+                    <span className="text-xl sm:text-2xl">{combatMode ? '⚔️' : '💪'}</span>
                   </div>
                   {/* Level Badge */}
-                  <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-black flex items-center justify-center text-xs font-black shadow-lg">
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-black flex items-center justify-center text-xs font-black shadow-lg">
                     {level}
                   </div>
                   {/* Combat Mode Ring */}
@@ -159,9 +159,9 @@ export function HUDInterface({
                 {/* Enhanced Stats Bars */}
                 <div className="space-y-1">
                   {/* XP Bar with Glow */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-cyan-400 font-mono w-8 font-bold">XP</span>
-                    <div className="relative w-40 h-4 bg-gray-900 border border-cyan-700 rounded-sm overflow-hidden shadow-inner">
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="text-[10px] sm:text-xs text-cyan-400 font-mono w-6 sm:w-8 font-bold">XP</span>
+                    <div className="relative w-24 sm:w-32 md:w-40 h-3 sm:h-4 bg-gray-900 border border-cyan-700 rounded-sm overflow-hidden shadow-inner">
                       <div 
                         className="h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-600 transition-all duration-500 relative"
                         style={{ width: `${xpPercent}%` }}
@@ -180,13 +180,13 @@ export function HUDInterface({
                         ))}
                       </div>
                     </div>
-                    <span className="text-xs text-cyan-300 font-mono font-bold min-w-[60px]">{xp}/{maxXp}</span>
+                    <span className="text-[10px] sm:text-xs text-cyan-300 font-mono font-bold min-w-[50px] sm:min-w-[60px]">{xp}/{maxXp}</span>
                   </div>
 
                   {/* HP Bar with Dynamic Color & Pulse */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-green-400 font-mono w-8 font-bold">HP</span>
-                    <div className={`relative w-40 h-4 bg-gray-900 border rounded-sm overflow-hidden shadow-inner transition-all duration-300 ${
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="text-[10px] sm:text-xs text-green-400 font-mono w-6 sm:w-8 font-bold">HP</span>
+                    <div className={`relative w-24 sm:w-32 md:w-40 h-3 sm:h-4 bg-gray-900 border rounded-sm overflow-hidden shadow-inner transition-all duration-300 ${
                       hpPercent <= 30 ? 'border-red-700 animate-pulse' : 'border-green-700'
                     }`}>
                       <div 
@@ -201,15 +201,15 @@ export function HUDInterface({
                         )}
                       </div>
                     </div>
-                    <span className={`text-xs font-mono font-bold min-w-[60px] transition-colors ${
+                    <span className={`text-[10px] sm:text-xs font-mono font-bold min-w-[50px] sm:min-w-[60px] transition-colors ${
                       hpPercent <= 30 ? 'text-red-400' : 'text-green-300'
                     }`}>{hp}/{maxHp}</span>
                   </div>
 
                   {/* MP/Stamina Bar with Glow */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-purple-400 font-mono w-8 font-bold">MP</span>
-                    <div className="relative w-40 h-4 bg-gray-900 border border-purple-700 rounded-sm overflow-hidden shadow-inner">
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="text-[10px] sm:text-xs text-purple-400 font-mono w-6 sm:w-8 font-bold">MP</span>
+                    <div className="relative w-24 sm:w-32 md:w-40 h-3 sm:h-4 bg-gray-900 border border-purple-700 rounded-sm overflow-hidden shadow-inner">
                       <div 
                         className={`h-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 transition-all duration-500 relative ${
                           pulseEffect ? 'scale-y-110' : ''
@@ -220,44 +220,44 @@ export function HUDInterface({
                         <div className="absolute inset-0 bg-white/10 animate-shimmer" />
                       </div>
                     </div>
-                    <span className="text-xs text-purple-300 font-mono font-bold min-w-[60px]">{mp}/{maxMp}</span>
+                    <span className="text-[10px] sm:text-xs text-purple-300 font-mono font-bold min-w-[50px] sm:min-w-[60px]">{mp}/{maxMp}</span>
                   </div>
                 </div>
               </div>
 
               {/* Center: Enhanced Quick Stats & Buffs */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden md:flex items-center gap-2 lg:gap-3">
                 {/* Gold/Workouts */}
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border border-yellow-600/50 rounded shadow-lg hover:border-yellow-400 transition-all hover:scale-105">
-                  <span className="text-yellow-400 text-lg">💰</span>
-                  <span className="text-yellow-400 font-bold font-mono text-sm">{gold}</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border border-yellow-600/50 rounded shadow-lg hover:border-yellow-400 transition-all hover:scale-105 touch-manipulation">
+                  <span className="text-yellow-400 text-base sm:text-lg">💰</span>
+                  <span className="text-yellow-400 font-bold font-mono text-xs sm:text-sm">{gold}</span>
                 </div>
 
                 {/* Power Level */}
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-br from-cyan-900/50 to-blue-900/50 border border-cyan-600/50 rounded shadow-lg hover:border-cyan-400 transition-all hover:scale-105">
-                  <span className="text-cyan-400 text-lg">⚡</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-br from-cyan-900/50 to-blue-900/50 border border-cyan-600/50 rounded shadow-lg hover:border-cyan-400 transition-all hover:scale-105 touch-manipulation">
+                  <span className="text-cyan-400 text-base sm:text-lg">⚡</span>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-cyan-500 uppercase tracking-wider font-bold">Power</span>
-                    <span className="text-cyan-400 font-black font-mono text-xs leading-none">{power?.toLocaleString()}</span>
+                    <span className="text-[9px] sm:text-[10px] text-cyan-500 uppercase tracking-wider font-bold">Power</span>
+                    <span className="text-cyan-400 font-black font-mono text-[10px] sm:text-xs leading-none">{power?.toLocaleString()}</span>
                   </div>
                 </div>
 
                 {/* Achievements */}
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-600/50 rounded shadow-lg hover:border-purple-400 transition-all hover:scale-105">
-                  <span className="text-purple-400 text-lg">🏆</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-600/50 rounded shadow-lg hover:border-purple-400 transition-all hover:scale-105 touch-manipulation">
+                  <span className="text-purple-400 text-base sm:text-lg">🏆</span>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-purple-500 uppercase tracking-wider font-bold">Trophies</span>
-                    <span className="text-purple-400 font-black font-mono text-xs leading-none">{achievements}/100</span>
+                    <span className="text-[9px] sm:text-[10px] text-purple-500 uppercase tracking-wider font-bold">Trophies</span>
+                    <span className="text-purple-400 font-black font-mono text-[10px] sm:text-xs leading-none">{achievements}/100</span>
                   </div>
                 </div>
 
                 {/* Streak Counter */}
                 {streak > 0 && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-br from-orange-900/50 to-red-900/50 border border-orange-600/50 rounded shadow-lg animate-pulse">
-                    <span className="text-orange-400 text-lg">🔥</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-br from-orange-900/50 to-red-900/50 border border-orange-600/50 rounded shadow-lg animate-pulse touch-manipulation">
+                    <span className="text-orange-400 text-base sm:text-lg">🔥</span>
                     <div className="flex flex-col">
-                      <span className="text-[10px] text-orange-500 uppercase tracking-wider font-bold">Streak</span>
-                      <span className="text-orange-400 font-black font-mono text-xs leading-none">{streak} Days</span>
+                      <span className="text-[9px] sm:text-[10px] text-orange-500 uppercase tracking-wider font-bold">Streak</span>
+                      <span className="text-orange-400 font-black font-mono text-[10px] sm:text-xs leading-none">{streak} Days</span>
                     </div>
                   </div>
                 )}
@@ -268,10 +268,10 @@ export function HUDInterface({
                     {buffs.slice(0, 3).map((buff) => (
                       <div
                         key={buff.id}
-                        className="relative group px-2 py-1 bg-green-900/50 border border-green-600/50 rounded cursor-help hover:border-green-400 transition-all"
+                        className="relative group px-1.5 sm:px-2 py-1 bg-green-900/50 border border-green-600/50 rounded cursor-help hover:border-green-400 transition-all touch-manipulation min-h-[32px] min-w-[32px] flex items-center justify-center"
                         title={`${buff.name} - ${buff.duration}s remaining`}
                       >
-                        <span className="text-sm">{buff.icon}</span>
+                        <span className="text-xs sm:text-sm">{buff.icon}</span>
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/90 border border-green-500 rounded text-xs text-green-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                           {buff.name}
                           <div className="text-[10px] text-gray-400">{buff.duration}s left</div>
@@ -283,17 +283,17 @@ export function HUDInterface({
               </div>
 
               {/* Right: Location, Time, Mini-Map, Actions */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
                 {/* Current Location/Zone */}
                 <div className="hidden lg:block text-right">
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">Location</div>
-                  <div className="text-sm text-cyan-400 font-bold font-mono">📍 {location}</div>
+                  <div className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider font-bold">Location</div>
+                  <div className="text-xs sm:text-sm text-cyan-400 font-bold font-mono">📍 {location}</div>
                 </div>
 
                 {/* Time Display */}
-                <div className="text-right">
-                  <div className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">System Time</div>
-                  <div className="text-sm text-cyan-400 font-mono font-bold">
+                <div className="hidden sm:block text-right">
+                  <div className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider font-bold">System Time</div>
+                  <div className="text-xs sm:text-sm text-cyan-400 font-mono font-bold">
                     {time.toLocaleTimeString()}
                   </div>
                 </div>
@@ -301,26 +301,26 @@ export function HUDInterface({
                 {/* Mini-Map Toggle */}
                 <button
                   onClick={() => setShowMiniMap(!showMiniMap)}
-                  className={`relative p-2 bg-gray-900/50 border rounded transition-all ${
+                  className={`relative p-1.5 sm:p-2 bg-gray-900/50 border rounded transition-all min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] touch-manipulation ${
                     showMiniMap 
                       ? 'border-cyan-400 bg-cyan-900/30' 
                       : 'border-cyan-600 hover:border-cyan-400'
                   }`}
                   title="Toggle Mini-Map"
                 >
-                  <span className="text-cyan-400">🗺️</span>
+                  <span className="text-cyan-400 text-sm sm:text-base">🗺️</span>
                 </button>
 
                 {/* Notifications with Enhanced Badge */}
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className={`relative p-2 bg-gray-900/50 border rounded transition-all ${
+                  className={`relative p-1.5 sm:p-2 bg-gray-900/50 border rounded transition-all min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] touch-manipulation ${
                     showNotifications 
                       ? 'border-cyan-400 bg-cyan-900/30' 
                       : 'border-cyan-600 hover:border-cyan-400'
                   }`}
                 >
-                  <span className="text-cyan-400">🔔</span>
+                  <span className="text-cyan-400 text-sm sm:text-base">🔔</span>
                   {notifications.length > 0 && (
                     <>
                       <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-red-500 to-red-700 border-2 border-black rounded-full flex items-center justify-center text-xs font-black shadow-lg animate-bounce">
@@ -334,10 +334,10 @@ export function HUDInterface({
                 {/* Settings */}
                 <Link
                   href="/settings"
-                  className="p-2 bg-gray-900/50 border border-gray-600 rounded hover:border-cyan-400 hover:bg-gray-800/50 transition-all"
+                  className="p-1.5 sm:p-2 bg-gray-900/50 border border-gray-600 rounded hover:border-cyan-400 hover:bg-gray-800/50 transition-all min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] touch-manipulation flex items-center justify-center"
                   title="Settings"
                 >
-                  <span className="text-gray-400 hover:text-cyan-400 transition-colors">⚙️</span>
+                  <span className="text-gray-400 hover:text-cyan-400 transition-colors text-sm sm:text-base">⚙️</span>
                 </Link>
               </div>
             </div>

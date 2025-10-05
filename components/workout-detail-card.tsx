@@ -122,7 +122,7 @@ export default function WorkoutDetailCard({
             </div>
           </div>
 
-          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
             {isExpanded ? (
               <ChevronUp className="w-5 h-5" />
             ) : (
@@ -132,7 +132,7 @@ export default function WorkoutDetailCard({
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-5 gap-4 mt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 text-gray-400 mb-1">
               <Clock className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default function WorkoutDetailCard({
                   {isExerciseExpanded && (
                     <div className="border-t border-gray-700 p-3 bg-gray-900/30">
                       {/* Sets Table Header */}
-                      <div className="grid grid-cols-5 gap-2 mb-2 text-xs font-semibold text-gray-400 uppercase">
+                      <div className="grid grid-cols-5 gap-2 mb-2 text-xs font-semibold text-gray-400 uppercase overflow-x-auto">
                         <div>Set</div>
                         <div className="text-right">Weight</div>
                         <div className="text-right">Reps</div>
@@ -327,14 +327,14 @@ export default function WorkoutDetailCard({
           <div className="p-4 border-t border-gray-700 bg-gray-800/30 flex gap-2">
             <button
               onClick={() => onCopyWorkout?.(workout.id)}
-              className="flex-1 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2"
             >
               <Copy className="w-4 h-4" />
               Copy Workout
             </button>
             <button
               onClick={() => onShareWorkout?.(workout.id)}
-              className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2"
             >
               <Share2 className="w-4 h-4" />
               Share

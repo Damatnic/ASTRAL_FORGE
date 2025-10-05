@@ -617,7 +617,7 @@ export function InventoryManager({
           </div>
 
           {/* Item Grid */}
-          <div className="grid grid-cols-6 gap-3 mb-4 max-h-[600px] overflow-y-auto pr-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 mb-4 max-h-[600px] overflow-y-auto pr-2">
             {filteredItems.map(item => renderItemCard(item))}
             
             {filteredItems.length === 0 && (

@@ -296,7 +296,7 @@ export default function PublicWorkoutLibrary({
         <div className="flex items-center gap-3 flex-wrap">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg text-white flex items-center gap-2 transition-colors"
+            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg text-white touch-manipulation min-h-[44px] flex items-center gap-2 transition-colors"
           >
             <Filter className="w-4 h-4" />
             Filters
@@ -488,7 +488,7 @@ export default function PublicWorkoutLibrary({
                     e.stopPropagation();
                     onCloneWorkout?.(workout.id);
                   }}
-                  className="flex-1 px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors font-medium text-white text-sm flex items-center justify-center gap-2"
+                  className="flex-1 px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors touch-manipulation min-h-[44px] font-medium text-white text-sm flex items-center justify-center gap-2"
                 >
                   <Copy className="w-4 h-4" />
                   Clone
@@ -498,7 +498,7 @@ export default function PublicWorkoutLibrary({
                     e.stopPropagation();
                     onLikeWorkout?.(workout.id);
                   }}
-                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-white flex items-center gap-2"
+                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors touch-manipulation min-h-[44px] text-white flex items-center gap-2"
                 >
                   <Heart className="w-4 h-4" />
                   <span className="text-sm">{workout.metrics.likes}</span>
@@ -507,7 +507,7 @@ export default function PublicWorkoutLibrary({
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
-                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-white flex items-center gap-2"
+                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors touch-manipulation min-h-[44px] text-white flex items-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="text-sm">{workout.metrics.comments}</span>

@@ -146,7 +146,7 @@ export default function InjuriesPage() {
         <div className="flex gap-3">
           <button
             onClick={() => setShowForm(!showForm)}
-            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90"
+            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 touch-manipulation min-h-[44px]"
           >
             {showForm ? '✕ Cancel' : '🤕 Log Injury'}
           </button>
@@ -208,7 +208,7 @@ export default function InjuriesPage() {
                     <button
                       key={level}
                       onClick={() => setSeverity(level)}
-                      className={`py-2 rounded-lg capitalize transition-all ${
+                      className={`py-2 rounded-lg capitalize transition-all touch-manipulation min-h-[44px] ${
                         severity === level
                           ? level === 'minor' ? 'bg-yellow-600' : level === 'moderate' ? 'bg-orange-600' : 'bg-red-600'
                           : 'bg-gray-700 hover:bg-gray-600'
@@ -243,7 +243,7 @@ export default function InjuriesPage() {
             <button
               onClick={handleSubmit}
               disabled={saving || !name || !bodyPart}
-              className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 disabled:opacity-50"
+              className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 touch-manipulation min-h-[44px]"
             >
               {saving ? 'Saving...' : 'Log Injury'}
             </button>
@@ -297,7 +297,7 @@ export default function InjuriesPage() {
                     {injury.status === 'active' && (
                       <button
                         onClick={() => updateStatus(injury.id, 'recovering')}
-                        className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm"
+                        className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
                       >
                         Mark as Recovering
                       </button>
@@ -305,7 +305,7 @@ export default function InjuriesPage() {
                     {injury.status === 'recovering' && (
                       <button
                         onClick={() => updateStatus(injury.id, 'healed')}
-                        className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm"
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
                       >
                         Mark as Healed
                       </button>

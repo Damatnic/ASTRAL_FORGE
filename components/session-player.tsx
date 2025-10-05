@@ -225,20 +225,20 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
   return (
     <div className="min-h-screen bg-astral-dark text-white pb-20">
       {/* Header */}
-      <div className="bg-astral-gray border-b border-gray-800 p-4 sticky top-0 z-10">
+      <div className="bg-astral-gray border-b border-gray-800 p-3 sm:p-4 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <a
                 href="/dashboard"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors text-lg sm:text-base touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                 title="Back to Dashboard"
               >
-                ← Back
+                ← <span className="hidden sm:inline ml-1">Back</span>
               </a>
-              <h2 className="text-sm font-medium text-gray-400">{workout.name}</h2>
+              <h2 className="text-xs sm:text-sm font-medium text-gray-400 truncate">{workout.name}</h2>
             </div>
-            <span className="text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-400 flex-shrink-0">
               Exercise {currentExerciseIdx + 1} of {workout.exercises.length}
             </span>
           </div>
@@ -251,17 +251,17 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-6 space-y-6">
+      <div className="max-w-2xl mx-auto p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6">
         {/* Rest Timer (shown when resting) */}
         {isResting && (
-          <div className="bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl p-8 text-center animate-pulse">
-            <div className="text-7xl font-bold mb-2">
+          <div className="bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl p-6 sm:p-8 text-center animate-pulse">
+            <div className="text-6xl sm:text-7xl font-bold mb-2 sm:mb-4">
               {Math.floor(restTimer / 60)}:{(restTimer % 60).toString().padStart(2, '0')}
             </div>
-            <div className="text-xl mb-4">Rest Time Remaining</div>
+            <div className="text-lg sm:text-xl mb-3 sm:mb-4">Rest Time Remaining</div>
             <button
               onClick={skipRest}
-              className="px-6 py-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors font-semibold"
+              className="px-5 sm:px-6 py-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors font-semibold touch-manipulation min-h-[48px] text-sm sm:text-base"
             >
               Skip Rest ⏭️
             </button>
@@ -277,18 +277,18 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
 
         {/* Exercise Info */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold">{currentExercise.name}</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">{currentExercise.name}</h1>
           <div className="flex gap-2 flex-wrap">
-            <span className="px-3 py-1 bg-astral-blue/20 text-astral-blue rounded-lg text-sm">
+            <span className="px-2 sm:px-3 py-1 bg-astral-blue/20 text-astral-blue rounded-lg text-xs sm:text-sm">
               Set {currentSetIdx + 1} of {currentExercise.sets.length}
             </span>
             {lastTime && (
-              <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-lg text-sm">
+              <span className="px-2 sm:px-3 py-1 bg-gray-700 text-gray-300 rounded-lg text-xs sm:text-sm">
                 Last: {lastTime.weight}kg × {lastTime.reps} @ RPE {lastTime.rpe || '?'}
               </span>
             )}
             {technique && (
-              <span className={`px-3 py-1 rounded-lg text-sm ${
+              <span className={`px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm ${
                 technique.difficulty === 'beginner' ? 'bg-green-500/20 text-green-400' :
                 technique.difficulty === 'intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
                 'bg-red-500/20 text-red-400'
@@ -301,9 +301,9 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
 
         {/* Form Reminders */}
         {technique && currentSetIdx === 0 && (
-          <div className="bg-gradient-to-r from-astral-blue/10 to-astral-purple/10 border border-astral-blue/30 rounded-xl p-4">
-            <h3 className="font-semibold mb-2 text-astral-blue">⚡ Form Reminders</h3>
-            <ul className="space-y-1 text-sm">
+          <div className="bg-gradient-to-r from-astral-blue/10 to-astral-purple/10 border border-astral-blue/30 rounded-xl p-3 sm:p-4">
+            <h3 className="font-semibold mb-2 text-astral-blue text-sm sm:text-base">⚡ Form Reminders</h3>
+            <ul className="space-y-1 text-xs sm:text-sm">
               {intelligence.getFormCheckReminders(currentExercise.id).map((reminder, idx) => (
                 <li key={idx} className="flex gap-2">
                   <span className="text-green-400">✓</span>
@@ -329,65 +329,65 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
         })()}
 
         {/* Weight & Reps */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm text-gray-400">Weight (kg)</p>
+              <p className="text-xs sm:text-sm text-gray-400">Weight (kg)</p>
               <button
                 onClick={() => setShowPlateCalc(true)}
-                className="text-xs px-2 py-1 bg-astral-blue/20 text-astral-blue rounded hover:bg-astral-blue/30 transition-colors"
+                className="text-xs px-2 py-1 bg-astral-blue/20 text-astral-blue rounded hover:bg-astral-blue/30 transition-colors touch-manipulation min-h-[32px]"
               >
                 🏋️ Plates
               </button>
             </div>
-            <p className="text-5xl font-bold mb-4">{currentWeight}</p>
-            <div className="flex gap-2">
+            <p className="text-4xl sm:text-5xl font-bold mb-3 sm:mb-4">{currentWeight}</p>
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
               <button
                 onClick={() => adjustWeight(-2.5)}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 -2.5
               </button>
               <button
                 onClick={() => adjustWeight(-1.25)}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 -1.25
               </button>
               <button
                 onClick={() => adjustWeight(1.25)}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 +1.25
               </button>
               <button
                 onClick={() => adjustWeight(2.5)}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 +2.5
               </button>
             </div>
           </div>
 
-          <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-            <p className="text-sm text-gray-400 mb-2">Reps</p>
+          <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
+            <p className="text-xs sm:text-sm text-gray-400 mb-2">Reps</p>
             <input
               type="number"
               value={currentReps}
               onChange={(e) => setCurrentReps(Number(e.target.value))}
-              className="text-5xl font-bold bg-transparent w-full focus:outline-none mb-4"
+              className="text-4xl sm:text-5xl font-bold bg-transparent w-full focus:outline-none mb-3 sm:mb-4 touch-manipulation"
               min="0"
             />
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setCurrentReps(Math.max(0, currentReps - 1))}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 -1
               </button>
               <button
                 onClick={() => setCurrentReps(currentReps + 1)}
-                className="flex-1 py-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                className="py-3 sm:py-3.5 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors touch-manipulation min-h-[48px] text-sm sm:text-base font-semibold"
               >
                 +1
               </button>
@@ -396,25 +396,25 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
         </div>
 
         {/* RPE Scale */}
-        <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-          <label className="block text-sm font-medium text-gray-400 mb-4">
+        <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
+          <label className="block text-xs sm:text-sm font-medium text-gray-400 mb-3 sm:mb-4">
             Rate of Perceived Exertion (RPE)
           </label>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
             {[6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10].map((val) => {
               const interpretation = autoregulation.interpretRPE(val, currentReps)
               return (
                 <button
                   key={val}
                   onClick={() => setCurrentRPE(val)}
-                  className={`p-4 rounded-lg transition-all ${
+                  className={`p-3 sm:p-4 rounded-lg transition-all touch-manipulation min-h-[60px] sm:min-h-[70px] ${
                     currentRPE === val
                       ? 'bg-gradient-to-r from-astral-blue to-astral-purple ring-2 ring-astral-blue'
                       : 'bg-gray-700 hover:bg-gray-600'
                   }`}
                 >
-                  <div className="text-2xl font-bold">{val}</div>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xl sm:text-2xl font-bold">{val}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400 mt-1">
                     {interpretation.rir} {interpretation.rir === 1 ? 'rep' : 'reps'} left
                   </div>
                 </button>
@@ -422,8 +422,8 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
             })}
           </div>
           {currentRPE !== null && (
-            <div className="mt-4 p-3 bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-300">
+            <div className="mt-3 sm:mt-4 p-3 bg-gray-700 rounded-lg">
+              <p className="text-xs sm:text-sm text-gray-300">
                 {autoregulation.interpretRPE(currentRPE, currentReps).description}
               </p>
             </div>
@@ -432,13 +432,13 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
 
         {/* Previous Sets (if any) */}
         {completedSets.filter(s => s.exerciseId === currentExercise.id).length > 0 && (
-          <div className="bg-astral-gray rounded-xl p-6 border border-gray-800">
-            <h3 className="text-sm font-medium text-gray-400 mb-3">Previous Sets</h3>
+          <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-400 mb-3">Previous Sets</h3>
             <div className="space-y-2">
               {completedSets
                 .filter(s => s.exerciseId === currentExercise.id)
                 .map((set, idx) => (
-                  <div key={idx} className="flex justify-between text-sm">
+                  <div key={idx} className="flex justify-between text-xs sm:text-sm">
                     <span className="text-gray-400">Set {set.setNumber}</span>
                     <span className="text-white font-medium">
                       {set.weight}kg × {set.reps} @ RPE {set.rpe}
@@ -450,17 +450,17 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <button
             onClick={handleSetComplete}
             disabled={currentRPE === null || isResting}
-            className="flex-1 py-4 bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 py-4 sm:py-4 bg-gradient-to-r from-astral-blue to-astral-purple rounded-xl font-semibold text-base sm:text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[56px]"
           >
             {isResting ? 'Resting...' : 'Complete Set'}
           </button>
           <button
             onClick={handleSkipSet}
-            className="px-6 py-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition-colors"
+            className="px-6 py-4 bg-gray-700 hover:bg-gray-600 rounded-xl transition-colors touch-manipulation min-h-[56px] text-base sm:text-lg font-semibold"
           >
             Skip
           </button>
@@ -468,8 +468,8 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
 
         {/* Coaching Feedback */}
         {currentRPE !== null && !isResting && (
-          <div className="bg-astral-purple/10 border border-astral-purple/30 rounded-xl p-4">
-            <p className="text-sm text-gray-300">
+          <div className="bg-astral-purple/10 border border-astral-purple/30 rounded-xl p-3 sm:p-4">
+            <p className="text-xs sm:text-sm text-gray-300">
               {autoregulation.analyzeSetPerformance(
                 currentSet.weight,
                 currentWeight,

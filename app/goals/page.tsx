@@ -177,7 +177,7 @@ export default function GoalsPage() {
         <div className="flex gap-3">
           <button
             onClick={() => setShowForm(!showForm)}
-            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90"
+            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 touch-manipulation min-h-[44px]"
           >
             {showForm ? '✕ Cancel' : '🎯 New Goal'}
           </button>
@@ -284,7 +284,7 @@ export default function GoalsPage() {
             <button
               onClick={handleSubmit}
               disabled={saving || !title.trim()}
-              className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 disabled:opacity-50"
+              className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 touch-manipulation min-h-[44px]"
             >
               {saving ? 'Creating...' : 'Create Goal'}
             </button>
@@ -299,7 +299,7 @@ export default function GoalsPage() {
             <p className="text-gray-400 mb-6">Set your first goal and start tracking progress!</p>
             <button
               onClick={() => setShowForm(true)}
-              className="px-8 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold"
+              className="px-8 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold touch-manipulation min-h-[44px]"
             >
               Create Your First Goal
             </button>
@@ -370,7 +370,7 @@ export default function GoalsPage() {
                             const newValue = prompt(`Update progress (current: ${goal.currentValue}):`)
                             if (newValue) updateProgress(goal.id, parseFloat(newValue))
                           }}
-                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm"
+                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
                         >
                           Update Progress
                         </button>
@@ -378,7 +378,7 @@ export default function GoalsPage() {
                       {progress >= 100 && (
                         <button
                           onClick={() => completeGoal(goal.id)}
-                          className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm"
+                          className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
                         >
                           Mark as Completed
                         </button>

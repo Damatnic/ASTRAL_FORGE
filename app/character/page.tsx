@@ -386,7 +386,7 @@ export default function CharacterSheetPage() {
                 <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/50 rounded-lg px-4 py-2 animate-pulse">
                   <span className="text-orange-400 text-2xl">💫</span>
                   <span className="text-white font-bold">{stats.statPoints} Stat Points Available</span>
-                  <button className="ml-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-lg font-bold hover:scale-105 transition">
+                  <button className="ml-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-lg font-bold hover:scale-105 transition touch-manipulation min-h-[44px] flex items-center">
                     Allocate
                   </button>
                 </div>
@@ -432,7 +432,7 @@ export default function CharacterSheetPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
+                className={`flex-1 px-6 py-3 rounded-lg font-bold transition-all duration-300 touch-manipulation min-h-[44px] flex items-center justify-center ${
                   activeTab === tab.id
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/50 scale-105'
                     : 'text-cyan-400 hover:text-white hover:bg-slate-800/50'
@@ -621,7 +621,7 @@ export default function CharacterSheetPage() {
                             />
                           </div>
                           {skill.level < skill.maxLevel && (
-                            <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 rounded-lg font-bold text-sm hover:scale-105 transition">
+                            <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 rounded-lg font-bold text-sm hover:scale-105 transition touch-manipulation min-h-[44px]">
                               Upgrade
                             </button>
                           )}
@@ -736,14 +736,14 @@ export default function CharacterSheetPage() {
                 </h2>
                 <div className="space-y-3">
                   <Link href="/forge">
-                    <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-orange-500/50">
+                    <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-orange-500/50 touch-manipulation min-h-[44px]">
                       🔨 Visit The Forge
                     </button>
                   </Link>
-                  <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-purple-500/50">
+                  <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-purple-500/50 touch-manipulation min-h-[44px]">
                     🎒 Open Inventory
                   </button>
-                  <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-cyan-500/50">
+                  <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-cyan-500/50 touch-manipulation min-h-[44px]">
                     🏪 Visit Shop
                   </button>
                 </div>
@@ -763,7 +763,7 @@ export default function CharacterSheetPage() {
               <div className="text-xl font-bold mb-2">Achievement System</div>
               <div className="text-sm">View your unlocked achievements and track progress</div>
               <Link href="/dashboard/gaming">
-                <button className="mt-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-cyan-500/50">
+                <button className="mt-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-3 rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-cyan-500/50 touch-manipulation min-h-[44px] flex items-center justify-center">
                   View Full Achievement Showcase
                 </button>
               </Link>

@@ -720,7 +720,7 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
                 {selectedProgram.weekSchedule.map((week) => (
                   <div key={week.weekNumber} className="space-y-4">
                     <h4 className="text-xl font-semibold text-purple-400">Week {week.weekNumber}</h4>
-                    <div className="grid grid-cols-7 gap-2">
+                    <div className="grid grid-cols-7 gap-1 text-xs sm:gap-2 sm:text-sm">
                       {week.days.map((day, idx) => (
                         <div
                           key={idx}

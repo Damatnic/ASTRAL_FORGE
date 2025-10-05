@@ -155,9 +155,9 @@ export default function GamingDashboard() {
       </div>
 
       {/* Header */}
-      <header className="relative bg-gray-900/80 backdrop-blur-sm border-b-2 border-gray-800 p-6 shadow-2xl">
+      <header className="relative bg-gray-900/80 backdrop-blur-sm border-b-2 border-gray-800 p-3 sm:p-4 md:p-6 shadow-2xl">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
               ⚔️ FORGE
             </span>
@@ -166,19 +166,19 @@ export default function GamingDashboard() {
           <nav className="flex gap-2">
             <Link
               href="/workout/session"
-              className="px-4 py-2 bg-gradient-to-r from-astral-blue to-astral-purple hover:opacity-90 rounded-lg transition-opacity text-sm font-bold"
+              className="px-3 sm:px-4 py-2 bg-gradient-to-r from-astral-blue to-astral-purple hover:opacity-90 rounded-lg transition-opacity text-xs sm:text-sm font-bold touch-manipulation min-h-[44px] flex items-center"
             >
-              🏋️ Train
+              🏋️ <span className="hidden sm:inline ml-1">Train</span>
             </Link>
           </nav>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className="relative max-w-7xl mx-auto p-6">
-        <div className="grid lg:grid-cols-3 gap-6">
+      <div className="relative max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Column - Level & Stats */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             {/* Level Progress */}
             {levelData && (
               <LevelProgressCard
@@ -204,31 +204,31 @@ export default function GamingDashboard() {
           </div>
 
           {/* Right Column - Achievements */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <AchievementShowcase
               achievements={allAchievements}
               recentAchievements={achievementsData || []}
             />
 
             {/* Quick Actions */}
-            <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-gray-700 shadow-2xl">
-              <h3 className="text-lg font-bold text-white mb-4">⚡ Quick Actions</h3>
+            <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-4 sm:p-5 md:p-6 border-2 border-gray-700 shadow-2xl">
+              <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">⚡ Quick Actions</h3>
               <div className="space-y-2">
                 <Link
                   href="/workout/session"
-                  className="block w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-center hover:opacity-90 transition-opacity"
+                  className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-sm sm:text-base text-center hover:opacity-90 transition-opacity touch-manipulation min-h-[48px] flex items-center justify-center"
                 >
                   🏋️ Start Workout
                 </Link>
                 <Link
                   href="/progress"
-                  className="block w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl font-bold text-center hover:opacity-90 transition-opacity"
+                  className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl font-bold text-sm sm:text-base text-center hover:opacity-90 transition-opacity touch-manipulation min-h-[48px] flex items-center justify-center"
                 >
                   📊 View Progress
                 </Link>
                 <Link
                   href="/programs"
-                  className="block w-full py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl font-bold text-center hover:opacity-90 transition-opacity"
+                  className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl font-bold text-sm sm:text-base text-center hover:opacity-90 transition-opacity touch-manipulation min-h-[48px] flex items-center justify-center"
                 >
                   📋 Change Program
                 </Link>

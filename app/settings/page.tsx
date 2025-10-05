@@ -147,13 +147,13 @@ export default function SettingsPage() {
               </div>
               <button
                 onClick={() => setNotifications(!notifications)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                className={`relative inline-flex h-11 w-16 items-center rounded-full transition-colors touch-manipulation ${
                   notifications ? 'bg-astral-blue' : 'bg-gray-600'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    notifications ? 'translate-x-6' : 'translate-x-1'
+                  className={`inline-block h-8 w-8 transform rounded-full bg-white transition-transform ${
+                    notifications ? 'translate-x-7' : 'translate-x-1'
                   }`}
                 />
               </button>
@@ -216,7 +216,7 @@ export default function SettingsPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 touch-manipulation min-h-[44px]"
         >
           {saving ? 'Saving...' : 'Save Settings'}
         </button>
@@ -225,10 +225,10 @@ export default function SettingsPage() {
         <div className="bg-red-900/20 border border-red-800 rounded-xl p-6">
           <h2 className="text-xl font-semibold text-red-400 mb-4">Danger Zone</h2>
           <div className="space-y-3">
-            <button className="w-full py-2 bg-red-900/50 text-red-400 rounded-lg hover:bg-red-900 transition-colors">
+            <button className="w-full py-2 bg-red-900/50 text-red-400 rounded-lg hover:bg-red-900 transition-colors touch-manipulation min-h-[44px]">
               Export All Data
             </button>
-            <button className="w-full py-2 bg-red-900/50 text-red-400 rounded-lg hover:bg-red-900 transition-colors">
+            <button className="w-full py-2 bg-red-900/50 text-red-400 rounded-lg hover:bg-red-900 transition-colors touch-manipulation min-h-[44px]">
               Delete All Workout History
             </button>
           </div>

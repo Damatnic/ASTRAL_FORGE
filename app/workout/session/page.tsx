@@ -249,14 +249,14 @@ export default function WorkoutSession() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
-        <div className="max-w-md text-center space-y-6 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-red-500/30 rounded-2xl p-8 shadow-2xl shadow-red-500/20">
-          <div className="text-6xl">⚠️</div>
-          <h1 className="text-2xl font-bold text-white">Quest Unavailable</h1>
-          <p className="text-gray-400">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4 sm:p-6">
+        <div className="max-w-md text-center space-y-4 sm:space-y-6 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-red-500/30 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-2xl shadow-red-500/20">
+          <div className="text-5xl sm:text-6xl">⚠️</div>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Quest Unavailable</h1>
+          <p className="text-sm sm:text-base text-gray-400">{error}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-red-500/50"
+            className="px-5 sm:px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg font-bold hover:scale-105 transition shadow-lg shadow-red-500/50 touch-manipulation min-h-[48px] text-sm sm:text-base"
           >
             Return to Base
           </button>
@@ -359,22 +359,22 @@ export default function WorkoutSession() {
       )}
       
       {/* Combat HUD Overlay */}
-      <div className="fixed top-0 left-0 right-0 z-40 p-4">
+      <div className="fixed top-0 left-0 right-0 z-40 p-2 sm:p-3 md:p-4">
         <div className="max-w-7xl mx-auto">
           {/* Boss Health Bar */}
-          <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-red-500/30 rounded-2xl p-6 shadow-2xl shadow-red-500/20 mb-4">
-            <div className="flex items-center gap-4 mb-3">
-              <div className="text-5xl">👹</div>
-              <div className="flex-1">
-                <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
+          <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-red-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 shadow-2xl shadow-red-500/20 mb-2 sm:mb-3 md:mb-4">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3">
+              <div className="text-3xl sm:text-4xl md:text-5xl">👹</div>
+              <div className="flex-1 min-w-0">
+                <div className="flex justify-between items-center mb-1 sm:mb-2">
+                  <h2 className="text-base sm:text-lg md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400 truncate">
                     {workout.name || 'Boss Enemy'}
                   </h2>
-                  <span className="text-xl font-bold text-white">
+                  <span className="text-sm sm:text-base md:text-xl font-bold text-white ml-2 flex-shrink-0">
                     {combatStats.bossHP.toLocaleString()} / {combatStats.bossMaxHP.toLocaleString()}
                   </span>
                 </div>
-                <div className="h-6 bg-slate-800/80 rounded-full overflow-hidden border-2 border-red-500/50 relative">
+                <div className="h-4 sm:h-5 md:h-6 bg-slate-800/80 rounded-full overflow-hidden border-2 border-red-500/50 relative">
                   <div 
                     className="h-full bg-gradient-to-r from-red-600 via-red-500 to-orange-500 transition-all duration-500 relative overflow-hidden"
                     style={{ width: `${(combatStats.bossHP / combatStats.bossMaxHP) * 100}%` }}
@@ -386,29 +386,29 @@ export default function WorkoutSession() {
             </div>
             
             {/* Battle Stats */}
-            <div className="flex gap-4 text-sm">
-              <div className="flex items-center gap-2">
+            <div className="flex gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-yellow-400">⚔️</span>
-                <span className="text-white font-semibold">Damage:</span>
+                <span className="text-white font-semibold hidden sm:inline">Damage:</span>
                 <span className="text-yellow-400 font-bold">{combatStats.totalDamage.toLocaleString()}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-orange-400">🔥</span>
-                <span className="text-white font-semibold">Combo:</span>
+                <span className="text-white font-semibold hidden sm:inline">Combo:</span>
                 <span className="text-orange-400 font-bold">{combatStats.combo}x</span>
               </div>
             </div>
           </div>
           
           {/* Player Stats */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
             {/* Health Bar */}
-            <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-green-500/30 rounded-xl p-4 shadow-xl">
-              <div className="flex justify-between text-sm mb-2">
+            <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-green-500/30 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 shadow-xl">
+              <div className="flex justify-between text-xs sm:text-sm mb-1 sm:mb-2">
                 <span className="text-green-400 font-semibold">❤️ Health</span>
-                <span className="text-white font-bold">{combatStats.playerHP} / {combatStats.playerMaxHP}</span>
+                <span className="text-white font-bold text-xs sm:text-sm">{combatStats.playerHP} / {combatStats.playerMaxHP}</span>
               </div>
-              <div className="h-3 bg-slate-800/80 rounded-full overflow-hidden border border-green-500/30">
+              <div className="h-2 sm:h-3 bg-slate-800/80 rounded-full overflow-hidden border border-green-500/30">
                 <div 
                   className="h-full bg-gradient-to-r from-green-600 to-green-500 transition-all duration-500"
                   style={{ width: `${(combatStats.playerHP / combatStats.playerMaxHP) * 100}%` }}
@@ -417,12 +417,12 @@ export default function WorkoutSession() {
             </div>
             
             {/* Stamina Bar */}
-            <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-cyan-500/30 rounded-xl p-4 shadow-xl">
-              <div className="flex justify-between text-sm mb-2">
+            <div className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-cyan-500/30 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 shadow-xl">
+              <div className="flex justify-between text-xs sm:text-sm mb-1 sm:mb-2">
                 <span className="text-cyan-400 font-semibold">⚡ Stamina</span>
-                <span className="text-white font-bold">{combatStats.playerStamina} / {combatStats.playerMaxStamina}</span>
+                <span className="text-white font-bold text-xs sm:text-sm">{combatStats.playerStamina} / {combatStats.playerMaxStamina}</span>
               </div>
-              <div className="h-3 bg-slate-800/80 rounded-full overflow-hidden border border-cyan-500/30">
+              <div className="h-2 sm:h-3 bg-slate-800/80 rounded-full overflow-hidden border border-cyan-500/30">
                 <div 
                   className="h-full bg-gradient-to-r from-cyan-600 to-cyan-500 transition-all duration-500"
                   style={{ width: `${(combatStats.playerStamina / combatStats.playerMaxStamina) * 100}%` }}

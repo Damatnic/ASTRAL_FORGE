@@ -196,7 +196,7 @@ export default function WorkoutCalendar({
         <div className="flex items-center gap-4">
           <button
             onClick={() => (view === 'month' ? navigateMonth('prev') : navigateWeek('prev'))}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Previous"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -208,7 +208,7 @@ export default function WorkoutCalendar({
 
           <button
             onClick={() => (view === 'month' ? navigateMonth('next') : navigateWeek('next'))}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Next"
           >
             <ChevronRight className="w-5 h-5" />
@@ -220,7 +220,7 @@ export default function WorkoutCalendar({
           <div className="flex bg-gray-800 rounded-lg p-1">
             <button
               onClick={() => setView('month')}
-              className={`px-4 py-2 rounded-md transition-colors ${
+              className={`px-4 py-2 rounded-md transition-colors touch-manipulation min-h-[44px] ${
                 view === 'month'
                   ? 'bg-purple-600 text-white'
                   : 'text-gray-400 hover:text-white'
@@ -230,7 +230,7 @@ export default function WorkoutCalendar({
             </button>
             <button
               onClick={() => setView('week')}
-              className={`px-4 py-2 rounded-md transition-colors ${
+              className={`px-4 py-2 rounded-md transition-colors touch-manipulation min-h-[44px] ${
                 view === 'week'
                   ? 'bg-purple-600 text-white'
                   : 'text-gray-400 hover:text-white'
@@ -242,7 +242,7 @@ export default function WorkoutCalendar({
 
           <button
             onClick={goToToday}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2"
           >
             <Calendar className="w-4 h-4" />
             Today

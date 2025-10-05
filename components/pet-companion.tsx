@@ -220,7 +220,7 @@ export default function PetCompanion({
           <button
             key={tab}
             onClick={() => setSelectedTab(tab)}
-            className={`px-6 py-3 font-medium transition-all ${
+            className={`px-6 py-3 font-medium transition-all touch-manipulation min-h-[44px] ${
               selectedTab === tab
                 ? 'text-purple-400 border-b-2 border-purple-400'
                 : 'text-gray-400 hover:text-white'

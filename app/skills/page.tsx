@@ -383,7 +383,7 @@ export default function SkillsPage() {
         {/* Tier progression guide */}
         <div className="mt-8 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-white mb-4">Progression Guide</h2>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {[
               { tier: 1, name: 'Beginner', icon: '🌱', color: '#10b981', description: 'Foundation skills - Start here!' },
               { tier: 2, name: 'Intermediate', icon: '🔥', color: '#3b82f6', description: 'Advanced techniques unlock' },

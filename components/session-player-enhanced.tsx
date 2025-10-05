@@ -348,7 +348,7 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
           <label className="block text-sm font-medium text-gray-400 mb-4">
             Rate of Perceived Exertion (RPE)
           </label>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
             {[6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10].map((val) => {
               const interpretation = autoregulation.interpretRPE(val, currentReps)
               return (

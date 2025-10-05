@@ -325,7 +325,7 @@ export default function WorkoutShareCard({
         <button
           onClick={handleDownload}
           disabled={isGenerating}
-          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 rounded-lg transition-colors font-medium text-white flex items-center gap-2"
+          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[48px] font-medium text-white flex items-center gap-2"
         >
           <Download className="w-5 h-5" />
           {isGenerating ? 'Generating...' : 'Download Image'}
@@ -334,7 +334,7 @@ export default function WorkoutShareCard({
         <button
           onClick={handleCopy}
           disabled={isGenerating}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded-lg transition-colors font-medium text-white flex items-center gap-2"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[48px] font-medium text-white flex items-center gap-2"
         >
           {copied ? (
             <>

@@ -300,21 +300,21 @@ export default function AnalyticsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 p-3 sm:p-4 md:p-6">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Page Header */}
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-            <BarChart3 className="w-10 h-10 text-purple-500" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 flex items-center justify-center gap-2 sm:gap-3">
+            <BarChart3 className="w-8 h-8 sm:w-10 sm:h-10 text-purple-500" />
             Analytics Dashboard
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg px-4">
             Track your progress and discover insights about your training
           </p>
         </div>
 
         {/* Period Selector */}
-        <div className="flex gap-2 justify-center flex-wrap">
+        <div className="flex gap-2 sm:gap-3 justify-center flex-wrap px-2">
           {[
             { value: '7d', label: '7 Days' },
             { value: '30d', label: '30 Days' },
@@ -325,7 +325,7 @@ export default function AnalyticsPage() {
             <button
               key={period.value}
               onClick={() => setSelectedPeriod(period.value as TimePeriod)}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              className={`px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] rounded-lg font-medium transition-all touch-manipulation text-sm sm:text-base ${
                 selectedPeriod === period.value
                   ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
                   : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
@@ -337,108 +337,108 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Key Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/20 rounded-lg border border-purple-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-purple-500/20 rounded-lg">
-                  <Dumbbell className="w-6 h-6 text-purple-400" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/20 rounded-lg border border-purple-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-purple-500/20 rounded-lg">
+                  <Dumbbell className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Total Workouts</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Total Workouts</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">{stats.totalWorkouts}</div>
-            <div className="text-sm text-gray-400">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">{stats.totalWorkouts}</div>
+            <div className="text-xs sm:text-sm text-gray-400">
               Avg {stats.avgDuration} min per session
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/20 rounded-lg border border-cyan-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-cyan-500/20 rounded-lg">
-                  <Activity className="w-6 h-6 text-cyan-400" />
+          <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/20 rounded-lg border border-cyan-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-cyan-500/20 rounded-lg">
+                  <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Total Volume</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Total Volume</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
               {formatVolume(stats.totalVolume)}
             </div>
-            <div className="text-sm text-gray-400">lbs lifted</div>
+            <div className="text-xs sm:text-sm text-gray-400">lbs lifted</div>
           </div>
 
-          <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/20 rounded-lg border border-yellow-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-yellow-500/20 rounded-lg">
-                  <Zap className="w-6 h-6 text-yellow-400" />
+          <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/20 rounded-lg border border-yellow-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-yellow-500/20 rounded-lg">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Total XP</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Total XP</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
               {stats.totalXP.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-400">experience earned</div>
+            <div className="text-xs sm:text-sm text-gray-400">experience earned</div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 rounded-lg border border-green-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-green-500/20 rounded-lg">
-                  <Trophy className="w-6 h-6 text-green-400" />
+          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 rounded-lg border border-green-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-green-500/20 rounded-lg">
+                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Personal Records</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Personal Records</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">{stats.totalPRs}</div>
-            <div className="text-sm text-gray-400">new PRs achieved</div>
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">{stats.totalPRs}</div>
+            <div className="text-xs sm:text-sm text-gray-400">new PRs achieved</div>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-900/30 to-red-900/20 rounded-lg border border-orange-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-orange-500/20 rounded-lg">
-                  <Clock className="w-6 h-6 text-orange-400" />
+          <div className="bg-gradient-to-br from-orange-900/30 to-red-900/20 rounded-lg border border-orange-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-orange-500/20 rounded-lg">
+                  <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Total Time</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Total Time</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
               {Math.floor(stats.totalDuration / 60)}
             </div>
-            <div className="text-sm text-gray-400">hours trained</div>
+            <div className="text-xs sm:text-sm text-gray-400">hours trained</div>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-900/30 to-purple-900/20 rounded-lg border border-pink-500/30 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-pink-500/20 rounded-lg">
-                  <Target className="w-6 h-6 text-pink-400" />
+          <div className="bg-gradient-to-br from-pink-900/30 to-purple-900/20 rounded-lg border border-pink-500/30 p-4 sm:p-5 md:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 bg-pink-500/20 rounded-lg">
+                  <Target className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Consistency</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Consistency</h3>
               </div>
             </div>
-            <div className="text-4xl font-bold text-white mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">
               {Math.round((stats.totalWorkouts / (selectedPeriod === '7d' ? 7 : selectedPeriod === '30d' ? 30 : 90)) * 100)}%
             </div>
-            <div className="text-sm text-gray-400">workout frequency</div>
+            <div className="text-xs sm:text-sm text-gray-400">workout frequency</div>
           </div>
         </div>
 
         {/* Insights */}
         {insights.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Award className="w-6 h-6 text-yellow-500" />
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 px-2 sm:px-0">
+              <Award className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500" />
               Insights & Recommendations
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {insights.map((insight, idx) => (
                 <div
                   key={idx}
-                  className={`rounded-lg border p-6 ${
+                  className={`rounded-lg border p-4 sm:p-5 md:p-6 ${
                     insight.type === 'success'
                       ? 'bg-green-900/20 border-green-500/30'
                       : insight.type === 'warning'
@@ -446,9 +446,9 @@ export default function AnalyticsPage() {
                       : 'bg-blue-900/20 border-blue-500/30'
                   }`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3 sm:gap-4">
                     <div
-                      className={`p-3 rounded-lg ${
+                      className={`p-2 sm:p-3 rounded-lg flex-shrink-0 ${
                         insight.type === 'success'
                           ? 'bg-green-500/20'
                           : insight.type === 'warning'
@@ -457,7 +457,7 @@ export default function AnalyticsPage() {
                       }`}
                     >
                       <insight.icon
-                        className={`w-6 h-6 ${
+                        className={`w-5 h-5 sm:w-6 sm:h-6 ${
                           insight.type === 'success'
                             ? 'text-green-400'
                             : insight.type === 'warning'
@@ -467,8 +467,8 @@ export default function AnalyticsPage() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-white mb-1">{insight.title}</h3>
-                      <p className="text-sm text-gray-400">{insight.description}</p>
+                      <h3 className="font-semibold text-white mb-1 text-sm sm:text-base">{insight.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-400">{insight.description}</p>
                     </div>
                   </div>
                 </div>
@@ -478,9 +478,9 @@ export default function AnalyticsPage() {
         )}
 
         {/* Volume Trend Chart */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-          <h2 className="text-2xl font-bold text-white mb-6">Volume Trend</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Volume Trend</h2>
+          <ResponsiveContainer width="100%" height={250}>
             <LineChart data={volumeTrendData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis
@@ -516,9 +516,9 @@ export default function AnalyticsPage() {
         </div>
 
         {/* XP Trend Chart */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-          <h2 className="text-2xl font-bold text-white mb-6">XP Earnings</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">XP Earnings</h2>
+          <ResponsiveContainer width="100%" height={250}>
             <LineChart data={volumeTrendData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis
@@ -550,11 +550,11 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Muscle Group Distribution */}
-          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Muscle Group Distribution</h2>
-            <ResponsiveContainer width="100%" height={300}>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Muscle Group Distribution</h2>
+            <ResponsiveContainer width="100%" height={250}>
               <PieChart>
                 <Pie
                   data={muscleGroupData}
@@ -562,7 +562,7 @@ export default function AnalyticsPage() {
                   cy="50%"
                   labelLine={false}
                   label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={100}
+                  outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -582,9 +582,9 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Workout Frequency by Day */}
-          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Workout Frequency by Day</h2>
-            <ResponsiveContainer width="100%" height={300}>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Workout Frequency by Day</h2>
+            <ResponsiveContainer width="100%" height={250}>
               <BarChart data={dayOfWeekData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="day" stroke="#9ca3af" style={{ fontSize: '12px' }} />
@@ -604,28 +604,28 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Weekly Comparison */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-          <h2 className="text-2xl font-bold text-white mb-6">Week-over-Week Comparison</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Week-over-Week Comparison</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="text-sm text-gray-400 mb-2">Workouts</div>
-              <div className="flex items-center justify-center gap-4">
+              <div className="text-xs sm:text-sm text-gray-400 mb-2">Workouts</div>
+              <div className="flex items-center justify-center gap-3 sm:gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">
+                  <div className="text-xl sm:text-2xl font-bold text-purple-400">
                     {weeklyComparison.lastWeek.workouts}
                   </div>
-                  <div className="text-xs text-gray-500">Last Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">Last Week</div>
                 </div>
-                <div className="text-gray-600">→</div>
+                <div className="text-gray-600 text-sm sm:text-base">→</div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-xl sm:text-2xl font-bold text-white">
                     {weeklyComparison.thisWeek.workouts}
                   </div>
-                  <div className="text-xs text-gray-500">This Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">This Week</div>
                 </div>
               </div>
               {weeklyComparison.thisWeek.workouts > weeklyComparison.lastWeek.workouts && (
-                <div className="mt-2 text-green-400 text-sm flex items-center justify-center gap-1">
+                <div className="mt-2 text-green-400 text-xs sm:text-sm flex items-center justify-center gap-1">
                   <TrendingUp className="w-4 h-4" />
                   +{weeklyComparison.thisWeek.workouts - weeklyComparison.lastWeek.workouts}
                 </div>
@@ -633,24 +633,24 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="text-center">
-              <div className="text-sm text-gray-400 mb-2">Volume</div>
-              <div className="flex items-center justify-center gap-4">
+              <div className="text-xs sm:text-sm text-gray-400 mb-2">Volume</div>
+              <div className="flex items-center justify-center gap-3 sm:gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">
+                  <div className="text-xl sm:text-2xl font-bold text-purple-400">
                     {formatVolume(weeklyComparison.lastWeek.volume)}
                   </div>
-                  <div className="text-xs text-gray-500">Last Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">Last Week</div>
                 </div>
-                <div className="text-gray-600">→</div>
+                <div className="text-gray-600 text-sm sm:text-base">→</div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-xl sm:text-2xl font-bold text-white">
                     {formatVolume(weeklyComparison.thisWeek.volume)}
                   </div>
-                  <div className="text-xs text-gray-500">This Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">This Week</div>
                 </div>
               </div>
               {weeklyComparison.thisWeek.volume > weeklyComparison.lastWeek.volume && (
-                <div className="mt-2 text-green-400 text-sm flex items-center justify-center gap-1">
+                <div className="mt-2 text-green-400 text-xs sm:text-sm flex items-center justify-center gap-1">
                   <TrendingUp className="w-4 h-4" />
                   +{Math.round(((weeklyComparison.thisWeek.volume - weeklyComparison.lastWeek.volume) / weeklyComparison.lastWeek.volume) * 100)}%
                 </div>
@@ -658,24 +658,24 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="text-center">
-              <div className="text-sm text-gray-400 mb-2">XP Earned</div>
-              <div className="flex items-center justify-center gap-4">
+              <div className="text-xs sm:text-sm text-gray-400 mb-2">XP Earned</div>
+              <div className="flex items-center justify-center gap-3 sm:gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">
+                  <div className="text-xl sm:text-2xl font-bold text-purple-400">
                     {weeklyComparison.lastWeek.xp.toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500">Last Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">Last Week</div>
                 </div>
-                <div className="text-gray-600">→</div>
+                <div className="text-gray-600 text-sm sm:text-base">→</div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-xl sm:text-2xl font-bold text-white">
                     {weeklyComparison.thisWeek.xp.toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500">This Week</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">This Week</div>
                 </div>
               </div>
               {weeklyComparison.thisWeek.xp > weeklyComparison.lastWeek.xp && (
-                <div className="mt-2 text-green-400 text-sm flex items-center justify-center gap-1">
+                <div className="mt-2 text-green-400 text-xs sm:text-sm flex items-center justify-center gap-1">
                   <TrendingUp className="w-4 h-4" />
                   +{Math.round(((weeklyComparison.thisWeek.xp - weeklyComparison.lastWeek.xp) / weeklyComparison.lastWeek.xp) * 100)}%
                 </div>

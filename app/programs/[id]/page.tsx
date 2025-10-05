@@ -44,9 +44,9 @@ const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'S
 
 export default function ProgramDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
+  const { success, error: showError } = useToast()
   const [program, setProgram] = useState<WorkoutProgram | null>(null)
   const [loading, setLoading] = useState(true)
-  const [toast, setToast] = useState('')
 
   useEffect(() => {
     loadProgram()
@@ -79,13 +79,13 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
       if (response.ok) {
         const updated = await response.json()
         setProgram(updated)
-        setToast(updated.isActive ? '✅ Program activated!' : '✅ Program deactivated')
-        setTimeout(() => setToast(''), 3000)
+        success(updated.isActive ? 'Program activated!' : 'Program deactivated')
+      } else {
+        showError('Failed to update program')
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to toggle program:', error)
-      setToast('❌ Failed to update program')
-      setTimeout(() => setToast(''), 3000)
+      showError('Failed to update program')
     }
   }
 
@@ -109,16 +109,14 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
       })
 
       if (response.ok) {
-        setToast('✅ Program deleted')
+        success('Program deleted successfully')
         setTimeout(() => router.push('/programs'), 1000)
       } else {
-        setToast('❌ Failed to delete program')
-        setTimeout(() => setToast(''), 3000)
+        showError('Failed to delete program')
       }
-    } catch (error) {
-      console.error('Failed to delete program:', error)
-      setToast('❌ Failed to delete program')
-      setTimeout(() => setToast(''), 3000)
+    } catch (err: any) {
+      console.error('Failed to delete program:', err)
+      showError('Failed to delete program')
     }
   }
 
@@ -154,13 +152,6 @@ export default function ProgramDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 via-purple-950/20 to-gray-950 text-white">
-      {/* Toast Notification */}
-      {toast && (
-        <div className="fixed top-4 right-4 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in-right">
-          {toast}
-        </div>
-      )}
-
       {/* Header */}
       <header className="bg-gray-900/50 border-b border-purple-500/20 p-6">
         <div className="max-w-6xl mx-auto">

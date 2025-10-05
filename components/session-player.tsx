@@ -5,6 +5,9 @@ import { AutoregulationSystem } from '@/lib/agents/autoregulation'
 import { PlateCalculator } from '@/components/plate-calculator'
 import { ExerciseIntelligence } from '@/lib/exercise-intelligence'
 import { WorkoutNotes } from '@/components/workout-notes'
+import { SetNotes } from '@/components/set-notes'
+import { FailureIndicator } from '@/components/failure-indicator'
+import { WarmupToggle } from '@/components/warmup-toggle'
 import type { PlannedSet, AdjustedSet } from '@/lib/types'
 
 interface Exercise {
@@ -35,6 +38,11 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
   const [adjustmentNotice, setAdjustmentNotice] = useState<string | null>(null)
   const [completedSets, setCompletedSets] = useState<any[]>([])
   
+  // Sprint 4: Enhanced set tracking
+  const [setNotes, setSetNotes] = useState('')
+  const [isFailure, setIsFailure] = useState(false)
+  const [isWarmup, setIsWarmup] = useState(false)
+  
   // New features
   const [restTimer, setRestTimer] = useState(0)
   const [isResting, setIsResting] = useState(false)
@@ -55,6 +63,10 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
       setCurrentReps(currentSet.reps)
       setCurrentRPE(null)
       setAdjustmentNotice(null)
+      // Reset set-specific tracking
+      setSetNotes('')
+      setIsFailure(false)
+      setIsWarmup(currentSetIdx === 0) // Auto-mark first set as potential warmup
     }
   }, [currentExerciseIdx, currentSetIdx, currentSet])
 
@@ -118,6 +130,9 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
       weight: currentWeight,
       reps: currentReps,
       rpe: currentRPE,
+      notes: setNotes,
+      isFailure: isFailure,
+      isWarmup: isWarmup,
     }
 
     setCompletedSets([...completedSets, setData])
@@ -134,6 +149,9 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
           weight: currentWeight,
           reps: currentReps,
           rpe: currentRPE,
+          notes: setNotes,
+          isFailure: isFailure,
+          isWarmup: isWarmup,
         }),
       })
 
@@ -430,6 +448,30 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
           )}
         </div>
 
+        {/* Sprint 4: Enhanced Set Tracking */}
+        <div className="space-y-4">
+          {/* Warmup Toggle */}
+          <WarmupToggle
+            initialValue={isWarmup}
+            onChange={setIsWarmup}
+          />
+
+          {/* Failure Indicator (only show if not warmup) */}
+          {!isWarmup && (
+            <FailureIndicator
+              initialValue={isFailure}
+              onChange={setIsFailure}
+            />
+          )}
+
+          {/* Set Notes */}
+          <SetNotes
+            initialNotes={setNotes}
+            onSave={setSetNotes}
+            placeholder={`Notes for set ${currentSetIdx + 1}...`}
+          />
+        </div>
+
         {/* Previous Sets (if any) */}
         {completedSets.filter(s => s.exerciseId === currentExercise.id).length > 0 && (
           <div className="bg-astral-gray rounded-xl p-4 sm:p-5 md:p-6 border border-gray-800">
@@ -438,11 +480,26 @@ export function SessionPlayer({ workout, userId, onComplete }: SessionPlayerProp
               {completedSets
                 .filter(s => s.exerciseId === currentExercise.id)
                 .map((set, idx) => (
-                  <div key={idx} className="flex justify-between text-xs sm:text-sm">
-                    <span className="text-gray-400">Set {set.setNumber}</span>
-                    <span className="text-white font-medium">
-                      {set.weight}kg × {set.reps} @ RPE {set.rpe}
-                    </span>
+                  <div key={idx} className="flex justify-between items-start text-xs sm:text-sm p-2 bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">Set {set.setNumber}</span>
+                      {set.isWarmup && (
+                        <span className="text-xs px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded">Warmup</span>
+                      )}
+                      {set.isFailure && (
+                        <span className="text-xs px-2 py-0.5 bg-red-500/20 text-red-400 rounded">Failure</span>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      <div className="text-white font-medium">
+                        {set.weight}kg × {set.reps} @ RPE {set.rpe}
+                      </div>
+                      {set.notes && (
+                        <div className="text-xs text-gray-400 mt-1 max-w-[200px] truncate">
+                          {set.notes}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>

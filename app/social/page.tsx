@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import SocialHub from '@/components/social-hub';
+import { Card, GradientText } from '@/components/ui';
 
 export default function SocialPage() {
   const [notification, setNotification] = useState<string | null>(null);
@@ -90,15 +91,17 @@ export default function SocialPage() {
 
       {/* Info Section */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-lg border border-purple-500/30 p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">🌟 Social Features Guide</h2>
+        <Card variant="accent">
+          <h2 className="text-2xl font-bold mb-6">
+            <GradientText>🌟 Social Features Guide</GradientText>
+          </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Column 1 */}
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">👥 Friends System</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">👥 Friends System</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• Send friend requests with optional messages</li>
                   <li>• Accept or decline incoming requests</li>
                   <li>• View friend profiles with stats and activity</li>
@@ -108,8 +111,8 @@ export default function SocialPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">📰 Activity Feed</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">📰 Activity Feed</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• See friends' workout completions</li>
                   <li>• Celebrate achievement unlocks together</li>
                   <li>• Track level-ups and milestones</li>
@@ -119,8 +122,8 @@ export default function SocialPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">💬 Workout Sharing</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">💬 Workout Sharing</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• Share completed workouts with friends</li>
                   <li>• Like and comment on shared workouts</li>
                   <li>• View detailed exercise breakdowns</li>
@@ -133,8 +136,8 @@ export default function SocialPage() {
             {/* Column 2 */}
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">⚔️ Competitive Features</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">⚔️ Competitive Features</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• Challenge friends to workout battles</li>
                   <li>• Compare stats side-by-side</li>
                   <li>• View friend leaderboards</li>
@@ -144,8 +147,8 @@ export default function SocialPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">🎯 Privacy Controls</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">🎯 Privacy Controls</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• Set workout sharing to public/friends/private</li>
                   <li>• Control who can send friend requests</li>
                   <li>• Block users if needed</li>
@@ -155,8 +158,8 @@ export default function SocialPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">🏆 Social Achievements</h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
+                <h3 className="text-lg font-semibold text-astral-accent mb-2">🏆 Social Achievements</h3>
+                <ul className="space-y-2 text-astral-text-secondary text-sm">
                   <li>• Social Butterfly: Add 10/25/50 friends</li>
                   <li>• Motivator: Give 100/500/1000 likes</li>
                   <li>• Commentator: Post 50/200/500 comments</li>
@@ -168,32 +171,32 @@ export default function SocialPage() {
           </div>
 
           {/* Pro Tips */}
-          <div className="mt-8 pt-8 border-t border-purple-500/30">
-            <h3 className="text-xl font-bold text-white mb-4">💡 Pro Tips</h3>
+          <div className="mt-8 pt-8 border-t border-white/10">
+            <h3 className="text-xl font-bold text-astral-text mb-4">💡 Pro Tips</h3>
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+              <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30 hover:border-purple-500/50 transition-colors">
                 <div className="text-purple-400 font-bold mb-2">🤝 Build Your Network</div>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-astral-text-secondary">
                   Add friends from your gym to stay motivated and accountable. Train together, share tips, and celebrate victories!
                 </p>
               </div>
 
-              <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+              <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30 hover:border-blue-500/50 transition-colors">
                 <div className="text-blue-400 font-bold mb-2">💪 Stay Active</div>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-astral-text-secondary">
                   Share your best workouts and PRs. Positive feedback from friends boosts motivation and keeps you consistent.
                 </p>
               </div>
 
-              <div className="bg-green-500/10 rounded-lg p-4 border border-green-500/30">
+              <div className="bg-green-500/10 rounded-lg p-4 border border-green-500/30 hover:border-green-500/50 transition-colors">
                 <div className="text-green-400 font-bold mb-2">🎯 Friendly Competition</div>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-astral-text-secondary">
                   Challenge friends to push each other. Healthy competition drives improvement and makes training more fun!
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       <style jsx>{`

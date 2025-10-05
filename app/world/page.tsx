@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import WorldMap from '@/components/world-map';
 import { ParticleBackground } from '@/components/particle-background';
+import { Card, StatCard, GradientText } from '@/components/ui';
 
 type RegionStatus = 'locked' | 'unlocked' | 'current' | 'completed';
 type RegionDifficulty = 1 | 2 | 3 | 4 | 5;
@@ -390,7 +391,7 @@ export default function WorldPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-astral-dark via-astral-darker to-black relative overflow-hidden">
       {/* Particle Background */}
       <ParticleBackground
         particleCount={80}
@@ -401,39 +402,40 @@ export default function WorldPage() {
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            🗺️ World Atlas
+          <h1 className="text-5xl font-bold mb-3">
+            <GradientText>🗺️ World Atlas</GradientText>
           </h1>
-          <p className="text-slate-300 text-lg">
+          <p className="text-astral-text-secondary text-lg">
             Explore the realm of Astral Forge and conquer legendary challenges
           </p>
         </div>
 
         {/* Exploration Stats Dashboard */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-slate-900/50 rounded-xl border border-purple-500/20 p-4 backdrop-blur-sm">
-            <div className="text-3xl mb-2">🌍</div>
-            <div className="text-2xl font-bold text-purple-400">{unlockedRegions}/{totalRegions}</div>
-            <div className="text-slate-400 text-sm">Regions Unlocked</div>
-          </div>
-
-          <div className="bg-slate-900/50 rounded-xl border border-blue-500/20 p-4 backdrop-blur-sm">
-            <div className="text-3xl mb-2">✅</div>
-            <div className="text-2xl font-bold text-blue-400">{completedRegions}/{totalRegions}</div>
-            <div className="text-slate-400 text-sm">Regions Completed</div>
-          </div>
-
-          <div className="bg-slate-900/50 rounded-xl border border-pink-500/20 p-4 backdrop-blur-sm">
-            <div className="text-3xl mb-2">⚔️</div>
-            <div className="text-2xl font-bold text-pink-400">{completedChallenges}/{totalChallenges}</div>
-            <div className="text-slate-400 text-sm">Challenges Done</div>
-          </div>
-
-          <div className="bg-slate-900/50 rounded-xl border border-amber-500/20 p-4 backdrop-blur-sm">
-            <div className="text-3xl mb-2">📊</div>
-            <div className="text-2xl font-bold text-amber-400">{overallCompletion}%</div>
-            <div className="text-slate-400 text-sm">Overall Progress</div>
-          </div>
+          <StatCard
+            icon="🌍"
+            value={`${unlockedRegions}/${totalRegions}`}
+            label="Regions Unlocked"
+            color="purple"
+          />
+          <StatCard
+            icon="✅"
+            value={`${completedRegions}/${totalRegions}`}
+            label="Regions Completed"
+            color="blue"
+          />
+          <StatCard
+            icon="⚔️"
+            value={`${completedChallenges}/${totalChallenges}`}
+            label="Challenges Done"
+            color="pink"
+          />
+          <StatCard
+            icon="📊"
+            value={`${overallCompletion}%`}
+            label="Overall Progress"
+            color="amber"
+          />
         </div>
 
         {/* World Map */}
@@ -446,14 +448,16 @@ export default function WorldPage() {
         />
 
         {/* Explorer's Guide */}
-        <div className="mt-8 bg-slate-900/50 rounded-xl border border-purple-500/20 p-6 backdrop-blur-sm">
-          <h2 className="text-2xl font-bold text-purple-400 mb-4">📖 Explorer's Guide</h2>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
+        <Card className="mt-8" variant="surface">
+          <h2 className="text-2xl font-bold text-astral-accent mb-6">
+            📖 Explorer's Guide
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
             <div className="flex items-start gap-3">
               <span className="text-2xl">🔒</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Locked Regions</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Locked Regions</div>
+                <div className="text-astral-text-secondary">
                   Reach the required level to unlock new regions. Each region offers unique challenges and rewards.
                 </div>
               </div>
@@ -462,8 +466,8 @@ export default function WorldPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">⭐</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Difficulty Ratings</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Difficulty Ratings</div>
+                <div className="text-astral-text-secondary">
                   Stars indicate difficulty (1-5). Higher difficulty means greater challenges and better rewards.
                 </div>
               </div>
@@ -472,8 +476,8 @@ export default function WorldPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">🎯</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Complete Challenges</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Complete Challenges</div>
+                <div className="text-astral-text-secondary">
                   Each region has multiple challenges. Complete them all to earn 100% completion and special bonuses.
                 </div>
               </div>
@@ -482,8 +486,8 @@ export default function WorldPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">⚡</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Fast Travel</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Fast Travel</div>
+                <div className="text-astral-text-secondary">
                   Quickly travel to any unlocked region. Perfect for revisiting previous areas or claiming rewards.
                 </div>
               </div>
@@ -492,8 +496,8 @@ export default function WorldPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">🎁</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Regional Bonuses</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Regional Bonuses</div>
+                <div className="text-astral-text-secondary">
                   Each region provides unique bonuses while you're there. Stack bonuses for maximum efficiency!
                 </div>
               </div>
@@ -502,45 +506,45 @@ export default function WorldPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">🏆</span>
               <div>
-                <div className="font-semibold text-slate-200 mb-1">Legendary Rewards</div>
-                <div className="text-slate-400">
+                <div className="font-semibold text-astral-text mb-1">Legendary Rewards</div>
+                <div className="text-astral-text-secondary">
                   Complete all challenges in a region to unlock legendary titles, exclusive items, and prestige ranks.
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Current Location Info */}
         {regions.find(r => r.status === 'current') && (
-          <div className="mt-8 bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-xl border border-purple-500/30 p-6 backdrop-blur-sm">
+          <Card className="mt-8" variant="accent">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-3xl">📍</span>
               <div>
-                <div className="text-sm text-purple-400">Current Location</div>
+                <div className="text-sm text-astral-accent">Current Location</div>
                 <div className="text-2xl font-bold text-white">
                   {regions.find(r => r.status === 'current')?.name}
                 </div>
               </div>
             </div>
-            <p className="text-slate-300 mb-3">
+            <p className="text-astral-text-secondary mb-4">
               {regions.find(r => r.status === 'current')?.description}
             </p>
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex flex-wrap items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <span className="text-purple-400">Progress:</span>
+                <span className="text-astral-accent">Progress:</span>
                 <span className="font-semibold text-white">
                   {regions.find(r => r.status === 'current')?.completionPercentage}%
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-purple-400">Active Bonus:</span>
+                <span className="text-astral-accent">Active Bonus:</span>
                 <span className="font-semibold text-amber-300">
                   {regions.find(r => r.status === 'current')?.bonus}
                 </span>
               </div>
             </div>
-          </div>
+          </Card>
         )}
       </div>
     </div>

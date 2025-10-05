@@ -60,9 +60,10 @@ interface StatCardProps {
   trend?: 'up' | 'down' | 'neutral'
   trendValue?: string
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'error'
+  color?: 'purple' | 'blue' | 'pink' | 'amber' | 'green' | 'red'
 }
 
-export function StatCard({ label, value, icon, trend, trendValue, variant = 'default' }: StatCardProps) {
+export function StatCard({ label, value, icon, trend, trendValue, variant = 'default', color }: StatCardProps) {
   const variants = {
     default: 'from-astral-gray to-astral-gray/80 text-white',
     primary: 'from-astral-blue/20 to-astral-purple/20 border-astral-blue/30 text-astral-blue',
@@ -71,19 +72,31 @@ export function StatCard({ label, value, icon, trend, trendValue, variant = 'def
     error: 'from-red-500/20 to-red-600/20 border-red-500/30 text-red-400'
   }
 
+  const colorVariants = {
+    purple: { border: 'border-purple-500/20', text: 'text-purple-400' },
+    blue: { border: 'border-blue-500/20', text: 'text-blue-400' },
+    pink: { border: 'border-pink-500/20', text: 'text-pink-400' },
+    amber: { border: 'border-amber-500/20', text: 'text-amber-400' },
+    green: { border: 'border-green-500/20', text: 'text-green-400' },
+    red: { border: 'border-red-500/20', text: 'text-red-400' }
+  }
+
   const trendIcons = {
     up: '↗️',
     down: '↘️',
     neutral: '→'
   }
 
+  const borderColor = color ? colorVariants[color].border : 'border-white/10'
+  const valueColor = color ? colorVariants[color].text : 'text-white'
+
   return (
-    <div className={`bg-gradient-to-br ${variants[variant]} border border-white/10 rounded-xl p-6 hover:border-white/20 hover:shadow-lg transition-all duration-200`}>
+    <div className={`bg-gradient-to-br ${variants[variant]} border ${borderColor} rounded-xl p-6 hover:border-white/20 hover:shadow-lg transition-all duration-200`}>
       <div className="flex items-start justify-between mb-2">
         <p className="text-sm font-medium text-gray-400">{label}</p>
         {icon && <span className="text-2xl">{icon}</span>}
       </div>
-      <p className="text-3xl font-bold mb-1">{value}</p>
+      <p className={`text-3xl font-bold mb-1 ${valueColor}`}>{value}</p>
       {trend && trendValue && (
         <p className={`text-sm font-medium ${
           trend === 'up' ? 'text-green-400' : 

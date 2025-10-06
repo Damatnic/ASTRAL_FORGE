@@ -31,3 +31,4 @@ export async function GET(request: Request) {
     return handleApiError(error)
   }
 }
+

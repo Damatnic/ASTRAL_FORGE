@@ -137,3 +137,4 @@ describe('WorkoutNotes', () => {
     expect((nutritionInput as HTMLInputElement).value).toBe('Banana and coffee')
   })
 })
+

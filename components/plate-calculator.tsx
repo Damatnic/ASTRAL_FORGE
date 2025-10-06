@@ -214,3 +214,4 @@ export function PlateCalculator({ targetWeight, barWeight = 20, onClose }: Plate
   )
 }
 
+

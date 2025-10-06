@@ -91,3 +91,4 @@ export function ExerciseRating({ exerciseId }: ExerciseRatingProps) {
     </div>
   )
 }
+

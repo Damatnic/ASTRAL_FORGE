@@ -1,8 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { useToast } from '@/components/toast'
+import { AppLayout, PageContainer, PageHeader } from '@/components/layout'
+import {
+  Target,
+  Plus,
+  TrendingUp,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  Flame,
+  Trophy,
+  X,
+  Award,
+} from 'lucide-react'
 
 interface Goal {
   id: string
@@ -15,7 +27,7 @@ interface Goal {
   deadline?: string
   status: string
   completedAt?: string
-  milestones?: any[]
+  milestones?: Array<{ value: number; date: string; note?: string; achieved?: boolean }>
   createdAt: string
 }
 
@@ -38,6 +50,7 @@ export default function GoalsPage() {
 
   useEffect(() => {
     loadGoals()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter])
 
   const loadGoals = async () => {
@@ -46,10 +59,12 @@ export default function GoalsPage() {
       const res = await fetch(url)
       if (res.ok) {
         const data = await res.json()
-        setGoals(data)
+        // API returns { goals, total, hasMore } so extract goals array
+        setGoals(Array.isArray(data) ? data : (data.goals || []))
       }
     } catch (error) {
       console.error('Failed to load goals:', error)
+      setGoals([])
     } finally {
       setLoading(false)
     }
@@ -85,7 +100,7 @@ export default function GoalsPage() {
       } else {
         toast('error', 'Failed to create goal')
       }
-    } catch (error) {
+    } catch (_error) {
       toast('error', 'Failed to create goal')
     } finally {
       setSaving(false)
@@ -114,7 +129,7 @@ export default function GoalsPage() {
         toast('success', 'Progress updated!')
         loadGoals()
       }
-    } catch (error) {
+    } catch (_error) {
       toast('error', 'Failed to update progress')
     }
   }
@@ -131,7 +146,7 @@ export default function GoalsPage() {
         toast('success', '🎉 Goal completed!')
         loadGoals()
       }
-    } catch (error) {
+    } catch (_error) {
       toast('error', 'Failed to complete goal')
     }
   }
@@ -141,173 +156,306 @@ export default function GoalsPage() {
     return Math.min(Math.round((goal.currentValue / goal.targetValue) * 100), 100)
   }
 
-  const getGoalTypeIcon = (type: string) => {
-    switch (type) {
-      case 'strength': return '💪'
-      case 'weight': return '⚖️'
-      case 'body_composition': return '🏋️'
-      case 'performance': return '🎯'
-      case 'habit': return '✅'
-      default: return '🎯'
-    }
+  const goalTypeConfig: Record<string, { icon: string; gradient: string; bgColor: string; borderColor: string }> = {
+    strength: { 
+      icon: '💪', 
+      gradient: 'from-blue-500 to-cyan-500', 
+      bgColor: 'bg-blue-500/10', 
+      borderColor: 'border-blue-500/30' 
+    },
+    weight: { 
+      icon: '⚖️', 
+      gradient: 'from-green-500 to-emerald-500', 
+      bgColor: 'bg-green-500/10', 
+      borderColor: 'border-green-500/30' 
+    },
+    body_composition: { 
+      icon: '🏋️', 
+      gradient: 'from-purple-500 to-pink-500', 
+      bgColor: 'bg-purple-500/10', 
+      borderColor: 'border-purple-500/30' 
+    },
+    performance: { 
+      icon: '🎯', 
+      gradient: 'from-orange-500 to-red-500', 
+      bgColor: 'bg-orange-500/10', 
+      borderColor: 'border-orange-500/30' 
+    },
+    habit: { 
+      icon: '✅', 
+      gradient: 'from-indigo-500 to-purple-500', 
+      bgColor: 'bg-indigo-500/10', 
+      borderColor: 'border-indigo-500/30' 
+    },
   }
+
+  const activeGoals = goals.filter(g => g.status === 'active')
+  const completedGoals = goals.filter(g => g.status === 'completed')
+  const successRate = goals.length > 0 
+    ? Math.round((completedGoals.length / goals.length) * 100) 
+    : 0
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-astral-dark flex items-center justify-center">
-        <div className="text-gray-400">Loading goals...</div>
-      </div>
+      <AppLayout>
+        <PageContainer>
+          <div className="flex items-center justify-center py-20">
+            <div className="text-gray-400">Loading goals...</div>
+          </div>
+        </PageContainer>
+      </AppLayout>
     )
   }
 
   return (
-    <div className="min-h-screen bg-astral-dark text-white">
-      <header className="bg-astral-gray border-b border-gray-800 p-6">
-        <div className="max-w-4xl mx-auto">
-          <Link href="/dashboard" className="text-gray-400 hover:text-white mb-2 inline-block">
-            ← Back to Dashboard
-          </Link>
-          <h1 className="text-3xl font-bold mb-2">Personal Goals</h1>
-          <p className="text-gray-400">Track your long-term training objectives</p>
-        </div>
-      </header>
+    <AppLayout>
+      <PageContainer>
+        <PageHeader
+          title="Goals"
+          description="Set ambitious targets and track your journey to greatness"
+          action={
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center gap-2"
+            >
+              {showForm ? (
+                <>
+                  <X className="w-5 h-5" />
+                  Cancel
+                </>
+              ) : (
+                <>
+                  <Plus className="w-5 h-5" />
+                  New Goal
+                </>
+              )}
+            </button>
+          }
+        />
 
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
-        {/* Actions */}
-        <div className="flex gap-3">
+        {/* Stats Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <div className="p-3 bg-blue-500/10 rounded-lg">
+                <Target className="w-6 h-6 text-blue-400" />
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  {activeGoals.length}
+                </div>
+                <div className="text-sm text-gray-400">Active Goals</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <div className="p-3 bg-green-500/10 rounded-lg">
+                <CheckCircle2 className="w-6 h-6 text-green-400" />
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                  {completedGoals.length}
+                </div>
+                <div className="text-sm text-gray-400">Completed</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <div className="p-3 bg-purple-500/10 rounded-lg">
+                <Trophy className="w-6 h-6 text-purple-400" />
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  {successRate}%
+                </div>
+                <div className="text-sm text-gray-400">Success Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="flex gap-2 mb-6 overflow-x-auto">
           <button
-            onClick={() => setShowForm(!showForm)}
-            className="px-6 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 touch-manipulation min-h-[44px]"
+            onClick={() => setStatusFilter('')}
+            className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
+              statusFilter === '' 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+                : 'bg-slate-900/50 text-gray-400 hover:text-white'
+            }`}
           >
-            {showForm ? '✕ Cancel' : '🎯 New Goal'}
+            All Goals
           </button>
-
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 bg-gray-700 rounded-lg"
+          <button
+            onClick={() => setStatusFilter('active')}
+            className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
+              statusFilter === 'active' 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+                : 'bg-slate-900/50 text-gray-400 hover:text-white'
+            }`}
           >
-            <option value="">All Goals</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
-            <option value="abandoned">Abandoned</option>
-          </select>
+            Active
+          </button>
+          <button
+            onClick={() => setStatusFilter('completed')}
+            className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
+              statusFilter === 'completed' 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+                : 'bg-slate-900/50 text-gray-400 hover:text-white'
+            }`}
+          >
+            Completed
+          </button>
+          <button
+            onClick={() => setStatusFilter('abandoned')}
+            className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
+              statusFilter === 'abandoned' 
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+                : 'bg-slate-900/50 text-gray-400 hover:text-white'
+            }`}
+          >
+            Abandoned
+          </button>
         </div>
 
-        {/* Form */}
+        {/* Create Goal Form */}
         {showForm && (
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-6 space-y-4 animate-slide-up">
-            <h3 className="text-lg font-semibold">Create New Goal</h3>
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 mb-6">
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <Award className="w-5 h-5 text-blue-400" />
+              Create New Goal
+            </h3>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">Goal Title *</label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., Bench Press 100kg"
-                className="w-full px-4 py-2 bg-gray-700 rounded-lg"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">Description</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Why is this goal important to you?"
-                className="w-full px-4 py-3 bg-gray-700 rounded-lg h-20 resize-none"
-              />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Goal Type</label>
-                <select
-                  value={goalType}
-                  onChange={(e) => setGoalType(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 rounded-lg"
-                >
-                  <option value="strength">Strength Goal</option>
-                  <option value="weight">Weight Goal</option>
-                  <option value="body_composition">Body Composition</option>
-                  <option value="performance">Performance</option>
-                  <option value="habit">Habit Goal</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Deadline</label>
-                <input
-                  type="date"
-                  value={deadline}
-                  onChange={(e) => setDeadline(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-700 rounded-lg"
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Target Value</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={targetValue}
-                  onChange={(e) => setTargetValue(e.target.value)}
-                  placeholder="100"
-                  className="w-full px-4 py-2 bg-gray-700 rounded-lg"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Current Value</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={currentValue}
-                  onChange={(e) => setCurrentValue(e.target.value)}
-                  placeholder="75"
-                  className="w-full px-4 py-2 bg-gray-700 rounded-lg"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Unit</label>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Goal Title *
+                </label>
                 <input
                   type="text"
-                  value={unit}
-                  onChange={(e) => setUnit(e.target.value)}
-                  placeholder="kg"
-                  className="w-full px-4 py-2 bg-gray-700 rounded-lg"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="e.g., Bench Press 100kg"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-            </div>
 
-            <button
-              onClick={handleSubmit}
-              disabled={saving || !title.trim()}
-              className="w-full py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold hover:opacity-90 disabled:opacity-50 touch-manipulation min-h-[44px]"
-            >
-              {saving ? 'Creating...' : 'Create Goal'}
-            </button>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Why is this goal important to you?"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Goal Type
+                  </label>
+                  <select
+                    value={goalType}
+                    onChange={(e) => setGoalType(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="strength">💪 Strength Goal</option>
+                    <option value="weight">⚖️ Weight Goal</option>
+                    <option value="body_composition">🏋️ Body Composition</option>
+                    <option value="performance">🎯 Performance</option>
+                    <option value="habit">✅ Habit Goal</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Deadline
+                  </label>
+                  <input
+                    type="date"
+                    value={deadline}
+                    onChange={(e) => setDeadline(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Target Value
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={targetValue}
+                    onChange={(e) => setTargetValue(e.target.value)}
+                    placeholder="100"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Current Value
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={currentValue}
+                    onChange={(e) => setCurrentValue(e.target.value)}
+                    placeholder="75"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Unit
+                  </label>
+                  <input
+                    type="text"
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
+                    placeholder="kg"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleSubmit}
+                disabled={saving || !title.trim()}
+                className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving ? 'Creating Goal...' : 'Create Goal'}
+              </button>
+            </div>
           </div>
         )}
 
         {/* Goals List */}
         {goals.length === 0 ? (
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-12 text-center">
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-12 text-center">
             <div className="text-6xl mb-4">🎯</div>
             <h3 className="text-xl font-bold mb-2">No Goals Yet</h3>
             <p className="text-gray-400 mb-6">Set your first goal and start tracking progress!</p>
             <button
               onClick={() => setShowForm(true)}
-              className="px-8 py-3 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg font-semibold touch-manipulation min-h-[44px]"
+              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:opacity-90 transition-opacity"
             >
               Create Your First Goal
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 mb-8">
             {goals.map((goal) => {
               const progress = getGoalProgress(goal)
+              const config = goalTypeConfig[goal.goalType] || goalTypeConfig.performance
               const daysLeft = goal.deadline
                 ? Math.ceil((new Date(goal.deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
                 : null
@@ -315,53 +463,62 @@ export default function GoalsPage() {
               return (
                 <div
                   key={goal.id}
-                  className="bg-astral-gray border border-gray-800 rounded-xl p-6"
+                  className={`bg-slate-900/50 border rounded-lg p-6 ${config.borderColor}`}
                 >
+                  {/* Goal Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">{getGoalTypeIcon(goal.goalType)}</span>
+                      <div className={`text-3xl p-2 ${config.bgColor} rounded-lg`}>
+                        {config.icon}
+                      </div>
                       <div>
                         <h3 className="text-xl font-bold">{goal.title}</h3>
                         {goal.description && (
                           <p className="text-gray-400 text-sm mt-1">{goal.description}</p>
                         )}
+                        <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {new Date(goal.createdAt).toLocaleDateString()}
+                          </span>
+                          {daysLeft !== null && goal.status === 'active' && (
+                            <span className={`flex items-center gap-1 ${daysLeft < 30 ? 'text-orange-400' : 'text-gray-400'}`}>
+                              <Clock className="w-4 h-4" />
+                              {daysLeft > 0 ? `${daysLeft} days left` : 'Overdue!'}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     {goal.status === 'completed' && (
-                      <span className="px-3 py-1 bg-green-900/30 text-green-400 rounded text-sm font-semibold">
-                        ✅ Completed
+                      <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4" />
+                        Completed
                       </span>
                     )}
                   </div>
 
+                  {/* Progress Bar */}
                   {goal.targetValue && goal.status !== 'completed' && (
                     <div className="mb-4">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-gray-400">
-                          Progress: {goal.currentValue} / {goal.targetValue} {goal.unit}
+                          {goal.currentValue} / {goal.targetValue} {goal.unit}
                         </span>
-                        <span className="text-sm font-semibold text-astral-blue">
+                        <span className={`text-sm font-bold bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
                           {progress}%
                         </span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                      <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-astral-blue to-astral-purple transition-all duration-500"
+                          className={`h-full bg-gradient-to-r ${config.gradient} transition-all duration-500`}
                           style={{ width: `${progress}%` }}
                         />
                       </div>
                     </div>
                   )}
 
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <span>Created: {new Date(goal.createdAt).toLocaleDateString()}</span>
-                    {daysLeft !== null && goal.status === 'active' && (
-                      <span className={daysLeft < 30 ? 'text-yellow-400' : ''}>
-                        {daysLeft > 0 ? `${daysLeft} days left` : 'Overdue'}
-                      </span>
-                    )}
-                  </div>
-
+                  {/* Action Buttons */}
                   {goal.status === 'active' && (
                     <div className="flex gap-2">
                       {goal.targetValue && progress < 100 && (
@@ -370,16 +527,18 @@ export default function GoalsPage() {
                             const newValue = prompt(`Update progress (current: ${goal.currentValue}):`)
                             if (newValue) updateProgress(goal.id, parseFloat(newValue))
                           }}
-                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
+                          className={`px-4 py-2 bg-gradient-to-r ${config.gradient} rounded-lg text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-2`}
                         >
+                          <TrendingUp className="w-4 h-4" />
                           Update Progress
                         </button>
                       )}
                       {progress >= 100 && (
                         <button
                           onClick={() => completeGoal(goal.id)}
-                          className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm touch-manipulation min-h-[44px] flex items-center"
+                          className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
                         >
+                          <CheckCircle2 className="w-4 h-4" />
                           Mark as Completed
                         </button>
                       )}
@@ -391,18 +550,41 @@ export default function GoalsPage() {
           </div>
         )}
 
-        {/* Tips */}
-        <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-700/30 rounded-xl p-6">
-          <h4 className="text-sm font-semibold text-gray-400 mb-3">🎯 SMART Goals</h4>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li>• <strong>Specific:</strong> Define exactly what you want to achieve</li>
-            <li>• <strong>Measurable:</strong> Set clear numbers you can track</li>
-            <li>• <strong>Achievable:</strong> Be ambitious but realistic</li>
-            <li>• <strong>Relevant:</strong> Align with your overall fitness vision</li>
-            <li>• <strong>Time-bound:</strong> Set a deadline to stay accountable</li>
-          </ul>
+        {/* SMART Goals Tips */}
+        <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-700/30 rounded-lg p-6">
+          <h4 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <Flame className="w-5 h-5 text-purple-400" />
+            SMART Goals Framework
+          </h4>
+          <div className="grid md:grid-cols-2 gap-4 text-sm">
+            <div className="space-y-2">
+              <div>
+                <span className="font-bold text-blue-400">Specific:</span>
+                <span className="text-gray-300"> Define exactly what you want to achieve</span>
+              </div>
+              <div>
+                <span className="font-bold text-purple-400">Measurable:</span>
+                <span className="text-gray-300"> Set clear numbers you can track</span>
+              </div>
+              <div>
+                <span className="font-bold text-green-400">Achievable:</span>
+                <span className="text-gray-300"> Be ambitious but realistic</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div>
+                <span className="font-bold text-orange-400">Relevant:</span>
+                <span className="text-gray-300"> Align with your overall fitness vision</span>
+              </div>
+              <div>
+                <span className="font-bold text-pink-400">Time-bound:</span>
+                <span className="text-gray-300"> Set a deadline to stay accountable</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </PageContainer>
+    </AppLayout>
   )
 }
+

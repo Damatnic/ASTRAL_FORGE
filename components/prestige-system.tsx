@@ -707,7 +707,7 @@ export default function PrestigeSystem({
           <div className="bg-slate-900 rounded-xl border-2 border-purple-500 p-6 max-w-md w-full">
             <h3 className="text-2xl font-bold text-purple-400 mb-4">⚠️ Prestige Reset</h3>
             <div className="mb-4 space-y-3">
-              <p className="text-slate-300">You are about to reset your character and gain prestige!</p>
+              <p className="text-slate-300">You are about to reset your profile and gain prestige!</p>
               
               <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-3">
                 <div className="text-sm font-semibold text-red-400 mb-2">You will LOSE:</div>

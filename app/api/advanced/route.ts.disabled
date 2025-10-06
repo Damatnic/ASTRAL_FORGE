@@ -1,0 +1,207 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import {
+  getDailyQuests,
+  getWeeklyQuests,
+  getAllQuests,
+  updateQuestProgress,
+  claimQuestReward,
+  getActivePet,
+  getPetCollection,
+  adoptPet,
+  feedPet,
+  evolvePet,
+  getMarketplaceItems,
+  getUserInventory,
+  purchaseItem,
+  sellItem,
+  craftItem,
+  getUserPvPChallenges,
+  createPvPChallenge,
+  acceptPvPChallenge,
+  getActiveSeasonalEvents,
+  getEventProgress,
+  getUserPrestige,
+  performPrestige,
+  unlockPrestigePerk,
+} from '@/lib/api/advanced'
+
+export async function GET(request: NextRequest) {
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const { searchParams } = new URL(request.url)
+  const mode = searchParams.get('mode')
+
+  try {
+    switch (mode) {
+      case 'daily-quests':
+        const dailyQuests = await getDailyQuests(session.user.id)
+        return NextResponse.json({ quests: dailyQuests })
+
+      case 'weekly-quests':
+        const weeklyQuests = await getWeeklyQuests(session.user.id)
+        return NextResponse.json({ quests: weeklyQuests })
+
+      case 'all-quests':
+        const allQuests = await getAllQuests(session.user.id)
+        return NextResponse.json(allQuests)
+
+      case 'active-pet':
+        const activePet = await getActivePet(session.user.id)
+        return NextResponse.json({ pet: activePet })
+
+      case 'pet-collection':
+        const petCollection = await getPetCollection(session.user.id)
+        return NextResponse.json({ pets: petCollection })
+
+      case 'marketplace':
+        const marketItems = await getMarketplaceItems()
+        return NextResponse.json({ items: marketItems })
+
+      case 'inventory':
+        const inventory = await getUserInventory(session.user.id)
+        return NextResponse.json(inventory)
+
+      case 'pvp-challenges':
+        const challenges = await getUserPvPChallenges(session.user.id)
+        return NextResponse.json({ challenges })
+
+      case 'seasonal-events':
+        const events = await getActiveSeasonalEvents()
+        return NextResponse.json({ events })
+
+      case 'event-progress':
+        const eventId = searchParams.get('eventId')
+        if (!eventId) {
+          return NextResponse.json({ error: 'Event ID required' }, { status: 400 })
+        }
+        const eventProgress = await getEventProgress(session.user.id, eventId)
+        return NextResponse.json({ progress: eventProgress })
+
+      case 'prestige':
+        const prestigeData = await getUserPrestige(session.user.id)
+        return NextResponse.json(prestigeData)
+
+      default:
+        return NextResponse.json({ error: 'Invalid mode' }, { status: 400 })
+    }
+  } catch (error: any) {
+    console.error('Advanced API Error:', error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  try {
+    const body = await request.json()
+    const { action } = body
+
+    switch (action) {
+      case 'update-quest-progress':
+        const { questId, objectiveId, progress } = body
+        if (!questId || !objectiveId || progress === undefined) {
+          return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+        }
+        const updatedQuest = await updateQuestProgress(session.user.id, questId, objectiveId, progress)
+        return NextResponse.json({ quest: updatedQuest })
+
+      case 'claim-quest-reward':
+        if (!body.questId) {
+          return NextResponse.json({ error: 'Quest ID required' }, { status: 400 })
+        }
+        const rewards = await claimQuestReward(session.user.id, body.questId)
+        return NextResponse.json({ rewards })
+
+      case 'adopt-pet':
+        const { speciesId, name } = body
+        if (!speciesId || !name) {
+          return NextResponse.json({ error: 'Species ID and name required' }, { status: 400 })
+        }
+        const newPet = await adoptPet(session.user.id, speciesId, name)
+        return NextResponse.json({ pet: newPet })
+
+      case 'feed-pet':
+        if (!body.petId) {
+          return NextResponse.json({ error: 'Pet ID required' }, { status: 400 })
+        }
+        const fedPet = await feedPet(session.user.id, body.petId)
+        return NextResponse.json({ pet: fedPet })
+
+      case 'evolve-pet':
+        if (!body.petId) {
+          return NextResponse.json({ error: 'Pet ID required' }, { status: 400 })
+        }
+        const evolvedPet = await evolvePet(session.user.id, body.petId)
+        return NextResponse.json({ pet: evolvedPet })
+
+      case 'purchase-item':
+        const { itemId, quantity } = body
+        if (!itemId) {
+          return NextResponse.json({ error: 'Item ID required' }, { status: 400 })
+        }
+        await purchaseItem(session.user.id, itemId, quantity || 1)
+        return NextResponse.json({ success: true })
+
+      case 'sell-item':
+        if (!body.itemId) {
+          return NextResponse.json({ error: 'Item ID required' }, { status: 400 })
+        }
+        await sellItem(session.user.id, body.itemId, body.quantity || 1)
+        return NextResponse.json({ success: true })
+
+      case 'craft-item':
+        if (!body.itemId) {
+          return NextResponse.json({ error: 'Item ID required' }, { status: 400 })
+        }
+        await craftItem(session.user.id, body.itemId)
+        return NextResponse.json({ success: true })
+
+      case 'create-pvp-challenge':
+        const { opponentId, challengeType, wager, duration } = body
+        if (!opponentId || !challengeType || !wager || !duration) {
+          return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+        }
+        const challenge = await createPvPChallenge(
+          session.user.id,
+          opponentId,
+          challengeType,
+          wager,
+          duration
+        )
+        return NextResponse.json({ challenge })
+
+      case 'accept-pvp-challenge':
+        if (!body.challengeId) {
+          return NextResponse.json({ error: 'Challenge ID required' }, { status: 400 })
+        }
+        await acceptPvPChallenge(session.user.id, body.challengeId)
+        return NextResponse.json({ success: true })
+
+      case 'perform-prestige':
+        const prestigeResult = await performPrestige(session.user.id)
+        return NextResponse.json(prestigeResult)
+
+      case 'unlock-prestige-perk':
+        if (!body.perkId) {
+          return NextResponse.json({ error: 'Perk ID required' }, { status: 400 })
+        }
+        await unlockPrestigePerk(session.user.id, body.perkId)
+        return NextResponse.json({ success: true })
+
+      default:
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
+    }
+  } catch (error: any) {
+    console.error('Advanced API Error:', error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}

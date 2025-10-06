@@ -5,7 +5,7 @@ import { handleApiError } from '@/lib/error-handler'
 export const dynamic = 'force-dynamic'
 
 // GET /api/progress/photos - Get progress photos
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   try {
     // For demo, using hardcoded user
     const user = await prisma.user.findUnique({
@@ -107,3 +107,4 @@ export async function DELETE(request: Request) {
     return handleApiError(error)
   }
 }
+

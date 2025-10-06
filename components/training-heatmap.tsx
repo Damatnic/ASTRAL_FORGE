@@ -153,3 +153,4 @@ export function TrainingHeatmap() {
     </div>
   )
 }
+

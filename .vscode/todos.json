@@ -1,0 +1,259 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "content": "Delete pets page and all pet-related components",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove app/(dashboard)/pets/page.tsx and related pet components to eliminate gaming bullshit"
+    },
+    {
+      "id": "2", 
+      "content": "Delete marketplace page and marketplace components",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove app/(dashboard)/marketplace/page.tsx and marketplace system"
+    },
+    {
+      "id": "3",
+      "content": "Delete inventory page (will be replaced with equipment)",
+      "status": "pending", 
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fake gaming inventory and replace with real equipment tracking"
+    },
+    {
+      "id": "4",
+      "content": "Delete quests page and quest system", 
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fantasy quest system completely"
+    },
+    {
+      "id": "5",
+      "content": "Delete events page (consolidate into social challenges)",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup", 
+      "description": "Remove gaming events and consolidate useful parts into social challenges"
+    },
+    {
+      "id": "6",
+      "content": "Delete prestige page and prestige system",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove prestige gaming mechanics completely"
+    },
+    {
+      "id": "7",
+      "content": "Delete achievements-showcase page (simplify into progress)",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove complex achievement showcase and integrate into progress tracking"
+    },
+    {
+      "id": "8",
+      "content": "Delete notifications page (integrate into dashboard)",
+      "status": "pending",
+      "priority": "medium", 
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove separate notifications page and integrate into main dashboard"
+    },
+    {
+      "id": "9",
+      "content": "Delete world page and world map",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fantasy world map completely"
+    },
+    {
+      "id": "10",
+      "content": "Delete forge bosses page and boss battle system",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fantasy boss battle mechanics completely"
+    },
+    {
+      "id": "11",
+      "content": "Delete forge crafting page and crafting system",
+      "status": "pending",
+      "priority": "high", 
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fantasy crafting system completely"
+    },
+    {
+      "id": "12",
+      "content": "Delete forge dungeons page and dungeon system",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Remove fantasy dungeon exploration completely"
+    },
+    {
+      "id": "13",
+      "content": "Remove all unused gaming components in components directory",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Clean up components directory of all gaming-related components"
+    },
+    {
+      "id": "14",
+      "content": "Remove gaming-related API endpoints from api directory",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Clean up API routes and remove fantasy gaming endpoints"
+    },
+    {
+      "id": "15",
+      "content": "Move training pages to training structure",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Reorganize training pages into clean /training structure"
+    },
+    {
+      "id": "16",
+      "content": "Move progress pages to progress structure", 
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Reorganize progress pages into clean /progress structure"
+    },
+    {
+      "id": "17",
+      "content": "Create equipment directory structure",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Create new /equipment directory for real gym equipment tracking"
+    },
+    {
+      "id": "18",
+      "content": "Update all internal routing and links",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Fix all internal links after restructuring"
+    },
+    {
+      "id": "19",
+      "content": "Fix broken navigation after page deletions",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Ensure navigation works after deleting gaming pages"
+    },
+    {
+      "id": "20",
+      "content": "Update Next.js routing configuration",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup", 
+      "description": "Update routing config for new page structure"
+    },
+    {
+      "id": "21",
+      "content": "Remove gaming categories from sidebar navigation",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Clean up sidebar navigation and remove gaming sections"
+    },
+    {
+      "id": "22",
+      "content": "Add equipment category to navigation",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Add new equipment section to navigation"
+    },
+    {
+      "id": "23",
+      "content": "Update mobile navigation with new structure",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Update mobile bottom navigation for new structure"
+    },
+    {
+      "id": "24",
+      "content": "Remove gaming icons and replace with practical ones",
+      "status": "pending",
+      "priority": "low",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Replace fantasy icons with practical fitness icons"
+    },
+    {
+      "id": "25",
+      "content": "Update navigation active states and routing logic",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Fix active states and routing logic for new structure"
+    },
+    {
+      "id": "26",
+      "content": "Test all navigation flows work correctly",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 1: Navigation Cleanup",
+      "description": "Comprehensive testing of all navigation flows"
+    },
+    {
+      "id": "27",
+      "content": "Design unified dashboard component layout",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 2: Dashboard Redesign",
+      "description": "Create new unified dashboard layout replacing current forge dashboard"
+    },
+    {
+      "id": "28",
+      "content": "Implement responsive grid system for widgets",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 2: Dashboard Redesign",
+      "description": "Build responsive grid system for dashboard widgets"
+    },
+    {
+      "id": "29",
+      "content": "Create dashboard widget base component",
+      "status": "pending",
+      "priority": "high",
+      "category": "Phase 2: Dashboard Redesign",
+      "description": "Build reusable widget base component for dashboard"
+    },
+    {
+      "id": "30",
+      "content": "Add quick action button section",
+      "status": "pending",
+      "priority": "medium",
+      "category": "Phase 2: Dashboard Redesign",
+      "description": "Add quick action buttons for common tasks"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "created": "2024-10-05",
+    "project": "Astral Forge Navigation Redesign",
+    "totalTasks": 30,
+    "completedTasks": 0,
+    "phases": [
+      "Phase 1: Navigation Cleanup",
+      "Phase 2: Dashboard Redesign",
+      "Phase 3: Equipment System",
+      "Phase 4: Character Simplification", 
+      "Phase 5: Social Features",
+      "Phase 6: Mobile Optimization"
+    ]
+  }
+}

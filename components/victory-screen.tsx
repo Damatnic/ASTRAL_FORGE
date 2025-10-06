@@ -5,7 +5,7 @@ import { useSound } from '@/lib/sound-system'
 
 /**
  * Victory Screen
- * Post-workout celebration with XP breakdown and loot drops
+ * Post-workout celebration with XP breakdown and achievement unlocks
  */
 
 interface VictoryScreenProps {
@@ -21,7 +21,7 @@ interface VictoryScreenProps {
     streak: number
     total: number
   }
-  lootDrops: Array<{
+  achievements: Array<{
     name: string
     icon: string
     rarity: string
@@ -38,13 +38,13 @@ export function VictoryScreen({
   sets = 0,
   prsHit = 0,
   xpBreakdown = { base: 0, volume: 0, prs: 0, streak: 0, total: 0 },
-  lootDrops = [],
+  achievements = [],
   leveledUp = false,
   newLevel = 1,
   onContinue,
 }: VictoryScreenProps) {
   const [showXP, setShowXP] = useState(false)
-  const [showLoot, setShowLoot] = useState(false)
+  const [showAchievements, setShowAchievements] = useState(false)
   const [showLevelUp, setShowLevelUp] = useState(false)
   const sound = useSound()
 
@@ -55,17 +55,17 @@ export function VictoryScreen({
     // Stagger animations
     setTimeout(() => setShowXP(true), 500)
     setTimeout(() => {
-      setShowLoot(true)
-      sound.play('loot')
+      setShowAchievements(true)
+      sound.play('achievement')
     }, 1500)
     
     if (leveledUp) {
       setTimeout(() => {
         setShowLevelUp(true)
-        sound.play('levelup')
+        sound.play('tier_up')
       }, 2500)
     }
-  }, [])
+  }, [leveledUp, sound])
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
@@ -148,15 +148,15 @@ export function VictoryScreen({
           </div>
         )}
 
-        {/* Loot Drops */}
-        {showLoot && lootDrops.length > 0 && (
+        {/* Achievement Unlocks */}
+        {showAchievements && achievements.length > 0 && (
           <div className="bg-black/50 border-2 border-yellow-500 rounded-lg p-6 mb-6 animate-slide-up">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
-              <span>🎁</span>
-              <span>LOOT DROPS</span>
+              <span>�</span>
+              <span>ACHIEVEMENTS UNLOCKED</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {lootDrops.map((item, index) => (
+              {achievements.map((item, index) => (
                 <div
                   key={index}
                   className={`bg-gradient-to-br ${getRarityColor(item.rarity)} p-4 rounded-lg text-center animate-loot-drop shadow-lg`}

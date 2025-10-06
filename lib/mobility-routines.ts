@@ -342,3 +342,4 @@ export function getMobilityRoutinesByDifficulty(difficulty: 'beginner' | 'interm
 export function getMobilityRoutinesByDuration(maxMinutes: number): MobilityRoutine[] {
   return mobilityRoutines.filter(routine => routine.duration <= maxMinutes)
 }
+

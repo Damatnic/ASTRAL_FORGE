@@ -38,6 +38,16 @@ model User {
   exerciseRestTimers ExerciseRestTimer[]
   goals              Goal[]
   workoutPrograms    WorkoutProgram[]
+  userEquipment      UserEquipment[]
+  plateInventory     PlateInventory[]
+  userUnlocks        UserUnlock[]
+  guildMemberships   GuildMember[]
+  guildActivities    GuildActivity[]
+  createdGuilds      Guild[]           @relation("GuildCreator")
+  initiatedDuels     Duel[]            @relation("DuelChallenger")
+  receivedDuels      Duel[]            @relation("DuelOpponent")
+  duelParticipations DuelParticipant[]
+  pvpRank            PvPRank?
 
   @@map("users")
 }
@@ -77,6 +87,7 @@ model Exercise {
   sets             SetEntry[]
   exerciseNotes    ExerciseNote[]
   ratings          ExerciseRating[]
+  equipmentLinks   ExerciseEquipment[]
 
   @@map("exercises")
 }
@@ -228,6 +239,21 @@ model Achievement {
 
   @@index([userId, type])
   @@map("achievements")
+}
+
+model UserUnlock {
+  id         String   @id @default(cuid())
+  userId     String
+  type       String // 'template' | 'feature' | 'title'
+  identifier String // Name/ID of what was unlocked
+  source     String? // 'quest' | 'tier' | 'achievement'
+  unlockedAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, type, identifier])
+  @@index([userId])
+  @@map("user_unlocks")
 }
 
 // ============================================================================
@@ -504,6 +530,294 @@ model ProgramExercise {
 }
 
 // ============================================================================
+// EQUIPMENT SYSTEM
+// ============================================================================
+
+model Equipment {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  category    EquipmentCategory
+  description String?
+  imageUrl    String?
+  weight      Float? // Default weight in kg (e.g., 20 for Olympic barbell)
+  isWeighted  Boolean           @default(false) // true for barbells, dumbbells, kettlebells
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  exercises ExerciseEquipment[]
+  users     UserEquipment[]
+
+  @@map("equipment")
+}
+
+model ExerciseEquipment {
+  exerciseId  String
+  equipmentId String
+  required    Boolean  @default(true) // true = required, false = optional
+  createdAt   DateTime @default(now())
+
+  exercise  Exercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@id([exerciseId, equipmentId])
+  @@map("exercise_equipment")
+}
+
+model UserEquipment {
+  userId      String
+  equipmentId String
+  location    String   @default("default") // "home", "gym", "travel"
+  quantity    Int      @default(1)
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, equipmentId, location])
+  @@index([userId, location])
+  @@map("user_equipment")
+}
+
+model PlateInventory {
+  id        String   @id @default(cuid())
+  userId    String
+  weight    Float // Weight per plate in kg
+  quantity  Int      @default(2) // Usually in pairs
+  location  String   @default("default")
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, weight, location])
+  @@index([userId, location])
+  @@map("plate_inventory")
+}
+
+enum EquipmentCategory {
+  BARBELL // Olympic barbell, EZ bar, trap bar
+  DUMBBELL // Fixed, adjustable dumbbells
+  MACHINE // Leg press, cable machine, smith machine
+  RACK // Squat rack, power rack, half rack
+  BENCH // Flat bench, adjustable bench, decline bench
+  BODYWEIGHT // Pull-up bar, dip station, parallettes, rings
+  CARDIO // Treadmill, bike, rower, elliptical
+  ACCESSORY // Resistance bands, kettlebells, medicine ball, ab wheel
+  PLATFORM // Lifting platform, deadlift platform
+}
+
+// ============================================================================
+// GUILD SYSTEM
+// ============================================================================
+
+model Guild {
+  id                String   @id @default(cuid())
+  name              String   @unique
+  tag               String   @unique // e.g., "[IRON]", max 6 chars
+  description       String?
+  motto             String?
+  level             Int      @default(1)
+  xp                Int      @default(0)
+  xpForNextLevel    Int      @default(1000)
+  rank              GuildRank @default(BRONZE)
+  totalWorkouts     Int      @default(0)
+  totalVolume       Int      @default(0) // Total kg lifted by all members
+  weeklyGoal        Int      @default(100) // Weekly workout target
+  weeklyProgress    Int      @default(0)
+  isPublic          Boolean  @default(true)
+  requiresApproval  Boolean  @default(false)
+  minLevelRequired  Int      @default(1)
+  maxMembers        Int      @default(20)
+  icon              String   @default("⚔️")
+  color             String   @default("from-gray-600 to-gray-800")
+  createdById       String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  createdBy    User            @relation("GuildCreator", fields: [createdById], references: [id])
+  members      GuildMember[]
+  activities   GuildActivity[]
+  achievements GuildAchievement[]
+
+  @@index([rank])
+  @@index([isPublic])
+  @@index([level])
+  @@map("guilds")
+}
+
+model GuildMember {
+  id             String   @id @default(cuid())
+  guildId        String
+  userId         String
+  role           GuildRole @default(MEMBER)
+  contributedXp  Int      @default(0)
+  contributedVolume Int   @default(0)
+  joinedAt       DateTime @default(now())
+  lastActiveAt   DateTime @default(now())
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([guildId, userId])
+  @@index([userId])
+  @@index([guildId, role])
+  @@map("guild_members")
+}
+
+model GuildActivity {
+  id          String   @id @default(cuid())
+  guildId     String
+  userId      String
+  type        GuildActivityType
+  description String
+  metadata    Json? // Additional data like exercise name, PR value, etc
+  icon        String   @default("💪")
+  timestamp   DateTime @default(now())
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, timestamp(sort: Desc)])
+  @@index([userId])
+  @@map("guild_activities")
+}
+
+model GuildAchievement {
+  id          String   @id @default(cuid())
+  guildId     String
+  type        String // 'first_blood', 'volume_kings', 'consistency_masters'
+  title       String
+  description String
+  earnedAt    DateTime @default(now())
+  metadata    Json? // Additional context
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId])
+  @@map("guild_achievements")
+}
+
+// ============================================================================
+// PVP SYSTEM
+// ============================================================================
+
+model Duel {
+  id            String      @id @default(cuid())
+  challengerId  String
+  opponentId    String
+  type          DuelType
+  status        DuelStatus  @default(PENDING)
+  goalDescription String
+  targetValue   Float
+  unit          String
+  icon          String      @default("⚔️")
+  startDate     DateTime?
+  endDate       DateTime?
+  winnerId      String?
+  xpReward      Int         @default(100)
+  rankReward    Int         @default(25)
+  titleReward   String? // Optional title for winner
+  badgeReward   String? // Optional badge emoji
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  challenger   User              @relation("DuelChallenger", fields: [challengerId], references: [id], onDelete: Cascade)
+  opponent     User              @relation("DuelOpponent", fields: [opponentId], references: [id], onDelete: Cascade)
+  participants DuelParticipant[]
+
+  @@index([challengerId, status])
+  @@index([opponentId, status])
+  @@index([status, endDate])
+  @@map("duels")
+}
+
+model DuelParticipant {
+  id           String   @id @default(cuid())
+  duelId       String
+  userId       String
+  currentValue Float    @default(0)
+  targetValue  Float
+  progress     Float    @default(0) // Percentage 0-100
+  hasCompleted Boolean  @default(false)
+  completedAt  DateTime?
+  updatedAt    DateTime @updatedAt
+
+  duel Duel @relation(fields: [duelId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([duelId, userId])
+  @@index([userId])
+  @@map("duel_participants")
+}
+
+model PvPRank {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  tier             String   @default("Bronze") // Bronze, Silver I-III, Gold I-III, etc
+  points           Int      @default(1000)
+  pointsForNextRank Int     @default(1100)
+  wins             Int      @default(0)
+  losses           Int      @default(0)
+  draws            Int      @default(0)
+  winRate          Float    @default(0)
+  highestTier      String   @default("Bronze")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([points(sort: Desc)])
+  @@index([tier])
+  @@map("pvp_ranks")
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum GuildRank {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+  DIAMOND
+  LEGENDARY
+}
+
+enum GuildRole {
+  MEMBER
+  OFFICER
+  LEADER
+}
+
+enum GuildActivityType {
+  WORKOUT_COMPLETED
+  PR_ACHIEVED
+  LEVEL_UP
+  MEMBER_JOINED
+  MEMBER_LEFT
+  ACHIEVEMENT_EARNED
+  MILESTONE_REACHED
+}
+
+enum DuelType {
+  VOLUME
+  REPS
+  TIME
+  PR
+  STREAK
+  CUSTOM
+}
+
+enum DuelStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
+// ============================================================================
 // INDEXES & OPTIMIZATIONS
 // ============================================================================
 
@@ -511,3 +825,8 @@ model ProgramExercise {
 // - User workout history: already indexed via userId + date on WorkoutSession
 // - Exercise progress tracking: already indexed via sessionId + exerciseId on SetEntry
 // - Fatigue trending: already indexed via userId + date on FatigueMetric
+// - Equipment filtering: indexed via userId + location on UserEquipment
+// - Guild leaderboard: indexed via rank, level, isPublic on Guild
+// - Guild activity feed: indexed via guildId + timestamp on GuildActivity
+// - PvP leaderboard: indexed via points on PvPRank
+// - Active duels: indexed via status + endDate on Duel

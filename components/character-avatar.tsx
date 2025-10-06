@@ -289,7 +289,8 @@ export function CharacterAvatar({
   )
 }
 
-// Character Creation/Customization Modal
+// Profile Creation/Customization Modal
+// Would show when user first starts or wants to customize
 interface CharacterCreatorProps {
   onComplete: (avatar: { tier: AvatarTier; equipment: AvatarEquipment }) => void
 }
@@ -309,7 +310,7 @@ export function CharacterCreator({ onComplete }: CharacterCreatorProps) {
   return (
     <div className="bg-black/95 border-2 border-cyan-500 rounded-lg p-8 max-w-2xl mx-auto backdrop-blur-md">
       <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-6 text-center">
-        CREATE YOUR CHARACTER
+        CREATE YOUR PROFILE
       </h2>
 
       <div className="grid md:grid-cols-2 gap-8">

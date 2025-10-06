@@ -44,7 +44,7 @@ export interface QuestRequirement {
 }
 
 export interface QuestReward {
-  type: 'xp' | 'loot' | 'achievement' | 'title' | 'unlock'
+  type: 'xp' | 'achievement' | 'title' | 'unlock' | 'template'
   amount?: number
   name?: string
   description: string
@@ -52,6 +52,36 @@ export interface QuestReward {
 }
 
 export class QuestSystem {
+  /**
+   * Get quest by ID
+   */
+  static getQuestById(questId: string, allQuests: Quest[]): Quest | null {
+    return allQuests.find(q => q.id === questId) || null
+  }
+
+  /**
+   * Check if quest is complete
+   */
+  static isQuestComplete(quest: Quest): boolean {
+    return quest.progress >= 100 || quest.currentValue >= quest.targetValue
+  }
+
+  /**
+   * Update quest progress
+   */
+  static updateQuestProgress(quest: Quest, newValue: number): Quest {
+    const updatedQuest = { ...quest }
+    updatedQuest.currentValue = newValue
+    updatedQuest.progress = Math.min(100, (newValue / quest.targetValue) * 100)
+    
+    if (updatedQuest.progress >= 100) {
+      updatedQuest.status = 'completed'
+      updatedQuest.completedAt = new Date()
+    }
+    
+    return updatedQuest
+  }
+
   /**
    * Generate daily quests (reset every 24 hours)
    */
@@ -76,8 +106,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: 1,
       rewards: [
-        { type: 'xp', amount: 50, description: '50 XP', icon: '⭐' },
-        { type: 'loot', name: 'Common Chest', description: 'Random reward', icon: '📦' },
+        { type: 'xp', amount: 50, description: '+50 Progress Points', icon: '⭐' },
+        { type: 'achievement', name: 'Daily Warrior', description: 'Completed daily training', icon: '🎯' },
       ],
       expiresAt: this.getNextDayReset(),
       icon: '🎯',
@@ -104,8 +134,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: volumeTarget,
       rewards: [
-        { type: 'xp', amount: 75, description: '75 XP', icon: '⭐' },
-        { type: 'loot', name: 'Uncommon Chest', description: 'Better rewards', icon: '🎁' },
+        { type: 'xp', amount: 75, description: '+75 Progress Points', icon: '⭐' },
+        { type: 'achievement', name: 'Volume Crusher', description: 'Hit volume target', icon: '💪' },
       ],
       expiresAt: this.getNextDayReset(),
       icon: '💪',
@@ -130,8 +160,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: 5,
       rewards: [
-        { type: 'xp', amount: 100, description: '100 XP', icon: '⭐' },
-        { type: 'loot', name: 'Rare Chest', description: 'Epic loot inside', icon: '💎' },
+        { type: 'xp', amount: 100, description: '+100 Progress Points', icon: '⭐' },
+        { type: 'achievement', name: 'PR Breaker', description: 'Set personal record', icon: '�' },
       ],
       expiresAt: this.getNextDayReset(),
       icon: '🔥',
@@ -166,8 +196,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: workoutsTarget,
       rewards: [
-        { type: 'xp', amount: 200, description: '200 XP', icon: '⭐' },
-        { type: 'loot', name: 'Epic Chest', description: 'Weekly rewards', icon: '🏆' },
+        { type: 'xp', amount: 200, description: '+200 Progress Points', icon: '⭐' },
+        { type: 'template', name: 'PPL Program', description: 'Unlock Push/Pull/Legs', icon: '📋' },
         { type: 'achievement', name: 'Weekly Warrior', description: 'Unlock achievement', icon: '🎖️' },
       ],
       expiresAt: this.getNextWeekReset(),
@@ -195,8 +225,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: weeklyVolumeTarget,
       rewards: [
-        { type: 'xp', amount: 300, description: '300 XP', icon: '⭐' },
-        { type: 'loot', name: 'Legendary Chest', description: 'Massive rewards', icon: '👑' },
+        { type: 'xp', amount: 300, description: '+300 Progress Points', icon: '⭐' },
+        { type: 'unlock', name: 'Advanced Metrics', description: 'Unlock analytics', icon: '�' },
       ],
       expiresAt: this.getNextWeekReset(),
       icon: '⚡',
@@ -229,8 +259,8 @@ export class QuestSystem {
       currentValue: 0,
       targetValue: 3,
       rewards: [
-        { type: 'xp', amount: 500, description: '500 XP', icon: '⭐' },
-        { type: 'loot', name: 'Mythic Chest', description: 'Ultimate rewards', icon: '🔮' },
+        { type: 'xp', amount: 500, description: '+500 Progress Points', icon: '⭐' },
+        { type: 'title', name: 'The Relentless', description: 'Perfect consistency', icon: '�' },
         { type: 'title', name: 'Raid Conqueror', description: 'Earn title', icon: '🏅' },
       ],
       expiresAt: this.getNextWeekReset(),
@@ -267,7 +297,7 @@ export class QuestSystem {
         targetValue: 1,
         rewards: [
           { type: 'xp', amount: 1000, description: '1,000 XP', icon: '⭐' },
-          { type: 'loot', name: 'Boss Chest', description: 'Legendary rewards', icon: '💀' },
+          { type: 'template', name: 'German Volume Training', description: 'Unlock GVT program', icon: '💀' },
           { type: 'achievement', name: 'Giant Slayer', description: 'Unlock achievement', icon: '🏆' },
           { type: 'unlock', name: 'Advanced Techniques', description: 'Unlock new exercises', icon: '🔓' },
         ],
@@ -297,7 +327,7 @@ export class QuestSystem {
         targetValue: 60,
         rewards: [
           { type: 'xp', amount: 1000, description: '1,000 XP', icon: '⭐' },
-          { type: 'loot', name: 'Boss Chest', description: 'Legendary rewards', icon: '💀' },
+          { type: 'unlock', name: 'Cardio Tracker', description: 'Unlock cardio metrics', icon: '❤️' },
           { type: 'achievement', name: 'Demon Hunter', description: 'Unlock achievement', icon: '🏆' },
         ],
         icon: '😈',
@@ -410,26 +440,30 @@ export class QuestSystem {
    */
   static claimQuestRewards(quest: Quest): {
     xp: number
-    loot: any[]
-    achievements: any[]
-    unlocks: any[]
+    achievements: string[]
+    unlocks: string[]
+    templates: string[]
+    titles: string[]
   } {
     const rewards = {
       xp: 0,
-      loot: [] as any[],
-      achievements: [] as any[],
-      unlocks: [] as any[],
+      achievements: [] as string[],
+      unlocks: [] as string[],
+      templates: [] as string[],
+      titles: [] as string[],
     }
     
     quest.rewards.forEach((reward) => {
       if (reward.type === 'xp' && reward.amount) {
         rewards.xp += reward.amount
-      } else if (reward.type === 'loot') {
-        rewards.loot.push({ name: reward.name, description: reward.description })
-      } else if (reward.type === 'achievement') {
-        rewards.achievements.push({ name: reward.name, description: reward.description })
-      } else if (reward.type === 'unlock') {
-        rewards.unlocks.push({ name: reward.name, description: reward.description })
+      } else if (reward.type === 'achievement' && reward.name) {
+        rewards.achievements.push(reward.name)
+      } else if (reward.type === 'unlock' && reward.name) {
+        rewards.unlocks.push(reward.name)
+      } else if (reward.type === 'template' && reward.name) {
+        rewards.templates.push(reward.name)
+      } else if (reward.type === 'title' && reward.name) {
+        rewards.titles.push(reward.name)
       }
     })
     

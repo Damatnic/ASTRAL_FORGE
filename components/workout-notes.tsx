@@ -216,3 +216,4 @@ export function WorkoutNotes({ sessionId, onSave }: WorkoutNotesProps) {
     </>
   )
 }
+

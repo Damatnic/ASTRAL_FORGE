@@ -76,3 +76,4 @@ export class KeyboardShortcutManager {
 
 // Global instance
 export const keyboardShortcuts = typeof window !== 'undefined' ? new KeyboardShortcutManager() : null
+

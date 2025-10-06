@@ -10,7 +10,7 @@ const SCOPES = [
 ].join(' ')
 
 // GET /api/spotify/auth - Redirect to Spotify authorization
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   if (!SPOTIFY_CLIENT_ID) {
     return NextResponse.json(
       { error: 'Spotify integration not configured. Please set SPOTIFY_CLIENT_ID.' },
@@ -29,3 +29,4 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(authUrl)
 }
+

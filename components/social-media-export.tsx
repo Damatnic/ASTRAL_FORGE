@@ -20,7 +20,7 @@ export default function SocialMediaExport({
   // Generate workout summary for captions
   const generateCaption = (platform: 'instagram' | 'twitter' | 'facebook'): string => {
     const baseText = `💪 Just crushed "${workout.name}"!\n\n`;
-    const stats = `📊 Stats:\n• ${workout.duration} min\n• ${workout.xpEarned.toLocaleString()} XP earned\n• ${(workout.totalVolume / 1000).toFixed(1)}K lbs total volume\n• ${workout.exercises.length} exercises`;
+    const stats = `📊 Stats:\n• ${workout.duration} min\n• ${workout.xpEarned.toLocaleString()} Progress Points earned\n• ${(workout.totalVolume / 1000).toFixed(1)}K lbs total volume\n• ${workout.exercises.length} exercises`;
     const prText = workout.prCount > 0 ? `\n🏆 ${workout.prCount} NEW PR${workout.prCount > 1 ? 'S' : ''}!` : '';
     
     const hashtags = {
@@ -31,7 +31,7 @@ export default function SocialMediaExport({
 
     if (platform === 'twitter' && (baseText + stats + prText + hashtags.twitter).length > 280) {
       // Shorten for Twitter's character limit
-      return `💪 Crushed "${workout.name}"!\n${workout.duration}min • ${workout.xpEarned} XP • ${workout.prCount} PRs\n\n#fitness #workout #astralpower`;
+      return `💪 Crushed "${workout.name}"!\n${workout.duration}min • ${workout.xpEarned} pts • ${workout.prCount} PRs\n\n#fitness #workout #astralpower`;
     }
 
     return baseText + stats + prText + hashtags[platform];

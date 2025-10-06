@@ -305,3 +305,4 @@ export function ExerciseNotes({ exerciseId }: ExerciseNotesProps) {
     </div>
   )
 }
+

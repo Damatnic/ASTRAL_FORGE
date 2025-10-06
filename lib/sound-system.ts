@@ -16,13 +16,13 @@ export type SoundEffect =
   | 'warning'
   
   // Progression & Achievements
-  | 'levelup'
+  | 'tier_up'
   | 'achievement'
   | 'achievement_rare'
   | 'achievement_legendary'
-  | 'xp'
+  | 'progress'
   | 'prestige_up'
-  | 'skill_unlock'
+  | 'milestone_reached'
   
   // Combat & Workout
   | 'hit_light'
@@ -38,12 +38,7 @@ export type SoundEffect =
   | 'block'
   | 'dodge'
   
-  // Rewards & Loot
-  | 'loot'
-  | 'loot_common'
-  | 'loot_rare'
-  | 'loot_epic'
-  | 'loot_legendary'
+  // Rewards
   | 'gold_gained'
   | 'chest_open'
   
@@ -249,8 +244,8 @@ class SoundSystem {
         break
       
       // Progression & Achievements
-      case 'levelup':
-        this.playLevelUp(ctx, now)
+      case 'tier_up':
+        this.playTierUp(ctx, now)
         this.triggerHaptic('heavy')
         break
       case 'achievement':
@@ -265,15 +260,15 @@ class SoundSystem {
         this.playAchievementLegendary(ctx, now)
         this.triggerHaptic('heavy')
         break
-      case 'xp':
-        this.playXP(ctx, now)
+      case 'progress':
+        this.playProgress(ctx, now)
         break
       case 'prestige_up':
         this.playPrestigeUp(ctx, now)
         this.triggerHaptic('heavy')
         break
-      case 'skill_unlock':
-        this.playSkillUnlock(ctx, now)
+      case 'milestone_reached':
+        this.playMilestoneReached(ctx, now)
         break
       
       // Combat & Workout
@@ -317,20 +312,7 @@ class SoundSystem {
         this.playDodge(ctx, now)
         break
       
-      // Rewards & Loot
-      case 'loot':
-      case 'loot_common':
-        this.playLoot(ctx, now)
-        break
-      case 'loot_rare':
-        this.playLootRare(ctx, now)
-        break
-      case 'loot_epic':
-        this.playLootEpic(ctx, now)
-        break
-      case 'loot_legendary':
-        this.playLootLegendary(ctx, now)
-        break
+      // Rewards
       case 'gold_gained':
         this.playGoldGained(ctx, now)
         break
@@ -437,8 +419,8 @@ class SoundSystem {
     osc.stop(time + 0.03)
   }
 
-  private playLevelUp(ctx: AudioContext, time: number) {
-    // Epic level-up fanfare
+  private playTierUp(ctx: AudioContext, time: number) {
+    // Epic tier-up fanfare
     const notes = [523.25, 659.25, 783.99, 1046.50] // C5, E5, G5, C6
     
     notes.forEach((freq, i) => {
@@ -486,7 +468,7 @@ class SoundSystem {
     osc2.stop(time + 0.4)
   }
 
-  private playXP(ctx: AudioContext, time: number) {
+  private playProgress(ctx: AudioContext, time: number) {
     // Quick positive chime
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
@@ -503,26 +485,6 @@ class SoundSystem {
     
     osc.start(time)
     osc.stop(time + 0.08)
-  }
-
-  private playLoot(ctx: AudioContext, time: number) {
-    // Sparkly loot sound
-    for (let i = 0; i < 3; i++) {
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      
-      osc.frequency.setValueAtTime(1500 + i * 200, time + i * 0.05)
-      osc.type = 'sine'
-      
-      gain.gain.setValueAtTime(this.volume * 0.3, time + i * 0.05)
-      gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.05 + 0.1)
-      
-      osc.start(time + i * 0.05)
-      osc.stop(time + i * 0.05 + 0.1)
-    }
   }
 
   private playQuestComplete(ctx: AudioContext, time: number) {
@@ -820,7 +782,7 @@ class SoundSystem {
     })
   }
 
-  private playSkillUnlock(ctx: AudioContext, time: number) {
+  private playMilestoneReached(ctx: AudioContext, time: number) {
     // Magical unlock sound
     for (let i = 0; i < 5; i++) {
       const osc = ctx.createOscillator()
@@ -951,66 +913,6 @@ class SoundSystem {
     
     osc.start(time)
     osc.stop(time + 0.12)
-  }
-
-  private playLootRare(ctx: AudioContext, time: number) {
-    // Rare sparkle
-    for (let i = 0; i < 4; i++) {
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      
-      osc.frequency.setValueAtTime(1600 + i * 200, time + i * 0.04)
-      osc.type = 'sine'
-      
-      gain.gain.setValueAtTime(this.volume * 0.35, time + i * 0.04)
-      gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.04 + 0.12)
-      
-      osc.start(time + i * 0.04)
-      osc.stop(time + i * 0.04 + 0.12)
-    }
-  }
-
-  private playLootEpic(ctx: AudioContext, time: number) {
-    // Epic shimmer
-    for (let i = 0; i < 5; i++) {
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      
-      osc.frequency.setValueAtTime(1800 + i * 250, time + i * 0.035)
-      osc.type = 'sine'
-      
-      gain.gain.setValueAtTime(this.volume * 0.4, time + i * 0.035)
-      gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.035 + 0.15)
-      
-      osc.start(time + i * 0.035)
-      osc.stop(time + i * 0.035 + 0.15)
-    }
-  }
-
-  private playLootLegendary(ctx: AudioContext, time: number) {
-    // Legendary chime cascade
-    for (let i = 0; i < 7; i++) {
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      
-      osc.frequency.setValueAtTime(2000 + i * 300, time + i * 0.03)
-      osc.type = 'sine'
-      
-      gain.gain.setValueAtTime(this.volume * 0.45, time + i * 0.03)
-      gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.03 + 0.2)
-      
-      osc.start(time + i * 0.03)
-      osc.stop(time + i * 0.03 + 0.2)
-    }
   }
 
   private playGoldGained(ctx: AudioContext, time: number) {

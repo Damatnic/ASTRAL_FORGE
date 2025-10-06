@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { PageContainer } from '@/components/layout/PageContainer';
+import { PageHeader } from '@/components/layout/PageHeader';
 import PvPChallenges from '@/components/pvp-challenges';
-import { Card, StatCard, GradientText } from '@/components/ui';
+import { Swords, Trophy, Target, Flame, TrendingUp, Shield, Award, Zap } from 'lucide-react';
 
 export default function PvPPage() {
   // Sample current user
@@ -506,73 +509,127 @@ export default function PvPPage() {
     alert('Finding match... (In production: Use matchmaking algorithm based on skill level, division, and preferences)');
   };
 
+  const pendingInvites = challenges.filter(c => c.status === 'pending' && (c.opponent?.id === currentUser.id || c.creator.id === currentUser.id)).length;
+  const activeBattles = challenges.filter(c => c.status === 'active').length;
+
   return (
-    <div className="min-h-screen p-8">
-      {/* Page Header */}
-      <div className="max-w-7xl mx-auto mb-8">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="text-6xl">⚔️</div>
-          <div>
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-              PvP Arena
-            </h1>
-            <p className="text-xl text-white/70 mt-2">
-              Challenge other athletes and prove your dominance!
-            </p>
+    <AppLayout>
+      <PageContainer>
+        {/* Page Header */}
+        <div className="mb-8">
+          <PageHeader
+            icon={<Swords className="w-8 h-8 text-red-400" />}
+            title="PvP Arena"
+            description="Challenge other athletes and prove your dominance!"
+            action={
+              <button
+                onClick={handleFindMatch}
+                className="px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 rounded-xl transition-all font-bold text-sm shadow-lg flex items-center gap-2"
+              >
+                <Target className="w-4 h-4" />
+                Find Match
+              </button>
+            }
+          />
+        </div>
+
+        {/* Stats Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+          {/* Pending Invites */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-purple-500/10 rounded-xl">
+                <Swords className="w-6 h-6 text-purple-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">PENDING</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              {pendingInvites}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Invites waiting</p>
+          </div>
+
+          {/* Active Battles */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-orange-500/10 rounded-xl">
+                <Flame className="w-6 h-6 text-orange-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">ACTIVE</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">
+              {activeBattles}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Ongoing battles</p>
+          </div>
+
+          {/* Total Wins */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-green-500/10 rounded-xl">
+                <Trophy className="w-6 h-6 text-green-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">WINS</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">
+              {currentUser.totalWins}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Victories earned</p>
+          </div>
+
+          {/* Total Losses */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-red-500/10 rounded-xl">
+                <Shield className="w-6 h-6 text-red-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">LOSSES</div>
+            </div>
+            <div className="text-3xl font-bold text-red-400">
+              {currentUser.totalLosses}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Defeats taken</p>
+          </div>
+
+          {/* Win Rate */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-yellow-500/10 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-yellow-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">WIN RATE</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+              {currentUser.winRate}%
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Success ratio</p>
           </div>
         </div>
 
-        {/* Quick Stats Banner */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 rounded-lg p-6">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-purple-400">
-              {challenges.filter(c => c.status === 'pending' && (c.opponent?.id === currentUser.id || c.creator.id === currentUser.id)).length}
-            </div>
-            <div className="text-sm text-white/60">Pending Invites</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-orange-400">
-              {challenges.filter(c => c.status === 'active').length}
-            </div>
-            <div className="text-sm text-white/60">Active Battles</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-green-400">{currentUser.totalWins}</div>
-            <div className="text-sm text-white/60">Total Wins</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-red-400">{currentUser.totalLosses}</div>
-            <div className="text-sm text-white/60">Total Losses</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-yellow-400">{currentUser.winRate}%</div>
-            <div className="text-sm text-white/60">Win Rate</div>
-          </div>
+        {/* PvP Challenges Component */}
+        <div className="mb-8">
+          <PvPChallenges
+            challenges={challenges}
+            currentUser={currentUser}
+            onCreateChallenge={handleCreateChallenge}
+            onAcceptChallenge={handleAcceptChallenge}
+            onDeclineChallenge={handleDeclineChallenge}
+            onSubmitPerformance={handleSubmitPerformance}
+            onFindMatch={handleFindMatch}
+          />
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto">
-        <PvPChallenges
-          challenges={challenges}
-          currentUser={currentUser}
-          onCreateChallenge={handleCreateChallenge}
-          onAcceptChallenge={handleAcceptChallenge}
-          onDeclineChallenge={handleDeclineChallenge}
-          onSubmitPerformance={handleSubmitPerformance}
-          onFindMatch={handleFindMatch}
-        />
-      </div>
-
-      {/* How PvP Works Guide */}
-      <div className="max-w-7xl mx-auto mt-12">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-purple-400 mb-6">⚔️ How PvP Works</h2>
+        {/* How PvP Works Guide */}
+        <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <Zap className="w-6 h-6 text-purple-400" />
+            How PvP Works
+          </h2>
           
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-bold text-pink-400 mb-2">Creating Challenges</h3>
-              <p className="text-white/80">
+              <h3 className="text-xl font-bold text-purple-400 mb-2">Creating Challenges</h3>
+              <p className="text-gray-400">
                 Create custom challenges with specific workouts, win conditions, and rewards. Choose between 
                 ranked matches (affects your division) or casual battles for fun. Invite specific opponents or 
                 post open challenges for anyone to accept.
@@ -580,103 +637,146 @@ export default function PvPPage() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-orange-400 mb-2">Challenge Types</h3>
-              <ul className="space-y-2 text-white/80">
-                <li><span className="text-purple-400">⚔️ 1v1 Duels:</span> Direct head-to-head battles with one opponent</li>
-                <li><span className="text-yellow-400">🏆 Tournaments:</span> Bracket-style competitions with multiple rounds and playoffs</li>
-                <li><span className="text-blue-400">👥 Team Battles:</span> Squad vs squad collaborative challenges</li>
-                <li><span className="text-green-400">⏱️ Async Challenges:</span> Compete on your schedule, results compared later</li>
+              <h3 className="text-xl font-bold text-pink-400 mb-2">Challenge Types</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-400 font-bold">⚔️</span>
+                  <span><span className="text-purple-400 font-bold">1v1 Duels:</span> Direct head-to-head battles with one opponent</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-yellow-400 font-bold">🏆</span>
+                  <span><span className="text-yellow-400 font-bold">Tournaments:</span> Bracket-style competitions with multiple rounds and playoffs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-400 font-bold">👥</span>
+                  <span><span className="text-blue-400 font-bold">Team Battles:</span> Squad vs squad collaborative challenges</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 font-bold">⏱️</span>
+                  <span><span className="text-green-400 font-bold">Async Challenges:</span> Compete on your schedule, results compared later</span>
+                </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-blue-400 mb-2">Victory Conditions</h3>
-              <ul className="space-y-2 text-white/80">
-                <li><span className="text-green-400">⏱️ Fastest Time:</span> Complete the workout in the shortest time</li>
-                <li><span className="text-orange-400">💪 Most Reps:</span> Accumulate the highest rep count</li>
-                <li><span className="text-red-400">🏋️ Heaviest Weight:</span> Lift the most weight (1RM challenges)</li>
-                <li><span className="text-purple-400">⭐ Best Score:</span> Judge-scored or points-based competitions</li>
+              <h3 className="text-xl font-bold text-cyan-400 mb-2">Victory Conditions</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 font-bold">⏱️</span>
+                  <span><span className="text-green-400 font-bold">Fastest Time:</span> Complete the workout in the shortest time</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-400 font-bold">💪</span>
+                  <span><span className="text-orange-400 font-bold">Most Reps:</span> Accumulate the highest rep count</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 font-bold">🏋️</span>
+                  <span><span className="text-red-400 font-bold">Heaviest Weight:</span> Lift the most weight (1RM challenges)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-400 font-bold">⭐</span>
+                  <span><span className="text-purple-400 font-bold">Best Score:</span> Judge-scored or points-based competitions</span>
+                </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-green-400 mb-2">Ranked System</h3>
-              <p className="text-white/80 mb-3">
+              <h3 className="text-xl font-bold text-yellow-400 mb-2 flex items-center gap-2">
+                <Award className="w-5 h-5" />
+                Ranked System
+              </h3>
+              <p className="text-gray-400 mb-4">
                 Compete in ranked matches to earn division points and climb the ladder. Divisions range from 
                 Bronze to Grandmaster. Win matches to gain points and promotions, lose to drop in rankings.
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                <div className="bg-[#CD7F32]/20 border border-[#CD7F32]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#CD7F32' }}>Bronze</div>
-                  <div className="text-white/60">0-999 RP</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-orange-600">Bronze</div>
+                  <div className="text-xs text-gray-500 mt-1">0-999 RP</div>
                 </div>
-                <div className="bg-[#C0C0C0]/20 border border-[#C0C0C0]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#C0C0C0' }}>Silver</div>
-                  <div className="text-white/60">1000-1499 RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-gray-400">Silver</div>
+                  <div className="text-xs text-gray-500 mt-1">1000-1499 RP</div>
                 </div>
-                <div className="bg-[#FFD700]/20 border border-[#FFD700]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#FFD700' }}>Gold</div>
-                  <div className="text-white/60">1500-1999 RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-yellow-400">Gold</div>
+                  <div className="text-xs text-gray-500 mt-1">1500-1999 RP</div>
                 </div>
-                <div className="bg-[#E5E4E2]/20 border border-[#E5E4E2]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#E5E4E2' }}>Platinum</div>
-                  <div className="text-white/60">2000-2499 RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-cyan-300">Platinum</div>
+                  <div className="text-xs text-gray-500 mt-1">2000-2499 RP</div>
                 </div>
-                <div className="bg-[#B9F2FF]/20 border border-[#B9F2FF]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#B9F2FF' }}>Diamond</div>
-                  <div className="text-white/60">2500-2999 RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-blue-300">Diamond</div>
+                  <div className="text-xs text-gray-500 mt-1">2500-2999 RP</div>
                 </div>
-                <div className="bg-[#9B59B6]/20 border border-[#9B59B6]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#9B59B6' }}>Master</div>
-                  <div className="text-white/60">3000-3499 RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-purple-400">Master</div>
+                  <div className="text-xs text-gray-500 mt-1">3000-3499 RP</div>
                 </div>
-                <div className="bg-[#FF6B6B]/20 border border-[#FF6B6B]/30 rounded p-2 text-center">
-                  <div className="font-bold" style={{ color: '#FF6B6B' }}>Grandmaster</div>
-                  <div className="text-white/60">3500+ RP</div>
+                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center">
+                  <div className="font-bold text-red-400">Grandmaster</div>
+                  <div className="text-xs text-gray-500 mt-1">3500+ RP</div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-yellow-400 mb-2">Rewards & Progression</h3>
-              <p className="text-white/80">
+              <h3 className="text-xl font-bold text-green-400 mb-2">Rewards & Progression</h3>
+              <p className="text-gray-400">
                 Win challenges to earn XP, ranked points, exclusive titles, and special badges. Ranked victories 
                 award more rewards but losses cost you points. Build your win streak for bonus rewards!
               </p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Fair Play Guidelines */}
-      <div className="max-w-7xl mx-auto mt-8">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-red-400 mb-6">⚖️ Fair Play & Sportsmanship</h2>
+        {/* Fair Play Guidelines */}
+        <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <Shield className="w-6 h-6 text-red-400" />
+            Fair Play & Sportsmanship
+          </h2>
           
-          <div className="space-y-4 text-white/80">
-            <p>
-              <span className="font-bold text-green-400">✓ Video Proof:</span> Ranked matches may require video 
-              proof of performance to prevent cheating. Submit your workout recording for verification.
+          <div className="space-y-4 text-gray-400">
+            <p className="flex items-start gap-3">
+              <span className="text-green-400 font-bold text-xl flex-shrink-0">✓</span>
+              <span>
+                <span className="font-bold text-green-400">Video Proof:</span> Ranked matches may require video 
+                proof of performance to prevent cheating. Submit your workout recording for verification.
+              </span>
             </p>
-            <p>
-              <span className="font-bold text-blue-400">✓ Honest Reporting:</span> Report your actual performance. 
-              Dishonest scores will be flagged by the community and may result in bans.
+            <p className="flex items-start gap-3">
+              <span className="text-blue-400 font-bold text-xl flex-shrink-0">✓</span>
+              <span>
+                <span className="font-bold text-blue-400">Honest Reporting:</span> Report your actual performance. 
+                Dishonest scores will be flagged by the community and may result in bans.
+              </span>
             </p>
-            <p>
-              <span className="font-bold text-purple-400">✓ Good Sportsmanship:</span> Respect your opponents. 
-              Trash talk is fun, but keep it friendly. Toxic behavior is not tolerated.
+            <p className="flex items-start gap-3">
+              <span className="text-purple-400 font-bold text-xl flex-shrink-0">✓</span>
+              <span>
+                <span className="font-bold text-purple-400">Good Sportsmanship:</span> Respect your opponents. 
+                Trash talk is fun, but keep it friendly. Toxic behavior is not tolerated.
+              </span>
             </p>
-            <p>
-              <span className="font-bold text-orange-400">✓ Community Standards:</span> Follow workout movement 
-              standards (full ROM, proper depth, etc.). Judges may review contested results.
+            <p className="flex items-start gap-3">
+              <span className="text-orange-400 font-bold text-xl flex-shrink-0">✓</span>
+              <span>
+                <span className="font-bold text-orange-400">Community Standards:</span> Follow workout movement 
+                standards (full ROM, proper depth, etc.). Judges may review contested results.
+              </span>
             </p>
-            <p>
-              <span className="font-bold text-red-400">✗ Cheating:</span> No falsified scores, performance 
-              enhancing drugs, or movement shortcuts. Violations result in permanent bans.
+            <p className="flex items-start gap-3">
+              <span className="text-red-400 font-bold text-xl flex-shrink-0">✗</span>
+              <span>
+                <span className="font-bold text-red-400">Cheating:</span> No falsified scores, performance 
+                enhancing drugs, or movement shortcuts. Violations result in permanent bans.
+              </span>
             </p>
           </div>
         </div>
-      </div>
-    </div>
+      </PageContainer>
+    </AppLayout>
   );
 }

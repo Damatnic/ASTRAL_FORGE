@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { ParticleBackground } from '@/components/particle-background'
+import { AppLayout } from '@/components/layout/AppLayout'
+import { PageContainer } from '@/components/layout/PageContainer'
+import { PageHeader } from '@/components/layout/PageHeader'
+import { Users, Trophy, Zap, Target, Award, Star, Crown, Shield } from 'lucide-react'
 
 /**
  * GUILD HALL - Epic Social Hub
@@ -281,73 +283,59 @@ export default function GuildHall() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-cyan-950 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_50%)] animate-pulse" />
-        <div className="text-center z-10">
-          <div className="relative">
+      <AppLayout>
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+          <div className="text-center">
             <div className="text-8xl mb-6 animate-bounce">🏰</div>
-            <div className="absolute inset-0 bg-purple-500/20 blur-3xl animate-pulse" />
-          </div>
-          <div className="text-2xl text-white font-bold mb-2 animate-pulse">
-            Entering Guild Hall...
-          </div>
-          <div className="text-purple-400 text-sm">
-            Gathering warriors • Loading challenges • Preparing leaderboards
+            <div className="text-2xl text-white font-bold mb-2 animate-pulse">
+              Entering Guild Hall...
+            </div>
+            <div className="text-purple-400 text-sm">
+              Gathering warriors • Loading challenges • Preparing leaderboards
+            </div>
           </div>
         </div>
-      </div>
+      </AppLayout>
     )
   }
 
   if (!hasGuild) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-cyan-950 relative overflow-hidden">
-        <ParticleBackground
-          particleCount={60}
-          colors={['#a855f7', '#8b5cf6', '#06b6d4', '#0891b2']}
-          speed={0.25}
-          connectionDistance={130}
-        />
+      <AppLayout>
+        <PageContainer>
+          <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="text-8xl mb-8">🏰</div>
+              <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
+                Join a Guild
+              </h1>
+              <p className="text-xl text-gray-300 mb-8">
+                Team up with fellow warriors to conquer challenges, earn exclusive rewards, and dominate the leaderboards!
+              </p>
 
-        <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="text-8xl mb-8">🏰</div>
-            <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
-              Join a Guild
-            </h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Team up with fellow warriors to conquer challenges, earn exclusive rewards, and dominate the leaderboards!
-            </p>
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800 hover:border-purple-500 transition-all hover:scale-105">
+                  <div className="text-5xl mb-4">🔍</div>
+                  <h3 className="text-2xl font-bold mb-2">Find a Guild</h3>
+                  <p className="text-gray-400 mb-4">Browse active guilds and join one that fits your style</p>
+                  <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                    Browse Guilds
+                  </button>
+                </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-2xl p-8 border-2 border-purple-500 hover:border-purple-400 transition-all hover:scale-105">
-                <div className="text-5xl mb-4">🔍</div>
-                <h3 className="text-2xl font-bold mb-2">Find a Guild</h3>
-                <p className="text-gray-400 mb-4">Browse active guilds and join one that fits your style</p>
-                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
-                  Browse Guilds
-                </button>
-              </div>
-
-              <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 rounded-2xl p-8 border-2 border-cyan-500 hover:border-cyan-400 transition-all hover:scale-105">
-                <div className="text-5xl mb-4">✨</div>
-                <h3 className="text-2xl font-bold mb-2">Create Your Own</h3>
-                <p className="text-gray-400 mb-4">Found your own guild and build a legendary team</p>
-                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
-                  Create Guild
-                </button>
+                <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800 hover:border-cyan-500 transition-all hover:scale-105">
+                  <div className="text-5xl mb-4">✨</div>
+                  <h3 className="text-2xl font-bold mb-2">Create Your Own</h3>
+                  <p className="text-gray-400 mb-4">Found your own guild and build a legendary team</p>
+                  <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
+                    Create Guild
+                  </button>
+                </div>
               </div>
             </div>
-
-            <Link
-              href="/forge"
-              className="inline-block px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-            >
-              ← Back to The Forge
-            </Link>
           </div>
-        </div>
-      </div>
+        </PageContainer>
+      </AppLayout>
     )
   }
 
@@ -416,134 +404,129 @@ export default function GuildHall() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-cyan-950 relative overflow-hidden">
-      {/* Epic Guild-Themed Particle Background */}
-      <ParticleBackground
-        particleCount={60}
-        colors={['#a855f7', '#8b5cf6', '#06b6d4', '#0891b2']}
-        speed={0.25}
-        connectionDistance={130}
-      />
-
-      {/* Animated glow effects */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
-
-      {/* Epic Header */}
-      <header className="relative bg-gradient-to-r from-gray-900/90 via-purple-950/90 to-gray-900/90 backdrop-blur-md border-b-4 border-purple-600 p-6 shadow-2xl shadow-purple-600/30 z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="text-6xl">{guild.emblem}</div>
-                <div className="absolute inset-0 bg-purple-500/30 blur-2xl animate-pulse" />
-              </div>
-              <div>
-                <h1 className="text-4xl font-black tracking-tight">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                    {guild.name}
-                  </span>
-                </h1>
-                <p className="text-purple-400 text-sm font-bold tracking-wider">
-                  LEVEL {guild.level} GUILD • {guild.memberCount}/{guild.maxMembers} WARRIORS
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Link
-                href="/forge"
-                className="px-4 py-2 bg-gray-800/80 hover:bg-gray-700 rounded-lg transition-all hover:scale-105 border border-gray-700 hover:border-purple-500"
-              >
-                ← The Forge
-              </Link>
-              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg transition-all font-bold text-sm hover:scale-105 shadow-lg shadow-purple-600/30 touch-manipulation min-h-[44px] flex items-center">
+    <AppLayout>
+      <PageContainer>
+        {/* Guild Header with Emblem and Stats */}
+        <div className="mb-8">
+          <PageHeader
+            icon={<span className="text-4xl">{guild.emblem}</span>}
+            title={guild.name}
+            description={`Level ${guild.level} Guild • ${guild.memberCount}/${guild.maxMembers} Warriors • ${guild.description}`}
+            action={
+              <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-xl transition-all font-bold text-sm shadow-lg">
+                <Shield className="w-4 h-4 inline mr-2" />
                 Guild Settings
               </button>
-            </div>
-          </div>
-
-          {/* Guild Stats Banner */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl p-4 border border-purple-600/30">
-              <div className="text-xs text-purple-400 font-bold mb-1">TOTAL POWER</div>
-              <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                {guild.totalPower.toLocaleString()}
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 rounded-xl p-4 border border-cyan-600/30">
-              <div className="text-xs text-cyan-400 font-bold mb-1">WEEKLY WORKOUTS</div>
-              <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-                {guild.weeklyWorkouts}
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-yellow-900/40 to-orange-900/40 rounded-xl p-4 border border-yellow-600/30">
-              <div className="text-xs text-yellow-400 font-bold mb-1">GUILD LEVEL</div>
-              <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                {guild.level}
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Tabs */}
-          <nav className="flex gap-3 flex-wrap">
-            <button
-              onClick={() => setActiveTab('roster')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
-                activeTab === 'roster'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-xl shadow-purple-500/50 border-2 border-purple-400'
-                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-purple-500'
-              }`}
-            >
-              👥 ROSTER
-            </button>
-            <button
-              onClick={() => setActiveTab('challenges')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
-                activeTab === 'challenges'
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-xl shadow-cyan-500/50 border-2 border-cyan-400'
-                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-cyan-500'
-              }`}
-            >
-              🎯 CHALLENGES
-            </button>
-            <button
-              onClick={() => setActiveTab('leaderboard')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
-                activeTab === 'leaderboard'
-                  ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black shadow-xl shadow-yellow-500/50 border-2 border-yellow-400'
-                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-yellow-500'
-              }`}
-            >
-              🏆 LEADERBOARD
-            </button>
-            <button
-              onClick={() => setActiveTab('achievements')}
-              className={`px-6 py-3 rounded-xl font-black text-sm tracking-wide transition-all transform hover:scale-105 touch-manipulation min-h-[44px] flex items-center justify-center ${
-                activeTab === 'achievements'
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-xl shadow-green-500/50 border-2 border-green-400'
-                  : 'bg-gray-800/80 hover:bg-gray-700 border-2 border-gray-700 hover:border-green-500'
-              }`}
-            >
-              ⭐ ACHIEVEMENTS
-            </button>
-          </nav>
+            }
+          />
         </div>
-      </header>
 
-      {/* Main Content */}
-      <div className="relative max-w-7xl mx-auto p-6 z-10">
+        {/* Stats Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Total Power */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-purple-500/10 rounded-xl">
+                <Zap className="w-6 h-6 text-purple-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">TOTAL POWER</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              {guild.totalPower.toLocaleString()}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Combined guild strength</p>
+          </div>
+
+          {/* Weekly Workouts */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-cyan-500/10 rounded-xl">
+                <Target className="w-6 h-6 text-cyan-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">WEEKLY WORKOUTS</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              {guild.weeklyWorkouts}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">This week's activity</p>
+          </div>
+
+          {/* Guild Level */}
+          <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-yellow-500/10 rounded-xl">
+                <Crown className="w-6 h-6 text-yellow-400" />
+              </div>
+              <div className="text-xs text-gray-400 font-bold">GUILD LEVEL</div>
+            </div>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+              {guild.level}
+            </div>
+            <p className="text-sm text-gray-400 mt-1">Achievement tier</p>
+          </div>
+        </div>
+
+        {/* Navigation Tabs */}
+        <div className="flex gap-3 flex-wrap mb-8">
+          <button
+            onClick={() => setActiveTab('roster')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${
+              activeTab === 'roster'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                : 'bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-purple-500'
+            }`}
+          >
+            <Users className="w-4 h-4 inline mr-2" />
+            ROSTER
+          </button>
+          <button
+            onClick={() => setActiveTab('challenges')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${
+              activeTab === 'challenges'
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+                : 'bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500'
+            }`}
+          >
+            <Target className="w-4 h-4 inline mr-2" />
+            CHALLENGES
+          </button>
+          <button
+            onClick={() => setActiveTab('leaderboard')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${
+              activeTab === 'leaderboard'
+                ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg'
+                : 'bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-yellow-500'
+            }`}
+          >
+            <Trophy className="w-4 h-4 inline mr-2" />
+            LEADERBOARD
+          </button>
+          <button
+            onClick={() => setActiveTab('achievements')}
+            className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${
+              activeTab === 'achievements'
+                ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg'
+                : 'bg-slate-900/50 hover:bg-slate-800 border border-slate-800 hover:border-green-500'
+            }`}
+          >
+            <Award className="w-4 h-4 inline mr-2" />
+            ACHIEVEMENTS
+          </button>
+        </div>
+
+        {/* Main Content Area */}
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Content Area (2/3 width) */}
+          {/* Content Column (2/3 width) */}
           <div className="lg:col-span-2 space-y-6">
             {/* ROSTER TAB */}
             {activeTab === 'roster' && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-white">Guild Roster</h2>
-                  <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-sm transition-colors touch-manipulation min-h-[44px] flex items-center">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                    <Users className="w-6 h-6 text-purple-400" />
+                    Guild Roster
+                  </h2>
+                  <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 rounded-xl font-bold text-sm transition-opacity">
                     + Invite Member
                   </button>
                 </div>
@@ -551,7 +534,7 @@ export default function GuildHall() {
                 {members.map((member) => (
                   <div
                     key={member.id}
-                    className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-gray-700 hover:border-purple-500 transition-all hover:scale-[1.02] shadow-lg"
+                    className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800 hover:border-purple-500 transition-all"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
@@ -560,7 +543,7 @@ export default function GuildHall() {
                           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl font-bold">
                             {member.name[0]}
                           </div>
-                          <div className={`absolute bottom-0 right-0 w-4 h-4 ${getStatusColor(member.status)} rounded-full border-2 border-gray-900`} />
+                          <div className={`absolute bottom-0 right-0 w-4 h-4 ${getStatusColor(member.status)} rounded-full border-2 border-slate-900`} />
                         </div>
 
                         {/* Info */}
@@ -582,7 +565,7 @@ export default function GuildHall() {
                         </div>
                       </div>
 
-                      {/* Stats */}
+                      {/* Weekly Stats */}
                       <div className="text-right">
                         <div className="text-2xl font-black text-purple-400">
                           {member.weeklyContribution}
@@ -597,7 +580,7 @@ export default function GuildHall() {
                         <span>Total Workouts</span>
                         <span>{member.totalWorkouts}</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className="w-full bg-slate-800 rounded-full h-2">
                         <div
                           className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all"
                           style={{ width: `${Math.min((member.totalWorkouts / 500) * 100, 100)}%` }}
@@ -612,19 +595,22 @@ export default function GuildHall() {
             {/* CHALLENGES TAB */}
             {activeTab === 'challenges' && (
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-white mb-4">Active Challenges</h2>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <Target className="w-6 h-6 text-cyan-400" />
+                  Active Challenges
+                </h2>
 
                 {challenges.map((challenge) => (
                   <div
                     key={challenge.id}
-                    className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-cyan-700 hover:border-cyan-500 transition-all shadow-lg"
+                    className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800 hover:border-cyan-500 transition-all"
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <h3 className="text-xl font-bold text-white mb-1">{challenge.title}</h3>
                         <p className="text-gray-400 text-sm">{challenge.description}</p>
                       </div>
-                      <span className="px-3 py-1 bg-cyan-600 rounded-full text-xs font-bold">
+                      <span className="px-3 py-1 bg-cyan-600 rounded-full text-xs font-bold whitespace-nowrap ml-4">
                         {formatTimeRemaining(challenge.expiresAt)}
                       </span>
                     </div>
@@ -637,7 +623,7 @@ export default function GuildHall() {
                           {challenge.progress} / {challenge.goal}
                         </span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-4">
+                      <div className="w-full bg-slate-800 rounded-full h-4">
                         <div
                           className="bg-gradient-to-r from-cyan-500 to-blue-500 h-4 rounded-full transition-all flex items-center justify-end pr-2"
                           style={{ width: `${Math.min((challenge.progress / challenge.goal) * 100, 100)}%` }}
@@ -667,16 +653,19 @@ export default function GuildHall() {
             {/* LEADERBOARD TAB */}
             {activeTab === 'leaderboard' && (
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-white mb-4">Top Contributors</h2>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <Trophy className="w-6 h-6 text-yellow-400" />
+                  Top Contributors
+                </h2>
 
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-yellow-700 shadow-lg">
+                <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
                   {members
                     .sort((a, b) => b.weeklyContribution - a.weeklyContribution)
                     .map((member, index) => (
                       <div
                         key={member.id}
                         className={`flex items-center justify-between py-4 ${
-                          index < members.length - 1 ? 'border-b border-gray-700' : ''
+                          index < members.length - 1 ? 'border-b border-slate-800' : ''
                         }`}
                       >
                         <div className="flex items-center gap-4">
@@ -718,7 +707,10 @@ export default function GuildHall() {
             {/* ACHIEVEMENTS TAB */}
             {activeTab === 'achievements' && (
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-white mb-4">Guild Achievements</h2>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <Award className="w-6 h-6 text-green-400" />
+                  Guild Achievements
+                </h2>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {achievements.map((achievement) => (
@@ -750,12 +742,12 @@ export default function GuildHall() {
           {/* Sidebar (1/3 width) */}
           <div className="space-y-6">
             {/* Guild Info Card */}
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-purple-700 shadow-lg">
-              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <span>ℹ️</span>
+            <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-purple-400" />
                 <span>Guild Info</span>
               </h3>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-3 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-gray-400">Founded</span>
                   <span className="text-white font-bold">
@@ -773,22 +765,22 @@ export default function GuildHall() {
                   <span className="text-white font-bold">{guild.level}</span>
                 </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-gray-700">
+              <div className="mt-4 pt-4 border-t border-slate-800">
                 <p className="text-gray-400 text-sm italic">"{guild.description}"</p>
               </div>
             </div>
 
             {/* Activity Feed */}
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-cyan-700 shadow-lg">
+            <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <span>📰</span>
+                <Star className="w-5 h-5 text-cyan-400" />
                 <span>Recent Activity</span>
               </h3>
-              <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+              <div className="space-y-3 max-h-96 overflow-y-auto">
                 {activityFeed.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors"
+                    className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors"
                   >
                     <div className="text-2xl">{item.icon}</div>
                     <div className="flex-1">
@@ -806,43 +798,26 @@ export default function GuildHall() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border-2 border-gray-700 shadow-lg">
+            <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <span>⚡</span>
+                <Zap className="w-5 h-5 text-yellow-400" />
                 <span>Quick Actions</span>
               </h3>
-              <div className="space-y-2">
-                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
+              <div className="space-y-3">
+                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
                   💬 Guild Chat
                 </button>
-                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
+                <button className="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
                   📊 View Stats
                 </button>
-                <button className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl font-bold hover:opacity-90 transition-opacity touch-manipulation min-h-[44px]">
+                <button className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl font-bold hover:opacity-90 transition-opacity">
                   🎯 Start Challenge
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #1f2937;
-          border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #8b5cf6;
-          border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #a78bfa;
-        }
-      `}</style>
-    </div>
+      </PageContainer>
+    </AppLayout>
   )
 }

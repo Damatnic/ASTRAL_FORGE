@@ -67,8 +67,8 @@ export function SocialFeedWidget({
       className={className}
       actions={
         <Link
-          href="/guild"
-          className="text-sm text-astral-blue hover:text-astral-purple transition-colors"
+          href="/social/guilds"
+          className="text-sm text-amber-400 hover:text-amber-300 transition-colors font-black uppercase tracking-wider"
         >
           View All →
         </Link>
@@ -77,13 +77,13 @@ export function SocialFeedWidget({
       {recentActivities.length === 0 ? (
         <div className="text-center py-8">
           <div className="text-4xl mb-3">👋</div>
-          <p className="text-gray-400 text-sm mb-2">No recent activity</p>
-          <p className="text-gray-500 text-xs mb-4">
+          <p className="text-neutral-400 text-sm mb-2 uppercase tracking-wider font-bold">No recent activity</p>
+          <p className="text-neutral-500 text-xs mb-4 uppercase tracking-wider font-bold">
             Join a guild to see your friends' progress
           </p>
           <Link
-            href="/guild"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-astral-blue to-astral-purple rounded-lg text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+            href="/social/guilds"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-black text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
           >
             Find a Guild
           </Link>
@@ -138,8 +138,8 @@ export function SocialFeedWidget({
               <span className="text-gray-400">5 members online</span>
             </div>
             <Link
-              href="/guild/chat"
-              className="text-astral-blue hover:text-astral-purple transition-colors font-semibold"
+              href="/social/guilds"
+              className="text-amber-400 hover:text-amber-300 transition-colors font-black uppercase tracking-wider"
             >
               Chat →
             </Link>

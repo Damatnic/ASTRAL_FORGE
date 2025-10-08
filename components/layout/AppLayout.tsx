@@ -22,7 +22,7 @@ export function AppLayout({ children, userName = 'Warrior' }: AppLayoutProps) {
     { name: 'Challenges', href: '/challenges' },
     { name: 'Achievements', href: '/achievements' },
     { name: 'Progress', href: '/progress' },
-    { name: 'Guild', href: '/guild' },
+    { name: 'Guild', href: '/social/guilds' },
     { name: 'Compete', href: '/compete' },
     { name: 'Health', href: '/health' },
     { name: 'Skills', href: '/skills' },

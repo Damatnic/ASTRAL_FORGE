@@ -192,13 +192,13 @@ export function ActivityFeed({
             </Link>
             <Link
               href="/social"
-              className="flex-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-2 rounded-lg text-xs font-medium hover:bg-blue-500/20 transition-colors text-center"
+              className="flex-1 bg-amber-500/10 border-2 border-amber-500/30 text-amber-400 px-3 py-2 text-xs font-black uppercase tracking-wider hover:bg-amber-500/20 transition-colors text-center"
             >
               👥 Friends
             </Link>
             <Link
-              href="/guild"
-              className="flex-1 bg-red-500/10 border border-red-500/30 text-red-400 px-3 py-2 rounded-lg text-xs font-medium hover:bg-red-500/20 transition-colors text-center"
+              href="/social/guilds"
+              className="flex-1 bg-amber-500/10 border-2 border-amber-500/30 text-amber-400 px-3 py-2 text-xs font-black uppercase tracking-wider hover:bg-amber-500/20 transition-colors text-center"
             >
               ⚔️ Guild
             </Link>

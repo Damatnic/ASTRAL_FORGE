@@ -101,11 +101,11 @@ export function VoiceRecorder({ onTranscriptComplete }: VoiceRecorderProps) {
   }
 
   return (
-    <div className="bg-gray-700/50 rounded-lg p-4 space-y-3">
+    <div className="bg-neutral-900 border-2 border-neutral-800 p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`w-3 h-3 rounded-full ${isRecording ? (isPaused ? 'bg-yellow-500' : 'bg-red-500 animate-pulse') : 'bg-gray-500'}`} />
-          <span className="font-mono text-lg">
+          <div className={`w-3 h-3 ${isRecording ? (isPaused ? 'bg-amber-500' : 'bg-red-500 animate-pulse') : 'bg-neutral-500'}`} />
+          <span className="font-mono text-lg font-black uppercase tracking-wider">
             {formatTime(duration)}
           </span>
         </div>
@@ -114,9 +114,9 @@ export function VoiceRecorder({ onTranscriptComplete }: VoiceRecorderProps) {
           {!isRecording ? (
             <button
               onClick={startRecording}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-medium transition-colors"
+              className="px-4 py-2 bg-red-950/90 hover:bg-red-900 border-2 border-red-700 font-black uppercase tracking-wider transition-colors"
             >
-              🎤 Record
+              🎤 RECORD
             </button>
           ) : (
             <>

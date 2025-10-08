@@ -29,7 +29,7 @@ export function SetNotes({ initialNotes = '', onSave, placeholder = 'Add notes f
     return (
       <button
         onClick={() => setIsEditing(true)}
-        className="w-full py-2 text-sm text-gray-400 hover:text-purple-400 border border-dashed border-gray-700 hover:border-purple-500/50 rounded-lg transition-all"
+        className="w-full py-2 text-sm text-neutral-400 hover:text-amber-400 border border-dashed border-neutral-700 hover:border-amber-700/50 transition-all uppercase tracking-wider font-bold"
       >
         + Add notes
       </button>
@@ -39,17 +39,17 @@ export function SetNotes({ initialNotes = '', onSave, placeholder = 'Add notes f
   if (!isEditing) {
     return (
       <div className="relative group">
-        <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm text-gray-300">
+        <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50 text-sm text-neutral-300">
           {notes}
         </div>
         <button
           onClick={() => setIsEditing(true)}
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 px-2 py-1 bg-gray-800 hover:bg-gray-700 text-xs text-gray-400 hover:text-white rounded transition-all"
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 px-2 py-1 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 text-xs text-neutral-400 hover:text-white uppercase tracking-wider font-bold transition-all"
         >
           Edit
         </button>
         {isSaved && (
-          <div className="absolute -top-8 right-0 px-3 py-1 bg-green-600 text-white text-xs font-semibold rounded-lg shadow-lg animate-slide-in-right">
+          <div className="absolute -top-8 right-0 px-3 py-1 bg-amber-950/50 border-2 border-amber-700 text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-slide-in-right">
             ✓ Saved
           </div>
         )}
@@ -63,22 +63,22 @@ export function SetNotes({ initialNotes = '', onSave, placeholder = 'Add notes f
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         placeholder={placeholder}
-        className="w-full p-3 bg-gray-900 border border-purple-500/30 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+        className="w-full p-3 bg-neutral-900 border-2 border-amber-800/50 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none"
         rows={3}
         autoFocus
       />
       <div className="flex gap-2">
         <button
           onClick={handleSave}
-          className="flex-1 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 text-white text-sm font-semibold rounded-lg transition-all"
+          className="flex-1 py-2 bg-amber-950/90 hover:bg-amber-900 border-2 border-amber-700 text-white text-sm font-black uppercase tracking-wider transition-all"
         >
-          Save
+          SAVE
         </button>
         <button
           onClick={handleCancel}
-          className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold rounded-lg transition-all"
+          className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border-2 border-neutral-600 text-white text-sm font-black uppercase tracking-wider transition-all"
         >
-          Cancel
+          CANCEL
         </button>
       </div>
     </div>
@@ -116,20 +116,20 @@ export function QuickNotes({ onSelect }: QuickNotesProps) {
 
   return (
     <div className="space-y-2">
-      <div className="text-xs text-gray-400 mb-2">Quick notes:</div>
+      <div className="text-xs text-neutral-400 mb-2 uppercase tracking-wider font-bold">Quick notes:</div>
       <div className="flex flex-wrap gap-2">
         {displayTemplates.map((template, index) => (
           <button
             key={index}
             onClick={() => onSelect(template)}
-            className="px-3 py-1 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 text-xs font-medium rounded-full transition-all"
+            className="px-3 py-1 bg-amber-950/20 hover:bg-amber-950/30 text-amber-400 text-xs font-black uppercase tracking-wider transition-all border-2 border-amber-700/30"
           >
             {template}
           </button>
         ))}
         <button
           onClick={() => setShowAll(!showAll)}
-          className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-400 hover:text-white text-xs font-medium rounded-full transition-all"
+          className="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white text-xs font-black uppercase tracking-wider transition-all border-2 border-neutral-800"
         >
           {showAll ? 'Show less' : `+${NOTE_TEMPLATES.length - 6} more`}
         </button>

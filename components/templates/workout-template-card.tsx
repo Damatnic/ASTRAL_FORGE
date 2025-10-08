@@ -30,9 +30,9 @@ interface WorkoutTemplateCardProps {
 }
 
 const difficultyColors = {
-  beginner: 'bg-green-500/20 text-green-300 border-green-500/30',
-  intermediate: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  advanced: 'bg-red-500/20 text-red-300 border-red-500/30',
+  beginner: 'bg-amber-950/20 text-amber-400 border-2 border-amber-700/30',
+  intermediate: 'bg-amber-950/20 text-amber-400 border-2 border-amber-700/30',
+  advanced: 'bg-red-950/20 text-red-400 border-2 border-red-700/30',
 }
 
 export function WorkoutTemplateCard({
@@ -48,9 +48,9 @@ export function WorkoutTemplateCard({
   return (
     <div
       className={cn(
-        'bg-astral-gray border rounded-lg p-5 transition-all hover:border-astral-accent/50',
+        'bg-astral-gray border-2 p-5 transition-all hover:border-amber-700/50',
         canPerform 
-          ? 'border-green-500/30' 
+          ? 'border-amber-700/30' 
           : 'border-astral-light opacity-90',
         className
       )}
@@ -59,11 +59,11 @@ export function WorkoutTemplateCard({
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-xl font-bold text-white">{template.name}</h3>
+            <h3 className="text-xl font-black text-white uppercase tracking-wider">{template.name}</h3>
             {canPerform ? (
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-orange-400 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0" />
             )}
           </div>
           
@@ -113,10 +113,10 @@ export function WorkoutTemplateCard({
 
       {/* Availability Status */}
       <div className={cn(
-        'flex items-center gap-2 px-3 py-2 rounded-lg text-sm mb-3',
+        'flex items-center gap-2 px-3 py-2 text-sm mb-3 font-black uppercase tracking-wider',
         canPerform
-          ? 'bg-green-500/10 border border-green-500/30 text-green-300'
-          : 'bg-orange-500/10 border border-orange-500/30 text-orange-300'
+          ? 'bg-amber-950/10 border-2 border-amber-700/30 text-amber-400'
+          : 'bg-amber-950/10 border-2 border-amber-700/30 text-amber-400'
       )}>
         {canPerform ? (
           <>

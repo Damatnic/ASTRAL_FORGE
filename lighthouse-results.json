@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Analytics",
+    "url": "http://localhost:3000/analytics",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Progress",
+    "url": "http://localhost:3000/progress",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Dashboard",
+    "url": "http://localhost:3000/dashboard",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Settings",
+    "url": "http://localhost:3000/settings",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Programs",
+    "url": "http://localhost:3000/programs",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Settings-Equipment",
+    "url": "http://localhost:3000/settings/equipment",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Exercise-Library",
+    "url": "http://localhost:3000/exercises/library",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Home",
+    "url": "http://localhost:3000/",
+    "error": "lighthouse is not a function"
+  },
+  {
+    "name": "Goals",
+    "url": "http://localhost:3000/goals",
+    "error": "lighthouse is not a function"
+  }
+]

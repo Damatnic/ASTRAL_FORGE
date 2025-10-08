@@ -364,12 +364,16 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
             ? 100
             : Math.round((achievement.progress / achievement.maxProgress) * 100)
 
+          // Check if achievement was unlocked in last 7 days
+          const isNew = achievement.unlocked && achievement.unlockedAt && 
+            (Date.now() - achievement.unlockedAt.getTime()) < 7 * 24 * 60 * 60 * 1000
+
           return (
             <div
               key={achievement.id}
               onClick={() => onAchievementClick?.(achievement)}
               className={`relative cursor-pointer transition-all duration-300 rounded-xl overflow-hidden group ${
-                achievement.unlocked ? 'hover:scale-105' : 'opacity-60'
+                achievement.unlocked ? 'hover:scale-[1.08] hover:-translate-y-2' : 'opacity-60 hover:opacity-80'
               } ${
                 achievement.recentlyUnlocked ? 'animate-pulse' : ''
               }`}
@@ -377,34 +381,52 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
               {/* Background gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${getRarityGradient(achievement.rarity)}`} />
 
-              {/* Border glow */}
+              {/* Enhanced border glow with hover pulse */}
               {achievement.unlocked && (
                 <div
-                  className="absolute -inset-[2px] rounded-xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity"
+                  className="absolute -inset-[2px] rounded-xl blur-sm opacity-50 group-hover:opacity-100 group-hover:blur-md transition-all duration-300 group-hover:animate-pulse"
                   style={{ backgroundColor: getRarityColor(achievement.rarity) }}
                 />
               )}
 
-              {/* Card content */}
-              <div className="relative bg-slate-900/90 backdrop-blur-sm border rounded-xl p-4"
+              {/* NEW badge for recent unlocks */}
+              {isNew && (
+                <div className="absolute -top-3 -right-3 z-10 animate-bounce">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-yellow-400 rounded-full blur-md animate-pulse"></div>
+                    <div className="relative bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 px-3 py-1 rounded-full text-xs font-black shadow-lg border-2 border-yellow-300">
+                      ✨ NEW
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Card content with enhanced shadow */}
+              <div className="relative bg-slate-900/90 backdrop-blur-sm border rounded-xl p-4 group-hover:shadow-2xl transition-shadow duration-300"
                 style={{ borderColor: `${getRarityColor(achievement.rarity)}66` }}
               >
-                {/* Icon */}
+                {/* Icon with enhanced animations */}
                 <div className="relative mb-3">
                   {achievement.unlocked && (
                     <div
-                      className="absolute -inset-2 rounded-full blur-md"
+                      className="absolute -inset-2 rounded-full blur-md group-hover:blur-lg transition-all duration-300"
                       style={{ backgroundColor: `${getRarityColor(achievement.rarity)}44` }}
                     />
                   )}
-                  <div className={`relative text-5xl ${achievement.unlocked ? '' : 'grayscale'}`}>
+                  <div className={`relative text-5xl transition-all duration-300 ${achievement.unlocked ? 'group-hover:scale-110' : 'grayscale group-hover:grayscale-[50%]'}`}>
                     {achievement.unlocked ? achievement.icon : '🔒'}
                   </div>
+                  {/* Sparkle effect on hover for unlocked achievements */}
+                  {achievement.unlocked && (
+                    <div className="absolute -top-1 -right-1 text-xl opacity-0 group-hover:opacity-100 group-hover:animate-spin transition-opacity duration-300">
+                      ✨
+                    </div>
+                  )}
                 </div>
 
-                {/* Rarity badge */}
+                {/* Rarity badge with hover effect */}
                 <div
-                  className="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold"
+                  className="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold transition-transform duration-300 group-hover:scale-110"
                   style={{
                     backgroundColor: `${getRarityColor(achievement.rarity)}33`,
                     color: getRarityColor(achievement.rarity),
@@ -414,8 +436,8 @@ export function AchievementGallery({ achievements, onAchievementClick }: Achieve
                   {achievement.rarity.toUpperCase()}
                 </div>
 
-                {/* Category icon */}
-                <div className="absolute top-2 left-2 text-2xl opacity-50">
+                {/* Category icon with hover effect */}
+                <div className="absolute top-2 left-2 text-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-300">
                   {getCategoryIcon(achievement.category)}
                 </div>
 

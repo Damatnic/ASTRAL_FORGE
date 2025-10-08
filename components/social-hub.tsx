@@ -327,11 +327,11 @@ export default function SocialHub({
   const getStatusColor = (status: FriendStatus) => {
     switch (status) {
       case 'online':
-        return 'bg-green-500';
+        return 'bg-amber-500';
       case 'in_workout':
         return 'bg-amber-500 animate-pulse';
       case 'offline':
-        return 'bg-gray-500';
+        return 'bg-neutral-600';
     }
   };
 
@@ -434,51 +434,51 @@ export default function SocialHub({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-4 mb-6 border-b border-gray-700">
+        <div className="flex gap-4 mb-6 border-b-2 border-neutral-800">
           <button
             onClick={() => setActiveTab('feed')}
-            className={`px-6 py-3 font-semibold transition-colors ${
+            className={`px-6 py-3 font-black transition-colors uppercase tracking-wider ${
               activeTab === 'feed'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
             📰 Activity Feed
           </button>
           <button
             onClick={() => setActiveTab('friends')}
-            className={`px-6 py-3 font-semibold transition-colors ${
+            className={`px-6 py-3 font-black transition-colors uppercase tracking-wider ${
               activeTab === 'friends'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
             👥 Friends ({friends.length})
           </button>
           <button
             onClick={() => setActiveTab('requests')}
-            className={`px-6 py-3 font-semibold transition-colors relative ${
+            className={`px-6 py-3 font-black transition-colors relative uppercase tracking-wider ${
               activeTab === 'requests'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
             📬 Requests
             {friendRequests.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center border-2 border-red-700 font-black">
                 {friendRequests.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab('share')}
-            className={`px-6 py-3 font-semibold transition-colors ${
+            className={`px-6 py-3 font-black transition-colors uppercase tracking-wider ${
               activeTab === 'share'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
-            📤 Workout Shares
+            📤 Battle Shares
           </button>
         </div>
 
@@ -489,30 +489,30 @@ export default function SocialHub({
             <div className="flex gap-4 mb-6">
               <button
                 onClick={() => setFeedFilter('all')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                   feedFilter === 'all'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    ? 'bg-amber-950/50 text-white border-amber-700'
+                    : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                 }`}
               >
                 All Activities
               </button>
               <button
                 onClick={() => setFeedFilter('friends')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                   feedFilter === 'friends'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    ? 'bg-amber-950/50 text-white border-amber-700'
+                    : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                 }`}
               >
                 Friends Only
               </button>
               <button
                 onClick={() => setFeedFilter('me')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                   feedFilter === 'me'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                    ? 'bg-amber-950/50 text-white border-amber-700'
+                    : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                 }`}
               >
                 My Activities
@@ -524,30 +524,30 @@ export default function SocialHub({
               {filteredActivities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-purple-500 transition-colors"
+                  className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors"
                 >
                   <div className="flex items-start gap-4">
                     {/* User Avatar */}
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                    <div className="w-12 h-12 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-xl font-black">
                       {activity.user.name.charAt(0)}
                     </div>
 
                     {/* Activity Content */}
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="font-bold">{activity.user.name}</span>
+                        <span className="font-black uppercase tracking-wider">{activity.user.name}</span>
                         {activity.user.prestigeLevel > 0 && (
                           <span className="text-amber-400">{'★'.repeat(activity.user.prestigeLevel)}</span>
                         )}
-                        <span className="text-purple-400">Lv.{activity.user.level}</span>
+                        <span className="text-amber-400 font-black uppercase tracking-wider">Lv.{activity.user.level}</span>
                         {activity.user.title && (
-                          <span className="text-sm bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">
+                          <span className="text-sm bg-amber-950/20 text-amber-300 px-2 py-0.5 border-2 border-amber-700/30 font-black uppercase tracking-wider">
                             {activity.user.title}
                           </span>
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 text-gray-300">
+                      <div className="flex items-center gap-2 text-neutral-300 font-bold">
                         <span className="text-2xl">{getActivityIcon(activity.type)}</span>
                         <span>{getActivityText(activity)}</span>
                       </div>
@@ -571,50 +571,50 @@ export default function SocialHub({
               <div>
                 <button
                   onClick={() => setSelectedFriend(null)}
-                  className="mb-4 text-purple-400 hover:text-purple-300 flex items-center gap-2"
+                  className="mb-4 text-amber-400 hover:text-amber-300 flex items-center gap-2 font-black uppercase tracking-wider"
                 >
                   ← Back to Friends List
                 </button>
 
-                <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
+                <div className="bg-neutral-900 border-2 border-neutral-800 p-8">
                   {/* Profile Header */}
                   <div className="flex items-start gap-6 mb-8">
-                    <div className="w-24 h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-4xl font-bold">
+                    <div className="w-24 h-24 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-4xl font-black">
                       {selectedFriend.name.charAt(0)}
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h2 className="text-3xl font-bold">{selectedFriend.name}</h2>
-                        <div className={`w-3 h-3 rounded-full ${getStatusColor(selectedFriend.status)}`} />
-                        <span className="text-sm text-gray-400">{getStatusText(selectedFriend.status)}</span>
+                        <h2 className="text-3xl font-black uppercase tracking-wider">{selectedFriend.name}</h2>
+                        <div className={`w-3 h-3 ${getStatusColor(selectedFriend.status)}`} />
+                        <span className="text-sm text-neutral-400 font-bold uppercase tracking-wider">{getStatusText(selectedFriend.status)}</span>
                       </div>
 
                       {selectedFriend.title && (
-                        <div className="text-purple-300 mb-2">"{selectedFriend.title}"</div>
+                        <div className="text-amber-300 mb-2 font-bold">&quot;{selectedFriend.title}&quot;</div>
                       )}
 
-                      <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                      <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4 font-bold uppercase tracking-wider">
                         <span>🏋️ {selectedFriend.gym || 'No gym set'}</span>
                         <span>👥 {selectedFriend.mutualFriends} mutual friends</span>
                         <span>📅 Friends since {selectedFriend.friendSince.toLocaleDateString()}</span>
                       </div>
 
                       <div className="flex gap-3">
-                        <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">
-                          💬 Message
+                        <button className="px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black uppercase tracking-wider transition-colors">
+                          💬 MESSAGE
                         </button>
-                        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-colors">
-                          ⚔️ Challenge
+                        <button className="px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black uppercase tracking-wider transition-colors">
+                          ⚔️ CHALLENGE
                         </button>
                         <button
                           onClick={() => {
                             if (onRemoveFriend) onRemoveFriend(selectedFriend.id);
                             setSelectedFriend(null);
                           }}
-                          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
+                          className="px-4 py-2 bg-red-950/50 hover:bg-red-900/50 border-2 border-red-700 font-black uppercase tracking-wider transition-colors"
                         >
-                          Remove Friend
+                          REMOVE FRIEND
                         </button>
                       </div>
                     </div>
@@ -622,9 +622,9 @@ export default function SocialHub({
 
                   {/* Stats Grid */}
                   <div className="grid grid-cols-4 gap-4 mb-8">
-                    <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                      <div className="text-gray-400 text-sm mb-1">Level</div>
-                      <div className="text-2xl font-bold text-purple-400">
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                      <div className="text-neutral-400 text-sm mb-1 font-bold uppercase tracking-wider">LEVEL</div>
+                      <div className="text-2xl font-black text-amber-400">
                         {selectedFriend.level}
                         {selectedFriend.prestigeLevel > 0 && (
                           <span className="text-amber-400 ml-2">
@@ -634,33 +634,33 @@ export default function SocialHub({
                       </div>
                     </div>
 
-                    <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                      <div className="text-gray-400 text-sm mb-1">Total XP</div>
-                      <div className="text-2xl font-bold text-blue-400">
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                      <div className="text-neutral-400 text-sm mb-1 font-bold uppercase tracking-wider">TOTAL XP</div>
+                      <div className="text-2xl font-black text-amber-400">
                         {selectedFriend.totalXP.toLocaleString()}
                       </div>
                     </div>
 
-                    <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                      <div className="text-gray-400 text-sm mb-1">Current Streak</div>
-                      <div className="text-2xl font-bold text-green-400">
-                        {selectedFriend.currentStreak} days
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                      <div className="text-neutral-400 text-sm mb-1 font-bold uppercase tracking-wider">CURRENT STREAK</div>
+                      <div className="text-2xl font-black text-amber-400">
+                        {selectedFriend.currentStreak} DAYS
                       </div>
                     </div>
 
-                    <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                      <div className="text-gray-400 text-sm mb-1">Last Workout</div>
-                      <div className="text-sm font-semibold text-gray-300">
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                      <div className="text-neutral-400 text-sm mb-1 font-bold uppercase tracking-wider">LAST BATTLE</div>
+                      <div className="text-sm font-black text-neutral-300 uppercase tracking-wider">
                         {selectedFriend.lastWorkout
                           ? formatTimestamp(selectedFriend.lastWorkout)
-                          : 'No recent workouts'}
+                          : 'NO RECENT BATTLES'}
                       </div>
                     </div>
                   </div>
 
                   {/* Recent Activity Section */}
                   <div>
-                    <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
+                    <h3 className="text-xl font-black mb-4 uppercase tracking-wider">RECENT ACTIVITY</h3>
                     <div className="space-y-3">
                       {activities
                         .filter((a) => a.user.id === selectedFriend.id)
@@ -668,12 +668,12 @@ export default function SocialHub({
                         .map((activity) => (
                           <div
                             key={activity.id}
-                            className="bg-gray-900 rounded-lg p-4 border border-gray-700"
+                            className="bg-neutral-900 border-2 border-neutral-800 p-4"
                           >
                             <div className="flex items-center gap-2">
                               <span className="text-xl">{getActivityIcon(activity.type)}</span>
-                              <span>{getActivityText(activity)}</span>
-                              <span className="text-sm text-gray-500 ml-auto">
+                              <span className="font-bold">{getActivityText(activity)}</span>
+                              <span className="text-sm text-neutral-500 ml-auto uppercase tracking-wider">
                                 {formatTimestamp(activity.timestamp)}
                               </span>
                             </div>
@@ -689,13 +689,13 @@ export default function SocialHub({
                 {friends.map((friend) => (
                   <div
                     key={friend.id}
-                    className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-purple-500 transition-colors cursor-pointer"
+                    className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors cursor-pointer"
                     onClick={() => setSelectedFriend(friend)}
                   >
                     <div className="flex items-start gap-4">
                       {/* Avatar */}
                       <div className="relative">
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-2xl font-bold">
+                        <div className="w-16 h-16 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-2xl font-black">
                           {friend.name.charAt(0)}
                         </div>
                         <div
@@ -708,29 +708,29 @@ export default function SocialHub({
                       {/* Friend Info */}
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-bold text-lg">{friend.name}</h3>
+                          <h3 className="font-black text-lg uppercase tracking-wider">{friend.name}</h3>
                           {friend.prestigeLevel > 0 && (
                             <span className="text-amber-400">{'★'.repeat(friend.prestigeLevel)}</span>
                           )}
                         </div>
 
-                        <div className="text-purple-400 text-sm mb-2">
-                          Level {friend.level}
+                        <div className="text-amber-400 text-sm mb-2 font-bold uppercase tracking-wider">
+                          LEVEL {friend.level}
                           {friend.title && ` • "${friend.title}"`}
                         </div>
 
-                        <div className="text-sm text-gray-400 space-y-1">
-                          <div>🏋️ {friend.gym || 'No gym set'}</div>
-                          <div>🔥 {friend.currentStreak} day streak</div>
-                          <div>👥 {friend.mutualFriends} mutual friends</div>
+                        <div className="text-sm text-neutral-400 space-y-1 font-bold">
+                          <div>🏋️ {friend.gym || 'NO GYM SET'}</div>
+                          <div>🔥 {friend.currentStreak} DAY STREAK</div>
+                          <div>👥 {friend.mutualFriends} MUTUAL FRIENDS</div>
                         </div>
 
                         <div className="mt-3 flex gap-2">
-                          <button className="px-3 py-1 bg-purple-600 hover:bg-purple-700 rounded text-sm font-semibold transition-colors">
-                            💬 Message
+                          <button className="px-3 py-1 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 text-sm font-black uppercase tracking-wider transition-colors">
+                            💬 MESSAGE
                           </button>
-                          <button className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm font-semibold transition-colors">
-                            ⚔️ Challenge
+                          <button className="px-3 py-1 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 text-sm font-black uppercase tracking-wider transition-colors">
+                            ⚔️ CHALLENGE
                           </button>
                         </div>
                       </div>
@@ -746,45 +746,45 @@ export default function SocialHub({
         {activeTab === 'requests' && (
           <div className="space-y-4">
             {friendRequests.length === 0 ? (
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-12 text-center">
+              <div className="bg-neutral-900 border-2 border-neutral-800 p-12 text-center">
                 <div className="text-6xl mb-4">📭</div>
-                <h3 className="text-xl font-bold mb-2">No Pending Requests</h3>
-                <p className="text-gray-400">You're all caught up!</p>
+                <h3 className="text-xl font-black mb-2 uppercase tracking-wider">NO PENDING REQUESTS</h3>
+                <p className="text-neutral-400 font-bold uppercase tracking-wider">YOU&apos;RE ALL CAUGHT UP!</p>
               </div>
             ) : (
               friendRequests.map((request) => (
                 <div
                   key={request.id}
-                  className="bg-gray-800 rounded-lg border border-gray-700 p-6"
+                  className="bg-neutral-900 border-2 border-neutral-800 p-6"
                 >
                   <div className="flex items-start gap-4">
                     {/* User Avatar */}
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-2xl font-bold">
+                    <div className="w-16 h-16 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-2xl font-black">
                       {request.from.name.charAt(0)}
                     </div>
 
                     {/* Request Info */}
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-lg">{request.from.name}</h3>
-                        <span className="text-purple-400 text-sm">Lv.{request.from.level}</span>
+                        <h3 className="font-black text-lg uppercase tracking-wider">{request.from.name}</h3>
+                        <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">LV.{request.from.level}</span>
                         {request.from.prestigeLevel > 0 && (
                           <span className="text-amber-400">{'★'.repeat(request.from.prestigeLevel)}</span>
                         )}
                       </div>
 
                       {request.from.title && (
-                        <div className="text-sm text-purple-300 mb-2">"{request.from.title}"</div>
+                        <div className="text-sm text-amber-300 mb-2 font-bold uppercase tracking-wider">&quot;{request.from.title}&quot;</div>
                       )}
 
                       {request.message && (
-                        <div className="bg-gray-900 rounded-lg p-3 mb-3 text-sm text-gray-300 italic">
-                          "{request.message}"
+                        <div className="bg-neutral-900 border-2 border-neutral-800 p-3 mb-3 text-sm text-neutral-300 italic font-bold">
+                          &quot;{request.message}&quot;
                         </div>
                       )}
 
-                      <div className="text-sm text-gray-500 mb-3">
-                        Sent {formatTimestamp(request.createdAt)}
+                      <div className="text-sm text-neutral-500 mb-3 uppercase tracking-wider font-bold">
+                        SENT {formatTimestamp(request.createdAt)}
                       </div>
 
                       <div className="flex gap-3">
@@ -792,25 +792,25 @@ export default function SocialHub({
                           onClick={() => {
                             if (onAcceptFriendRequest) onAcceptFriendRequest(request.id);
                           }}
-                          className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-colors"
+                          className="px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black uppercase tracking-wider transition-colors"
                         >
-                          ✓ Accept
+                          ✓ ACCEPT
                         </button>
                         <button
                           onClick={() => {
                             if (onDeclineFriendRequest) onDeclineFriendRequest(request.id);
                           }}
-                          className="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg font-semibold transition-colors"
+                          className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border-2 border-neutral-600 font-black uppercase tracking-wider transition-colors"
                         >
-                          ✗ Decline
+                          ✗ DECLINE
                         </button>
                         <button
                           onClick={() => {
                             if (onBlockUser) onBlockUser(request.from.id);
                           }}
-                          className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
+                          className="px-4 py-2 bg-red-950/50 hover:bg-red-900/50 border-2 border-red-700 font-black uppercase tracking-wider transition-colors"
                         >
-                          🚫 Block
+                          🚫 BLOCK
                         </button>
                       </div>
                     </div>
@@ -830,43 +830,43 @@ export default function SocialHub({
               return (
                 <div
                   key={workout.id}
-                  className="bg-gray-800 rounded-lg border border-gray-700 p-6"
+                  className="bg-neutral-900 border-2 border-neutral-800 p-6"
                 >
                   {/* User Header */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                    <div className="w-12 h-12 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-xl font-black">
                       {workout.user.name.charAt(0)}
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold">{workout.user.name}</span>
+                        <span className="font-black uppercase tracking-wider">{workout.user.name}</span>
                         {workout.user.prestigeLevel > 0 && (
                           <span className="text-amber-400">{'★'.repeat(workout.user.prestigeLevel)}</span>
                         )}
-                        <span className="text-purple-400 text-sm">Lv.{workout.user.level}</span>
+                        <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">LV.{workout.user.level}</span>
                       </div>
-                      <div className="text-sm text-gray-500">{formatTimestamp(workout.sharedAt)}</div>
+                      <div className="text-sm text-neutral-500 uppercase tracking-wider font-bold">{formatTimestamp(workout.sharedAt)}</div>
                     </div>
 
                     {workout.isPR && (
-                      <div className="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full text-sm font-semibold">
-                        🏆 New PR!
+                      <div className="bg-amber-950/20 text-amber-400 border-2 border-amber-700/30 px-3 py-1 text-sm font-black uppercase tracking-wider">
+                        🏆 NEW PR!
                       </div>
                     )}
                   </div>
 
                   {/* Workout Title */}
-                  <h3 className="text-2xl font-bold mb-4">{workout.workoutName}</h3>
+                  <h3 className="text-2xl font-black mb-4 uppercase tracking-wider">{workout.workoutName}</h3>
 
                   {/* Exercises List */}
-                  <div className="bg-gray-900 rounded-lg p-4 mb-4">
+                  <div className="bg-neutral-900 border-2 border-neutral-800 p-4 mb-4">
                     <div className="space-y-2">
                       {workout.exercises.map((exercise, idx) => (
                         <div key={idx} className="flex items-center justify-between text-sm">
-                          <span className="text-gray-300">{exercise.name}</span>
-                          <span className="text-purple-400">
-                            {exercise.sets}×{exercise.reps} @ {exercise.weight} lbs
+                          <span className="text-neutral-300 font-bold uppercase tracking-wider">{exercise.name}</span>
+                          <span className="text-amber-400 font-black">
+                            {exercise.sets}×{exercise.reps} @ {exercise.weight} LBS
                           </span>
                         </div>
                       ))}
@@ -875,30 +875,30 @@ export default function SocialHub({
 
                   {/* Workout Stats */}
                   <div className="grid grid-cols-3 gap-4 mb-4">
-                    <div className="bg-gray-900 rounded-lg p-3 text-center">
-                      <div className="text-gray-400 text-xs mb-1">Duration</div>
-                      <div className="text-lg font-bold">{workout.duration} min</div>
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-3 text-center">
+                      <div className="text-neutral-400 text-xs mb-1 font-bold uppercase tracking-wider">DURATION</div>
+                      <div className="text-lg font-black uppercase tracking-wider">{workout.duration} MIN</div>
                     </div>
-                    <div className="bg-gray-900 rounded-lg p-3 text-center">
-                      <div className="text-gray-400 text-xs mb-1">Total Volume</div>
-                      <div className="text-lg font-bold text-blue-400">
-                        {workout.totalVolume.toLocaleString()} lbs
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-3 text-center">
+                      <div className="text-neutral-400 text-xs mb-1 font-bold uppercase tracking-wider">TOTAL VOLUME</div>
+                      <div className="text-lg font-black text-amber-400">
+                        {workout.totalVolume.toLocaleString()} LBS
                       </div>
                     </div>
-                    <div className="bg-gray-900 rounded-lg p-3 text-center">
-                      <div className="text-gray-400 text-xs mb-1">XP Gained</div>
-                      <div className="text-lg font-bold text-purple-400">+{workout.xpGained}</div>
+                    <div className="bg-neutral-900 border-2 border-neutral-800 p-3 text-center">
+                      <div className="text-neutral-400 text-xs mb-1 font-bold uppercase tracking-wider">XP GAINED</div>
+                      <div className="text-lg font-black text-amber-400">+{workout.xpGained}</div>
                     </div>
                   </div>
 
                   {/* Interaction Buttons */}
-                  <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-700">
+                  <div className="flex items-center gap-4 mb-4 pb-4 border-b-2 border-neutral-800">
                     <button
                       onClick={() => handleLike(workout.id)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
+                      className={`flex items-center gap-2 px-4 py-2 font-black uppercase tracking-wider transition-colors border-2 ${
                         isLiked
-                          ? 'bg-red-600 hover:bg-red-700 text-white'
-                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                          ? 'bg-red-950/50 hover:bg-red-900/50 border-red-700 text-white'
+                          : 'bg-neutral-800 hover:bg-neutral-700 border-neutral-700 text-neutral-300'
                       }`}
                     >
                       {isLiked ? '❤️' : '🤍'} {workout.likes.length}
@@ -910,13 +910,13 @@ export default function SocialHub({
                           selectedWorkoutToComment === workout.id ? null : workout.id
                         )
                       }
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border-2 border-neutral-700 font-black uppercase tracking-wider transition-colors"
                     >
                       💬 {workout.comments.length}
                     </button>
 
-                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors">
-                      🔗 Share
+                    <button className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border-2 border-neutral-700 font-black uppercase tracking-wider transition-colors">
+                      🔗 SHARE
                     </button>
                   </div>
 
@@ -924,17 +924,17 @@ export default function SocialHub({
                   <div className="space-y-3">
                     {workout.comments.map((comment) => (
                       <div key={comment.id} className="flex gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        <div className="w-8 h-8 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-sm font-black flex-shrink-0">
                           {comment.user.name.charAt(0)}
                         </div>
-                        <div className="flex-1 bg-gray-900 rounded-lg p-3">
+                        <div className="flex-1 bg-neutral-900 border-2 border-neutral-800 p-3">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-sm">{comment.user.name}</span>
-                            <span className="text-xs text-gray-500">
+                            <span className="font-black text-sm uppercase tracking-wider">{comment.user.name}</span>
+                            <span className="text-xs text-neutral-500 uppercase tracking-wider font-bold">
                               {formatTimestamp(comment.createdAt)}
                             </span>
                           </div>
-                          <div className="text-sm text-gray-300">{comment.text}</div>
+                          <div className="text-sm text-neutral-300 font-bold">{comment.text}</div>
                         </div>
                       </div>
                     ))}
@@ -942,7 +942,7 @@ export default function SocialHub({
                     {/* Comment Input */}
                     {selectedWorkoutToComment === workout.id && (
                       <div className="flex gap-3 pt-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        <div className="w-8 h-8 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-sm font-black flex-shrink-0">
                           {currentUser.name.charAt(0)}
                         </div>
                         <div className="flex-1 flex gap-2">
@@ -950,8 +950,8 @@ export default function SocialHub({
                             type="text"
                             value={commentText}
                             onChange={(e) => setCommentText(e.target.value)}
-                            placeholder="Write a comment..."
-                            className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-purple-500"
+                            placeholder="WRITE A COMMENT..."
+                            className="flex-1 bg-neutral-900 border-2 border-neutral-800 px-4 py-2 text-sm font-bold uppercase tracking-wider focus:outline-none focus:border-amber-700"
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();
@@ -962,9 +962,9 @@ export default function SocialHub({
                           <button
                             onClick={() => handleComment(workout.id)}
                             disabled={!commentText.trim()}
-                            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 disabled:text-gray-500 rounded-lg font-semibold transition-colors"
+                            className="px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 disabled:bg-neutral-700 disabled:text-neutral-500 border-2 border-amber-700 disabled:border-neutral-600 font-black uppercase tracking-wider transition-colors"
                           >
-                            Post
+                            POST
                           </button>
                         </div>
                       </div>

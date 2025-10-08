@@ -78,11 +78,11 @@ export default function SocialMediaExport({
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-          <Share2 className="w-6 h-6 text-purple-500" />
-          Share Your Workout
+        <h3 className="text-2xl font-black text-white mb-2 flex items-center justify-center gap-2 uppercase tracking-wider">
+          <Share2 className="w-6 h-6 text-amber-400" />
+          Share Your Battle
         </h3>
-        <p className="text-gray-400">Show off your gains on social media!</p>
+        <p className="text-neutral-400 uppercase tracking-wider font-bold">Show off your gains on social media!</p>
       </div>
 
       {/* Platform Buttons */}
@@ -90,18 +90,18 @@ export default function SocialMediaExport({
         {/* Instagram */}
         <button
           onClick={() => handleShare('instagram')}
-          className="group relative bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 hover:shadow-lg hover:shadow-pink-500/50 rounded-xl p-6 transition-all hover:scale-105"
+          className="group relative bg-amber-950/50 border-2 border-amber-700 hover:shadow-lg hover:shadow-amber-500/50 p-6 transition-all hover:scale-105"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
+            <div className="w-14 h-14 bg-white flex items-center justify-center">
               <Instagram className="w-8 h-8 text-pink-600" />
             </div>
             <div className="text-left flex-1">
-              <div className="text-lg font-bold text-white">Instagram</div>
-              <div className="text-sm text-white/80">Share to feed or story</div>
+              <div className="text-lg font-black text-white uppercase tracking-wider">Instagram</div>
+              <div className="text-sm text-white/80 uppercase tracking-wider font-bold">Share to feed or story</div>
             </div>
           </div>
-          <div className="mt-3 text-xs text-white/60">
+          <div className="mt-3 text-xs text-white/60 uppercase tracking-wider font-bold">
             Optimized for 1080×1080 (feed) and 1080×1920 (story)
           </div>
         </button>
@@ -109,18 +109,18 @@ export default function SocialMediaExport({
         {/* Twitter */}
         <button
           onClick={() => handleShare('twitter')}
-          className="group relative bg-gradient-to-br from-blue-500 to-blue-600 hover:shadow-lg hover:shadow-blue-500/50 rounded-xl p-6 transition-all hover:scale-105"
+          className="group relative bg-amber-950/50 border-2 border-amber-700 hover:shadow-lg hover:shadow-amber-500/50 p-6 transition-all hover:scale-105"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
+            <div className="w-14 h-14 bg-white flex items-center justify-center">
               <Twitter className="w-8 h-8 text-blue-500" />
             </div>
             <div className="text-left flex-1">
-              <div className="text-lg font-bold text-white">Twitter</div>
-              <div className="text-sm text-white/80">Tweet your progress</div>
+              <div className="text-lg font-black text-white uppercase tracking-wider">Twitter</div>
+              <div className="text-sm text-white/80 uppercase tracking-wider font-bold">Tweet your progress</div>
             </div>
           </div>
-          <div className="mt-3 text-xs text-white/60">
+          <div className="mt-3 text-xs text-white/60 uppercase tracking-wider font-bold">
             Auto-generated caption with stats and hashtags
           </div>
         </button>
@@ -128,18 +128,18 @@ export default function SocialMediaExport({
         {/* Facebook */}
         <button
           onClick={() => handleShare('facebook')}
-          className="group relative bg-gradient-to-br from-blue-700 to-blue-800 hover:shadow-lg hover:shadow-blue-700/50 rounded-xl p-6 transition-all hover:scale-105"
+          className="group relative bg-amber-950/50 border-2 border-amber-700 hover:shadow-lg hover:shadow-amber-500/50 p-6 transition-all hover:scale-105"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
+            <div className="w-14 h-14 bg-white flex items-center justify-center">
               <Facebook className="w-8 h-8 text-blue-700" />
             </div>
             <div className="text-left flex-1">
-              <div className="text-lg font-bold text-white">Facebook</div>
-              <div className="text-sm text-white/80">Post to your timeline</div>
+              <div className="text-lg font-black text-white uppercase tracking-wider">Facebook</div>
+              <div className="text-sm text-white/80 uppercase tracking-wider font-bold">Post to your timeline</div>
             </div>
           </div>
-          <div className="mt-3 text-xs text-white/60">
+          <div className="mt-3 text-xs text-white/60 uppercase tracking-wider font-bold">
             Share with friends and groups
           </div>
         </button>
@@ -147,48 +147,48 @@ export default function SocialMediaExport({
         {/* Copy Link */}
         <button
           onClick={() => handleShare('link')}
-          className="group relative bg-gradient-to-br from-gray-700 to-gray-800 hover:shadow-lg hover:shadow-gray-700/50 rounded-xl p-6 transition-all hover:scale-105"
+          className="group relative bg-neutral-900 border-2 border-neutral-800 hover:shadow-lg hover:shadow-neutral-700/50 p-6 transition-all hover:scale-105"
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center">
+            <div className="w-14 h-14 bg-white flex items-center justify-center">
               {copiedLink ? (
-                <Check className="w-8 h-8 text-green-600" />
+                <Check className="w-8 h-8 text-amber-600" />
               ) : (
-                <LinkIcon className="w-8 h-8 text-gray-700" />
+                <LinkIcon className="w-8 h-8 text-neutral-700" />
               )}
             </div>
             <div className="text-left flex-1">
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-black text-white uppercase tracking-wider">
                 {copiedLink ? 'Link Copied!' : 'Copy Link'}
               </div>
-              <div className="text-sm text-white/80">Share anywhere</div>
+              <div className="text-sm text-white/80 uppercase tracking-wider font-bold">Share anywhere</div>
             </div>
           </div>
-          <div className="mt-3 text-xs text-white/60 truncate">
+          <div className="mt-3 text-xs text-white/60 truncate uppercase tracking-wider font-bold">
             {shareableLink}
           </div>
         </button>
       </div>
 
       {/* Pre-Generated Captions */}
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 p-6">
-        <h4 className="text-lg font-semibold text-white mb-4">Quick Captions</h4>
+      <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
+        <h4 className="text-lg font-black text-white mb-4 uppercase tracking-wider">Quick Captions</h4>
         
         <div className="space-y-4">
           {/* Instagram Caption */}
-          <div className="bg-gray-800/50 rounded-lg p-4">
+          <div className="bg-neutral-950 border-2 border-neutral-800 p-4">
             <div className="flex items-center gap-2 mb-2">
               <Instagram className="w-4 h-4 text-pink-500" />
-              <span className="text-sm font-semibold text-white">Instagram</span>
+              <span className="text-sm font-black text-white uppercase tracking-wider">Instagram</span>
             </div>
-            <p className="text-sm text-gray-300 whitespace-pre-line mb-3">
+            <p className="text-sm text-neutral-300 whitespace-pre-line mb-3">
               {generateCaption('instagram')}
             </p>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(generateCaption('instagram'));
               }}
-              className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
+              className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 uppercase tracking-wider font-bold"
             >
               <Copy className="w-3 h-3" />
               Copy Caption
@@ -196,19 +196,19 @@ export default function SocialMediaExport({
           </div>
 
           {/* Twitter Caption */}
-          <div className="bg-gray-800/50 rounded-lg p-4">
+          <div className="bg-neutral-950 border-2 border-neutral-800 p-4">
             <div className="flex items-center gap-2 mb-2">
               <Twitter className="w-4 h-4 text-blue-500" />
-              <span className="text-sm font-semibold text-white">Twitter</span>
+              <span className="text-sm font-black text-white uppercase tracking-wider">Twitter</span>
             </div>
-            <p className="text-sm text-gray-300 whitespace-pre-line mb-3">
+            <p className="text-sm text-neutral-300 whitespace-pre-line mb-3">
               {generateCaption('twitter')}
             </p>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(generateCaption('twitter'));
               }}
-              className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
+              className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 uppercase tracking-wider font-bold"
             >
               <Copy className="w-3 h-3" />
               Copy Caption
@@ -218,10 +218,10 @@ export default function SocialMediaExport({
       </div>
 
       {/* Tips */}
-      <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
-        <h5 className="text-sm font-semibold text-blue-400 mb-2">💡 Sharing Tips</h5>
-        <ul className="text-sm text-gray-400 space-y-1">
-          <li>• Download the workout card image before sharing</li>
+      <div className="bg-amber-950/20 border-2 border-amber-700/30 p-4">
+        <h5 className="text-sm font-black text-amber-400 mb-2 uppercase tracking-wider">💡 Sharing Tips</h5>
+        <ul className="text-sm text-neutral-400 space-y-1">
+          <li>• Download the battle card image before sharing</li>
           <li>• Use provided captions for better engagement</li>
           <li>• Tag friends to challenge them!</li>
           <li>• Share your PRs to inspire your community</li>

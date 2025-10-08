@@ -1,19 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
+import { useState, lazy, Suspense } from 'react';
 import { TrendingUp, BarChart3, Calendar } from 'lucide-react';
+import { ChartSkeleton } from '@/components/charts/chart-loading';
+
+const ChartRender = lazy(() => import('./exercise-performance-chart-render'));
 
 // Types
 type ChartType = 'strength' | 'volume' | 'frequency';
@@ -93,11 +84,11 @@ export default function ExercisePerformanceChart({
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-semibold mb-2">{formatDate(payload[0].payload.date)}</p>
+        <div className="bg-neutral-900 border-2 border-neutral-800 p-3 shadow-lg">
+          <p className="text-sm font-black mb-2 uppercase tracking-wider">{formatDate(payload[0].payload.date)}</p>
           {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: <span className="font-bold">{entry.value}</span>
+            <p key={index} className="text-sm uppercase tracking-wider font-bold" style={{ color: entry.color }}>
+              {entry.name}: <span className="font-black">{entry.value}</span>
               {entry.name.includes('Weight') || entry.name.includes('1RM') ? ' lbs' : ''}
             </p>
           ))}
@@ -108,48 +99,48 @@ export default function ExercisePerformanceChart({
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-purple-500/20 p-6">
+    <div className="bg-neutral-900 border-2 border-amber-700/20 p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-white mb-1">{exerciseName}</h3>
-          <p className="text-sm text-gray-400">Performance Trends</p>
+          <h3 className="text-xl font-black text-white mb-1 uppercase tracking-wider">{exerciseName}</h3>
+          <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Performance Trends</p>
         </div>
 
         {/* Chart Type Toggle */}
         <div className="flex gap-2">
           <button
             onClick={() => setChartType('strength')}
-            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
+            className={`px-3 py-2 transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 border-2 uppercase tracking-wider font-black ${
               chartType === 'strength'
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                ? 'bg-amber-950/50 border-amber-700 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:bg-neutral-800'
             }`}
           >
             <TrendingUp className="w-4 h-4" />
-            <span className="text-sm font-medium">Strength</span>
+            <span className="text-sm font-black uppercase tracking-wider">Strength</span>
           </button>
           <button
             onClick={() => setChartType('volume')}
-            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
+            className={`px-3 py-2 transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 border-2 uppercase tracking-wider font-black ${
               chartType === 'volume'
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                ? 'bg-amber-950/50 border-amber-700 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:bg-neutral-800'
             }`}
           >
             <BarChart3 className="w-4 h-4" />
-            <span className="text-sm font-medium">Volume</span>
+            <span className="text-sm font-black uppercase tracking-wider">Volume</span>
           </button>
           <button
             onClick={() => setChartType('frequency')}
-            className={`px-3 py-2 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 ${
+            className={`px-3 py-2 transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 border-2 uppercase tracking-wider font-black ${
               chartType === 'frequency'
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                ? 'bg-amber-950/50 border-amber-700 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:bg-neutral-800'
             }`}
           >
             <Calendar className="w-4 h-4" />
-            <span className="text-sm font-medium">Frequency</span>
+            <span className="text-sm font-black uppercase tracking-wider">Frequency</span>
           </button>
         </div>
       </div>
@@ -160,10 +151,10 @@ export default function ExercisePerformanceChart({
           <button
             key={range}
             onClick={() => setTimeRange(range)}
-            className={`px-3 py-1 rounded text-sm transition-colors ${
+            className={`px-3 py-1 text-sm transition-colors border-2 font-black uppercase tracking-wider ${
               timeRange === range
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                ? 'bg-amber-950/50 border-amber-700 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:bg-neutral-800'
             }`}
           >
             {range === 'all' ? 'All Time' : range.toUpperCase()}
@@ -173,13 +164,13 @@ export default function ExercisePerformanceChart({
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
-          <div className="text-xs text-gray-400 mb-1">Max Weight</div>
-          <div className="text-lg font-bold text-purple-400">{stats.maxWeight} lbs</div>
+        <div className="bg-neutral-900 p-3 border-2 border-neutral-800">
+          <div className="text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">Max Weight</div>
+          <div className="text-lg font-black text-amber-400 uppercase tracking-wider">{stats.maxWeight} lbs</div>
           {progress.weightChange !== 0 && (
             <div
-              className={`text-xs mt-1 ${
-                progress.weightChange > 0 ? 'text-green-400' : 'text-red-400'
+              className={`text-xs mt-1 uppercase tracking-wider font-bold ${
+                progress.weightChange > 0 ? 'text-amber-400' : 'text-red-400'
               }`}
             >
               {progress.weightChange > 0 ? '+' : ''}
@@ -188,13 +179,13 @@ export default function ExercisePerformanceChart({
           )}
         </div>
 
-        <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
-          <div className="text-xs text-gray-400 mb-1">Est. 1RM</div>
-          <div className="text-lg font-bold text-orange-400">{stats.maxOneRM} lbs</div>
+        <div className="bg-neutral-900 p-3 border-2 border-neutral-800">
+          <div className="text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">Est. 1RM</div>
+          <div className="text-lg font-black text-amber-400 uppercase tracking-wider">{stats.maxOneRM} lbs</div>
           {progress.oneRMChange !== 0 && (
             <div
-              className={`text-xs mt-1 ${
-                progress.oneRMChange > 0 ? 'text-green-400' : 'text-red-400'
+              className={`text-xs mt-1 uppercase tracking-wider font-bold ${
+                progress.oneRMChange > 0 ? 'text-amber-400' : 'text-red-400'
               }`}
             >
               {progress.oneRMChange > 0 ? '+' : ''}
@@ -203,15 +194,15 @@ export default function ExercisePerformanceChart({
           )}
         </div>
 
-        <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
-          <div className="text-xs text-gray-400 mb-1">Max Volume</div>
-          <div className="text-lg font-bold text-blue-400">
+        <div className="bg-neutral-900 p-3 border-2 border-neutral-800">
+          <div className="text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">Max Volume</div>
+          <div className="text-lg font-black text-amber-400 uppercase tracking-wider">
             {(stats.maxVolume / 1000).toFixed(1)}K lbs
           </div>
           {progress.volumeChange !== 0 && (
             <div
-              className={`text-xs mt-1 ${
-                progress.volumeChange > 0 ? 'text-green-400' : 'text-red-400'
+              className={`text-xs mt-1 uppercase tracking-wider font-bold ${
+                progress.volumeChange > 0 ? 'text-amber-400' : 'text-red-400'
               }`}
             >
               {progress.volumeChange > 0 ? '+' : ''}
@@ -220,10 +211,10 @@ export default function ExercisePerformanceChart({
           )}
         </div>
 
-        <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
-          <div className="text-xs text-gray-400 mb-1">Total Sets</div>
-          <div className="text-lg font-bold text-green-400">{stats.totalSets}</div>
-          <div className="text-xs text-gray-500 mt-1">
+        <div className="bg-neutral-900 p-3 border-2 border-neutral-800">
+          <div className="text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">Total Sets</div>
+          <div className="text-lg font-black text-amber-400 uppercase tracking-wider">{stats.totalSets}</div>
+          <div className="text-xs text-neutral-500 mt-1 uppercase tracking-wider font-bold">
             Avg: {(stats.totalSets / (filteredData.length || 1)).toFixed(1)}/session
           </div>
         </div>
@@ -231,87 +222,14 @@ export default function ExercisePerformanceChart({
 
       {/* Charts */}
       <div className="h-[300px]">
-        {filteredData.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-500">
-            No data available for this time period
-          </div>
-        ) : (
-          <>
-            {/* Strength Chart */}
-            {chartType === 'strength' && (
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={filteredData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis
-                    dataKey="date"
-                    tickFormatter={formatDate}
-                    stroke="#9CA3AF"
-                    style={{ fontSize: '12px' }}
-                  />
-                  <YAxis stroke="#9CA3AF" style={{ fontSize: '12px' }} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="weight"
-                    stroke="#A78BFA"
-                    strokeWidth={2}
-                    name="Max Weight"
-                    dot={{ fill: '#A78BFA', r: 4 }}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="estimatedOneRM"
-                    stroke="#FB923C"
-                    strokeWidth={2}
-                    name="Est. 1RM"
-                    dot={{ fill: '#FB923C', r: 4 }}
-                    activeDot={{ r: 6 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            )}
-
-            {/* Volume Chart */}
-            {chartType === 'volume' && (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis
-                    dataKey="date"
-                    tickFormatter={formatDate}
-                    stroke="#9CA3AF"
-                    style={{ fontSize: '12px' }}
-                  />
-                  <YAxis stroke="#9CA3AF" style={{ fontSize: '12px' }} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                  <Bar dataKey="volume" fill="#60A5FA" name="Total Volume (lbs)" />
-                </BarChart>
-              </ResponsiveContainer>
-            )}
-
-            {/* Frequency Chart */}
-            {chartType === 'frequency' && (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis
-                    dataKey="date"
-                    tickFormatter={formatDate}
-                    stroke="#9CA3AF"
-                    style={{ fontSize: '12px' }}
-                  />
-                  <YAxis stroke="#9CA3AF" style={{ fontSize: '12px' }} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                  <Bar dataKey="sets" fill="#34D399" name="Sets Performed" />
-                </BarChart>
-              </ResponsiveContainer>
-            )}
-          </>
-        )}
+        <Suspense fallback={<ChartSkeleton />}>
+          <ChartRender
+            chartType={chartType}
+            filteredData={filteredData}
+            formatDate={formatDate}
+            CustomTooltip={CustomTooltip}
+          />
+        </Suspense>
       </div>
     </div>
   );

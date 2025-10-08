@@ -8,9 +8,18 @@
 export const dynamic = 'force-dynamic'
 
 import { Suspense } from 'react'
+import dynamicImport from 'next/dynamic'
 import Link from 'next/link'
 import { ArrowLeft, Dumbbell } from 'lucide-react'
-import { ExerciseLibraryFiltered } from '@/components/equipment/exercise-library-filtered'
+import { ChartSkeleton } from '@/components/chart-skeleton'
+
+const ExerciseLibraryFiltered = dynamicImport(
+  () => import('@/components/equipment/exercise-library-filtered').then(mod => ({ default: mod.ExerciseLibraryFiltered })),
+  { 
+    loading: () => <ChartSkeleton />,
+    ssr: false 
+  }
+)
 
 // Mock exercise data for demo
 // In production, this would come from the database

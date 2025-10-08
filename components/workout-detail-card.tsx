@@ -90,39 +90,39 @@ export default function WorkoutDetailCard({
   );
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-purple-500/20 overflow-hidden shadow-lg">
+    <div className="bg-neutral-900 border-2 border-neutral-800 overflow-hidden shadow-lg">
       {/* Card Header */}
       <div
-        className="p-4 cursor-pointer hover:bg-white/5 transition-colors"
+        className="p-4 cursor-pointer hover:bg-amber-900/10 transition-colors"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="text-xl font-bold text-white">{workout.name}</h3>
+              <h3 className="text-xl font-black uppercase tracking-wider text-white">{workout.name}</h3>
               {workout.templateName && (
-                <span className="px-2 py-1 bg-blue-600/20 text-blue-400 text-xs rounded border border-blue-500/30">
+                <span className="px-2 py-1 bg-amber-950/50 text-amber-400 text-xs border-2 border-amber-800/50 uppercase tracking-wider font-bold">
                   {workout.templateName}
                 </span>
               )}
               {prCount > 0 && (
-                <span className="px-2 py-1 bg-yellow-600/20 text-yellow-400 text-xs rounded border border-yellow-500/30 flex items-center gap-1">
+                <span className="px-2 py-1 bg-amber-950/50 text-amber-400 text-xs border-2 border-amber-800/50 flex items-center gap-1 uppercase tracking-wider font-bold">
                   <Award className="w-3 h-3" />
                   {prCount} PR{prCount > 1 ? 's' : ''}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-4 text-sm text-gray-400">
+            <div className="flex items-center gap-4 text-sm text-neutral-400">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
                 <span>{formatDate(workout.date)}</span>
-                <span className="ml-1 text-gray-500">at {formatTime(workout.date)}</span>
+                <span className="ml-1 text-neutral-500">at {formatTime(workout.date)}</span>
               </div>
             </div>
           </div>
 
-          <button className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <button className="p-2 hover:bg-amber-900/20 border-2 border-amber-800/50 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
             {isExpanded ? (
               <ChevronUp className="w-5 h-5" />
             ) : (
@@ -134,70 +134,70 @@ export default function WorkoutDetailCard({
         {/* Quick Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-gray-400 mb-1">
+            <div className="flex items-center justify-center gap-1 text-neutral-400 mb-1">
               <Clock className="w-4 h-4" />
             </div>
             <div className="text-lg font-bold">{workout.duration}m</div>
-            <div className="text-xs text-gray-500">Duration</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold">Duration</div>
           </div>
 
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-purple-400 mb-1">
+            <div className="flex items-center justify-center gap-1 text-amber-400 mb-1">
               <TrendingUp className="w-4 h-4" />
             </div>
-            <div className="text-lg font-bold text-purple-400">{workout.xpEarned}</div>
-            <div className="text-xs text-gray-500">XP Earned</div>
+            <div className="text-lg font-bold text-amber-400">{workout.xpEarned}</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold">XP Earned</div>
           </div>
 
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-orange-400 mb-1">
+            <div className="flex items-center justify-center gap-1 text-amber-400 mb-1">
               <Dumbbell className="w-4 h-4" />
             </div>
-            <div className="text-lg font-bold text-orange-400">
+            <div className="text-lg font-bold text-amber-400">
               {(workout.totalVolume / 1000).toFixed(1)}K
             </div>
-            <div className="text-xs text-gray-500">Total Volume</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold">Total Volume</div>
           </div>
 
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-blue-400 mb-1">
+            <div className="flex items-center justify-center gap-1 text-amber-400 mb-1">
               <Activity className="w-4 h-4" />
             </div>
-            <div className="text-lg font-bold text-blue-400">{workout.exercises.length}</div>
-            <div className="text-xs text-gray-500">Exercises</div>
+            <div className="text-lg font-bold text-amber-400">{workout.exercises.length}</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold">Techniques</div>
           </div>
 
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 text-green-400 mb-1">
+            <div className="flex items-center justify-center gap-1 text-amber-400 mb-1">
               <Award className="w-4 h-4" />
             </div>
-            <div className="text-lg font-bold text-green-400">{totalSets}</div>
-            <div className="text-xs text-gray-500">Total Sets</div>
+            <div className="text-lg font-bold text-amber-400">{totalSets}</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold">Total Sets</div>
           </div>
         </div>
 
         {workout.averageRPE && (
-          <div className="mt-3 p-2 bg-gray-700/30 rounded text-sm text-center">
-            Average RPE: <span className="font-bold text-yellow-400">{workout.averageRPE.toFixed(1)}</span> / 10
+          <div className="mt-3 p-2 bg-neutral-900 border-2 border-neutral-800 text-sm text-center">
+            <span className="uppercase tracking-wider font-bold">Average RPE:</span> <span className="font-bold text-amber-400">{workout.averageRPE.toFixed(1)}</span> / 10
           </div>
         )}
       </div>
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="border-t border-gray-700">
+        <div className="border-t-2 border-neutral-800">
           {/* Workout Notes */}
           {workout.notes && (
-            <div className="p-4 bg-blue-900/10 border-b border-gray-700">
-              <h4 className="text-sm font-semibold text-blue-400 mb-2">Workout Notes</h4>
-              <p className="text-sm text-gray-300">{workout.notes}</p>
+            <div className="p-4 bg-amber-950/20 border-b-2 border-neutral-800">
+              <h4 className="text-sm font-bold text-amber-400 mb-2 uppercase tracking-wider">Battle Notes</h4>
+              <p className="text-sm text-neutral-300">{workout.notes}</p>
             </div>
           )}
 
           {/* Exercises */}
           <div className="p-4 space-y-3">
-            <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-              Exercises ({workout.exercises.length})
+            <h4 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">
+              Techniques ({workout.exercises.length})
             </h4>
 
             {workout.exercises.map((exercise, index) => {
@@ -215,27 +215,27 @@ export default function WorkoutDetailCard({
               return (
                 <div
                   key={exercise.id}
-                  className="bg-gray-800/50 rounded-lg border border-gray-700 overflow-hidden"
+                  className="bg-neutral-900 border-2 border-neutral-800 overflow-hidden"
                 >
                   {/* Exercise Header */}
                   <div
-                    className="p-3 cursor-pointer hover:bg-white/5 transition-colors"
+                    className="p-3 cursor-pointer hover:bg-amber-900/10 transition-colors"
                     onClick={() => toggleExercise(exercise.id)}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs bg-purple-600 text-white px-2 py-0.5 rounded font-bold">
+                          <span className="text-xs bg-amber-950/50 text-amber-400 px-2 py-0.5 border-2 border-amber-800/50 font-bold uppercase tracking-wider">
                             {index + 1}
                           </span>
-                          <h5 className="font-semibold">{exercise.name}</h5>
+                          <h5 className="font-bold uppercase tracking-wider">{exercise.name}</h5>
                           {exercise.sets.some((s) => s.isPR) && (
-                            <span className="text-xs bg-yellow-600/20 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/30">
+                            <span className="text-xs bg-amber-950/50 text-amber-400 px-2 py-0.5 border-2 border-amber-800/50 font-bold uppercase tracking-wider">
                               PR!
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                        <div className="flex items-center gap-3 text-xs text-neutral-400">
                           <span>{exercise.equipment}</span>
                           <span>•</span>
                           <span>{exercise.muscleGroups.join(', ')}</span>
@@ -252,7 +252,7 @@ export default function WorkoutDetailCard({
                         </div>
                       </div>
 
-                      <button className="p-1 hover:bg-white/10 rounded transition-colors">
+                      <button className="p-1 hover:bg-amber-900/20 border-2 border-amber-800/50 transition-colors">
                         {isExerciseExpanded ? (
                           <ChevronUp className="w-4 h-4" />
                         ) : (
@@ -264,9 +264,9 @@ export default function WorkoutDetailCard({
 
                   {/* Exercise Sets */}
                   {isExerciseExpanded && (
-                    <div className="border-t border-gray-700 p-3 bg-gray-900/30">
+                    <div className="border-t-2 border-neutral-800 p-3 bg-neutral-950">
                       {/* Sets Table Header */}
-                      <div className="grid grid-cols-5 gap-2 mb-2 text-xs font-semibold text-gray-400 uppercase overflow-x-auto">
+                      <div className="grid grid-cols-5 gap-2 mb-2 text-xs font-bold text-neutral-400 uppercase tracking-wider overflow-x-auto">
                         <div>Set</div>
                         <div className="text-right">Weight</div>
                         <div className="text-right">Reps</div>
@@ -278,33 +278,33 @@ export default function WorkoutDetailCard({
                       {exercise.sets.map((set) => (
                         <div
                           key={set.setNumber}
-                          className={`grid grid-cols-5 gap-2 py-2 text-sm border-t border-gray-800 ${
-                            set.isPR ? 'bg-yellow-900/10' : ''
+                          className={`grid grid-cols-5 gap-2 py-2 text-sm border-t-2 border-neutral-900 ${
+                            set.isPR ? 'bg-amber-950/20' : ''
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            <span className="font-medium">{set.setNumber}</span>
-                            {set.isPR && <Award className="w-3 h-3 text-yellow-500" />}
+                            <span className="font-bold">{set.setNumber}</span>
+                            {set.isPR && <Award className="w-3 h-3 text-amber-400" />}
                           </div>
-                          <div className="text-right font-medium">{set.weight} lbs</div>
-                          <div className="text-right font-medium">{set.reps}</div>
-                          <div className="text-right text-gray-400">
+                          <div className="text-right font-bold">{set.weight} lbs</div>
+                          <div className="text-right font-bold">{set.reps}</div>
+                          <div className="text-right text-neutral-400">
                             {(set.weight * set.reps).toLocaleString()} lbs
                           </div>
                           <div className="text-right">
                             {set.rpe ? (
                               <span
                                 className={`
-                                px-2 py-0.5 rounded text-xs font-medium
-                                ${set.rpe >= 9 ? 'bg-red-900/30 text-red-400' : ''}
-                                ${set.rpe >= 7 && set.rpe < 9 ? 'bg-orange-900/30 text-orange-400' : ''}
-                                ${set.rpe < 7 ? 'bg-green-900/30 text-green-400' : ''}
+                                px-2 py-0.5 text-xs font-bold uppercase tracking-wider
+                                ${set.rpe >= 9 ? 'bg-amber-950/50 border-2 border-amber-700 text-amber-400' : ''}
+                                ${set.rpe >= 7 && set.rpe < 9 ? 'bg-amber-950/50 border-2 border-amber-600 text-amber-400' : ''}
+                                ${set.rpe < 7 ? 'bg-amber-950/50 border-2 border-amber-500 text-amber-400' : ''}
                               `}
                               >
                                 {set.rpe}
                               </span>
                             ) : (
-                              <span className="text-gray-600">-</span>
+                              <span className="text-neutral-600">-</span>
                             )}
                           </div>
                         </div>
@@ -312,8 +312,8 @@ export default function WorkoutDetailCard({
 
                       {/* Exercise Notes */}
                       {exercise.notes && (
-                        <div className="mt-3 p-2 bg-blue-900/10 rounded text-xs text-gray-300">
-                          <span className="font-semibold text-blue-400">Notes:</span> {exercise.notes}
+                        <div className="mt-3 p-2 bg-amber-950/20 border-2 border-amber-800/50 text-xs text-neutral-300">
+                          <span className="font-bold text-amber-400 uppercase tracking-wider">Notes:</span> {exercise.notes}
                         </div>
                       )}
                     </div>
@@ -324,17 +324,17 @@ export default function WorkoutDetailCard({
           </div>
 
           {/* Action Buttons */}
-          <div className="p-4 border-t border-gray-700 bg-gray-800/30 flex gap-2">
+          <div className="p-4 border-t-2 border-neutral-800 bg-neutral-950 flex gap-2">
             <button
               onClick={() => onCopyWorkout?.(workout.id)}
-              className="flex-1 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2 font-black uppercase tracking-wider"
             >
               <Copy className="w-4 h-4" />
-              Copy Workout
+              Copy Battle
             </button>
             <button
               onClick={() => onShareWorkout?.(workout.id)}
-              className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 transition-colors touch-manipulation min-h-[44px] flex items-center justify-center gap-2 font-black uppercase tracking-wider"
             >
               <Share2 className="w-4 h-4" />
               Share

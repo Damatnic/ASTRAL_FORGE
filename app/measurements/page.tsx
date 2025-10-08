@@ -1,16 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ChartSkeleton } from '@/components/chart-skeleton';
 import {
   Scale,
   Ruler,
@@ -26,6 +18,15 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+
+// Dynamic import for chart component (performance optimization)
+const MeasurementProgressChart = dynamic(
+  () => import('@/components/measurements/progress-chart'),
+  {
+    loading: () => <ChartSkeleton />,
+    ssr: false,
+  }
+);
 
 // Types
 interface Measurement {
@@ -229,16 +230,16 @@ export default function BodyMeasurementsPage() {
   if (!stats) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 p-3 sm:p-4 md:p-6">
+    <div className="min-h-screen bg-neutral-950 p-3 sm:p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Page Header */}
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 flex items-center justify-center gap-2 sm:gap-3">
-            <Ruler className="w-8 h-8 sm:w-10 sm:h-10 text-purple-500" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400 mb-3 sm:mb-4 flex items-center justify-center gap-2 sm:gap-3">
+            <Ruler className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
             Body Measurements
           </h1>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg px-4">
-            Track your transformation with measurements and progress photos
+          <p className="text-neutral-300 text-sm sm:text-base md:text-lg px-4 font-medium">
+            Track your warrior transformation with measurements and battle photos
           </p>
         </div>
 
@@ -246,24 +247,24 @@ export default function BodyMeasurementsPage() {
         <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center flex-wrap px-2">
           <button
             onClick={() => setShowAddMeasurement(!showAddMeasurement)}
-            className="px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] bg-purple-600 hover:bg-purple-700 rounded-lg font-medium text-white transition-all shadow-lg shadow-purple-500/50 flex items-center gap-2 text-sm sm:text-base touch-manipulation"
+            className="px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-bold uppercase tracking-wider text-amber-400 transition-all shadow-lg shadow-amber-700/20 flex items-center gap-2 text-sm sm:text-base touch-manipulation"
           >
             <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="hidden xs:inline">Add </span>Measurement
           </button>
           <button
             onClick={() => setShowPhotoUpload(!showPhotoUpload)}
-            className="px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] bg-cyan-600 hover:bg-cyan-700 rounded-lg font-medium text-white transition-all shadow-lg shadow-cyan-500/50 flex items-center gap-2 text-sm sm:text-base touch-manipulation"
+            className="px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-bold uppercase tracking-wider text-amber-400 transition-all shadow-lg shadow-amber-700/20 flex items-center gap-2 text-sm sm:text-base touch-manipulation"
           >
             <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="hidden xs:inline">Upload </span>Photo
           </button>
           <button
             onClick={() => setComparisonMode(!comparisonMode)}
-            className={`px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] rounded-lg font-medium transition-all flex items-center gap-2 text-sm sm:text-base touch-manipulation ${
+            className={`px-4 sm:px-6 py-3 sm:py-3.5 min-h-[48px] border-2 font-bold uppercase tracking-wider transition-all flex items-center gap-2 text-sm sm:text-base touch-manipulation ${
               comparisonMode
-                ? 'bg-yellow-600 hover:bg-yellow-700 text-white shadow-lg shadow-yellow-500/50'
-                : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                ? 'bg-amber-950/50 border-amber-700 text-amber-400 shadow-lg shadow-amber-700/20'
+                : 'bg-neutral-900 border-neutral-800 hover:border-amber-700 text-neutral-400'
             }`}
           >
             <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -273,10 +274,10 @@ export default function BodyMeasurementsPage() {
 
         {/* Current Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-          <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/20 rounded-lg border border-purple-500/30 p-4 sm:p-5 md:p-6">
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-4 sm:p-5 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-purple-500/20 rounded-lg">
-                <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+              <div className="p-2 sm:p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
               </div>
               <h3 className="text-base sm:text-lg font-semibold text-white">Weight</h3>
             </div>
@@ -427,39 +428,12 @@ export default function BodyMeasurementsPage() {
               <option value="chest">Chest</option>
             </select>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis
-                dataKey="date"
-                tickFormatter={formatDate}
-                stroke="#9ca3af"
-                style={{ fontSize: '12px' }}
-              />
-              <YAxis
-                stroke="#9ca3af"
-                style={{ fontSize: '12px' }}
-                label={{ value: getMetricLabel(selectedMetric), angle: -90, position: 'insideLeft', fill: '#9ca3af' }}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#1f2937',
-                  border: '1px solid #374151',
-                  borderRadius: '8px',
-                }}
-                labelStyle={{ color: '#fff' }}
-              />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#8b5cf6"
-                strokeWidth={3}
-                dot={{ fill: '#8b5cf6', r: 5 }}
-                name={getMetricLabel(selectedMetric)}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <MeasurementProgressChart
+            data={chartData}
+            selectedMetric={selectedMetric}
+            formatDate={formatDate}
+            getMetricLabel={getMetricLabel as (metric: string) => string}
+          />
         </div>
 
         {/* Progress Photos */}

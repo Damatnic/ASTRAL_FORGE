@@ -2,7 +2,9 @@
 
 import { useState, useRef } from 'react';
 import { Download, Copy, Check, Palette, Image as ImageIcon } from 'lucide-react';
-import html2canvas from 'html2canvas';
+
+// html2canvas is lazy-loaded only when needed (generateImage function)
+// This saves ~30-40 KB from the shared bundle
 
 // Types
 export interface WorkoutCardData {
@@ -56,44 +58,44 @@ export default function WorkoutShareCard({
   // Theme configurations
   const themes = {
     dark: {
-      bg: 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900',
+      bg: 'bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900',
       text: 'text-white',
-      subtext: 'text-gray-400',
-      accent: 'text-purple-400',
-      border: 'border-purple-500/30',
-      statBg: 'bg-gray-800/50',
+      subtext: 'text-neutral-400',
+      accent: 'text-amber-400',
+      border: 'border-amber-700/30',
+      statBg: 'bg-neutral-800/50',
     },
     light: {
-      bg: 'bg-gradient-to-br from-gray-100 via-white to-gray-100',
-      text: 'text-gray-900',
-      subtext: 'text-gray-600',
-      accent: 'text-purple-600',
-      border: 'border-purple-300',
+      bg: 'bg-gradient-to-br from-neutral-100 via-white to-neutral-100',
+      text: 'text-neutral-900',
+      subtext: 'text-neutral-600',
+      accent: 'text-amber-600',
+      border: 'border-amber-300',
       statBg: 'bg-white/80',
     },
     purple: {
-      bg: 'bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900',
+      bg: 'bg-gradient-to-br from-amber-950 via-amber-900 to-neutral-900',
       text: 'text-white',
-      subtext: 'text-purple-200',
-      accent: 'text-yellow-400',
-      border: 'border-yellow-500/30',
-      statBg: 'bg-purple-800/50',
+      subtext: 'text-amber-200',
+      accent: 'text-amber-400',
+      border: 'border-amber-700/30',
+      statBg: 'bg-amber-900/50',
     },
     blue: {
-      bg: 'bg-gradient-to-br from-blue-900 via-cyan-800 to-blue-900',
+      bg: 'bg-gradient-to-br from-amber-950 via-amber-900 to-neutral-900',
       text: 'text-white',
-      subtext: 'text-cyan-200',
-      accent: 'text-cyan-400',
-      border: 'border-cyan-500/30',
-      statBg: 'bg-blue-800/50',
+      subtext: 'text-amber-200',
+      accent: 'text-amber-400',
+      border: 'border-amber-700/30',
+      statBg: 'bg-amber-900/50',
     },
     gradient: {
-      bg: 'bg-gradient-to-br from-orange-600 via-purple-600 to-blue-600',
+      bg: 'bg-gradient-to-br from-amber-950 via-amber-900 to-amber-950',
       text: 'text-white',
       subtext: 'text-white/80',
-      accent: 'text-yellow-300',
-      border: 'border-white/30',
-      statBg: 'bg-white/20',
+      accent: 'text-amber-300',
+      border: 'border-amber-700/30',
+      statBg: 'bg-amber-950/20',
     },
   };
 
@@ -119,6 +121,10 @@ export default function WorkoutShareCard({
 
     setIsGenerating(true);
     try {
+      // Lazy load html2canvas only when generating image
+      // This prevents loading ~30-40 KB on every page that imports this component
+      const html2canvas = (await import('html2canvas')).default;
+      
       const canvas = await html2canvas(cardRef.current, {
         backgroundColor: null,
         scale: 2, // Higher quality
@@ -180,10 +186,10 @@ export default function WorkoutShareCard({
           <button
             key={t}
             onClick={() => setTheme(t)}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors capitalize ${
+            className={`px-3 py-1 text-sm font-black transition-colors uppercase tracking-wider ${
               theme === t
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                ? 'bg-amber-950/50 text-white border-2 border-amber-700'
+                : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-2 border-neutral-800'
             }`}
           >
             {t}
@@ -200,12 +206,12 @@ export default function WorkoutShareCard({
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-4">
             {/* User Avatar */}
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-2xl font-bold">
+            <div className="w-16 h-16 bg-amber-950/50 border-2 border-amber-700 flex items-center justify-center text-2xl font-black uppercase tracking-wider">
               {workout.user.avatar ? (
                 <img
                   src={workout.user.avatar}
                   alt={workout.user.username}
-                  className="w-full h-full rounded-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 workout.user.username[0].toUpperCase()
@@ -325,7 +331,7 @@ export default function WorkoutShareCard({
         <button
           onClick={handleDownload}
           disabled={isGenerating}
-          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[48px] font-medium text-white flex items-center gap-2"
+          className="px-6 py-3 bg-amber-950/50 hover:bg-amber-900/50 disabled:bg-neutral-900 border-2 border-amber-700 disabled:border-neutral-700 transition-colors touch-manipulation min-h-[48px] font-bold uppercase tracking-wider text-white flex items-center gap-2"
         >
           <Download className="w-5 h-5" />
           {isGenerating ? 'Generating...' : 'Download Image'}
@@ -334,7 +340,7 @@ export default function WorkoutShareCard({
         <button
           onClick={handleCopy}
           disabled={isGenerating}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded-lg transition-colors touch-manipulation min-h-[48px] font-medium text-white flex items-center gap-2"
+          className="px-6 py-3 bg-amber-950/50 hover:bg-amber-900/50 disabled:bg-neutral-900 border-2 border-amber-700 disabled:border-neutral-700 transition-colors touch-manipulation min-h-[48px] font-bold uppercase tracking-wider text-white flex items-center gap-2"
         >
           {copied ? (
             <>

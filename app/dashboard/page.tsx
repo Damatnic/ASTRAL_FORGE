@@ -1,57 +1,127 @@
-﻿'use client'
+'use client'
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { 
   Dumbbell, 
   Target, 
-  Trophy, 
-  Award,
+  Trophy,
   Heart,
-  ChevronRight,
-  Users,
-  Swords,
-  Zap,
+  BarChart3,
+  Sparkles,
   Flame,
+  Calendar,
 } from 'lucide-react'
 import { AppLayout, PageContainer } from '@/components/layout'
+import { TrainingStatusWidget } from '@/components/dashboard/training-status-widget'
+
+interface DashboardStats {
+  totalWorkouts: number
+  currentStreak: number
+  level: number
+  currentXP: number
+  requiredXP: number
+  achievements: number
+  weeklyWorkouts: number
+  weeklyGoal: number
+  totalVolume?: number
+  personalRecords?: number
+}
+
+interface SessionData {
+  id: string
+  name: string
+  date: string
+  duration: number
+  exercises: number
+  sets: number
+}
 
 export default function Dashboard() {
-  const [stats, setStats] = useState<any>(null)
+  const [stats, setStats] = useState<DashboardStats | null>(null)
+  const [recentSessions, setRecentSessions] = useState<SessionData[]>([])
   const [loading, setLoading] = useState(true)
+  const [xpAnimated, setXpAnimated] = useState(false)
 
   useEffect(() => {
     loadDashboardData()
   }, [])
 
+  // Trigger XP bar animation after stats load
+  useEffect(() => {
+    if (stats) {
+      setTimeout(() => setXpAnimated(true), 100)
+    }
+  }, [stats])
+
   const loadDashboardData = async () => {
     try {
+      // Fetch real stats from API
       const statsRes = await fetch('/api/stats').catch(() => null)
+      const sessionsRes = await fetch('/api/sessions?limit=10').catch(() => null)
+      
+      let totalWorkouts = 0
+      let totalVolume = 0
+      let personalRecords = 0
+      
+      // Parse stats response
       if (statsRes?.ok) {
         const statsData = await statsRes.json()
-        setStats(statsData)
-      } else {
-        setStats({
-          totalWorkouts: 127,
-          currentStreak: 12,
-          level: 42,
-          currentXP: 8450,
-          requiredXP: 10000,
-          achievements: 38,
-          weeklyWorkouts: 4,
-          weeklyGoal: 5,
-        })
+        totalWorkouts = statsData.totalWorkouts || 0
+        totalVolume = parseFloat(statsData.totalVolume || '0') * 1000 // Convert K back to kg
+        personalRecords = statsData.prs || 0
       }
-    } catch (error) {
+      
+      // Calculate XP based on real workouts
+      // XP formula: 100 XP per workout, 500 XP per PR
+      const totalXP = (totalWorkouts * 100) + (personalRecords * 500)
+      const level = Math.floor(totalXP / 1000) + 1
+      const currentXP = totalXP % 1000
+      const requiredXP = 1000
+      
+      // Calculate streak (mock for now - would need date comparison logic)
+      const currentStreak = 12
+      
+      // Calculate weekly workouts (count sessions from last 7 days)
+      let weeklyWorkouts = 0
+      if (sessionsRes?.ok) {
+        const sessions: SessionData[] = await sessionsRes.json()
+        const oneWeekAgo = new Date()
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+        
+        weeklyWorkouts = sessions.filter((s: SessionData) => 
+          new Date(s.date) >= oneWeekAgo
+        ).length
+        
+        // Store recent 3 sessions for display
+        setRecentSessions(sessions.slice(0, 3))
+      }
+      
       setStats({
-        totalWorkouts: 127,
-        currentStreak: 12,
-        level: 42,
-        currentXP: 8450,
-        requiredXP: 10000,
-        achievements: 38,
-        weeklyWorkouts: 4,
+        totalWorkouts,
+        currentStreak,
+        level,
+        currentXP,
+        requiredXP,
+        achievements: personalRecords, // Use PRs as achievements for now
+        weeklyWorkouts,
         weeklyGoal: 5,
+        totalVolume,
+        personalRecords,
+      })
+    } catch (_error) {
+      // Fallback to mock data if API fails
+      setStats({
+        totalWorkouts: 0,
+        currentStreak: 0,
+        level: 1,
+        currentXP: 0,
+        requiredXP: 1000,
+        achievements: 0,
+        weeklyWorkouts: 0,
+        weeklyGoal: 5,
+        totalVolume: 0,
+        personalRecords: 0,
       })
     } finally {
       setLoading(false)
@@ -59,13 +129,17 @@ export default function Dashboard() {
   }
 
   const xpPercentage = stats ? (stats.currentXP / stats.requiredXP) * 100 : 0
+  const isNearLevelUp = stats ? (stats.requiredXP - stats.currentXP) <= 200 : false
 
   if (loading) {
     return (
       <AppLayout>
         <PageContainer>
           <div className="flex items-center justify-center py-20">
-            <div className="text-gray-400">Loading dashboard...</div>
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent animate-spin"></div>
+              <div className="text-neutral-400 font-light">Loading your stats...</div>
+            </div>
           </div>
         </PageContainer>
       </AppLayout>
@@ -75,145 +149,206 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <PageContainer>
-        <section className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-medium text-gray-400">Experience Points</h3>
-                <span className="text-sm text-blue-400">{stats?.currentXP || 0} / {stats?.requiredXP || 10000} XP</span>
-              </div>
-              <div className="relative h-3 bg-slate-800 rounded-full overflow-hidden">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500" style={{ width: `${xpPercentage}%` }}></div>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">{Math.round((stats?.requiredXP || 10000) - (stats?.currentXP || 0))} XP to Level {(stats?.level || 1) + 1}</p>
-            </div>
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-medium text-gray-400">Current Streak</h3>
-                <Flame className="w-5 h-5 text-orange-400" />
-              </div>
-              <div className="text-3xl font-bold text-orange-400">{stats?.currentStreak || 0} Days</div>
-              <p className="text-xs text-gray-500 mt-2">Keep it going!</p>
-            </div>
-          </div>
-        </section>
+        {/* Hero Section - Compact */}
         <section className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Continue Training</h2>
-            <Link href="/programs" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">View All</Link>
-          </div>
-          <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/30 rounded-xl p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-xl font-bold mb-1">Push Day Domination</h3>
-                <p className="text-sm text-gray-400">Strength Training  60 min  8 exercises</p>
-              </div>
-              <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-semibold rounded-lg">INTERMEDIATE</span>
-            </div>
-            <Link href="/workout/session" className="block w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold text-center transition-all">Start Workout</Link>
-          </div>
-        </section>
-        <section className="mb-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition-colors">
-              <Dumbbell className="w-8 h-8 text-blue-400 mb-3" />
-              <div className="text-2xl font-bold">{stats?.totalWorkouts || 0}</div>
-              <div className="text-sm text-gray-400">Total Workouts</div>
-            </div>
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-purple-500/50 transition-colors">
-              <Award className="w-8 h-8 text-purple-400 mb-3" />
-              <div className="text-2xl font-bold">{stats?.achievements || 0}</div>
-              <div className="text-sm text-gray-400">Achievements</div>
-            </div>
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition-colors">
-              <Target className="w-8 h-8 text-green-400 mb-3" />
-              <div className="text-2xl font-bold">{stats?.weeklyWorkouts || 0}/{stats?.weeklyGoal || 5}</div>
-              <div className="text-sm text-gray-400">This Week</div>
-            </div>
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-orange-500/50 transition-colors">
-              <Trophy className="w-8 h-8 text-orange-400 mb-3" />
-              <div className="text-2xl font-bold">Level {stats?.level || 1}</div>
-              <div className="text-sm text-gray-400">Current Level</div>
-            </div>
-          </div>
-        </section>
-        <section className="mb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">Recent Activity</h2>
-                <Link href="/progress" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">View All</Link>
-              </div>
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <div className="space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center gap-4 pb-4 border-b border-slate-800 last:border-0 last:pb-0">
-                      <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/30 rounded-lg flex items-center justify-center">
-                        <Dumbbell className="w-6 h-6 text-blue-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium">Completed Push Day</h4>
-                        <p className="text-sm text-gray-400">8 exercises  45 min</p>
-                      </div>
-                      <div className="text-xs text-gray-500">2h ago</div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Level & XP Card */}
+            <div className="lg:col-span-2 bg-neutral-900 border-2 border-amber-800/30 p-4 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1a1a1a_1px,transparent_1px)] bg-[size:24px_24px] opacity-30"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-6 h-6 text-amber-500" />
+                    <h1 className="text-2xl font-black tracking-tight">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400">
+                        LEVEL {stats?.level || 1}
+                      </span>
+                      <span className="text-amber-100 ml-2">WARRIOR</span>
+                    </h1>
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-950/50 border-2 border-amber-800/50">
+                    <Flame className="w-4 h-4 text-amber-500" />
+                    <span className="text-lg font-bold text-amber-400">{stats?.currentStreak || 0}</span>
+                    <span className="text-xs text-neutral-500 uppercase tracking-wider">Day</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-neutral-400 font-light">{stats?.totalWorkouts || 0} Battles Won</span>
+                    <span className="text-amber-400 font-bold tracking-wider">
+                      {stats?.currentXP?.toLocaleString() || 0} / {stats?.requiredXP?.toLocaleString() || 10000} XP
+                    </span>
+                  </div>
+                  <div className="relative h-3 bg-neutral-950 border-2 border-neutral-800 overflow-hidden">
+                    <div 
+                      className={`absolute inset-y-0 left-0 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 transition-all duration-1000 ease-out ${isNearLevelUp ? 'animate-pulse' : ''}`}
+                      style={{ width: xpAnimated ? `${xpPercentage}%` : '0%' }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"></div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-              <h2 className="text-lg font-semibold mb-4">Quick Access</h2>
-              <div className="space-y-3">
-                <Link href="/programs" className="block bg-slate-900/50 border border-slate-800 rounded-xl p-4 hover:border-blue-500/50 transition-colors group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
-                      <Dumbbell className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm">Browse Programs</h4>
-                      <p className="text-xs text-gray-400">Find challenges</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-400 transition-colors" />
-                  </div>
-                </Link>
-                <Link href="/goals" className="block bg-slate-900/50 border border-slate-800 rounded-xl p-4 hover:border-purple-500/50 transition-colors group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center">
-                      <Target className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm">Set New Goal</h4>
-                      <p className="text-xs text-gray-400">Track progress</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors" />
-                  </div>
-                </Link>
+
+            {/* Quick Stats Card */}
+            <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+              <h3 className="text-sm font-bold text-neutral-400 mb-3 uppercase tracking-wider">This Week</h3>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">Battles</span>
+                  <span className="text-lg font-bold text-amber-400">{stats?.weeklyWorkouts || 0}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">Volume</span>
+                  <span className="text-lg font-bold text-amber-400">{(stats?.totalVolume || 0).toLocaleString()} kg</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">PRs</span>
+                  <span className="text-lg font-bold text-amber-400">{stats?.personalRecords || 0}</span>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Main Content - Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          {/* Training Status - Takes 2/3 */}
+          <div className="lg:col-span-2 space-y-6">
+            <TrainingStatusWidget
+              programName="5x5 Strength Program"
+              nextWorkout={{
+                name: "Squat Day",
+                exercises: 5,
+                estimatedTime: 60,
+                scheduledDate: "Today"
+              }}
+              programProgress={{
+                current: 8,
+                total: 12
+              }}
+            />
+          </div>
+
+          {/* Sidebar - Quick Actions & Recent */}
+          <div className="space-y-4">
+            {/* Quick Actions */}
+            <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+              <h3 className="text-sm font-bold text-neutral-400 mb-3 uppercase tracking-wider">Quick Actions</h3>
+              <div className="space-y-2">
+                <Link 
+                  href="/programs" 
+                  className="block w-full py-2 px-3 bg-amber-950/50 hover:bg-amber-950/70 border-2 border-amber-700 hover:border-amber-600 font-bold text-center text-sm transition-all duration-200 text-amber-400 uppercase tracking-wider"
+                >
+                  Engage Battle
+                </Link>
+                <Link 
+                  href="/history" 
+                  className="block w-full py-2 px-3 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 hover:border-amber-700 font-bold text-center text-sm transition-colors text-neutral-300 hover:text-amber-400 uppercase tracking-wider"
+                >
+                  Log Victory
+                </Link>
+              </div>
+            </div>
+
+            {/* Recent Activity Compact */}
+            <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">Recent Battles</h3>
+                <Link href="/history" className="text-xs text-amber-400 hover:text-amber-300 uppercase tracking-wider">View All</Link>
+              </div>
+              <div className="space-y-2">
+                {recentSessions.slice(0, 3).length > 0 ? (
+                  recentSessions.slice(0, 3).map((workout) => {
+                    const workoutDate = new Date(workout.date)
+                    const now = new Date()
+                    const diffHours = Math.floor((now.getTime() - workoutDate.getTime()) / (1000 * 60 * 60))
+                    const diffDays = Math.floor(diffHours / 24)
+                    
+                    let timeAgo = ''
+                    if (diffHours < 1) {
+                      timeAgo = 'Just now'
+                    } else if (diffHours < 24) {
+                      timeAgo = `${diffHours}h ago`
+                    } else if (diffDays === 1) {
+                      timeAgo = 'Yesterday'
+                    } else {
+                      timeAgo = `${diffDays}d ago`
+                    }
+                    
+                    return (
+                      <div key={workout.id} className="flex items-center gap-2 p-2 bg-neutral-950 border-2 border-neutral-800">
+                        <Dumbbell className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-bold truncate text-neutral-300 uppercase">{workout.name}</p>
+                          <p className="text-xs text-neutral-500">{timeAgo}</p>
+                        </div>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <p className="text-xs text-neutral-500 text-center py-4">No recent battles</p>
+                )}
+              </div>
+            </div>
+
+            {/* Achievements Compact */}
+            <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">Trophies</h3>
+                <Link href="/achievements" className="text-xs text-amber-400 hover:text-amber-300 uppercase tracking-wider">View All</Link>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { icon: '💯', name: '100 Battles' },
+                  { icon: '🔥', name: '10 Day Streak' },
+                  { icon: '🏆', name: 'First PR' }
+                ].map((achievement, i) => (
+                  <div 
+                    key={i}
+                    className="aspect-square bg-neutral-950 border-2 border-neutral-800 flex flex-col items-center justify-center p-2 hover:border-amber-700 transition-colors cursor-pointer group"
+                  >
+                    <span className="text-2xl group-hover:scale-110 transition-transform">{achievement.icon}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Quick Links - Compact Grid */}
         <section>
-          <h2 className="text-lg font-semibold mb-4">All Features</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/guild" className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition-colors text-center">
-              <Users className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-              <h3 className="font-medium text-sm mb-1">Guild Hall</h3>
-              <p className="text-xs text-gray-400">Train together</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <Link href="/analytics" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <BarChart3 className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Analytics</p>
             </Link>
-            <Link href="/compete" className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-purple-500/50 transition-colors text-center">
-              <Swords className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-              <h3 className="font-medium text-sm mb-1">Compete</h3>
-              <p className="text-xs text-gray-400">Challenge others</p>
+            
+            <Link href="/programs" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <Dumbbell className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Campaigns</p>
             </Link>
-            <Link href="/skills" className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition-colors text-center">
-              <Zap className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <h3 className="font-medium text-sm mb-1">Skills</h3>
-              <p className="text-xs text-gray-400">Unlock abilities</p>
+            
+            <Link href="/goals" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <Target className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Goals</p>
             </Link>
-            <Link href="/health" className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-red-500/50 transition-colors text-center">
-              <Heart className="w-8 h-8 text-red-400 mx-auto mb-3" />
-              <h3 className="font-medium text-sm mb-1">Health</h3>
-              <p className="text-xs text-gray-400">Track wellness</p>
+            
+            <Link href="/achievements" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <Trophy className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Trophies</p>
+            </Link>
+            
+            <Link href="/health" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <Heart className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Health</p>
+            </Link>
+            
+            <Link href="/templates" className="group bg-neutral-900 border-2 border-neutral-800 p-3 hover:border-amber-700 transition-all text-center">
+              <Calendar className="w-5 h-5 text-amber-400 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+              <p className="text-xs font-bold uppercase tracking-wider text-neutral-300">Templates</p>
             </Link>
           </div>
         </section>

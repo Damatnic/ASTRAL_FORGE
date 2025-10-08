@@ -43,11 +43,19 @@ model User {
   userUnlocks        UserUnlock[]
   guildMemberships   GuildMember[]
   guildActivities    GuildActivity[]
-  createdGuilds      Guild[]           @relation("GuildCreator")
-  initiatedDuels     Duel[]            @relation("DuelChallenger")
-  receivedDuels      Duel[]            @relation("DuelOpponent")
+  createdGuilds      Guild[]             @relation("GuildCreator")
+  initiatedDuels     Duel[]              @relation("DuelChallenger")
+  receivedDuels      Duel[]              @relation("DuelOpponent")
   duelParticipations DuelParticipant[]
   pvpRank            PvPRank?
+
+  // Phase 5: Social Features
+  challengeParticipations ChallengeParticipation[]
+  friendships             Friendship[]             @relation("UserFriendships")
+  friendOf                Friendship[]             @relation("FriendOfUser")
+  activities              ActivityFeedItem[]
+  activityReactions       ActivityReaction[]
+  leaderboardEntries      LeaderboardEntry[]
 
   @@map("users")
 }
@@ -248,9 +256,9 @@ model UserUnlock {
   identifier String // Name/ID of what was unlocked
   source     String? // 'quest' | 'tier' | 'achievement'
   unlockedAt DateTime @default(now())
-  
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@unique([userId, type, identifier])
   @@index([userId])
   @@map("user_unlocks")
@@ -611,30 +619,30 @@ enum EquipmentCategory {
 // ============================================================================
 
 model Guild {
-  id                String   @id @default(cuid())
-  name              String   @unique
-  tag               String   @unique // e.g., "[IRON]", max 6 chars
-  description       String?
-  motto             String?
-  level             Int      @default(1)
-  xp                Int      @default(0)
-  xpForNextLevel    Int      @default(1000)
-  rank              GuildRank @default(BRONZE)
-  totalWorkouts     Int      @default(0)
-  totalVolume       Int      @default(0) // Total kg lifted by all members
-  weeklyGoal        Int      @default(100) // Weekly workout target
-  weeklyProgress    Int      @default(0)
-  isPublic          Boolean  @default(true)
-  requiresApproval  Boolean  @default(false)
-  minLevelRequired  Int      @default(1)
-  maxMembers        Int      @default(20)
-  icon              String   @default("⚔️")
-  color             String   @default("from-gray-600 to-gray-800")
-  createdById       String
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               String    @id @default(cuid())
+  name             String    @unique
+  tag              String    @unique // e.g., "[IRON]", max 6 chars
+  description      String?
+  motto            String?
+  level            Int       @default(1)
+  xp               Int       @default(0)
+  xpForNextLevel   Int       @default(1000)
+  rank             GuildRank @default(BRONZE)
+  totalWorkouts    Int       @default(0)
+  totalVolume      Int       @default(0) // Total kg lifted by all members
+  weeklyGoal       Int       @default(100) // Weekly workout target
+  weeklyProgress   Int       @default(0)
+  isPublic         Boolean   @default(true)
+  requiresApproval Boolean   @default(false)
+  minLevelRequired Int       @default(1)
+  maxMembers       Int       @default(20)
+  icon             String    @default("⚔️")
+  color            String    @default("from-gray-600 to-gray-800")
+  createdById      String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  createdBy    User            @relation("GuildCreator", fields: [createdById], references: [id])
+  createdBy    User               @relation("GuildCreator", fields: [createdById], references: [id])
   members      GuildMember[]
   activities   GuildActivity[]
   achievements GuildAchievement[]
@@ -646,14 +654,14 @@ model Guild {
 }
 
 model GuildMember {
-  id             String   @id @default(cuid())
-  guildId        String
-  userId         String
-  role           GuildRole @default(MEMBER)
-  contributedXp  Int      @default(0)
-  contributedVolume Int   @default(0)
-  joinedAt       DateTime @default(now())
-  lastActiveAt   DateTime @default(now())
+  id                String    @id @default(cuid())
+  guildId           String
+  userId            String
+  role              GuildRole @default(MEMBER)
+  contributedXp     Int       @default(0)
+  contributedVolume Int       @default(0)
+  joinedAt          DateTime  @default(now())
+  lastActiveAt      DateTime  @default(now())
 
   guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -665,14 +673,14 @@ model GuildMember {
 }
 
 model GuildActivity {
-  id          String   @id @default(cuid())
+  id          String            @id @default(cuid())
   guildId     String
   userId      String
   type        GuildActivityType
   description String
   metadata    Json? // Additional data like exercise name, PR value, etc
-  icon        String   @default("💪")
-  timestamp   DateTime @default(now())
+  icon        String            @default("💪")
+  timestamp   DateTime          @default(now())
 
   guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -702,24 +710,24 @@ model GuildAchievement {
 // ============================================================================
 
 model Duel {
-  id            String      @id @default(cuid())
-  challengerId  String
-  opponentId    String
-  type          DuelType
-  status        DuelStatus  @default(PENDING)
+  id              String     @id @default(cuid())
+  challengerId    String
+  opponentId      String
+  type            DuelType
+  status          DuelStatus @default(PENDING)
   goalDescription String
-  targetValue   Float
-  unit          String
-  icon          String      @default("⚔️")
-  startDate     DateTime?
-  endDate       DateTime?
-  winnerId      String?
-  xpReward      Int         @default(100)
-  rankReward    Int         @default(25)
-  titleReward   String? // Optional title for winner
-  badgeReward   String? // Optional badge emoji
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  targetValue     Float
+  unit            String
+  icon            String     @default("⚔️")
+  startDate       DateTime?
+  endDate         DateTime?
+  winnerId        String?
+  xpReward        Int        @default(100)
+  rankReward      Int        @default(25)
+  titleReward     String? // Optional title for winner
+  badgeReward     String? // Optional badge emoji
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 
   challenger   User              @relation("DuelChallenger", fields: [challengerId], references: [id], onDelete: Cascade)
   opponent     User              @relation("DuelOpponent", fields: [opponentId], references: [id], onDelete: Cascade)
@@ -732,15 +740,15 @@ model Duel {
 }
 
 model DuelParticipant {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   duelId       String
   userId       String
-  currentValue Float    @default(0)
+  currentValue Float     @default(0)
   targetValue  Float
-  progress     Float    @default(0) // Percentage 0-100
-  hasCompleted Boolean  @default(false)
+  progress     Float     @default(0) // Percentage 0-100
+  hasCompleted Boolean   @default(false)
   completedAt  DateTime?
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime  @updatedAt
 
   duel Duel @relation(fields: [duelId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -751,18 +759,18 @@ model DuelParticipant {
 }
 
 model PvPRank {
-  id               String   @id @default(cuid())
-  userId           String   @unique
-  tier             String   @default("Bronze") // Bronze, Silver I-III, Gold I-III, etc
-  points           Int      @default(1000)
-  pointsForNextRank Int     @default(1100)
-  wins             Int      @default(0)
-  losses           Int      @default(0)
-  draws            Int      @default(0)
-  winRate          Float    @default(0)
-  highestTier      String   @default("Bronze")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  tier              String   @default("Bronze") // Bronze, Silver I-III, Gold I-III, etc
+  points            Int      @default(1000)
+  pointsForNextRank Int      @default(1100)
+  wins              Int      @default(0)
+  losses            Int      @default(0)
+  draws             Int      @default(0)
+  winRate           Float    @default(0)
+  highestTier       String   @default("Bronze")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -815,6 +823,176 @@ enum DuelStatus {
   COMPLETED
   CANCELLED
   EXPIRED
+}
+
+// ============================================================================
+// PHASE 5: SOCIAL FEATURES (FITNESS CHALLENGES & COMMUNITY)
+// ============================================================================
+
+model Challenge {
+  id           String                   @id @default(cuid())
+  name         String
+  description  String
+  type         ChallengeType
+  startDate    DateTime
+  endDate      DateTime
+  goal         Float
+  unit         ChallengeUnit
+  createdBy    String
+  isActive     Boolean                  @default(true)
+  isPremade    Boolean                  @default(false) // Monthly/seasonal challenges
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+  participants ChallengeParticipation[]
+
+  @@index([isActive, startDate, endDate])
+  @@index([type, isActive])
+}
+
+model ChallengeParticipation {
+  id          String    @id @default(cuid())
+  challengeId String
+  userId      String
+  progress    Float     @default(0)
+  rank        Int?
+  joinedAt    DateTime  @default(now())
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId])
+  @@index([userId, completedAt])
+  @@index([challengeId, rank])
+}
+
+model Friendship {
+  id         String           @id @default(cuid())
+  userId     String
+  friendId   String
+  status     FriendshipStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+  acceptedAt DateTime?
+
+  user   User @relation("UserFriendships", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation("FriendOfUser", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+  @@index([userId, status])
+  @@index([friendId, status])
+}
+
+model ActivityFeedItem {
+  id        String       @id @default(cuid())
+  userId    String
+  type      ActivityType
+  data      Json // Flexible data structure for different activity types
+  createdAt DateTime     @default(now())
+
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reactions ActivityReaction[]
+
+  @@index([userId, createdAt])
+  @@index([createdAt]) // For global feed
+}
+
+model ActivityReaction {
+  id         String       @id @default(cuid())
+  activityId String
+  userId     String
+  type       ReactionType
+  createdAt  DateTime     @default(now())
+
+  activity ActivityFeedItem @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([activityId, userId, type])
+  @@index([userId])
+}
+
+model LeaderboardEntry {
+  id        String              @id @default(cuid())
+  userId    String
+  category  LeaderboardCategory
+  period    LeaderboardPeriod
+  value     Float
+  rank      Int
+  metadata  Json? // Additional data like exercise name, etc.
+  updatedAt DateTime            @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, category, period])
+  @@index([category, period, rank])
+  @@index([userId, category])
+}
+
+// ============================================================================
+// PHASE 5: ENUMS
+// ============================================================================
+
+enum ChallengeType {
+  THIRTY_DAY // 30-day challenges (squat, push-up, etc.)
+  DISTANCE // Distance goals (run X miles)
+  CONSISTENCY // Train X days per week/month
+  STRENGTH // Add X lbs to a lift
+  ENDURANCE // Improve cardio time
+  VOLUME // Lift X total weight
+  CUSTOM // User-created challenge
+}
+
+enum ChallengeUnit {
+  REPS
+  MILES
+  KILOMETERS
+  WORKOUTS
+  POUNDS
+  KILOGRAMS
+  MINUTES
+  HOURS
+  DAYS
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  BLOCKED
+}
+
+enum ActivityType {
+  WORKOUT_COMPLETED
+  PR_ACHIEVED
+  CHALLENGE_JOINED
+  CHALLENGE_COMPLETED
+  STREAK_MILESTONE
+  GOAL_ACHIEVED
+  PROGRAM_COMPLETED
+}
+
+enum ReactionType {
+  LIKE
+  CELEBRATE
+  STRONG
+  FIRE
+}
+
+enum LeaderboardCategory {
+  BENCH_PRESS
+  SQUAT
+  DEADLIFT
+  TOTAL_STRENGTH // Sum of big 3
+  WEEKLY_VOLUME
+  MONTHLY_VOLUME
+  WORKOUT_STREAK
+  CHALLENGE_WINS
+}
+
+enum LeaderboardPeriod {
+  WEEK
+  MONTH
+  ALL_TIME
 }
 
 // ============================================================================

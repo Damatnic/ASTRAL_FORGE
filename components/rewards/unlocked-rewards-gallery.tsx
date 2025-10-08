@@ -62,7 +62,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           label="Total"
           value={stats.total}
           icon={CheckCircle2}
-          color="text-gray-400"
+          color="text-amber-400"
           active={filterType === 'all'}
           onClick={() => setFilterType('all')}
         />
@@ -70,7 +70,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           label="Achievements"
           value={stats.achievements}
           icon={Trophy}
-          color="text-yellow-400"
+          color="text-amber-400"
           active={filterType === 'achievement'}
           onClick={() => setFilterType('achievement')}
         />
@@ -78,7 +78,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           label="Templates"
           value={stats.templates}
           icon={Book}
-          color="text-blue-400"
+          color="text-amber-400"
           active={filterType === 'template'}
           onClick={() => setFilterType('template')}
         />
@@ -86,7 +86,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           label="Features"
           value={stats.features}
           icon={Unlock}
-          color="text-purple-400"
+          color="text-amber-400"
           active={filterType === 'feature'}
           onClick={() => setFilterType('feature')}
         />
@@ -94,7 +94,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           label="Titles"
           value={stats.titles}
           icon={Award}
-          color="text-pink-400"
+          color="text-amber-400"
           active={filterType === 'title'}
           onClick={() => setFilterType('title')}
         />
@@ -104,18 +104,18 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
           <input
             type="text"
-            placeholder="Search rewards..."
+            placeholder="SEARCH REWARDS..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
+            className="w-full pl-10 pr-10 py-2 bg-neutral-900 border-2 border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-amber-700/50 focus:border-amber-700 uppercase tracking-wider font-bold"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-400"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-400"
             >
               <X className="w-5 h-5" />
             </button>
@@ -126,10 +126,10 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
         <div className="flex gap-2">
           <button
             onClick={() => setSortBy('recent')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 border-2 transition-colors font-black uppercase tracking-wider ${
               sortBy === 'recent'
-                ? 'bg-purple-500/20 border-purple-500/50 text-purple-400'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-gray-700'
+                ? 'bg-amber-950/20 border-amber-700/50 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
             }`}
           >
             <Calendar className="w-4 h-4" />
@@ -137,10 +137,10 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           </button>
           <button
             onClick={() => setSortBy('name')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 border-2 transition-colors font-black uppercase tracking-wider ${
               sortBy === 'name'
-                ? 'bg-purple-500/20 border-purple-500/50 text-purple-400'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-gray-700'
+                ? 'bg-amber-950/20 border-amber-700/50 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
             }`}
           >
             <Filter className="w-4 h-4" />
@@ -148,10 +148,10 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
           </button>
           <button
             onClick={() => setSortBy('type')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 border-2 transition-colors font-black uppercase tracking-wider ${
               sortBy === 'type'
-                ? 'bg-purple-500/20 border-purple-500/50 text-purple-400'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:border-gray-700'
+                ? 'bg-amber-950/20 border-amber-700/50 text-amber-400'
+                : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700'
             }`}
           >
             <Filter className="w-4 h-4" />
@@ -161,7 +161,7 @@ export function UnlockedRewardsGallery({ rewards, onRewardClick }: UnlockedRewar
       </div>
 
       {/* Results count */}
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-neutral-500 uppercase tracking-wider font-bold">
         Showing {sortedRewards.length} of {rewards.length} rewards
         {filterType !== 'all' && ` (${filterType}s only)`}
       </div>
@@ -228,34 +228,34 @@ function RewardCard({
       case 'achievement':
         return {
           icon: Trophy,
-          color: 'text-yellow-400',
-          bgColor: 'bg-yellow-500/10',
-          borderColor: 'border-yellow-500/30',
-          hoverBorder: 'hover:border-yellow-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'template':
         return {
           icon: Book,
-          color: 'text-blue-400',
-          bgColor: 'bg-blue-500/10',
-          borderColor: 'border-blue-500/30',
-          hoverBorder: 'hover:border-blue-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'feature':
         return {
           icon: Unlock,
-          color: 'text-purple-400',
-          bgColor: 'bg-purple-500/10',
-          borderColor: 'border-purple-500/30',
-          hoverBorder: 'hover:border-purple-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'title':
         return {
           icon: Award,
-          color: 'text-pink-400',
-          bgColor: 'bg-pink-500/10',
-          borderColor: 'border-pink-500/30',
-          hoverBorder: 'hover:border-pink-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
     }
   }

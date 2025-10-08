@@ -9,35 +9,45 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Base colors
+        // Warrior Theme - Bronze/Amber/Iron
+        'warrior-bronze': '#CD7F32',
+        'warrior-bronze-light': '#E5A155',
+        'warrior-bronze-dark': '#8B5A2B',
+        'warrior-iron': '#434343',
+        'warrior-steel': '#71797E',
+        'warrior-silver': '#C0C0C0',
+        'warrior-crimson': '#DC143C',
+        'warrior-crimson-dark': '#8B0000',
+        
+        // Base colors - Updated for warrior theme
         'astral-dark': '#0a0a0a',
         'astral-gray': '#1a1a1a',
         'astral-light': '#2a2a2a',
         
-        // Primary gradients
-        'astral-blue': '#3b82f6',
-        'astral-purple': '#8b5cf6',
-        'astral-cyan': '#06b6d4',
+        // Primary - Now warrior colors
+        'primary': '#CD7F32', // Bronze
+        'primary-light': '#E5A155',
+        'primary-dark': '#8B5A2B',
         
         // Semantic colors
         'success': '#10b981',
         'warning': '#f59e0b',
-        'error': '#ef4444',
-        'info': '#3b82f6',
+        'error': '#DC143C', // Crimson
+        'info': '#71797E', // Steel
         
-        // Gaming tiers
-        'tier-common': '#9ca3af',
-        'tier-uncommon': '#10b981',
-        'tier-rare': '#3b82f6',
-        'tier-epic': '#8b5cf6',
-        'tier-legendary': '#f59e0b',
-        'tier-mythic': '#ef4444',
+        // Gaming tiers - Updated with warrior theme
+        'tier-common': '#71797E', // Steel
+        'tier-uncommon': '#C0C0C0', // Silver
+        'tier-rare': '#CD7F32', // Bronze
+        'tier-epic': '#E5A155', // Light Bronze
+        'tier-legendary': '#DC143C', // Crimson
+        'tier-mythic': '#8B0000', // Dark Crimson
         
         // Status indicators
-        'health': '#ef4444',
-        'mana': '#3b82f6',
-        'energy': '#f59e0b',
-        'xp': '#10b981',
+        'health': '#DC143C', // Crimson
+        'mana': '#71797E', // Steel
+        'energy': '#CD7F32', // Bronze
+        'xp': '#E5A155', // Light Bronze
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-in-out',

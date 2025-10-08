@@ -1,20 +1,26 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useToast } from '@/components/toast'
-import {
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts'
+import { ChartSkeleton } from '@/components/chart-skeleton'
+
+// Dynamic imports for chart components (performance optimization)
+const WeightChart = dynamic(() => import('@/components/metrics/weight-chart'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+})
+
+const BodyFatChart = dynamic(() => import('@/components/metrics/body-fat-chart'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+})
+
+const MeasurementsChart = dynamic(() => import('@/components/metrics/measurements-chart'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+})
 
 interface BodyMetric {
   id: string
@@ -384,114 +390,15 @@ export default function MetricsPage() {
         {activeTab === 'weight' && chartData.length > 0 && (
           <div className="space-y-6">
             {/* Weight Chart */}
-            <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-4">Weight Progress</h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis dataKey="date" stroke="#9CA3AF" />
-                  <YAxis stroke="#9CA3AF" />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#1F2937',
-                      border: '1px solid #374151',
-                      borderRadius: '8px',
-                    }}
-                  />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="weight"
-                    stroke="#0EA5E9"
-                    strokeWidth={2}
-                    dot={{ fill: '#0EA5E9' }}
-                    name="Weight (kg)"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+            <WeightChart data={chartData} />
 
             {/* Body Fat Chart */}
-            {chartData.some(d => d.bodyFat) && (
-              <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
-                <h3 className="text-lg font-semibold mb-4">Body Fat Progress</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="date" stroke="#9CA3AF" />
-                    <YAxis stroke="#9CA3AF" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#1F2937',
-                        border: '1px solid #374151',
-                        borderRadius: '8px',
-                      }}
-                    />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="bodyFat"
-                      stroke="#8B5CF6"
-                      strokeWidth={2}
-                      dot={{ fill: '#8B5CF6' }}
-                      name="Body Fat (%)"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            )}
+            {chartData.some(d => d.bodyFat) && <BodyFatChart data={chartData} />}
           </div>
         )}
 
         {activeTab === 'measurements' && chartData.length > 0 && (
-          <div className="bg-astral-gray border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-semibold mb-4">Body Measurements Progress</h3>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="date" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#1F2937',
-                    border: '1px solid #374151',
-                    borderRadius: '8px',
-                  }}
-                />
-                <Legend />
-                {chartData.some(d => d.waist) && (
-                  <Line
-                    type="monotone"
-                    dataKey="waist"
-                    stroke="#EF4444"
-                    strokeWidth={2}
-                    dot={{ fill: '#EF4444' }}
-                    name="Waist (cm)"
-                  />
-                )}
-                {chartData.some(d => d.chest) && (
-                  <Line
-                    type="monotone"
-                    dataKey="chest"
-                    stroke="#10B981"
-                    strokeWidth={2}
-                    dot={{ fill: '#10B981' }}
-                    name="Chest (cm)"
-                  />
-                )}
-                {chartData.some(d => d.arms) && (
-                  <Line
-                    type="monotone"
-                    dataKey="arms"
-                    stroke="#F59E0B"
-                    strokeWidth={2}
-                    dot={{ fill: '#F59E0B' }}
-                    name="Arms (cm)"
-                  />
-                )}
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          <MeasurementsChart data={chartData} />
         )}
 
         {activeTab === 'photos' && (

@@ -1,6 +1,32 @@
 import { GET, POST } from '@/app/api/metrics/route'
 import { prisma } from '@/lib/prisma'
-import { NextResponse } from 'next/server'
+
+// Mock next/server BEFORE importing route
+jest.mock('next/server', () => ({
+  NextResponse: {
+    json: (data: any, init?: { status?: number }) => ({
+      json: async () => data,
+      status: init?.status || 200,
+    }),
+  },
+}))
+
+// Mock Request constructor for Node.js environment
+global.Request = class Request {
+  url: string
+  method: string
+  body: any
+  
+  constructor(url: string, init?: { method?: string; body?: string }) {
+    this.url = url
+    this.method = init?.method || 'GET'
+    this.body = init?.body
+  }
+  
+  async json() {
+    return JSON.parse(this.body || '{}')
+  }
+} as any
 
 // Mock Prisma
 jest.mock('@/lib/prisma', () => ({

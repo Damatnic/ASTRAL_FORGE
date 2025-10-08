@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, EquipmentCategory } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -40,6 +40,103 @@ async function main() {
   })
 
   console.log('✅ Created demo user:', user.email)
+
+  // Seed Equipment
+  console.log('🔧 Seeding equipment...')
+  
+  const equipmentData = [
+    // BARBELL
+    { name: 'Olympic Barbell', category: 'BARBELL' as const, weight: 20, isWeighted: true },
+    { name: 'EZ Curl Bar', category: 'BARBELL' as const, weight: 10, isWeighted: true },
+    { name: 'Trap Bar', category: 'BARBELL' as const, weight: 25, isWeighted: true },
+    
+    // DUMBBELL
+    { name: 'Dumbbells', category: 'DUMBBELL' as const, isWeighted: true },
+    { name: 'Adjustable Dumbbells', category: 'DUMBBELL' as const, isWeighted: true },
+    
+    // MACHINE
+    { name: 'Leg Press', category: 'MACHINE' as const },
+    { name: 'Leg Curl Machine', category: 'MACHINE' as const },
+    { name: 'Leg Extension Machine', category: 'MACHINE' as const },
+    { name: 'Cable Machine', category: 'MACHINE' as const },
+    { name: 'Smith Machine', category: 'MACHINE' as const },
+    
+    // BENCH
+    { name: 'Flat Bench', category: 'BENCH' as const },
+    { name: 'Adjustable Bench', category: 'BENCH' as const },
+    { name: 'Preacher Curl Bench', category: 'BENCH' as const },
+    
+    // RACK
+    { name: 'Power Rack', category: 'RACK' as const },
+    { name: 'Squat Rack', category: 'RACK' as const },
+    
+    // BODYWEIGHT
+    { name: 'Pull-Up Bar', category: 'BODYWEIGHT' as const },
+    { name: 'Dip Station', category: 'BODYWEIGHT' as const },
+    { name: 'Parallettes', category: 'BODYWEIGHT' as const },
+    
+    // CARDIO
+    { name: 'Treadmill', category: 'CARDIO' as const },
+    { name: 'Rowing Machine', category: 'CARDIO' as const },
+    { name: 'Assault Bike', category: 'CARDIO' as const },
+    
+    // ACCESSORY
+    { name: 'Kettlebells', category: 'ACCESSORY' as const, isWeighted: true },
+    { name: 'Resistance Bands', category: 'ACCESSORY' as const },
+    { name: 'Dip Belt', category: 'ACCESSORY' as const },
+    { name: 'Lifting Straps', category: 'ACCESSORY' as const },
+    { name: 'Lifting Belt', category: 'ACCESSORY' as const },
+    { name: 'Foam Roller', category: 'ACCESSORY' as const },
+    { name: 'Medicine Ball', category: 'ACCESSORY' as const },
+    
+    // PLATFORM
+    { name: 'Lifting Platform', category: 'PLATFORM' as const },
+  ]
+
+  const equipment = []
+  for (const item of equipmentData) {
+    const created = await prisma.equipment.upsert({
+      where: { name: item.name },
+      update: {},
+      create: item,
+    })
+    equipment.push(created)
+    console.log(`  ✅ ${created.name}`)
+  }
+
+  // Add some equipment to demo user's inventory
+  const userEquipmentData = [
+    { name: 'Olympic Barbell', location: 'home' },
+    { name: 'Dumbbells', location: 'home', quantity: 2 },
+    { name: 'Pull-Up Bar', location: 'home' },
+    { name: 'Flat Bench', location: 'home' },
+    { name: 'Adjustable Dumbbells', location: 'gym' },
+    { name: 'Power Rack', location: 'gym' },
+    { name: 'Cable Machine', location: 'gym' },
+  ]
+
+  for (const ue of userEquipmentData) {
+    const equipmentItem = equipment.find(e => e.name === ue.name)
+    if (equipmentItem) {
+      await prisma.userEquipment.upsert({
+        where: {
+          userId_equipmentId_location: {
+            userId: user.id,
+            equipmentId: equipmentItem.id,
+            location: ue.location,
+          },
+        },
+        update: {},
+        create: {
+          userId: user.id,
+          equipmentId: equipmentItem.id,
+          location: ue.location,
+          quantity: ue.quantity || 1,
+        },
+      })
+      console.log(`  ✅ Added ${equipmentItem.name} to ${ue.location}`)
+    }
+  }
 
   // Create exercise library
   const exercises = [
@@ -174,11 +271,52 @@ async function main() {
     console.log(`✅ Created exercise: ${created.name}`)
   }
 
+  // Link exercises to equipment
+  console.log('🔗 Linking exercises to equipment...')
+  
+  const exerciseEquipmentMap: Record<string, string[]> = {
+    'barbell-squat': ['Olympic Barbell', 'Power Rack', 'Flat Bench'],
+    'deadlift': ['Olympic Barbell', 'Lifting Platform'],
+    'bench-press': ['Olympic Barbell', 'Flat Bench', 'Power Rack'],
+    'overhead-press': ['Olympic Barbell', 'Power Rack'],
+    'bent-over-row': ['Olympic Barbell'],
+    'pull-up': ['Pull-Up Bar'],
+    'dumbbell-curl': ['Dumbbells'],
+    'tricep-pushdown': ['Cable Machine'],
+    'lateral-raise': ['Dumbbells'],
+    'leg-curl': ['Leg Curl Machine'],
+    'leg-extension': ['Leg Extension Machine'],
+    'face-pull': ['Cable Machine'],
+  }
+
+  for (const [exerciseId, equipmentNames] of Object.entries(exerciseEquipmentMap)) {
+    for (const equipmentName of equipmentNames) {
+      const equipmentItem = equipment.find(e => e.name === equipmentName)
+      if (equipmentItem) {
+        await prisma.exerciseEquipment.upsert({
+          where: {
+            exerciseId_equipmentId: {
+              exerciseId,
+              equipmentId: equipmentItem.id,
+            },
+          },
+          update: {},
+          create: {
+            exerciseId,
+            equipmentId: equipmentItem.id,
+            required: true,
+          },
+        })
+        console.log(`  ✅ Linked ${exerciseId} → ${equipmentName}`)
+      }
+    }
+  }
+
   // Create sample workout history for demo user
   const yesterday = new Date()
   yesterday.setDate(yesterday.getDate() - 1)
 
-  const session = await prisma.workoutSession.create({
+  const _session = await prisma.workoutSession.create({
     data: {
       userId: user.id,
       date: yesterday,
@@ -276,7 +414,7 @@ async function main() {
   console.log('✅ Created achievements')
 
   // Create workout programs
-  const stronglifts = await prisma.workoutProgram.create({
+  const _stronglifts = await prisma.workoutProgram.create({
     data: {
       userId: user.id,
       name: 'StrongLifts 5×5',
@@ -394,7 +532,7 @@ async function main() {
   console.log('✅ Created StrongLifts 5×5 program')
 
   // Create PPL (Push/Pull/Legs) program
-  const ppl = await prisma.workoutProgram.create({
+  const _ppl = await prisma.workoutProgram.create({
     data: {
       userId: user.id,
       name: 'PPL (Push/Pull/Legs)',

@@ -9,6 +9,16 @@ import {
   retry,
 } from '@/lib/error-handler'
 
+// Mock next/server
+jest.mock('next/server', () => ({
+  NextResponse: {
+    json: (data: any, init?: { status?: number }) => ({
+      ...data,
+      statusCode: init?.status || 200,
+    }),
+  },
+}))
+
 describe('Error Handler', () => {
   describe('AppError', () => {
     it('should create AppError with message and status code', () => {

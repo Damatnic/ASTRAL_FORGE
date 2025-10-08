@@ -40,9 +40,9 @@ interface NavGroup {
 
 const navigationGroups: NavGroup[] = [
   {
-    label: 'Command Center',
+    label: 'Dashboard',
     items: [
-      { label: 'The Forge', href: '/dashboard', icon: LayoutDashboard },
+      { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     ],
   },
   {
@@ -50,7 +50,7 @@ const navigationGroups: NavGroup[] = [
     items: [
       { label: 'Programs', href: '/programs', icon: Calendar },
       { label: 'Exercises', href: '/exercises', icon: Dumbbell },
-      { label: 'Exercise Library', href: '/exercises/library', icon: Dumbbell },
+      { label: 'Exercise Library', href: '/exercises/library', icon: BookOpen },
       { label: 'History', href: '/history', icon: Calendar },
     ],
   },
@@ -60,40 +60,35 @@ const navigationGroups: NavGroup[] = [
       { label: 'Analytics', href: '/analytics', icon: TrendingUp },
       { label: 'Goals', href: '/goals', icon: Target },
       { label: 'Measurements', href: '/measurements', icon: TrendingUp },
+      { label: 'Progress Photos', href: '/progress/photos', icon: User },
     ],
   },
   {
     label: 'Tools',
     items: [
       { label: 'Plate Calculator', href: '/tools/plate-calculator', icon: Calculator },
-      { label: 'Workout Templates', href: '/templates/browser', icon: BookOpen },
+      { label: 'Templates', href: '/templates/browser', icon: BookOpen },
     ],
   },
   {
     label: 'Profile',
     items: [
-      { label: 'Athlete Profile', href: '/profile', icon: User },
-      { label: 'Milestones', href: '/skills', icon: Target },
+      { label: 'Profile', href: '/profile', icon: User },
       { label: 'Achievements', href: '/achievements', icon: Trophy },
+      { label: 'Settings', href: '/settings', icon: Settings },
     ],
   },
   {
     label: 'Social',
     items: [
-      { label: 'Guilds', href: '/guild', icon: Users },
-      { label: 'Compete', href: '/compete', icon: Trophy },
+      { label: 'Challenges', href: '/challenges', icon: Trophy },
+      { label: 'Friends', href: '/social', icon: Users },
     ],
   },
   {
     label: 'Health',
     items: [
-      { label: 'Health Hub', href: '/health', icon: Heart },
-    ],
-  },
-  {
-    label: 'Settings',
-    items: [
-      { label: 'Settings', href: '/settings', icon: Settings },
+      { label: 'Health Tracking', href: '/health', icon: Heart },
     ],
   },
 ]
@@ -212,11 +207,11 @@ export function Sidebar({ className }: SidebarProps) {
           <div className="p-4 border-t border-astral-light">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-r from-astral-blue to-astral-purple flex items-center justify-center text-white font-bold">
-                L5
+                U
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">Warrior</p>
-                <p className="text-xs text-gray-400">Level 5</p>
+                <p className="text-sm font-medium text-white truncate">User</p>
+                <p className="text-xs text-gray-400">Profile</p>
               </div>
             </div>
           </div>

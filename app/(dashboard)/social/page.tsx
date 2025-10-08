@@ -1,17 +1,152 @@
 'use client'
 
-import { useFriends, useMyGuild, useLeaderboard, useChallenges, useUserRank } from '@/hooks/use-data'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { ActivityFeed } from '@/components/social/activity-feed'
+import { ActivityFilters } from '@/components/social/activity-filters'
+import { FriendList } from '@/components/social/friend-list'
+import { FriendSearch } from '@/components/social/friend-search'
+import { FriendRequests } from '@/components/social/friend-requests'
 
 export default function SocialHubPage() {
-  const { data: friends, loading: friendsLoading } = useFriends()
-  const { data: guild, loading: guildLoading } = useMyGuild()
-  const { data: leaderboard, loading: leaderboardLoading } = useLeaderboard('level', 5)
-  const { data: rank, loading: rankLoading } = useUserRank('level')
-  const { data: challenges, loading: challengesLoading } = useChallenges()
+  const { data: session } = useSession()
+  const [activeTab, setActiveTab] = useState<'feed' | 'friends' | 'requests'>('feed')
+  const [activityFilter, setActivityFilter] = useState<'all' | 'friends' | 'personal'>('friends')
+  const [activityType, setActivityType] = useState<'all' | 'WORKOUT_COMPLETED' | 'PR_ACHIEVED' | 'CHALLENGE_JOINED' | 'CHALLENGE_COMPLETED' | 'STREAK_MILESTONE' | 'GOAL_ACHIEVED' | 'PROGRAM_COMPLETED'>('all')
+  const [friends, setFriends] = useState<never[]>([])
+  const [requests, setRequests] = useState<never[]>([])
+  const [isLoadingFriends, setIsLoadingFriends] = useState(false)
+  const [isLoadingRequests, setIsLoadingRequests] = useState(false)
+  const [stats, setStats] = useState({
+    totalFriends: 0,
+    pendingRequests: 0,
+    recentActivities: 0
+  })
+
+  // Load friends
+  const loadFriends = async () => {
+    if (!session?.user?.id) return
+    setIsLoadingFriends(true)
+    try {
+      const response = await fetch('/api/friends')
+      if (response.ok) {
+        const data = await response.json()
+        setFriends(data)
+        setStats(prev => ({ ...prev, totalFriends: data.length }))
+      }
+    } catch (error) {
+      console.error('Failed to load friends:', error)
+    } finally {
+      setIsLoadingFriends(false)
+    }
+  }
+
+  // Load friend requests
+  const loadRequests = async () => {
+    if (!session?.user?.id) return
+    setIsLoadingRequests(true)
+    try {
+      const response = await fetch('/api/friends/requests')
+      if (response.ok) {
+        const data = await response.json()
+        setRequests(data)
+        setStats(prev => ({ ...prev, pendingRequests: data.length }))
+      }
+    } catch (error) {
+      console.error('Failed to load requests:', error)
+    } finally {
+      setIsLoadingRequests(false)
+    }
+  }
+
+  // Load data when tab changes
+  useEffect(() => {
+    if (session?.user?.id) {
+      if (activeTab === 'friends') {
+        loadFriends()
+      } else if (activeTab === 'requests') {
+        loadRequests()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, activeTab])
+
+  // Send friend request
+  const handleSendFriendRequest = async (userId: string) => {
+    try {
+      const response = await fetch('/api/friends/requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ toUserId: userId }),
+      })
+      if (response.ok) {
+        // Reload requests to update UI
+        loadRequests()
+      }
+    } catch (error) {
+      console.error('Failed to send friend request:', error)
+    }
+  }
+
+  // Accept friend request
+  const handleAcceptRequest = async (requestId: string) => {
+    try {
+      const response = await fetch(`/api/friends/requests/${requestId}/accept`, {
+        method: 'POST',
+      })
+      if (response.ok) {
+        loadRequests()
+        loadFriends()
+      }
+    } catch (error) {
+      console.error('Failed to accept request:', error)
+    }
+  }
+
+  // Decline friend request
+  const handleDeclineRequest = async (requestId: string) => {
+    try {
+      const response = await fetch(`/api/friends/requests/${requestId}/decline`, {
+        method: 'POST',
+      })
+      if (response.ok) {
+        loadRequests()
+      }
+    } catch (error) {
+      console.error('Failed to decline request:', error)
+    }
+  }
+
+  // Unfriend
+  const handleUnfriend = async (friendshipId: string) => {
+    try {
+      const response = await fetch(`/api/friends/${friendshipId}`, {
+        method: 'DELETE',
+      })
+      if (response.ok) {
+        loadFriends()
+      }
+    } catch (error) {
+      console.error('Failed to unfriend:', error)
+    }
+  }
+
+  // React to activity
+  const handleReact = async (activityId: string, type: 'LIKE' | 'CELEBRATE' | 'STRONG' | 'FIRE') => {
+    try {
+      await fetch(`/api/activity/${activityId}/react`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type }),
+      })
+    } catch (error) {
+      console.error('Failed to react:', error)
+    }
+  }
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
           Social Hub
@@ -19,254 +154,130 @@ export default function SocialHubPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
           <div className="text-sm text-slate-400 mb-1">Friends</div>
-          <div className="text-3xl font-bold text-purple-400">
-            {friendsLoading ? '...' : friends?.friends?.length || 0}
-          </div>
+          <div className="text-3xl font-bold text-purple-400">{stats.totalFriends}</div>
         </div>
-
         <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Guild Members</div>
-          <div className="text-3xl font-bold text-blue-400">
-            {guildLoading ? '...' : guild?.guild?.memberCount || 0}
-          </div>
+          <div className="text-sm text-slate-400 mb-1">Pending Requests</div>
+          <div className="text-3xl font-bold text-yellow-400">{stats.pendingRequests}</div>
         </div>
-
         <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Global Rank</div>
-          <div className="text-3xl font-bold text-yellow-400">
-            {rankLoading ? '...' : `#${rank?.rank || '-'}`}
-          </div>
-        </div>
-
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Active Challenges</div>
-          <div className="text-3xl font-bold text-green-400">
-            {challengesLoading ? '...' : challenges?.challenges?.filter((c: any) => c.isActive).length || 0}
-          </div>
+          <div className="text-sm text-slate-400 mb-1">Recent Activities</div>
+          <div className="text-3xl font-bold text-blue-400">{stats.recentActivities}</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Friends Preview */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-purple-400">Friends</h2>
-            <Link 
-              href="/social/friends"
-              className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
-            >
-              View All →
-            </Link>
-          </div>
+      {/* Tab Navigation */}
+      <div className="flex gap-4 border-b border-slate-700">
+        <button
+          onClick={() => setActiveTab('feed')}
+          className={`px-6 py-3 font-semibold transition-colors ${
+            activeTab === 'feed'
+              ? 'text-purple-400 border-b-2 border-purple-400'
+              : 'text-slate-400 hover:text-slate-300'
+          }`}
+        >
+          Activity Feed
+        </button>
+        <button
+          onClick={() => setActiveTab('friends')}
+          className={`px-6 py-3 font-semibold transition-colors ${
+            activeTab === 'friends'
+              ? 'text-purple-400 border-b-2 border-purple-400'
+              : 'text-slate-400 hover:text-slate-300'
+          }`}
+        >
+          Friends ({stats.totalFriends})
+        </button>
+        <button
+          onClick={() => setActiveTab('requests')}
+          className={`px-6 py-3 font-semibold transition-colors relative ${
+            activeTab === 'requests'
+              ? 'text-purple-400 border-b-2 border-purple-400'
+              : 'text-slate-400 hover:text-slate-300'
+          }`}
+        >
+          Requests
+          {stats.pendingRequests > 0 && (
+            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">
+              {stats.pendingRequests}
+            </span>
+          )}
+        </button>
+      </div>
 
-          {friendsLoading ? (
-            <div className="text-slate-400 text-center py-8">Loading friends...</div>
-          ) : !friends?.friends?.length ? (
-            <div className="text-slate-400 text-center py-8">
-              No friends yet. Start connecting with other warriors!
+      {/* Content Area */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Main Content */}
+        <div className="lg:col-span-3">
+          {activeTab === 'feed' && (
+            <div className="space-y-6">
+              <ActivityFilters
+                selectedFilter={activityFilter}
+                selectedType={activityType}
+                onFilterChange={setActivityFilter}
+                onTypeChange={setActivityType}
+              />
+              <ActivityFeed
+                currentUserId={session?.user?.id || ''}
+                filterType={activityFilter}
+                onReact={handleReact}
+              />
             </div>
-          ) : (
-            <div className="space-y-3">
-              {friends.friends.slice(0, 5).map((friend: any) => (
-                <div
-                  key={friend.userId}
-                  className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg"
+          )}
+
+          {activeTab === 'friends' && (
+            <FriendList
+              friends={friends}
+              onUnfriend={handleUnfriend}
+              isLoading={isLoadingFriends}
+            />
+          )}
+
+          {activeTab === 'requests' && (
+            <FriendRequests
+              requests={requests}
+              currentUserId={session?.user?.id || ''}
+              onAccept={handleAcceptRequest}
+              onDecline={handleDeclineRequest}
+              isLoading={isLoadingRequests}
+            />
+          )}
+        </div>
+
+        {/* Sidebar */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-6 space-y-6">
+            {/* Friend Search */}
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-purple-400 mb-4">Find Friends</h3>
+              <FriendSearch onSendRequest={handleSendFriendRequest} />
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-purple-400 mb-4">Quick Links</h3>
+              <div className="space-y-2">
+                <a
+                  href="/challenges"
+                  className="block p-3 bg-slate-900/50 rounded-lg hover:bg-slate-900/70 transition-colors text-sm"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
-                      <span className="text-lg">⚔️</span>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-white">{friend.userName}</div>
-                      <div className="text-sm text-slate-400">
-                        Level {friend.level} {friend.characterClass}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right text-sm text-slate-400">
-                    <div>{friend.totalWorkouts} workouts</div>
-                    <div>{friend.currentStreak} day streak</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {friends?.pendingRequests?.length > 0 && (
-            <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-              <div className="text-yellow-400 font-semibold">
-                {friends.pendingRequests.length} pending friend request{friends.pendingRequests.length !== 1 ? 's' : ''}
+                  <div className="font-semibold text-white">🏆 Browse Challenges</div>
+                  <div className="text-slate-400 text-xs">Compete with friends</div>
+                </a>
+                <a
+                  href="/leaderboards"
+                  className="block p-3 bg-slate-900/50 rounded-lg hover:bg-slate-900/70 transition-colors text-sm"
+                >
+                  <div className="font-semibold text-white">📊 Leaderboards</div>
+                  <div className="text-slate-400 text-xs">See top rankings</div>
+                </a>
               </div>
             </div>
-          )}
-        </div>
-
-        {/* Guild Preview */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-blue-400">Guild</h2>
-            <Link 
-              href="/social/guilds"
-              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              {guild?.guild ? 'View Guild' : 'Browse Guilds'} →
-            </Link>
           </div>
-
-          {guildLoading ? (
-            <div className="text-slate-400 text-center py-8">Loading guild...</div>
-          ) : !guild?.guild ? (
-            <div className="text-center py-8">
-              <div className="text-6xl mb-4">🏰</div>
-              <div className="text-slate-400 mb-4">
-                You're not in a guild yet
-              </div>
-              <Link
-                href="/social/guilds"
-                className="inline-block px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
-              >
-                Find a Guild
-              </Link>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <div className="text-center">
-                <div className="text-5xl mb-3">{guild.guild.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-1">{guild.guild.name}</h3>
-                <p className="text-slate-400 text-sm">{guild.guild.description}</p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="p-3 bg-slate-900/50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-400">{guild.guild.memberCount}</div>
-                  <div className="text-xs text-slate-400">Members</div>
-                </div>
-                <div className="p-3 bg-slate-900/50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-400">{guild.guild.level}</div>
-                  <div className="text-xs text-slate-400">Guild Level</div>
-                </div>
-                <div className="p-3 bg-slate-900/50 rounded-lg">
-                  <div className="text-2xl font-bold text-yellow-400">
-                    {(guild.guild.totalXP / 1000).toFixed(1)}k
-                  </div>
-                  <div className="text-xs text-slate-400">Total Progress</div>
-                </div>
-              </div>
-
-              {guild.role && (
-                <div className="text-center text-sm">
-                  <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400">
-                    {guild.role.charAt(0).toUpperCase() + guild.role.slice(1)}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
-      </div>
-
-      {/* Leaderboard Preview */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-yellow-400">Top Warriors</h2>
-          <Link 
-            href="/social/leaderboards"
-            className="text-sm text-yellow-400 hover:text-yellow-300 transition-colors"
-          >
-            View All Leaderboards →
-          </Link>
-        </div>
-
-        {leaderboardLoading ? (
-          <div className="text-slate-400 text-center py-8">Loading leaderboard...</div>
-        ) : (
-          <div className="space-y-2">
-            {leaderboard?.entries?.map((entry: any) => (
-              <div
-                key={entry.userId}
-                className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg hover:bg-slate-900/70 transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                    entry.rank === 1 ? 'bg-yellow-500/20 text-yellow-400' :
-                    entry.rank === 2 ? 'bg-slate-400/20 text-slate-300' :
-                    entry.rank === 3 ? 'bg-orange-600/20 text-orange-400' :
-                    'bg-slate-700/50 text-slate-400'
-                  }`}>
-                    {entry.rank}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-white">{entry.userName}</div>
-                    <div className="text-sm text-slate-400">{entry.characterClass}</div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold text-purple-400">Level {entry.level}</div>
-                  {entry.change > 0 && (
-                    <div className="text-sm text-green-400">↑ {entry.change}</div>
-                  )}
-                </div>
-              </div>
-            ))}
-
-            {rank && (
-              <div className="mt-4 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg text-center">
-                <span className="text-slate-400">Your Rank: </span>
-                <span className="font-bold text-purple-400">#{rank.rank}</span>
-                <span className="text-slate-400"> of {rank.total}</span>
-                <span className="ml-2 text-sm text-slate-500">
-                  (Top {rank.percentile}%)
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Active Challenges */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-green-400">Active Challenges</h2>
-          <Link 
-            href="/social/challenges"
-            className="text-sm text-green-400 hover:text-green-300 transition-colors"
-          >
-            View All →
-          </Link>
-        </div>
-
-        {challengesLoading ? (
-          <div className="text-slate-400 text-center py-8">Loading challenges...</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {challenges?.challenges?.filter((c: any) => c.isActive).map((challenge: any) => (
-              <div
-                key={challenge.id}
-                className="p-4 bg-slate-900/50 border border-green-500/20 rounded-lg hover:border-green-500/40 transition-colors"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-2xl">{challenge.icon || '🏆'}</span>
-                  <span className="text-xs px-2 py-1 bg-green-500/20 rounded-full text-green-400">
-                    Active
-                  </span>
-                </div>
-                <h3 className="font-bold text-white mb-1">{challenge.title}</h3>
-                <p className="text-sm text-slate-400 mb-3">{challenge.description}</p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-500">
-                    {challenge.participants?.length || 0} participants
-                  </span>
-                  <span className="text-yellow-400 font-semibold">
-                    +{challenge.reward} Progress
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   )

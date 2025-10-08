@@ -42,34 +42,34 @@ function RewardNode({
       case 'achievement':
         return {
           icon: Trophy,
-          color: 'text-yellow-400',
-          bgColor: 'bg-yellow-500/10',
-          borderColor: 'border-yellow-500/30',
-          hoverBorder: 'hover:border-yellow-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'template':
         return {
           icon: Book,
-          color: 'text-blue-400',
-          bgColor: 'bg-blue-500/10',
-          borderColor: 'border-blue-500/30',
-          hoverBorder: 'hover:border-blue-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'feature':
         return {
           icon: Unlock,
-          color: 'text-purple-400',
-          bgColor: 'bg-purple-500/10',
-          borderColor: 'border-purple-500/30',
-          hoverBorder: 'hover:border-purple-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
       case 'title':
         return {
           icon: Award,
-          color: 'text-pink-400',
-          bgColor: 'bg-pink-500/10',
-          borderColor: 'border-pink-500/30',
-          hoverBorder: 'hover:border-pink-500/60',
+          color: 'text-amber-400',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/30',
+          hoverBorder: 'hover:border-amber-700/60',
         }
     }
   }
@@ -157,20 +157,12 @@ function RewardNode({
             {hasProgress && (
               <div className="space-y-1">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">Progress</span>
+                  <span className="text-neutral-500 uppercase tracking-wider font-bold">Progress</span>
                   <span className={config.color}>{node.progress}%</span>
                 </div>
-                <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-neutral-800 overflow-hidden">
                   <div
-                    className={`h-full bg-gradient-to-r ${
-                      node.type === 'achievement'
-                        ? 'from-yellow-500 to-amber-600'
-                        : node.type === 'template'
-                        ? 'from-blue-500 to-indigo-600'
-                        : node.type === 'feature'
-                        ? 'from-purple-500 to-violet-600'
-                        : 'from-pink-500 to-rose-600'
-                    } transition-all duration-500`}
+                    className={`h-full bg-gradient-to-r from-amber-600 to-amber-500 transition-all duration-500`}
                     style={{ width: `${node.progress}%` }}
                   />
                 </div>

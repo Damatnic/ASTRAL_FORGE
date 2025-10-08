@@ -27,8 +27,8 @@ const mobileNavItems: MobileNavItem[] = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { label: 'Training', href: '/programs', icon: Dumbbell },
   { label: 'Progress', href: '/analytics', icon: TrendingUp },
+  { label: 'Challenges', href: '/challenges', icon: Trophy },
   { label: 'Profile', href: '/profile', icon: User },
-  { label: 'Compete', href: '/compete', icon: Trophy },
 ]
 
 interface MobileNavProps {

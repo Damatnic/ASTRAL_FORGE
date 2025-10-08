@@ -1,10 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Share2, Library, TrendingUp, Users } from 'lucide-react';
-import WorkoutShareModal from '@/components/workout-share-modal';
-import PublicWorkoutLibrary, { PublicWorkout } from '@/components/public-workout-library';
+import { ChartSkeleton } from '@/components/chart-skeleton';
 import { WorkoutCardData } from '@/components/workout-share-card';
+import { PublicWorkout } from '@/components/public-workout-library';
+
+// Dynamic imports for heavy components (performance optimization)
+const WorkoutShareModal = dynamic(() => import('@/components/workout-share-modal'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+});
+
+const PublicWorkoutLibrary = dynamic(
+  () => import('@/components/public-workout-library').then(mod => ({ default: mod.default })),
+  {
+    loading: () => <ChartSkeleton />,
+    ssr: false,
+  }
+);
 
 export default function SharingPage() {
   const [selectedTab, setSelectedTab] = useState<'my-shares' | 'library'>('my-shares');

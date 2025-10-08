@@ -6,9 +6,18 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { EquipmentSelector } from '@/components/equipment/equipment-selector'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { ArrowLeft, Save, Check } from 'lucide-react'
+import { ChartSkeleton } from '@/components/chart-skeleton'
+
+const EquipmentSelector = dynamic(
+  () => import('@/components/equipment/equipment-selector').then(mod => ({ default: mod.EquipmentSelector })),
+  { 
+    loading: () => <ChartSkeleton />,
+    ssr: false 
+  }
+)
 
 export default function EquipmentSettingsPage() {
   const [selectedEquipment, setSelectedEquipment] = useState<string[]>([])

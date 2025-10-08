@@ -52,38 +52,38 @@ export function RewardUnlockCard({
       case 'achievement':
         return {
           icon: Trophy,
-          color: 'from-yellow-500 to-amber-600',
-          bgColor: 'bg-yellow-500/10',
-          borderColor: 'border-yellow-500/50',
-          textColor: 'text-yellow-400',
-          glowColor: 'shadow-yellow-500/50',
+          color: 'from-amber-600 to-amber-500',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/50',
+          textColor: 'text-amber-400',
+          glowColor: 'shadow-amber-700/50',
         }
       case 'template':
         return {
           icon: Book,
-          color: 'from-blue-500 to-indigo-600',
-          bgColor: 'bg-blue-500/10',
-          borderColor: 'border-blue-500/50',
-          textColor: 'text-blue-400',
-          glowColor: 'shadow-blue-500/50',
+          color: 'from-amber-600 to-amber-500',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/50',
+          textColor: 'text-amber-400',
+          glowColor: 'shadow-amber-700/50',
         }
       case 'feature':
         return {
           icon: Unlock,
-          color: 'from-purple-500 to-violet-600',
-          bgColor: 'bg-purple-500/10',
-          borderColor: 'border-purple-500/50',
-          textColor: 'text-purple-400',
-          glowColor: 'shadow-purple-500/50',
+          color: 'from-amber-600 to-amber-500',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/50',
+          textColor: 'text-amber-400',
+          glowColor: 'shadow-amber-700/50',
         }
       case 'title':
         return {
           icon: Award,
-          color: 'from-pink-500 to-rose-600',
-          bgColor: 'bg-pink-500/10',
-          borderColor: 'border-pink-500/50',
-          textColor: 'text-pink-400',
-          glowColor: 'shadow-pink-500/50',
+          color: 'from-amber-600 to-amber-500',
+          bgColor: 'bg-amber-950/10',
+          borderColor: 'border-amber-700/50',
+          textColor: 'text-amber-400',
+          glowColor: 'shadow-amber-700/50',
         }
     }
   }

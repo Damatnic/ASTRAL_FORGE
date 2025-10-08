@@ -192,23 +192,23 @@ export default function WorkoutCalendar({
   return (
     <div className="space-y-4">
       {/* Calendar Header */}
-      <div className="flex items-center justify-between bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-4 rounded-lg border border-purple-500/20">
+      <div className="flex items-center justify-between bg-amber-950/30 p-4 border-2 border-amber-800/30">
         <div className="flex items-center gap-4">
           <button
             onClick={() => (view === 'month' ? navigateMonth('prev') : navigateWeek('prev'))}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 hover:bg-amber-900/20 border-2 border-amber-800/50 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Previous"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <h2 className="text-xl font-bold min-w-[200px] text-center">
+          <h2 className="text-xl font-black min-w-[200px] text-center uppercase tracking-wider">
             {view === 'month' ? getMonthName(currentDate) : `Week of ${currentDate.toLocaleDateString()}`}
           </h2>
 
           <button
             onClick={() => (view === 'month' ? navigateMonth('next') : navigateWeek('next'))}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 hover:bg-amber-900/20 border-2 border-amber-800/50 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Next"
           >
             <ChevronRight className="w-5 h-5" />
@@ -217,22 +217,22 @@ export default function WorkoutCalendar({
 
         <div className="flex items-center gap-2">
           {/* View Toggle */}
-          <div className="flex bg-gray-800 rounded-lg p-1">
+          <div className="flex bg-neutral-900 border-2 border-neutral-800 p-1">
             <button
               onClick={() => setView('month')}
-              className={`px-4 py-2 rounded-md transition-colors touch-manipulation min-h-[44px] ${
+              className={`px-4 py-2 transition-colors touch-manipulation min-h-[44px] uppercase tracking-wider font-bold ${
                 view === 'month'
-                  ? 'bg-purple-600 text-white'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-amber-950/50 border-2 border-amber-700 text-amber-400'
+                  : 'text-neutral-400 hover:text-white'
               }`}
             >
               Month
             </button>
             <button
               onClick={() => setView('week')}
-              className={`px-4 py-2 rounded-md transition-colors touch-manipulation min-h-[44px] ${
+              className={`px-4 py-2 transition-colors touch-manipulation min-h-[44px] uppercase tracking-wider font-bold ${
                 view === 'week'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-amber-950/50 border-2 border-amber-700 text-amber-400'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -242,7 +242,7 @@ export default function WorkoutCalendar({
 
           <button
             onClick={goToToday}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors touch-manipulation min-h-[44px] flex items-center gap-2"
+            className="px-4 py-2 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 transition-colors touch-manipulation min-h-[44px] flex items-center gap-2 font-black uppercase tracking-wider"
           >
             <Calendar className="w-4 h-4" />
             Today
@@ -252,39 +252,39 @@ export default function WorkoutCalendar({
 
       {/* Period Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-          <div className="flex items-center gap-2 text-blue-400 mb-1">
+        <div className="bg-neutral-900 p-4 border-2 border-neutral-800">
+          <div className="flex items-center gap-2 text-amber-400 mb-1">
             <Calendar className="w-4 h-4" />
-            <span className="text-sm font-medium">Workouts</span>
+            <span className="text-sm font-bold uppercase tracking-wider">Battles</span>
           </div>
           <div className="text-2xl font-bold">{totalWorkouts}</div>
         </div>
 
-        <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-          <div className="flex items-center gap-2 text-purple-400 mb-1">
+        <div className="bg-neutral-900 p-4 border-2 border-neutral-800">
+          <div className="flex items-center gap-2 text-amber-400 mb-1">
             <TrendingUp className="w-4 h-4" />
-            <span className="text-sm font-medium">Total XP</span>
+            <span className="text-sm font-bold uppercase tracking-wider">Total XP</span>
           </div>
           <div className="text-2xl font-bold">{totalXP.toLocaleString()}</div>
         </div>
 
-        <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-          <div className="flex items-center gap-2 text-orange-400 mb-1">
+        <div className="bg-neutral-900 p-4 border-2 border-neutral-800">
+          <div className="flex items-center gap-2 text-amber-400 mb-1">
             <Flame className="w-4 h-4" />
-            <span className="text-sm font-medium">Total Volume</span>
+            <span className="text-sm font-bold uppercase tracking-wider">Total Volume</span>
           </div>
           <div className="text-2xl font-bold">{(totalVolume / 1000).toFixed(1)}K lbs</div>
         </div>
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-gray-800/30 rounded-lg border border-gray-700 overflow-hidden">
+      <div className="bg-neutral-900 border-2 border-neutral-800 overflow-hidden">
         {/* Week Day Headers */}
-        <div className="grid grid-cols-7 gap-px bg-gray-700">
+        <div className="grid grid-cols-7 gap-px bg-neutral-800">
           {weekDays.map((day) => (
             <div
               key={day}
-              className="bg-gray-800 p-2 text-center text-sm font-semibold text-gray-400"
+              className="bg-neutral-900 p-2 text-center text-sm font-bold text-neutral-400 uppercase tracking-wider"
             >
               {day}
             </div>
@@ -292,7 +292,7 @@ export default function WorkoutCalendar({
         </div>
 
         {/* Calendar Days */}
-        <div className="grid grid-cols-7 gap-px bg-gray-700">
+        <div className="grid grid-cols-7 gap-px bg-neutral-800">
           {days.map((day, index) => {
             const hasWorkouts = day.workouts.length > 0;
             const workoutCount = day.workouts.length;
@@ -302,27 +302,27 @@ export default function WorkoutCalendar({
                 key={index}
                 onClick={() => handleDateClick(day)}
                 className={`
-                  min-h-[100px] p-2 bg-gray-800/50 cursor-pointer transition-all
-                  hover:bg-gray-700/50 relative
+                  min-h-[100px] p-2 bg-neutral-900 border-2 border-neutral-800 cursor-pointer transition-all
+                  hover:bg-neutral-800 relative
                   ${!day.isCurrentMonth ? 'opacity-40' : ''}
-                  ${day.isToday ? 'ring-2 ring-blue-500 ring-inset' : ''}
-                  ${hasWorkouts ? 'bg-gradient-to-br from-purple-900/20 to-blue-900/20' : ''}
+                  ${day.isToday ? 'border-2 border-amber-500' : ''}
+                  ${hasWorkouts ? 'bg-amber-950/20' : ''}
                 `}
               >
                 {/* Day Number */}
                 <div className="flex items-center justify-between mb-1">
                   <span
                     className={`
-                    text-sm font-semibold
-                    ${day.isToday ? 'bg-blue-600 px-2 py-0.5 rounded-full' : ''}
-                    ${!day.isCurrentMonth ? 'text-gray-600' : 'text-gray-300'}
+                    text-sm font-black uppercase tracking-wider
+                    ${day.isToday ? 'bg-amber-950/50 px-2 py-0.5 border-2 border-amber-700' : ''}
+                    ${!day.isCurrentMonth ? 'text-neutral-600' : 'text-neutral-300'}
                   `}
                   >
                     {day.date.getDate()}
                   </span>
 
                   {workoutCount > 0 && (
-                    <span className="text-xs bg-purple-600 px-1.5 py-0.5 rounded-full font-medium">
+                    <span className="text-xs bg-amber-950/50 px-1.5 py-0.5 border-2 border-amber-700 font-black uppercase tracking-wider">
                       {workoutCount}
                     </span>
                   )}
@@ -335,10 +335,10 @@ export default function WorkoutCalendar({
                       <button
                         key={workout.id}
                         onClick={(e) => handleWorkoutClick(e, workout.id)}
-                        className="w-full text-left px-2 py-1 bg-purple-600/30 hover:bg-purple-600/50 rounded text-xs transition-colors border border-purple-500/20"
+                        className="w-full text-left px-2 py-1 bg-amber-950/30 hover:bg-amber-950/50 text-xs transition-colors border-2 border-amber-700/30"
                       >
-                        <div className="font-medium truncate">{workout.name}</div>
-                        <div className="text-gray-400 flex items-center gap-2">
+                        <div className="font-black truncate uppercase tracking-wider">{workout.name}</div>
+                        <div className="text-neutral-400 flex items-center gap-2 font-bold">
                           <span>{workout.duration}m</span>
                           <span>•</span>
                           <span>{workout.xpEarned} XP</span>
@@ -361,17 +361,17 @@ export default function WorkoutCalendar({
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
+      <div className="flex items-center justify-center gap-6 text-sm text-neutral-400 font-bold uppercase tracking-wider">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded border-2 border-blue-500"></div>
+          <div className="w-4 h-4 border-2 border-amber-700"></div>
           <span>Today</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-gradient-to-br from-purple-900/20 to-blue-900/20"></div>
-          <span>Has Workout</span>
+          <div className="w-4 h-4 bg-amber-950/20 border-2 border-amber-700/30"></div>
+          <span>Has Battle</span>
         </div>
         <div className="flex items-center gap-2">
-          <Flame className="w-4 h-4 text-orange-500" />
+          <Flame className="w-4 h-4 text-amber-500" />
           <span>Streak Day</span>
         </div>
       </div>

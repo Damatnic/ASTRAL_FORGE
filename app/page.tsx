@@ -1,178 +1,194 @@
 ﻿'use client'
 
 import Link from 'next/link'
-import { Dumbbell, TrendingUp, Award, Users, Target, Zap, Sparkles, Flame, Trophy, Swords } from 'lucide-react'
+import { Sword, Shield, TrendingUp, BarChart3, Users, Target, ChevronRight } from 'lucide-react'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-slate-800">
-        {/* Animated Background */}
+    <main className="min-h-screen bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
+      {/* Hero Section - Full Screen Warrior */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden border-b border-amber-900/20">
+        {/* Dark Metal Texture Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_110%)]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-950 to-purple-900/20" />
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}} />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1a1a1a_1px,transparent_1px)] bg-[size:24px_24px] opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-950/20 via-transparent to-neutral-950/80" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent_0%,#CD7F32_50%,transparent_100%)] opacity-5" />
         </div>
-        
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-32">
-          <div className="text-center space-y-8">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-semibold text-blue-300">Next-Gen Fitness RPG</span>
+
+        {/* Warrior Silhouette Effect */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-10">
+          <div className="w-full h-full bg-[url('/warrior-texture.svg')] bg-center bg-no-repeat bg-contain mix-blend-overlay" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-6 py-2 mb-8 border-2 border-amber-800/40 bg-neutral-900/60 backdrop-blur-sm">
+            <div className="w-2 h-2 bg-amber-600 animate-pulse" />
+            <span className="text-xs font-bold tracking-[0.3em] text-amber-200/90 uppercase">
+              Fitness Warrior Training System
+            </span>
+          </div>
+
+          {/* Main Headline */}
+          <div className="space-y-6 mb-12">
+            <h1 className="text-7xl md:text-9xl font-black tracking-tight leading-none">
+              <span className="block text-amber-100 drop-shadow-[0_0_30px_rgba(205,127,50,0.3)]">
+                FORGE YOUR
+              </span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 drop-shadow-2xl">
+                WARRIOR BODY
+              </span>
+            </h1>
+            <div className="h-1 w-48 mx-auto bg-gradient-to-r from-transparent via-amber-600 to-transparent" />
+          </div>
+
+          {/* Subheadline */}
+          <p className="text-2xl md:text-3xl text-neutral-400 font-light mb-8 max-w-3xl mx-auto tracking-wide">
+            Train like the ancients. <span className="text-amber-500 font-semibold">Track like a champion.</span>
+          </p>
+
+          <p className="text-lg text-neutral-500 max-w-2xl mx-auto leading-relaxed mb-12 font-light">
+            Master your strength. Discipline your body. Earn your victories through sweat, iron, and unwavering commitment to the warrior's path.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+            <Link
+              href="/auth/signin"
+              className="group relative px-12 py-5 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-500 hover:to-amber-600 border-2 border-amber-500/50 shadow-[0_0_30px_rgba(205,127,50,0.3)] hover:shadow-[0_0_50px_rgba(205,127,50,0.5)] transition-all duration-300"
+            >
+              <span className="flex items-center justify-center gap-3 text-lg font-bold tracking-wider uppercase text-neutral-950">
+                <Sword className="w-6 h-6" />
+                Enter The Forge
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
+            <Link
+              href="/dashboard"
+              className="group px-12 py-5 border-2 border-neutral-700 hover:border-amber-700/50 bg-neutral-900/40 hover:bg-neutral-800/60 backdrop-blur-sm transition-all duration-300"
+            >
+              <span className="flex items-center justify-center gap-3 text-lg font-semibold tracking-wider uppercase text-neutral-300 group-hover:text-amber-400">
+                <Shield className="w-6 h-6" />
+                View Arsenal
+              </span>
+            </Link>
+          </div>
+
+          {/* Stats Ticker */}
+          <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto pt-12 border-t border-neutral-800/50">
+            <div className="text-center space-y-2">
+              <div className="text-4xl font-black text-amber-500">EARN</div>
+              <div className="text-xs text-neutral-600 uppercase tracking-widest">Real Achievements</div>
             </div>
-
-            <div className="space-y-4">
-              <h1 className="text-6xl md:text-8xl font-black tracking-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  ASTRAL FORGE
-                </span>
-              </h1>
-              <p className="text-2xl md:text-4xl text-gray-200 font-bold">
-                Where <span className="text-purple-400">Warriors</span> Are Forged
-              </p>
+            <div className="text-center space-y-2">
+              <div className="text-4xl font-black text-amber-500">TRACK</div>
+              <div className="text-xs text-neutral-600 uppercase tracking-widest">Every Victory</div>
             </div>
-
-            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              Transform your training journey into an epic quest. Track progress, earn achievements, and level up your gains with the ultimate gamified fitness platform.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Link
-                href="/auth/signin"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-xl font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Flame className="w-5 h-5" />
-                  Enter The Forge
-                  <Sparkles className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </span>
-              </Link>
-              <Link
-                href="/dashboard"
-                className="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-xl font-semibold text-lg transition-all hover:scale-105 backdrop-blur-sm"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <Swords className="w-5 h-5" />
-                  View Demo
-                </span>
-              </Link>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto pt-12">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">Smart</div>
-                <div className="text-sm text-gray-500">AI-Powered</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400">Fast</div>
-                <div className="text-sm text-gray-500">Real-Time</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-cyan-400">Epic</div>
-                <div className="text-sm text-gray-500">Gamified</div>
-              </div>
+            <div className="text-center space-y-2">
+              <div className="text-4xl font-black text-amber-500">CONQUER</div>
+              <div className="text-xs text-neutral-600 uppercase tracking-widest">Your Limits</div>
             </div>
           </div>
         </div>
+
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-neutral-950 to-transparent" />
       </section>
 
-      {/* Features Section */}
-      <section className="relative py-20 border-b border-slate-800 bg-gradient-to-b from-slate-950 to-slate-900">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
+      {/* The Warrior's Path - Features Section */}
+      <section className="relative py-32 border-b border-amber-900/20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1a1a1a_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
         
         <div className="relative max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full mb-6">
-              <Trophy className="w-4 h-4 text-purple-400" />
-              <span className="text-sm font-semibold text-purple-300">Core Abilities</span>
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-2 mb-8 border-2 border-amber-800/30 bg-neutral-900/40">
+              <div className="w-1.5 h-1.5 bg-amber-600" />
+              <span className="text-xs font-bold tracking-[0.3em] text-amber-400/80 uppercase">
+                The Warrior&apos;s Path
+              </span>
+              <div className="w-1.5 h-1.5 bg-amber-600" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Arsenal</span> of Power
+            <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
+              <span className="text-amber-100">YOUR </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400">ARSENAL</span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Everything you need to level up your training
+            <div className="h-0.5 w-32 mx-auto bg-gradient-to-r from-transparent via-amber-600 to-transparent mb-6" />
+            <p className="text-neutral-500 text-lg max-w-2xl mx-auto font-light">
+              Four pillars of strength. Master them all.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition-all hover:shadow-lg hover:shadow-blue-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/0 group-hover:from-blue-500/5 group-hover:to-transparent rounded-xl transition-all" />
+          {/* 2x2 Grid - Core Features */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Feature 1: Track */}
+            <div className="group relative bg-neutral-900/40 border-2 border-neutral-800 hover:border-amber-700/50 p-10 transition-all duration-300 hover:bg-neutral-900/60">
+              <div className="absolute top-6 right-6">
+                <Sword className="w-12 h-12 text-neutral-800 group-hover:text-amber-900/50 transition-colors" />
+              </div>
               <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-500/50">
-                  <Dumbbell className="w-7 h-7" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 border-2 border-amber-700 bg-amber-950/50 flex items-center justify-center">
+                    <Sword className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <h3 className="text-2xl font-black tracking-tight text-amber-100 uppercase">Track</h3>
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Workout Tracking</h3>
-                <p className="text-gray-400">
-                  Log every rep, set, and workout with precision. Track your progressive overload and watch your strength soar.
+                <p className="text-neutral-400 leading-relaxed font-light">
+                  Log every battle. Record each set, rep, and weight. Monitor your progressive overload with warrior precision. The iron never lies.
                 </p>
               </div>
             </div>
 
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-purple-500/50 transition-all hover:shadow-lg hover:shadow-purple-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-purple-500/0 group-hover:from-purple-500/5 group-hover:to-transparent rounded-xl transition-all" />
+            {/* Feature 2: Progress */}
+            <div className="group relative bg-neutral-900/40 border-2 border-neutral-800 hover:border-amber-700/50 p-10 transition-all duration-300 hover:bg-neutral-900/60">
+              <div className="absolute top-6 right-6">
+                <TrendingUp className="w-12 h-12 text-neutral-800 group-hover:text-amber-900/50 transition-colors" />
+              </div>
               <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50">
-                  <TrendingUp className="w-7 h-7" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 border-2 border-amber-700 bg-amber-950/50 flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <h3 className="text-2xl font-black tracking-tight text-amber-100 uppercase">Progress</h3>
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">Advanced Analytics</h3>
-                <p className="text-gray-400">
-                  Visualize your ascension with detailed charts, progress graphs, and performance metrics that matter.
+                <p className="text-neutral-400 leading-relaxed font-light">
+                  Visualize your evolution. Advanced analytics reveal your strength gains, volume progression, and performance trends over time.
                 </p>
               </div>
             </div>
 
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/5 group-hover:to-transparent rounded-xl transition-all" />
+            {/* Feature 3: Compete */}
+            <div className="group relative bg-neutral-900/40 border-2 border-neutral-800 hover:border-amber-700/50 p-10 transition-all duration-300 hover:bg-neutral-900/60">
+              <div className="absolute top-6 right-6">
+                <Users className="w-12 h-12 text-neutral-800 group-hover:text-amber-900/50 transition-colors" />
+              </div>
               <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-cyan-500/50">
-                  <Target className="w-7 h-7" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 border-2 border-amber-700 bg-amber-950/50 flex items-center justify-center">
+                    <Users className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <h3 className="text-2xl font-black tracking-tight text-amber-100 uppercase">Compete</h3>
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">Quest System</h3>
-                <p className="text-gray-400">
-                  Set challenging goals, complete epic quests, and unlock legendary achievements as you conquer your fitness journey.
+                <p className="text-neutral-400 leading-relaxed font-light">
+                  Challenge yourself and others. Join training crews, compete on leaderboards, and prove your strength in fitness battles.
                 </p>
               </div>
             </div>
 
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-yellow-500/50 transition-all hover:shadow-lg hover:shadow-yellow-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/0 to-yellow-500/0 group-hover:from-yellow-500/5 group-hover:to-transparent rounded-xl transition-all" />
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-yellow-500/50">
-                  <Award className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-yellow-400 transition-colors">Trophy Collection</h3>
-                <p className="text-gray-400">
-                  Earn badges, unlock trophies, and showcase your legendary accomplishments. Your victories deserve recognition.
-                </p>
+            {/* Feature 4: Analyze */}
+            <div className="group relative bg-neutral-900/40 border-2 border-neutral-800 hover:border-amber-700/50 p-10 transition-all duration-300 hover:bg-neutral-900/60">
+              <div className="absolute top-6 right-6">
+                <Target className="w-12 h-12 text-neutral-800 group-hover:text-amber-900/50 transition-colors" />
               </div>
-            </div>
-
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition-all hover:shadow-lg hover:shadow-green-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/0 group-hover:from-green-500/5 group-hover:to-transparent rounded-xl transition-all" />
               <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-green-500/50">
-                  <Users className="w-7 h-7" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 border-2 border-amber-700 bg-amber-950/50 flex items-center justify-center">
+                    <Target className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <h3 className="text-2xl font-black tracking-tight text-amber-100 uppercase">Analyze</h3>
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">Guild System</h3>
-                <p className="text-gray-400">
-                  Join fellow warriors, share victories, compete on leaderboards, and forge bonds in your quest for greatness.
-                </p>
-              </div>
-            </div>
-
-            <div className="group relative bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-red-500/50 transition-all hover:shadow-lg hover:shadow-red-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-red-500/0 group-hover:from-red-500/5 group-hover:to-transparent rounded-xl transition-all" />
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-red-500/50">
-                  <Zap className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-red-400 transition-colors">Battle Programs</h3>
-                <p className="text-gray-400">
-                  Follow expertly crafted training campaigns designed to maximize gains and transform you into a champion.
+                <p className="text-neutral-400 leading-relaxed font-light">
+                  Master your metrics. Deep performance analysis shows what works, what doesn&apos;t, and where to push harder.
                 </p>
               </div>
             </div>
@@ -180,41 +196,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/30 to-slate-950" />
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1.5s'}} />
-        </div>
+      {/* Final CTA - Call to Battle */}
+      <section className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-amber-950/10 to-neutral-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#CD7F32_1px,transparent_1px)] bg-[size:32px_32px] opacity-10" />
         
         <div className="relative max-w-4xl mx-auto text-center px-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full mb-6 backdrop-blur-sm">
-            <Flame className="w-4 h-4 text-orange-400" />
-            <span className="text-sm font-semibold text-orange-300">Ascend to Greatness</span>
+          <div className="inline-flex items-center gap-3 px-6 py-2 mb-8 border-2 border-amber-800/30 bg-neutral-900/40">
+            <Shield className="w-4 h-4 text-amber-500" />
+            <span className="text-xs font-bold tracking-[0.3em] text-amber-400/80 uppercase">
+              Your Destiny Awaits
+            </span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-black mb-6">
-            Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Become Legendary</span>?
+          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-tight">
+            <span className="block text-amber-100">EARN YOUR </span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400">
+              WARRIOR STATUS
+            </span>
           </h2>
-          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            Join thousands of warriors transforming their bodies and minds. Your epic journey begins now.
+          <div className="h-1 w-48 mx-auto bg-gradient-to-r from-transparent via-amber-600 to-transparent mb-8" />
+          
+          <p className="text-xl text-neutral-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            Discipline. Strength. Honor. Join the warriors transforming their bodies through iron and determination.
           </p>
+          
           <Link
             href="/auth/signin"
-            className="group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-xl font-bold text-xl transition-all hover:scale-105 shadow-2xl shadow-blue-500/50 hover:shadow-purple-500/60"
+            className="group inline-flex items-center gap-4 px-14 py-6 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-500 hover:to-amber-600 border-2 border-amber-500/50 shadow-[0_0_40px_rgba(205,127,50,0.3)] hover:shadow-[0_0_60px_rgba(205,127,50,0.5)] transition-all duration-300"
           >
-            <Flame className="w-6 h-6" />
-            Begin Your Quest
-            <Sparkles className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Sword className="w-7 h-7 text-neutral-950" />
+            <span className="text-2xl font-black tracking-wider uppercase text-neutral-950">
+              Begin Your Journey
+            </span>
+            <ChevronRight className="w-6 h-6 text-neutral-950 group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center text-gray-500">
-          <p>&copy; 2025 Astral Forge. Track your fitness journey.</p>
+      <footer className="border-t border-neutral-800 py-12 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-center md:text-left">
+              <div className="text-2xl font-black tracking-tight text-amber-500 mb-2">ASTRAL FORGE</div>
+              <p className="text-neutral-600 text-sm font-light">Where Warriors Are Forged</p>
+            </div>
+            <div className="text-neutral-600 text-sm">
+              &copy; 2025 Astral Forge. All victories earned, not given.
+            </div>
+          </div>
         </div>
       </footer>
     </main>

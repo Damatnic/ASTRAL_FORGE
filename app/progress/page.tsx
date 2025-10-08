@@ -77,31 +77,31 @@ export default function ProgressPage() {
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total Workouts */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-blue-500/10 rounded-lg">
-                <Dumbbell className="w-6 h-6 text-blue-400" />
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Dumbbell className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {quickStats.totalWorkouts}
                 </div>
-                <div className="text-sm text-gray-400">Total Workouts</div>
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Total Battles</div>
               </div>
             </div>
           </div>
 
           {/* Current Streak */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-orange-500/10 rounded-lg">
-                <Flame className="w-6 h-6 text-orange-400" />
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Flame className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {quickStats.currentStreak}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                   Day Streak • Best: {quickStats.longestStreak}
                 </div>
               </div>
@@ -109,31 +109,31 @@ export default function ProgressPage() {
           </div>
 
           {/* Total Volume */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-green-500/10 rounded-lg">
-                <TrendingUp className="w-6 h-6 text-green-400" />
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <TrendingUp className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {(quickStats.totalVolume / 1000).toFixed(1)}k
                 </div>
-                <div className="text-sm text-gray-400">Volume (90d) lbs</div>
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Volume (90d) lbs</div>
               </div>
             </div>
           </div>
 
           {/* Recent PRs */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-purple-500/10 rounded-lg">
-                <Trophy className="w-6 h-6 text-purple-400" />
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Trophy className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {quickStats.recentPRs}
                 </div>
-                <div className="text-sm text-gray-400">PRs (30 days)</div>
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">PRs (30 days)</div>
               </div>
             </div>
           </div>

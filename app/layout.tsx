@@ -13,15 +13,15 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#3B82F6',
+  themeColor: '#CD7F32', // Warrior Bronze
 }
 
 export const metadata: Metadata = {
-  title: 'Astral Forge - Forge Your Strength',
-  description: 'Forge your strength with progressive, adaptive training. Automated progressive overload and RPE-based autoregulation.',
+  title: 'Astral Forge - Forge Your Warrior Body',
+  description: 'Train like the ancients. Track like a champion. Master your strength through discipline and iron.',
   manifest: '/manifest.json',
   icons: {
-    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🔨</text></svg>',
+    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">⚔️</text></svg>',
   },
   appleWebApp: {
     capable: true,

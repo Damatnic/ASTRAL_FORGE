@@ -29,10 +29,10 @@ const toastIcons = {
 }
 
 const toastStyles = {
-  success: 'bg-green-600 border-l-4 border-green-500',
-  error: 'bg-red-600 border-l-4 border-red-500',
-  info: 'bg-blue-600 border-l-4 border-blue-500',
-  warning: 'bg-amber-600 border-l-4 border-amber-500',
+  success: 'bg-amber-950/90 border-l-4 border-amber-500',
+  error: 'bg-red-950/90 border-l-4 border-red-500',
+  info: 'bg-amber-950/90 border-l-4 border-amber-500',
+  warning: 'bg-amber-950/90 border-l-4 border-amber-500',
 }
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -85,19 +85,20 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={toast.id}
             className={`
               ${toastStyles[toast.type]}
-              text-white px-6 py-3 rounded-lg shadow-lg
+              text-white px-6 py-3 shadow-lg
               min-w-[300px] max-w-[500px]
               animate-slide-in-right pointer-events-auto
               flex items-center gap-3
+              border-2 border-neutral-800
             `}
           >
-            <span className="text-xl font-bold flex-shrink-0">
+            <span className="text-xl font-black flex-shrink-0 uppercase tracking-wider">
               {toastIcons[toast.type]}
             </span>
-            <span className="flex-1">{toast.message}</span>
+            <span className="flex-1 font-bold uppercase tracking-wider">{toast.message}</span>
             <button
               onClick={() => removeToast(toast.id)}
-              className="flex-shrink-0 hover:bg-white/20 rounded px-2 py-1 transition"
+              className="flex-shrink-0 hover:bg-white/20 px-2 py-1 transition border border-neutral-700 font-black uppercase tracking-wider"
               aria-label="Close notification"
             >
               ✕

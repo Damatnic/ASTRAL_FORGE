@@ -125,12 +125,12 @@ export default function SettingsPage() {
   const ToggleSwitch = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
     <button
       onClick={onChange}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-        checked ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-slate-700'
+      className={`relative inline-flex h-6 w-11 items-center transition-colors ${
+        checked ? 'bg-gradient-to-r from-amber-700 to-amber-600 border-2 border-amber-500' : 'bg-neutral-800 border-2 border-neutral-700'
       }`}
     >
       <span
-        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+        className={`inline-block h-4 w-4 transform bg-white transition-transform ${
           checked ? 'translate-x-6' : 'translate-x-1'
         }`}
       />
@@ -142,13 +142,13 @@ export default function SettingsPage() {
       <PageContainer>
         <PageHeader
           title="Settings"
-          description="Manage your account, preferences, and training settings"
-          icon={<SettingsIcon className="w-8 h-8 text-purple-400" />}
+          description="Manage your account, preferences, and battle configurations"
+          icon={<SettingsIcon className="w-8 h-8 text-amber-400" />}
           action={
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-6 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all flex items-center gap-2 disabled:opacity-50"
+              className="px-6 py-2.5 bg-amber-950/50 border-2 border-amber-700 hover:bg-amber-900/50 font-bold uppercase tracking-wider transition-all flex items-center gap-2 disabled:opacity-50 text-amber-400"
             >
               <Save className="w-5 h-5" />
               {saving ? 'Saving...' : 'Save Changes'}
@@ -164,10 +164,10 @@ export default function SettingsPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 border-2 font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 border border-purple-500/30'
-                    : 'bg-slate-900/50 text-gray-400 border border-slate-800 hover:border-slate-700 hover:text-gray-300'
+                    ? 'bg-amber-950/50 border-amber-700 text-amber-400'
+                    : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-amber-700'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -183,35 +183,35 @@ export default function SettingsPage() {
           {activeTab === 'profile' && (
             <div className="space-y-6">
               {/* Personal Information */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <User className="w-6 h-6 text-blue-400" />
+              <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
+                <h2 className="text-2xl font-bold uppercase tracking-wider mb-6 flex items-center gap-2 text-amber-400">
+                  <User className="w-6 h-6 text-amber-400" />
                   Personal Information
                 </h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-neutral-400 mb-2">
                       Display Name
                     </label>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                      className="w-full px-4 py-3 bg-neutral-950 border-2 border-neutral-800 focus:outline-none focus:border-amber-700 text-white"
                       placeholder="Enter your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-neutral-400 mb-2">
                       Email Address
                     </label>
                     <input
                       type="email"
                       value={email}
                       disabled
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-500 cursor-not-allowed"
+                      className="w-full px-4 py-3 bg-neutral-950/50 border-2 border-neutral-800 text-neutral-500 cursor-not-allowed"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-neutral-500 mt-1">
                       Email cannot be changed. Contact support if needed.
                     </p>
                   </div>
@@ -219,20 +219,20 @@ export default function SettingsPage() {
               </div>
 
               {/* Profile Stats */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-xl font-bold mb-4">Account Stats</h2>
+              <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
+                <h2 className="text-xl font-bold uppercase tracking-wider mb-4 text-amber-400">Account Stats</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-slate-800/50 rounded-lg">
-                    <div className="text-sm text-gray-400 mb-1">Member Since</div>
-                    <div className="text-lg font-bold text-purple-400">Aug 2024</div>
+                  <div className="p-4 bg-neutral-950 border-2 border-neutral-800">
+                    <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Member Since</div>
+                    <div className="text-lg font-bold text-amber-400">Aug 2024</div>
                   </div>
-                  <div className="p-4 bg-slate-800/50 rounded-lg">
-                    <div className="text-sm text-gray-400 mb-1">Total Workouts</div>
-                    <div className="text-lg font-bold text-blue-400">156</div>
+                  <div className="p-4 bg-neutral-950 border-2 border-neutral-800">
+                    <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Total Battles</div>
+                    <div className="text-lg font-bold text-amber-400">156</div>
                   </div>
-                  <div className="p-4 bg-slate-800/50 rounded-lg">
-                    <div className="text-sm text-gray-400 mb-1">Current Streak</div>
-                    <div className="text-lg font-bold text-orange-400">12 days</div>
+                  <div className="p-4 bg-neutral-950 border-2 border-neutral-800">
+                    <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Current Streak</div>
+                    <div className="text-lg font-bold text-amber-400">12 days</div>
                   </div>
                 </div>
               </div>
@@ -243,20 +243,20 @@ export default function SettingsPage() {
           {activeTab === 'preferences' && (
             <div className="space-y-6">
               {/* Units & Display */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <Globe className="w-6 h-6 text-green-400" />
+              <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
+                <h2 className="text-2xl font-bold uppercase tracking-wider mb-6 flex items-center gap-2 text-amber-400">
+                  <Globe className="w-6 h-6 text-amber-400" />
                   Units & Display
                 </h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-neutral-400 mb-2">
                       Weight Units
                     </label>
                     <select
                       value={units}
                       onChange={(e) => setUnits(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                      className="w-full px-4 py-3 bg-neutral-950 border-2 border-neutral-800 focus:outline-none focus:border-amber-700 text-white"
                     >
                       <option value="kg">Kilograms (kg)</option>
                       <option value="lbs">Pounds (lbs)</option>

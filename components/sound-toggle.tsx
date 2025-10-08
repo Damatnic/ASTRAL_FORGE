@@ -62,10 +62,10 @@ export function SoundToggle() {
           sound.play('click')
         }}
         className={`
-          p-3 rounded-lg transition-all
+          p-3 transition-all border-2
           ${soundEnabled 
-            ? 'bg-cyan-500/20 border-2 border-cyan-500 text-cyan-400' 
-            : 'bg-gray-800 border-2 border-gray-600 text-gray-500'
+            ? 'bg-amber-950/20 border-amber-700 text-amber-400' 
+            : 'bg-neutral-900 border-neutral-600 text-neutral-500'
           }
         `}
       >
@@ -74,26 +74,26 @@ export function SoundToggle() {
 
       {/* Settings Panel */}
       {showPanel && (
-        <div className="absolute top-full right-0 mt-2 w-80 bg-black/95 border-2 border-cyan-500 rounded-lg shadow-2xl shadow-cyan-500/50 backdrop-blur-md z-50">
+        <div className="absolute top-full right-0 mt-2 w-80 bg-black/95 border-2 border-amber-700 shadow-2xl shadow-amber-500/50 backdrop-blur-md z-50">
           <div className="p-4 space-y-4">
-            <h3 className="text-lg font-bold text-cyan-400 flex items-center gap-2">
+            <h3 className="text-lg font-black uppercase tracking-wider text-amber-400 flex items-center gap-2">
               <span>🎵</span>
               <span>AUDIO SETTINGS</span>
             </h3>
 
             {/* Master Toggle */}
             <div className="flex items-center justify-between">
-              <span className="text-white">Sound Effects</span>
+              <span className="text-white font-black uppercase tracking-wider">Sound Effects</span>
               <button
                 onClick={toggleSound}
                 className={`
-                  relative w-14 h-7 rounded-full transition-colors
-                  ${soundEnabled ? 'bg-cyan-500' : 'bg-gray-600'}
+                  relative w-14 h-7 transition-colors
+                  ${soundEnabled ? 'bg-amber-500' : 'bg-neutral-600'}
                 `}
               >
                 <div
                   className={`
-                    absolute top-1 w-5 h-5 bg-white rounded-full transition-transform
+                    absolute top-1 w-5 h-5 bg-white transition-transform
                     ${soundEnabled ? 'translate-x-8' : 'translate-x-1'}
                   `}
                 />
@@ -105,8 +105,8 @@ export function SoundToggle() {
                 {/* SFX Volume */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-400">SFX Volume</span>
-                    <span className="text-cyan-400 font-mono">{volume}%</span>
+                    <span className="text-sm text-neutral-400 uppercase tracking-wider font-bold">SFX Volume</span>
+                    <span className="text-amber-400 font-mono font-black">{volume}%</span>
                   </div>
                   <input
                     type="range"
@@ -122,8 +122,8 @@ export function SoundToggle() {
                 {/* Music Volume */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-400">Music Volume</span>
-                    <span className="text-purple-400 font-mono">{musicVolume}%</span>
+                    <span className="text-sm text-neutral-400 font-bold uppercase tracking-wider">MUSIC VOLUME</span>
+                    <span className="text-amber-400 font-mono font-black uppercase tracking-wider">{musicVolume}%</span>
                   </div>
                   <input
                     type="range"
@@ -137,20 +137,20 @@ export function SoundToggle() {
 
                 {/* Test Sounds */}
                 <div>
-                  <div className="text-sm text-gray-400 mb-2">Test Sounds</div>
+                  <div className="text-sm text-neutral-400 font-bold uppercase tracking-wider mb-2">TEST SOUNDS</div>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { label: 'Click', sound: 'click' },
-                      { label: 'Level', sound: 'levelup' },
-                      { label: 'Achieve', sound: 'achievement' },
+                      { label: 'CLICK', sound: 'click' },
+                      { label: 'LEVEL', sound: 'levelup' },
+                      { label: 'ACHIEVE', sound: 'achievement' },
                       { label: 'XP', sound: 'xp' },
-                      { label: 'Loot', sound: 'loot' },
-                      { label: 'Crit', sound: 'critical' },
+                      { label: 'LOOT', sound: 'loot' },
+                      { label: 'CRIT', sound: 'critical' },
                     ].map((item) => (
                       <button
                         key={item.sound}
                         onClick={() => testSound(item.sound)}
-                        className="px-3 py-2 bg-gray-800 hover:bg-cyan-500/20 border border-gray-700 hover:border-cyan-500 rounded text-xs transition-colors"
+                        className="px-3 py-2 bg-neutral-900 hover:bg-amber-950/20 border-2 border-neutral-700 hover:border-amber-700 text-xs font-black uppercase tracking-wider transition-colors"
                       >
                         {item.label}
                       </button>

@@ -1,172 +1,161 @@
-import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
-import { ChallengeSystem } from '@/lib/challenge-system'
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 /**
  * GET /api/challenges
- * Fetch user's active challenges
+ * List all challenges with optional filters
+ * Query params: status (active|upcoming|ended), type, featured, userId
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const session = await getServerSession(authOptions);
+    const searchParams = request.nextUrl.searchParams;
+    const status = searchParams.get('status'); // active, upcoming, ended
+    const type = searchParams.get('type');
+    const featured = searchParams.get('featured') === 'true';
+    const userId = session?.user?.id || searchParams.get('userId');
 
-    // Get user stats
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-    })
+    const now = new Date();
 
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
-
-    // Calculate user stats for challenge generation
-    const now = new Date()
-    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
-    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-
-    // Get actual workout statistics
-    const totalWorkouts = await prisma.workoutSession.count({
-      where: { userId: session.user.id }
-    })
-
-    const weeklyWorkouts = await prisma.workoutSession.count({
+    const challenges = await prisma.challenge.findMany({
       where: {
-        userId: session.user.id,
-        date: { gte: weekAgo }
-      }
-    })
-
-    const monthlyWorkouts = await prisma.workoutSession.count({
-      where: {
-        userId: session.user.id,
-        date: { gte: monthAgo }
-      }
-    })
-
-    // Calculate total volume from sets across all workouts
-    const sets = await prisma.setEntry.findMany({
-      where: {
-        session: {
-          userId: session.user.id
-        }
+        ...(status === 'active' && {
+          startDate: { lte: now },
+          endDate: { gte: now },
+          isActive: true,
+        }),
+        ...(status === 'upcoming' && {
+          startDate: { gt: now },
+        }),
+        ...(status === 'ended' && {
+          endDate: { lt: now },
+        }),
+        ...(type && { type: type as 'THIRTY_DAY' | 'DISTANCE' | 'CONSISTENCY' | 'STRENGTH' | 'ENDURANCE' | 'VOLUME' | 'CUSTOM' }),
+        ...(featured && { isPremade: true }),
       },
-      select: {
-        weight: true,
-        reps: true
-      }
-    })
+      include: {
+        participants: {
+          select: {
+            userId: true,
+            progress: true,
+            rank: true,
+            completedAt: true,
+          },
+        },
+      },
+      orderBy: [
+        { isPremade: 'desc' },
+        { startDate: 'asc' },
+      ],
+    });
 
-    const totalVolume = sets.reduce((sum, set) => {
-      return sum + ((set.weight || 0) * (set.reps || 0))
-    }, 0)
+    // Add user-specific data if userId provided
+    const enrichedChallenges = challenges.map((challenge) => {
+      const participantCount = challenge.participants.length;
+      const userParticipation = userId
+        ? challenge.participants.find((p) => p.userId === userId)
+        : null;
 
-    // Calculate current streak based on workout dates
-    const sessions = await prisma.workoutSession.findMany({
-      where: { userId: session.user.id },
-      orderBy: { date: 'desc' },
-      take: 30,
-      select: { date: true }
-    })
+      return {
+        id: challenge.id,
+        name: challenge.name,
+        description: challenge.description,
+        type: challenge.type,
+        startDate: challenge.startDate.toISOString(),
+        endDate: challenge.endDate.toISOString(),
+        goal: challenge.goal,
+        unit: challenge.unit,
+        isPremade: challenge.isPremade,
+        isActive: challenge.isActive,
+        participantCount,
+        ...(userParticipation && {
+          isJoined: true,
+          userProgress: userParticipation.progress,
+          userRank: userParticipation.rank,
+        }),
+      };
+    });
 
-    let currentStreak = 0
-    if (sessions.length > 0) {
-      let lastDate = new Date(sessions[0].date)
-      lastDate.setHours(0, 0, 0, 0)
-      
-      for (const session of sessions) {
-        const sessionDate = new Date(session.date)
-        sessionDate.setHours(0, 0, 0, 0)
-        const daysDiff = Math.floor((lastDate.getTime() - sessionDate.getTime()) / (24 * 60 * 60 * 1000))
-        
-        if (daysDiff <= 1) {
-          currentStreak++
-          lastDate = sessionDate
-        } else {
-          break
-        }
-      }
-    }
-
-    // Get user profile for tier and bodyweight
-    const profile = await prisma.userProfile.findUnique({
-      where: { userId: session.user.id },
-      select: { level: true }
-    })
-
-    const userStats = {
-      totalWorkouts,
-      currentStreak,
-      totalVolume: Math.round(totalVolume),
-      weeklyWorkouts,
-      monthlyWorkouts,
-      tier: (profile?.level || 'beginner').charAt(0).toUpperCase() + (profile?.level || 'beginner').slice(1),
-      bodyweight: 80, // TODO: Add bodyweight field to user profile
-    }
-
-    // Generate challenges
-    const dailyChallenges = ChallengeSystem.generateDailyChallenges(userStats)
-    const weeklyChallenges = ChallengeSystem.generateWeeklyChallenges(userStats)
-    const progressionChallenges = ChallengeSystem.generateProgressionChallenges(userStats)
-    const advancedChallenges = ChallengeSystem.generateAdvancedChallenges(userStats)
-
-    const allChallenges = [
-      ...dailyChallenges,
-      ...weeklyChallenges,
-      ...progressionChallenges,
-      ...advancedChallenges,
-    ]
-
-    return NextResponse.json({
-      success: true,
-      challenges: allChallenges,
-      userStats,
-    })
+    return NextResponse.json(enrichedChallenges);
   } catch (error) {
-    console.error('Error fetching challenges:', error)
+    console.error('Error fetching challenges:', error);
     return NextResponse.json(
       { error: 'Failed to fetch challenges' },
       { status: 500 }
-    )
+    );
   }
 }
 
 /**
  * POST /api/challenges
- * Update challenge progress
+ * Create a new challenge
+ * Requires: name, description, type, startDate, endDate, goal, unit
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions);
     
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json()
-    const { challengeId, workoutData: _workoutData } = body
+    const body = await request.json();
+    const {
+      name,
+      description,
+      type,
+      startDate,
+      endDate,
+      goal,
+      unit,
+      isPremade = false,
+    } = body;
 
-    // In a real implementation, you would:
-    // 1. Load the challenge from database or generate it
-    // 2. Update progress using ChallengeSystem.updateChallengeProgress()
-    // 3. Save updated challenge to database
-    // 4. Check if completed and award rewards
+    // Validation
+    if (!name || !description || !type || !startDate || !endDate || !goal || !unit) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Challenge progress updated',
-      challengeId,
-    })
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (end <= start) {
+      return NextResponse.json(
+        { error: 'End date must be after start date' },
+        { status: 400 }
+      );
+    }
+
+    const challenge = await prisma.challenge.create({
+      data: {
+        name,
+        description,
+        type,
+        startDate: start,
+        endDate: end,
+        goal: parseFloat(goal),
+        unit,
+        createdBy: session.user.id,
+        isPremade,
+        isActive: true,
+      },
+      include: {
+        participants: true,
+      },
+    });
+
+    return NextResponse.json(challenge, { status: 201 });
   } catch (error) {
-    console.error('Error updating challenge:', error)
+    console.error('Error creating challenge:', error);
     return NextResponse.json(
-      { error: 'Failed to update challenge' },
+      { error: 'Failed to create challenge' },
       { status: 500 }
-    )
+    );
   }
 }
+

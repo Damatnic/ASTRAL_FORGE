@@ -77,9 +77,9 @@ const getCategoryName = (category: ProgramCategory) => {
 
 const getDifficultyColor = (difficulty: ProgramDifficulty) => {
   switch (difficulty) {
-    case 'beginner': return 'text-green-400 border-green-500 bg-green-500/10';
-    case 'intermediate': return 'text-blue-400 border-blue-500 bg-blue-500/10';
-    case 'advanced': return 'text-purple-400 border-purple-500 bg-purple-500/10';
+    case 'beginner': return 'text-amber-400 border-amber-500 bg-amber-500/10';
+    case 'intermediate': return 'text-amber-400 border-amber-600 bg-amber-600/10';
+    case 'advanced': return 'text-amber-400 border-amber-700 bg-amber-700/10';
   }
 };
 
@@ -622,32 +622,32 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
           <div>
             <button
               onClick={() => setSelectedProgram(null)}
-              className="mb-6 text-purple-400 hover:text-purple-300 flex items-center gap-2"
+              className="mb-6 text-amber-400 hover:text-amber-300 flex items-center gap-2 uppercase tracking-wider font-bold"
             >
-              ← Back to Programs
+              ← Back to Campaigns
             </button>
 
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-8">
+            <div className="bg-neutral-900 border-2 border-neutral-800 p-8">
               {/* Program Header */}
               <div className="flex items-start justify-between mb-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-4xl">{getCategoryIcon(selectedProgram.category)}</span>
-                    <h1 className="text-4xl font-bold">{selectedProgram.name}</h1>
+                    <h1 className="text-4xl font-black uppercase tracking-wider">{selectedProgram.name}</h1>
                   </div>
 
                   <div className="flex items-center gap-4 mb-4">
-                    <span className={`px-3 py-1 rounded-lg border font-semibold ${getDifficultyColor(selectedProgram.difficulty)}`}>
+                    <span className={`px-3 py-1 border-2 font-bold uppercase tracking-wider ${getDifficultyColor(selectedProgram.difficulty)}`}>
                       {getDifficultyName(selectedProgram.difficulty)}
                     </span>
-                    <span className="text-gray-400">{getCategoryName(selectedProgram.category)}</span>
-                    <span className="text-purple-400">⭐ {selectedProgram.popularityScore}/10</span>
-                    <span className="text-green-400">{selectedProgram.xpMultiplier}x XP</span>
+                    <span className="text-neutral-400 uppercase tracking-wider font-bold">{getCategoryName(selectedProgram.category)}</span>
+                    <span className="text-amber-400">⭐ {selectedProgram.popularityScore}/10</span>
+                    <span className="text-amber-400">{selectedProgram.xpMultiplier}x XP</span>
                   </div>
 
-                  <p className="text-gray-300 text-lg mb-4">{selectedProgram.description}</p>
+                  <p className="text-neutral-300 text-lg mb-4">{selectedProgram.description}</p>
 
-                  <div className="flex gap-4 text-sm text-gray-400">
+                  <div className="flex gap-4 text-sm text-neutral-400">
                     <div>📅 {selectedProgram.duration} weeks</div>
                     <div>🏋️ {selectedProgram.daysPerWeek} days/week</div>
                     <div>📈 {selectedProgram.progressionScheme.replace('_', ' ')} progression</div>
@@ -656,18 +656,18 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
 
                 <button
                   onClick={() => handleStartProgram(selectedProgram)}
-                  className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-lg transition-colors"
+                  className="px-6 py-3 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black text-lg uppercase tracking-wider transition-colors"
                 >
-                  🚀 Start Program
+                  🚀 Start Campaign
                 </button>
               </div>
 
               {/* Focus Areas */}
               <div className="mb-6">
-                <h3 className="text-xl font-bold mb-3">🎯 Focus Areas</h3>
+                <h3 className="text-xl font-bold mb-3 uppercase tracking-wider">🎯 Focus Areas</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedProgram.focusAreas.map((area, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-lg">
+                    <span key={idx} className="px-3 py-1 bg-amber-950/50 border-2 border-amber-800/50 text-amber-400 uppercase tracking-wider font-bold">
                       {area}
                     </span>
                   ))}
@@ -677,11 +677,11 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
               {/* Benefits & Who It's For */}
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h3 className="text-xl font-bold mb-3">✅ Benefits</h3>
+                  <h3 className="text-xl font-black mb-3 uppercase tracking-wider">✅ Benefits</h3>
                   <ul className="space-y-2">
                     {selectedProgram.benefits.map((benefit, idx) => (
-                      <li key={idx} className="text-gray-300 flex items-start gap-2">
-                        <span className="text-green-400">•</span>
+                      <li key={idx} className="text-neutral-300 flex items-start gap-2 font-bold uppercase tracking-wider">
+                        <span className="text-amber-400">•</span>
                         <span>{benefit}</span>
                       </li>
                     ))}
@@ -689,11 +689,11 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold mb-3">👤 Who It's For</h3>
+                  <h3 className="text-xl font-black mb-3 uppercase tracking-wider">👤 Who It's For</h3>
                   <ul className="space-y-2">
                     {selectedProgram.whoItsFor.map((who, idx) => (
-                      <li key={idx} className="text-gray-300 flex items-start gap-2">
-                        <span className="text-blue-400">•</span>
+                      <li key={idx} className="text-neutral-300 flex items-start gap-2 font-bold">
+                        <span className="text-amber-400">•</span>
                         <span>{who}</span>
                       </li>
                     ))}
@@ -703,47 +703,47 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
 
               {/* Progression & Deload */}
               <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                  <h3 className="text-lg font-bold mb-2 text-purple-400">📈 Progression Scheme</h3>
-                  <p className="text-gray-300">{selectedProgram.progressionScheme.replace('_', ' ').toUpperCase()}</p>
+                <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                  <h3 className="text-lg font-bold mb-2 text-amber-400 uppercase tracking-wider">📈 Progression Scheme</h3>
+                  <p className="text-neutral-300 font-bold uppercase tracking-wider">{selectedProgram.progressionScheme.replace('_', ' ').toUpperCase()}</p>
                 </div>
 
-                <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                  <h3 className="text-lg font-bold mb-2 text-amber-400">🔄 Deload Protocol</h3>
-                  <p className="text-gray-300">{selectedProgram.deloadProtocol}</p>
+                <div className="bg-neutral-900 border-2 border-neutral-800 p-4">
+                  <h3 className="text-lg font-bold mb-2 text-amber-400 uppercase tracking-wider">🔄 Deload Protocol</h3>
+                  <p className="text-neutral-300 font-bold">{selectedProgram.deloadProtocol}</p>
                 </div>
               </div>
 
               {/* Week Schedule */}
               <div>
-                <h3 className="text-2xl font-bold mb-4">📋 Sample Week Schedule</h3>
+                <h3 className="text-2xl font-black mb-4 uppercase tracking-wider">📋 Sample Week Schedule</h3>
                 {selectedProgram.weekSchedule.map((week) => (
                   <div key={week.weekNumber} className="space-y-4">
-                    <h4 className="text-xl font-semibold text-purple-400">Week {week.weekNumber}</h4>
+                    <h4 className="text-xl font-black text-amber-400 uppercase tracking-wider">Week {week.weekNumber}</h4>
                     <div className="grid grid-cols-7 gap-1 text-xs sm:gap-2 sm:text-sm">
                       {week.days.map((day, idx) => (
                         <div
                           key={idx}
-                          className={`rounded-lg p-3 ${
+                          className={`p-3 border-2 ${
                             day
-                              ? 'bg-gray-900 border border-purple-500/30 hover:border-purple-500 transition-colors cursor-pointer'
-                              : 'bg-gray-800/50 border border-gray-700'
+                              ? 'bg-neutral-950 border-amber-700/30 hover:border-amber-700 transition-colors cursor-pointer'
+                              : 'bg-neutral-900 border-neutral-800'
                           }`}
                         >
                           {day ? (
                             <div>
-                              <div className="font-bold text-sm mb-2 text-purple-300">{day.name}</div>
-                              <div className="text-xs text-gray-400 space-y-1">
+                              <div className="font-black text-sm mb-2 text-amber-300 uppercase tracking-wider">{day.name}</div>
+                              <div className="text-xs text-neutral-400 space-y-1 font-bold">
                                 {day.exercises.map((ex, exIdx) => (
                                   <div key={exIdx}>
                                     {ex.name}: {ex.sets}×{ex.reps}
                                   </div>
                                 ))}
                               </div>
-                              <div className="text-xs text-gray-500 mt-2">~{day.estimatedDuration}min</div>
+                              <div className="text-xs text-neutral-500 mt-2 font-bold">~{day.estimatedDuration}min</div>
                             </div>
                           ) : (
-                            <div className="text-center text-gray-500 text-sm">Rest</div>
+                            <div className="text-center text-neutral-500 text-sm font-bold uppercase tracking-wider">Rest</div>
                           )}
                         </div>
                       ))}
@@ -770,50 +770,50 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedCategory('all')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedCategory === 'all'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     All Programs
                   </button>
                   <button
                     onClick={() => setSelectedCategory('powerlifting')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedCategory === 'powerlifting'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     ⚡ Powerlifting
                   </button>
                   <button
                     onClick={() => setSelectedCategory('bodybuilding')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedCategory === 'bodybuilding'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     💪 Bodybuilding
                   </button>
                   <button
                     onClick={() => setSelectedCategory('athletic')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedCategory === 'athletic'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     🏃 Athletic
                   </button>
                   <button
                     onClick={() => setSelectedCategory('specialization')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedCategory === 'specialization'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     🎯 Specialization
@@ -823,44 +823,44 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
 
               {/* Difficulty Filter */}
               <div>
-                <label className="block text-sm font-semibold mb-2">DIFFICULTY</label>
+                <label className="block text-sm font-black mb-2 uppercase tracking-wider">DIFFICULTY</label>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedDifficulty('all')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedDifficulty === 'all'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     All Levels
                   </button>
                   <button
                     onClick={() => setSelectedDifficulty('beginner')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedDifficulty === 'beginner'
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     🟢 Beginner
                   </button>
                   <button
                     onClick={() => setSelectedDifficulty('intermediate')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedDifficulty === 'intermediate'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     🔵 Intermediate
                   </button>
                   <button
                     onClick={() => setSelectedDifficulty('advanced')}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    className={`px-4 py-2 font-black transition-colors uppercase tracking-wider border-2 ${
                       selectedDifficulty === 'advanced'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        ? 'bg-amber-950/50 text-white border-amber-700'
+                        : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     🟣 Advanced
@@ -870,22 +870,22 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
 
               {/* View Mode Toggle */}
               <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-neutral-400 font-bold uppercase tracking-wider">
                   Showing {filteredPrograms.length} program{filteredPrograms.length !== 1 ? 's' : ''}
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`px-3 py-1 rounded ${
-                      viewMode === 'grid' ? 'bg-purple-600' : 'bg-gray-800 hover:bg-gray-700'
+                    className={`px-3 py-1 border-2 font-black uppercase tracking-wider ${
+                      viewMode === 'grid' ? 'bg-amber-950/50 border-amber-700' : 'bg-neutral-900 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     Grid
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`px-3 py-1 rounded ${
-                      viewMode === 'list' ? 'bg-purple-600' : 'bg-gray-800 hover:bg-gray-700'
+                    className={`px-3 py-1 border-2 font-black uppercase tracking-wider ${
+                      viewMode === 'list' ? 'bg-amber-950/50 border-amber-700' : 'bg-neutral-900 hover:bg-neutral-800 border-neutral-800'
                     }`}
                   >
                     List
@@ -900,50 +900,50 @@ export default function WorkoutTemplates({ onSelectProgram, onStartProgram }: Pr
                 <div
                   key={program.id}
                   onClick={() => handleSelectProgram(program)}
-                  className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-purple-500 transition-colors cursor-pointer"
+                  className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors cursor-pointer"
                 >
                   {/* Program Header */}
                   <div className="flex items-start gap-3 mb-4">
                     <span className="text-3xl">{getCategoryIcon(program.category)}</span>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold mb-1">{program.name}</h3>
-                      <div className={`inline-block px-2 py-0.5 rounded text-sm border ${getDifficultyColor(program.difficulty)}`}>
+                      <h3 className="text-xl font-black mb-1 uppercase tracking-wider">{program.name}</h3>
+                      <div className={`inline-block px-2 py-0.5 text-sm border-2 uppercase tracking-wider font-bold ${getDifficultyColor(program.difficulty)}`}>
                         {getDifficultyName(program.difficulty)}
                       </div>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">{program.description}</p>
+                  <p className="text-neutral-400 text-sm mb-4 line-clamp-3">{program.description}</p>
 
                   {/* Program Info */}
                   <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
-                    <div className="bg-gray-900 rounded p-2">
-                      <div className="text-gray-500 text-xs">Duration</div>
-                      <div className="font-semibold">{program.duration} weeks</div>
+                    <div className="bg-neutral-950 border-2 border-neutral-900 p-2">
+                      <div className="text-neutral-500 text-xs uppercase tracking-wider font-bold">Duration</div>
+                      <div className="font-bold">{program.duration} weeks</div>
                     </div>
-                    <div className="bg-gray-900 rounded p-2">
-                      <div className="text-gray-500 text-xs">Days/Week</div>
-                      <div className="font-semibold">{program.daysPerWeek} days</div>
+                    <div className="bg-neutral-950 border-2 border-neutral-900 p-2">
+                      <div className="text-neutral-500 text-xs uppercase tracking-wider font-bold">Days/Week</div>
+                      <div className="font-bold">{program.daysPerWeek} days</div>
                     </div>
                   </div>
 
                   {/* Focus Areas */}
                   <div className="flex flex-wrap gap-1 mb-4">
                     {program.focusAreas.slice(0, 3).map((area, idx) => (
-                      <span key={idx} className="px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded text-xs">
+                      <span key={idx} className="px-2 py-0.5 bg-amber-950/50 border border-amber-800/50 text-amber-400 text-xs uppercase tracking-wider font-bold">
                         {area}
                       </span>
                     ))}
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-700">
+                  <div className="flex items-center justify-between pt-4 border-t-2 border-neutral-800">
                     <div className="flex items-center gap-3 text-sm">
-                      <span className="text-purple-400">⭐ {program.popularityScore}/10</span>
-                      <span className="text-green-400">{program.xpMultiplier}x XP</span>
+                      <span className="text-amber-400">⭐ {program.popularityScore}/10</span>
+                      <span className="text-amber-400">{program.xpMultiplier}x XP</span>
                     </div>
-                    <button className="text-purple-400 hover:text-purple-300 font-semibold">
+                    <button className="text-amber-400 hover:text-amber-300 font-black uppercase tracking-wider">
                       View Details →
                     </button>
                   </div>

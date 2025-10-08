@@ -66,18 +66,18 @@ interface StatCardProps {
 export function StatCard({ label, value, icon, trend, trendValue, variant = 'default', color }: StatCardProps) {
   const variants = {
     default: 'from-astral-gray to-astral-gray/80 text-white',
-    primary: 'from-astral-blue/20 to-astral-purple/20 border-astral-blue/30 text-astral-blue',
-    success: 'from-green-500/20 to-green-600/20 border-green-500/30 text-green-400',
-    warning: 'from-yellow-500/20 to-orange-500/20 border-yellow-500/30 text-yellow-400',
+    primary: 'from-amber-950/20 to-amber-900/20 border-amber-700/30 text-amber-400',
+    success: 'from-amber-950/20 to-amber-900/20 border-amber-700/30 text-amber-400',
+    warning: 'from-amber-950/20 to-amber-900/20 border-amber-700/30 text-amber-400',
     error: 'from-red-500/20 to-red-600/20 border-red-500/30 text-red-400'
   }
 
   const colorVariants = {
-    purple: { border: 'border-purple-500/20', text: 'text-purple-400' },
-    blue: { border: 'border-blue-500/20', text: 'text-blue-400' },
-    pink: { border: 'border-pink-500/20', text: 'text-pink-400' },
+    purple: { border: 'border-amber-700/20', text: 'text-amber-400' },
+    blue: { border: 'border-amber-700/20', text: 'text-amber-400' },
+    pink: { border: 'border-amber-700/20', text: 'text-amber-400' },
     amber: { border: 'border-amber-500/20', text: 'text-amber-400' },
-    green: { border: 'border-green-500/20', text: 'text-green-400' },
+    green: { border: 'border-amber-500/20', text: 'text-amber-400' },
     red: { border: 'border-red-500/20', text: 'text-red-400' }
   }
 
@@ -91,17 +91,17 @@ export function StatCard({ label, value, icon, trend, trendValue, variant = 'def
   const valueColor = color ? colorVariants[color].text : 'text-white'
 
   return (
-    <div className={`bg-gradient-to-br ${variants[variant]} border ${borderColor} rounded-xl p-6 hover:border-white/20 hover:shadow-lg transition-all duration-200`}>
+    <div className={`bg-gradient-to-br ${variants[variant]} border-2 ${borderColor} p-6 hover:border-amber-700/30 hover:shadow-lg transition-all duration-200`}>
       <div className="flex items-start justify-between mb-2">
-        <p className="text-sm font-medium text-gray-400">{label}</p>
+        <p className="text-sm font-bold text-neutral-400 uppercase tracking-wider">{label}</p>
         {icon && <span className="text-2xl">{icon}</span>}
       </div>
-      <p className={`text-3xl font-bold mb-1 ${valueColor}`}>{value}</p>
+      <p className={`text-3xl font-black mb-1 uppercase tracking-wider ${valueColor}`}>{value}</p>
       {trend && trendValue && (
-        <p className={`text-sm font-medium ${
-          trend === 'up' ? 'text-green-400' : 
+        <p className={`text-sm font-black uppercase tracking-wider ${
+          trend === 'up' ? 'text-amber-400' : 
           trend === 'down' ? 'text-red-400' : 
-          'text-gray-400'
+          'text-neutral-400'
         }`}>
           {trendIcons[trend]} {trendValue}
         </p>
@@ -225,20 +225,20 @@ export function Badge({ children, variant = 'default', size = 'md' }: BadgeProps
   }
 
   const variants = {
-    default: 'bg-gray-700 text-gray-300',
-    common: 'bg-gray-700 text-gray-300',
-    uncommon: 'bg-green-500/20 text-green-400 border border-green-500/30',
-    rare: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-    epic: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
-    legendary: 'bg-gradient-to-r from-yellow-400/20 to-orange-500/20 text-yellow-400 border border-yellow-400/30',
-    primary: 'bg-astral-blue/20 text-astral-blue border border-astral-blue/30',
-    success: 'bg-green-500/20 text-green-400 border border-green-500/30',
-    warning: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
-    error: 'bg-red-500/20 text-red-400 border border-red-500/30'
+    default: 'bg-neutral-700 text-neutral-300',
+    common: 'bg-neutral-700 text-neutral-300',
+    uncommon: 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/30',
+    rare: 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/30',
+    epic: 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/30',
+    legendary: 'bg-amber-500/20 text-amber-400 border-2 border-amber-400/30',
+    primary: 'bg-amber-950/20 text-amber-400 border-2 border-amber-700/30',
+    success: 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/30',
+    warning: 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/30',
+    error: 'bg-red-500/20 text-red-400 border-2 border-red-500/30'
   }
 
   return (
-    <span className={`inline-block rounded-full font-medium ${sizes[size]} ${variants[variant]}`}>
+    <span className={`inline-block font-black uppercase tracking-wider ${sizes[size]} ${variants[variant]}`}>
       {children}
     </span>
   )
@@ -272,24 +272,24 @@ export function ProgressBar({
   }
 
   const variants = {
-    default: 'bg-astral-blue',
-    primary: 'bg-astral-blue',
-    success: 'bg-green-500',
-    warning: 'bg-yellow-500',
-    gradient: 'bg-gradient-to-r from-astral-blue to-astral-purple'
+    default: 'bg-amber-500',
+    primary: 'bg-amber-500',
+    success: 'bg-amber-500',
+    warning: 'bg-amber-600',
+    gradient: 'bg-gradient-to-r from-amber-600 to-amber-500'
   }
 
   return (
     <div className="w-full">
       {(label || showPercentage) && (
         <div className="flex justify-between items-center mb-2">
-          {label && <span className="text-sm text-gray-400">{label}</span>}
-          {showPercentage && <span className="text-sm font-medium text-white">{clampedProgress}%</span>}
+          {label && <span className="text-sm text-neutral-400 font-bold uppercase tracking-wider">{label}</span>}
+          {showPercentage && <span className="text-sm font-black uppercase tracking-wider text-white">{clampedProgress}%</span>}
         </div>
       )}
-      <div className="w-full bg-gray-800 rounded-full overflow-hidden">
+      <div className="w-full bg-neutral-800 overflow-hidden">
         <div 
-          className={`${sizes[size]} ${variants[variant]} rounded-full transition-all duration-300`}
+          className={`${sizes[size]} ${variants[variant]} transition-all duration-300`}
           style={{ width: `${clampedProgress}%` }}
         />
       </div>
@@ -309,9 +309,9 @@ interface GradientTextProps {
 
 export function GradientText({ children, variant = 'primary', className = '' }: GradientTextProps) {
   const variants = {
-    primary: 'from-astral-blue to-astral-purple',
-    gold: 'from-yellow-400 to-orange-500',
-    success: 'from-green-400 to-green-600'
+    primary: 'from-amber-600 to-amber-500',
+    gold: 'from-amber-400 to-amber-600',
+    success: 'from-amber-400 to-amber-600'
   }
 
   return (
@@ -336,7 +336,7 @@ export function LoadingSkeleton({ className = 'h-4 w-full', count = 1 }: Loading
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
-          className={`animate-pulse bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg ${className}`}
+          className={`animate-pulse bg-gradient-to-r from-neutral-800 to-neutral-700 ${className}`}
         />
       ))}
     </>

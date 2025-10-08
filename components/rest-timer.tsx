@@ -215,7 +215,7 @@ export default function RestTimer({
   // Get color based on time remaining
   const getTimerColor = () => {
     const percentage = (timeRemaining / duration) * 100;
-    if (percentage > 50) return 'text-green-400 stroke-green-400';
+    if (percentage > 50) return 'text-amber-400 stroke-amber-400';
     if (percentage > 25) return 'text-amber-400 stroke-amber-400';
     return 'text-red-400 stroke-red-400';
   };
@@ -223,7 +223,7 @@ export default function RestTimer({
   // Embedded compact mode
   if (embedded) {
     return (
-      <div className="bg-gray-800 rounded-lg border border-gray-700 p-3">
+      <div className="bg-neutral-900 border-2 border-neutral-800 p-3">
         <div className="flex items-center gap-3">
           {/* Mini circular timer */}
           <div className="relative w-16 h-16">
@@ -235,7 +235,7 @@ export default function RestTimer({
                 stroke="currentColor"
                 strokeWidth="4"
                 fill="none"
-                className="text-gray-700"
+                className="text-neutral-800"
               />
               <circle
                 cx="32"
@@ -259,12 +259,12 @@ export default function RestTimer({
 
           {/* Controls */}
           <div className="flex-1">
-            <div className="text-xs text-gray-400 mb-1">Rest Timer</div>
+            <div className="text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">Recovery Timer</div>
             <div className="flex gap-2">
               {timerState === 'idle' && (
                 <button
                   onClick={startTimer}
-                  className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm font-semibold transition-colors"
+                  className="px-3 py-1 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 text-sm font-bold uppercase tracking-wider transition-colors"
                 >
                   ▶ Start
                 </button>
@@ -272,7 +272,7 @@ export default function RestTimer({
               {timerState === 'running' && (
                 <button
                   onClick={pauseTimer}
-                  className="px-3 py-1 bg-amber-600 hover:bg-amber-700 rounded text-sm font-semibold transition-colors"
+                  className="px-3 py-1 bg-amber-600 hover:bg-amber-700 border-2 border-amber-700 text-sm font-bold uppercase tracking-wider transition-colors"
                 >
                   ⏸ Pause
                 </button>
@@ -280,20 +280,20 @@ export default function RestTimer({
               {timerState === 'paused' && (
                 <button
                   onClick={startTimer}
-                  className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm font-semibold transition-colors"
+                  className="px-3 py-1 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 text-sm font-bold uppercase tracking-wider transition-colors"
                 >
                   ▶ Resume
                 </button>
               )}
               <button
                 onClick={skipTimer}
-                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm transition-colors"
+                className="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 text-sm uppercase tracking-wider transition-colors"
               >
                 Skip
               </button>
               <button
                 onClick={() => addTime(30)}
-                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm transition-colors"
+                className="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 text-sm uppercase tracking-wider transition-colors"
               >
                 +30s
               </button>
@@ -306,11 +306,11 @@ export default function RestTimer({
 
   // Full standalone mode
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-950 to-neutral-900 text-white p-6">
       <div className="max-w-2xl mx-auto">
         {/* Notification Toast */}
         {notification && (
-          <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in-right flex items-center gap-2">
+          <div className="fixed top-4 right-4 bg-amber-950/50 border-2 border-amber-700 text-white px-6 py-3 shadow-lg z-50 animate-slide-in-right flex items-center gap-2">
             <span>✓</span>
             <span>{notification}</span>
           </div>
@@ -318,12 +318,12 @@ export default function RestTimer({
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">⏱️ Rest Timer</h1>
-          <p className="text-gray-400">Track your rest between sets</p>
+          <h1 className="text-4xl font-black mb-2 uppercase tracking-wider">⏱️ Recovery Timer</h1>
+          <p className="text-neutral-400">Track your recovery between sets</p>
         </div>
 
         {/* Main Timer Display */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-6">
+        <div className="bg-neutral-900 border-2 border-neutral-800 p-8 mb-6">
           {/* Circular Progress Timer */}
           <div className="flex justify-center mb-6">
             <div className="relative w-64 h-64">
@@ -336,7 +336,7 @@ export default function RestTimer({
                   stroke="currentColor"
                   strokeWidth="12"
                   fill="none"
-                  className="text-gray-700"
+                  className="text-neutral-800"
                 />
                 {/* Progress circle */}
                 <circle
@@ -359,13 +359,13 @@ export default function RestTimer({
                 <div className={`text-6xl font-bold mb-2 ${getTimerColor()}`}>
                   {formatTime(timeRemaining)}
                 </div>
-                <div className="text-gray-400 text-sm">
+                <div className="text-neutral-400 text-sm uppercase tracking-wider font-bold">
                   {timerState === 'idle' && 'Ready to start'}
-                  {timerState === 'running' && 'Resting...'}
+                  {timerState === 'running' && 'Recovering...'}
                   {timerState === 'paused' && 'Paused'}
                   {timerState === 'completed' && 'Complete! 💪'}
                 </div>
-                <div className="text-gray-500 text-xs mt-1">
+                <div className="text-neutral-500 text-xs mt-1">
                   {Math.round(progressPercentage)}% complete
                 </div>
               </div>
@@ -377,7 +377,7 @@ export default function RestTimer({
             {timerState === 'idle' && (
               <button
                 onClick={startTimer}
-                className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
+                className="px-8 py-3 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black text-lg uppercase tracking-wider transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
               >
                 ▶ Start Timer
               </button>
@@ -387,13 +387,13 @@ export default function RestTimer({
               <>
                 <button
                   onClick={pauseTimer}
-                  className="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
+                  className="px-8 py-3 bg-amber-600 hover:bg-amber-700 border-2 border-amber-700 font-black text-lg uppercase tracking-wider transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
                 >
                   ⏸ Pause
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors touch-manipulation min-h-[48px]"
+                  className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 font-bold uppercase tracking-wider transition-colors touch-manipulation min-h-[48px]"
                 >
                   🔄 Reset
                 </button>
@@ -404,13 +404,13 @@ export default function RestTimer({
               <>
                 <button
                   onClick={startTimer}
-                  className="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
+                  className="px-8 py-3 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black text-lg uppercase tracking-wider transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
                 >
                   ▶ Resume
                 </button>
                 <button
                   onClick={resetTimer}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors touch-manipulation min-h-[48px]"
+                  className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 font-bold uppercase tracking-wider transition-colors touch-manipulation min-h-[48px]"
                 >
                   🔄 Reset
                 </button>
@@ -420,9 +420,9 @@ export default function RestTimer({
             {timerState === 'completed' && (
               <button
                 onClick={resetTimer}
-                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-bold text-lg transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
+                className="px-8 py-3 bg-amber-950/50 hover:bg-amber-900/50 border-2 border-amber-700 font-black text-lg uppercase tracking-wider transition-colors touch-manipulation min-h-[48px] flex items-center gap-2"
               >
-                🔄 Start New Rest
+                🔄 Start New Recovery
               </button>
             )}
 
@@ -430,13 +430,13 @@ export default function RestTimer({
               <>
                 <button
                   onClick={skipTimer}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                  className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 font-bold uppercase tracking-wider transition-colors"
                 >
                   ⏭ Skip
                 </button>
                 <button
                   onClick={() => addTime(30)}
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors"
+                  className="px-6 py-3 bg-neutral-900 hover:bg-neutral-800 border-2 border-neutral-700 font-bold uppercase tracking-wider transition-colors"
                 >
                   +30s
                 </button>
@@ -446,54 +446,54 @@ export default function RestTimer({
         </div>
 
         {/* Preset Durations */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-6">
-          <h3 className="text-xl font-bold mb-4">⚡ Quick Presets</h3>
+        <div className="bg-neutral-900 border-2 border-neutral-800 p-6 mb-6">
+          <h3 className="text-xl font-black mb-4 uppercase tracking-wider">⚡ Quick Presets</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {PRESET_DURATIONS.map((preset) => (
               <button
                 key={preset.label}
                 onClick={() => selectPreset(preset)}
                 disabled={timerState === 'running'}
-                className={`p-4 rounded-lg border transition-colors ${
+                className={`p-4 border-2 transition-colors ${
                   duration === preset.seconds
-                    ? 'bg-purple-600 border-purple-500'
-                    : 'bg-gray-900 border-gray-700 hover:border-purple-500'
+                    ? 'bg-amber-950/50 border-amber-700'
+                    : 'bg-neutral-950 border-neutral-800 hover:border-amber-700'
                 } ${timerState === 'running' ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <div className="text-2xl mb-1">{preset.icon}</div>
-                <div className="font-bold">{preset.label}</div>
-                <div className="text-xs text-gray-400">{preset.description}</div>
+                <div className="font-black uppercase tracking-wider">{preset.label}</div>
+                <div className="text-xs text-neutral-400 uppercase tracking-wider font-bold">{preset.description}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* Settings */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+        <div className="bg-neutral-900 border-2 border-neutral-800 p-6">
           <div
             onClick={() => setShowSettings(!showSettings)}
             className="flex items-center justify-between cursor-pointer"
           >
-            <h3 className="text-xl font-bold">⚙️ Settings</h3>
-            <span className="text-gray-400">{showSettings ? '▼' : '▶'}</span>
+            <h3 className="text-xl font-black uppercase tracking-wider">⚙️ Settings</h3>
+            <span className="text-neutral-400">{showSettings ? '▼' : '▶'}</span>
           </div>
 
           {showSettings && (
             <div className="mt-4 space-y-4">
               {/* Sound Toggle */}
-              <div className="flex items-center justify-between p-3 bg-gray-900 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-neutral-900 border-2 border-neutral-800">
                 <div>
-                  <div className="font-semibold">🔊 Sound Alerts</div>
-                  <div className="text-sm text-gray-400">Play beeps at 10s, 5s, and completion</div>
+                  <div className="font-black uppercase tracking-wider">🔊 SOUND ALERTS</div>
+                  <div className="text-sm text-neutral-400 font-bold uppercase tracking-wider">PLAY BEEPS AT 10S, 5S, AND COMPLETION</div>
                 </div>
                 <button
                   onClick={() => setSoundEnabled(!soundEnabled)}
-                  className={`w-12 h-6 rounded-full transition-colors ${
-                    soundEnabled ? 'bg-green-600' : 'bg-gray-600'
+                  className={`w-12 h-6 transition-colors ${
+                    soundEnabled ? 'bg-amber-600' : 'bg-neutral-600'
                   } relative`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full bg-white absolute top-0.5 transition-transform ${
+                    className={`w-5 h-5 bg-white absolute top-0.5 transition-transform ${
                       soundEnabled ? 'translate-x-6' : 'translate-x-0.5'
                     }`}
                   />
@@ -501,19 +501,19 @@ export default function RestTimer({
               </div>
 
               {/* Vibration Toggle */}
-              <div className="flex items-center justify-between p-3 bg-gray-900 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-neutral-900 border-2 border-neutral-800">
                 <div>
-                  <div className="font-semibold">📳 Vibration</div>
-                  <div className="text-sm text-gray-400">Vibrate on notifications (mobile)</div>
+                  <div className="font-black uppercase tracking-wider">📳 VIBRATION</div>
+                  <div className="text-sm text-neutral-400 font-bold uppercase tracking-wider">VIBRATE ON NOTIFICATIONS (MOBILE)</div>
                 </div>
                 <button
                   onClick={() => setVibrationEnabled(!vibrationEnabled)}
-                  className={`w-12 h-6 rounded-full transition-colors ${
-                    vibrationEnabled ? 'bg-green-600' : 'bg-gray-600'
+                  className={`w-12 h-6 transition-colors ${
+                    vibrationEnabled ? 'bg-amber-600' : 'bg-neutral-600'
                   } relative`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full bg-white absolute top-0.5 transition-transform ${
+                    className={`w-5 h-5 bg-white absolute top-0.5 transition-transform ${
                       vibrationEnabled ? 'translate-x-6' : 'translate-x-0.5'
                     }`}
                   />
@@ -521,8 +521,8 @@ export default function RestTimer({
               </div>
 
               {/* Custom Duration */}
-              <div className="p-3 bg-gray-900 rounded-lg">
-                <div className="font-semibold mb-2">🎯 Custom Duration</div>
+              <div className="p-3 bg-neutral-900 border-2 border-neutral-800">
+                <div className="font-black uppercase tracking-wider mb-2">🎯 CUSTOM DURATION</div>
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
@@ -535,9 +535,9 @@ export default function RestTimer({
                       setTimeRemaining(val);
                     }}
                     disabled={timerState === 'running'}
-                    className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+                    className="flex-1 px-3 py-2 bg-neutral-900 border-2 border-neutral-800 focus:outline-none focus:border-amber-700"
                   />
-                  <span className="text-gray-400">seconds</span>
+                  <span className="text-neutral-400 uppercase tracking-wider font-bold">seconds</span>
                 </div>
               </div>
             </div>
@@ -545,36 +545,36 @@ export default function RestTimer({
         </div>
 
         {/* Info Section */}
-        <div className="mt-8 bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-lg border border-purple-500/30 p-6">
-          <h3 className="text-xl font-bold mb-4">💡 Rest Period Guidelines</h3>
+        <div className="mt-8 bg-amber-950/20 border-2 border-amber-700/30 p-6">
+          <h3 className="text-xl font-black mb-4 uppercase tracking-wider">💡 Recovery Guidelines</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold text-purple-400 mb-2">🏋️ Strength Training</h4>
-              <ul className="space-y-1 text-sm text-gray-300">
+              <h4 className="font-black text-amber-400 mb-2 uppercase tracking-wider">🏋️ Strength Training</h4>
+              <ul className="space-y-1 text-sm text-neutral-300 uppercase tracking-wider font-bold">
                 <li>• <strong>Heavy Compounds:</strong> 3-5 minutes</li>
                 <li>• <strong>Main Lifts (80%+ 1RM):</strong> 3-4 minutes</li>
                 <li>• <strong>Accessory Work:</strong> 2-3 minutes</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-blue-400 mb-2">💪 Hypertrophy</h4>
-              <ul className="space-y-1 text-sm text-gray-300">
+              <h4 className="font-black text-amber-400 mb-2 uppercase tracking-wider">💪 Hypertrophy</h4>
+              <ul className="space-y-1 text-sm text-neutral-300 uppercase tracking-wider font-bold">
                 <li>• <strong>Compound Exercises:</strong> 90-120 seconds</li>
                 <li>• <strong>Isolation Exercises:</strong> 60-90 seconds</li>
                 <li>• <strong>Drop Sets/Supersets:</strong> 60 seconds</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-green-400 mb-2">🔥 Conditioning</h4>
-              <ul className="space-y-1 text-sm text-gray-300">
+              <h4 className="font-black text-amber-400 mb-2 uppercase tracking-wider">🔥 Conditioning</h4>
+              <ul className="space-y-1 text-sm text-neutral-300 uppercase tracking-wider font-bold">
                 <li>• <strong>HIIT Intervals:</strong> 30-60 seconds</li>
                 <li>• <strong>Circuit Training:</strong> 30-45 seconds</li>
                 <li>• <strong>Cardio Bursts:</strong> 15-30 seconds</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-amber-400 mb-2">⚡ Pro Tips</h4>
-              <ul className="space-y-1 text-sm text-gray-300">
+              <h4 className="font-black text-amber-400 mb-2 uppercase tracking-wider">⚡ Pro Tips</h4>
+              <ul className="space-y-1 text-sm text-neutral-300 uppercase tracking-wider font-bold">
                 <li>• <strong>Listen to your body</strong></li>
                 <li>• <strong>Longer rest = better strength</strong></li>
                 <li>• <strong>Shorter rest = more conditioning</strong></li>

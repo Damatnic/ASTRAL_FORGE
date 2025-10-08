@@ -10,9 +10,13 @@
 import { useState } from 'react'
 import { AppLayout, PageContainer, PageHeader } from '@/components/layout'
 import { AchievementGallery, Achievement, AchievementRarity } from '@/components/achievement-gallery'
+import { AchievementModal } from '@/components/achievement-modal'
 import { Trophy, Award, Star, Crown } from 'lucide-react'
 
 export default function AchievementsPage() {
+  const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
   // Mock achievements data (in real app, fetch from database)
   const [achievements] = useState<Achievement[]>([
     // COMBAT ACHIEVEMENTS
@@ -352,8 +356,8 @@ export default function AchievementsPage() {
 
   // Handle achievement click
   function handleAchievementClick(achievement: Achievement) {
-    console.log('Clicked achievement:', achievement)
-    // In real app, show detailed modal or navigate to achievement detail page
+    setSelectedAchievement(achievement)
+    setIsModalOpen(true)
   }
 
   // Calculate stats
@@ -377,47 +381,121 @@ export default function AchievementsPage() {
           description="Unlock epic rewards and track your legendary journey"
         />
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
-            <div className="flex items-center justify-between">
-              <div className="p-3 bg-yellow-500/10 rounded-lg">
-                <Trophy className="w-6 h-6 text-yellow-400" />
-              </div>
-              <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                  {unlockedCount}/{totalCount}
+        {/* Stats Overview - Enhanced */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {/* Total Progress with Circle */}
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors duration-300">
+            <div className="flex flex-col items-center">
+              {/* Progress Circle */}
+              <div className="relative w-24 h-24 mb-4">
+                <svg className="w-24 h-24 transform -rotate-90">
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="none"
+                    className="text-neutral-800"
+                  />
+                  <circle
+                    cx="48"
+                    cy="48"
+                    r="40"
+                    stroke="url(#gradient-gold)"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeDasharray={`${2 * Math.PI * 40}`}
+                    strokeDashoffset={`${2 * Math.PI * 40 * (1 - completionRate / 100)}`}
+                    className="transition-all duration-1000 ease-out"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="gradient-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#d97706" />
+                      <stop offset="100%" stopColor="#ea580c" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Trophy className="w-8 h-8 text-amber-400" />
                 </div>
-                <div className="text-sm text-gray-400">Unlocked</div>
               </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent mb-1">
+                {unlockedCount}/{totalCount}
+              </div>
+              <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Total Unlocked</div>
             </div>
           </div>
 
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
-            <div className="flex items-center justify-between">
-              <div className="p-3 bg-purple-500/10 rounded-lg">
-                <Star className="w-6 h-6 text-purple-400" />
+          {/* Completion Rate */}
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Star className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {completionRate}%
                 </div>
-                <div className="text-sm text-gray-400">Complete</div>
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Complete</div>
               </div>
+            </div>
+            {/* Progress bar */}
+            <div className="h-2 bg-neutral-950 border-2 border-neutral-800 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-amber-700 to-amber-600 transition-all duration-1000 ease-out"
+                style={{ width: `${completionRate}%` }}
+              />
             </div>
           </div>
 
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+          {/* Legendary Count */}
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors duration-300">
             <div className="flex items-center justify-between">
-              <div className="p-3 bg-blue-500/10 rounded-lg">
-                <Award className="w-6 h-6 text-blue-400" />
+              <div className="p-3 bg-amber-950/50 border-2 border-amber-800/50">
+                <Crown className="w-6 h-6 text-amber-400" />
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                   {achievements.filter(a => a.rarity === 'legendary' && a.unlocked).length}
                 </div>
-                <div className="text-sm text-gray-400">Legendary</div>
+                <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Legendary</div>
               </div>
+            </div>
+            <div className="mt-3 text-xs text-neutral-500 font-medium">
+              {achievements.filter(a => a.rarity === 'legendary').length} available
+            </div>
+          </div>
+
+          {/* Rarity Breakdown */}
+          <div className="bg-neutral-900 border-2 border-neutral-800 p-6 hover:border-amber-700 transition-colors duration-300">
+            <div className="flex items-center gap-2 mb-3">
+              <Award className="w-5 h-5 text-amber-400" />
+              <div className="text-sm font-bold uppercase tracking-wider text-amber-100">Rarity Mix</div>
+            </div>
+            <div className="space-y-2">
+              {['common', 'rare', 'epic', 'legendary', 'mythic'].map(rarity => {
+                const count = achievements.filter(a => a.rarity === rarity && a.unlocked).length
+                const total = achievements.filter(a => a.rarity === rarity).length
+                const rarityColors: Record<string, string> = {
+                  common: '#9ca3af',
+                  rare: '#3b82f6',
+                  epic: '#a855f7',
+                  legendary: '#f59e0b',
+                  mythic: '#ec4899'
+                }
+                return (
+                  <div key={rarity} className="flex items-center gap-2">
+                    <div 
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: rarityColors[rarity] }}
+                    />
+                    <div className="text-xs text-gray-400 flex-1">{rarity}</div>
+                    <div className="text-xs font-semibold text-white">{count}/{total}</div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -515,6 +593,16 @@ export default function AchievementsPage() {
           </div>
         </div>
       </PageContainer>
+
+      {/* Achievement Modal */}
+      <AchievementModal
+        achievement={selectedAchievement}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false)
+          setSelectedAchievement(null)
+        }}
+      />
     </AppLayout>
   )
 }

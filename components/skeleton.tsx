@@ -15,12 +15,12 @@ export function Skeleton({
   height,
   count = 1
 }: SkeletonProps) {
-  const baseClasses = 'animate-pulse bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 bg-[length:200%_100%]'
+  const baseClasses = 'animate-pulse bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 bg-[length:200%_100%]'
   
   const variantClasses = {
-    text: 'h-4 rounded',
-    circular: 'rounded-full',
-    rectangular: 'rounded-lg',
+    text: 'h-4',
+    circular: '',
+    rectangular: '',
   }
 
   const style = {
@@ -53,7 +53,7 @@ export function Skeleton({
 // Pre-built skeleton layouts
 export function CardSkeleton() {
   return (
-    <div className="bg-gray-900 border border-purple-500/20 rounded-xl p-6 space-y-4">
+    <div className="bg-neutral-900 border-2 border-neutral-800 p-6 space-y-4">
       <Skeleton variant="rectangular" height={200} />
       <Skeleton variant="text" width="60%" height={24} />
       <Skeleton variant="text" count={3} />
@@ -69,7 +69,7 @@ export function TableSkeleton({ rows = 5 }: { rows?: number }) {
   return (
     <div className="space-y-2">
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="flex gap-4 items-center p-4 bg-gray-900 border border-purple-500/20 rounded-lg">
+        <div key={i} className="flex gap-4 items-center p-4 bg-neutral-900 border-2 border-neutral-800">
           <Skeleton variant="circular" width={40} height={40} />
           <div className="flex-1 space-y-2">
             <Skeleton variant="text" width="40%" height={20} />
@@ -84,7 +84,7 @@ export function TableSkeleton({ rows = 5 }: { rows?: number }) {
 
 export function WorkoutCardSkeleton() {
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-950 border border-purple-500/30 rounded-xl p-6 space-y-4">
+    <div className="bg-gradient-to-br from-neutral-900 to-neutral-950 border-2 border-amber-700/30 p-6 space-y-4">
       <div className="flex items-start justify-between">
         <div className="flex-1 space-y-2">
           <Skeleton variant="text" width="50%" height={28} />
@@ -94,7 +94,7 @@ export function WorkoutCardSkeleton() {
       </div>
       <div className="grid grid-cols-3 gap-4">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-purple-500/10 rounded-lg p-3 space-y-1">
+          <div key={i} className="bg-neutral-900 border-2 border-neutral-800 p-3 space-y-1">
             <Skeleton variant="text" width="60%" />
             <Skeleton variant="text" width="80%" height={24} />
           </div>
@@ -109,7 +109,7 @@ export function ExerciseListSkeleton({ count = 5 }: { count?: number }) {
   return (
     <div className="space-y-3">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="bg-gray-900 border border-purple-500/20 rounded-lg p-4">
+        <div key={i} className="bg-neutral-900 border-2 border-neutral-800 p-4">
           <div className="flex items-center gap-4">
             <Skeleton variant="rectangular" width={80} height={80} className="rounded-lg" />
             <div className="flex-1 space-y-2">
@@ -139,7 +139,7 @@ export function ProgramDetailSkeleton() {
         {/* Stats Grid */}
         <div className="grid grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 space-y-2">
+            <div key={i} className="bg-neutral-900 border-2 border-neutral-800 p-4 space-y-2">
               <Skeleton variant="text" width="60%" />
               <Skeleton variant="text" width="80%" height={24} />
             </div>
@@ -149,13 +149,13 @@ export function ProgramDetailSkeleton() {
 
       {/* Action Buttons */}
       <div className="flex gap-3">
-        <Skeleton variant="rectangular" width={150} height={48} className="rounded-lg" />
-        <Skeleton variant="rectangular" width={120} height={48} className="rounded-lg" />
+        <Skeleton variant="rectangular" width={150} height={48} />
+        <Skeleton variant="rectangular" width={120} height={48} />
       </div>
 
       {/* Exercise Days */}
       {[1, 2, 3].map((i) => (
-        <div key={i} className="bg-gray-900 border border-purple-500/20 rounded-xl p-6 space-y-4">
+        <div key={i} className="bg-neutral-900 border-2 border-neutral-800 p-6 space-y-4">
           <Skeleton variant="text" width="30%" height={28} />
           <ExerciseListSkeleton count={3} />
         </div>

@@ -148,60 +148,60 @@ export default function SocialHubPage() {
     <div className="container mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-          Social Hub
+        <h1 className="text-4xl font-black bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent uppercase tracking-wider">
+          SOCIAL HUB
         </h1>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Friends</div>
-          <div className="text-3xl font-bold text-purple-400">{stats.totalFriends}</div>
+        <div className="bg-neutral-900 backdrop-blur-sm border-2 border-amber-700/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Allies</div>
+          <div className="text-3xl font-black text-amber-400 uppercase tracking-wider">{stats.totalFriends}</div>
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Pending Requests</div>
-          <div className="text-3xl font-bold text-yellow-400">{stats.pendingRequests}</div>
+        <div className="bg-neutral-900 backdrop-blur-sm border-2 border-amber-700/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Pending Requests</div>
+          <div className="text-3xl font-black text-amber-400 uppercase tracking-wider">{stats.pendingRequests}</div>
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Recent Activities</div>
-          <div className="text-3xl font-bold text-blue-400">{stats.recentActivities}</div>
+        <div className="bg-neutral-900 backdrop-blur-sm border-2 border-amber-700/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Recent Activities</div>
+          <div className="text-3xl font-black text-amber-400 uppercase tracking-wider">{stats.recentActivities}</div>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-4 border-b border-slate-700">
+      <div className="flex gap-4 border-b-2 border-neutral-800">
         <button
           onClick={() => setActiveTab('feed')}
-          className={`px-6 py-3 font-semibold transition-colors ${
+          className={`px-6 py-3 font-black transition-colors uppercase tracking-wider ${
             activeTab === 'feed'
-              ? 'text-purple-400 border-b-2 border-purple-400'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'text-amber-400 border-b-2 border-amber-400'
+              : 'text-neutral-400 hover:text-neutral-300'
           }`}
         >
           Activity Feed
         </button>
         <button
           onClick={() => setActiveTab('friends')}
-          className={`px-6 py-3 font-semibold transition-colors ${
+          className={`px-6 py-3 font-black transition-colors uppercase tracking-wider ${
             activeTab === 'friends'
-              ? 'text-purple-400 border-b-2 border-purple-400'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'text-amber-400 border-b-2 border-amber-400'
+              : 'text-neutral-400 hover:text-neutral-300'
           }`}
         >
-          Friends ({stats.totalFriends})
+          Allies ({stats.totalFriends})
         </button>
         <button
           onClick={() => setActiveTab('requests')}
-          className={`px-6 py-3 font-semibold transition-colors relative ${
+          className={`px-6 py-3 font-black transition-colors relative uppercase tracking-wider ${
             activeTab === 'requests'
-              ? 'text-purple-400 border-b-2 border-purple-400'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'text-amber-400 border-b-2 border-amber-400'
+              : 'text-neutral-400 hover:text-neutral-300'
           }`}
         >
           Requests
           {stats.pendingRequests > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">
+            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-xs flex items-center justify-center text-white font-black">
               {stats.pendingRequests}
             </span>
           )}
@@ -251,28 +251,28 @@ export default function SocialHubPage() {
         <div className="lg:col-span-1">
           <div className="sticky top-6 space-y-6">
             {/* Friend Search */}
-            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-              <h3 className="text-lg font-bold text-purple-400 mb-4">Find Friends</h3>
+            <div className="bg-neutral-900/50 backdrop-blur-sm border-2 border-amber-700/20 p-6">
+              <h3 className="text-lg font-black uppercase tracking-wider text-amber-400 mb-4">FIND FRIENDS</h3>
               <FriendSearch onSendRequest={handleSendFriendRequest} />
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-              <h3 className="text-lg font-bold text-purple-400 mb-4">Quick Links</h3>
+            <div className="bg-neutral-900/50 backdrop-blur-sm border-2 border-amber-700/20 p-6">
+              <h3 className="text-lg font-black uppercase tracking-wider text-amber-400 mb-4">QUICK LINKS</h3>
               <div className="space-y-2">
                 <a
                   href="/challenges"
-                  className="block p-3 bg-slate-900/50 rounded-lg hover:bg-slate-900/70 transition-colors text-sm"
+                  className="block p-3 bg-neutral-900/50 hover:bg-neutral-900/70 transition-colors text-sm border-2 border-neutral-700"
                 >
-                  <div className="font-semibold text-white">🏆 Browse Challenges</div>
-                  <div className="text-slate-400 text-xs">Compete with friends</div>
+                  <div className="font-black uppercase tracking-wider text-white">🏆 BROWSE CHALLENGES</div>
+                  <div className="text-neutral-400 text-xs">Compete with friends</div>
                 </a>
                 <a
                   href="/leaderboards"
-                  className="block p-3 bg-slate-900/50 rounded-lg hover:bg-slate-900/70 transition-colors text-sm"
+                  className="block p-3 bg-neutral-900/50 hover:bg-neutral-900/70 transition-colors text-sm border-2 border-neutral-700"
                 >
-                  <div className="font-semibold text-white">📊 Leaderboards</div>
-                  <div className="text-slate-400 text-xs">See top rankings</div>
+                  <div className="font-black uppercase tracking-wider text-white">📊 LEADERBOARDS</div>
+                  <div className="text-neutral-400 text-xs">See top rankings</div>
                 </a>
               </div>
             </div>

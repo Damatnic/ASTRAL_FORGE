@@ -94,20 +94,20 @@ export default function AnalyticsPage() {
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <div className="w-14 h-14 bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
               <BarChart3 className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white">Advanced Analytics</h1>
-              <p className="text-gray-400 mt-1">Deep insights into your training progress</p>
+              <h1 className="text-4xl font-black uppercase tracking-wider text-white">Advanced Analytics</h1>
+              <p className="text-neutral-400 mt-1 uppercase tracking-wider font-bold">Deep insights into your training progress</p>
             </div>
           </div>
 
           {/* Quick Stats Bar */}
-          <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 rounded-lg p-4 mt-4">
+          <div className="bg-gradient-to-r from-amber-600/10 via-amber-500/10 to-amber-400/10 border-2 border-amber-500/20 p-4 mt-4">
             <div className="flex items-center gap-2 text-sm">
-              <TrendingUp className="w-4 h-4 text-blue-400" />
-              <span className="text-gray-300">
+              <TrendingUp className="w-4 h-4 text-amber-400" />
+              <span className="text-neutral-300 uppercase tracking-wider font-bold">
                 Track your strength gains, volume trends, and consistency patterns to optimize your training
               </span>
             </div>

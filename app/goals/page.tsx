@@ -539,7 +539,7 @@ export default function GoalsPage() {
                       {progress >= 100 && (
                         <button
                           onClick={() => completeGoal(goal.id)}
-                          className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+                          className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center gap-2"
                         >
                           <CheckCircle2 className="w-4 h-4" />
                           Mark as Completed
@@ -554,34 +554,34 @@ export default function GoalsPage() {
         )}
 
         {/* SMART Goals Tips */}
-        <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-700/30 rounded-lg p-6">
-          <h4 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <Flame className="w-5 h-5 text-purple-400" />
+        <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 border-2 border-amber-700/30 p-6">
+          <h4 className="text-lg font-black uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Flame className="w-5 h-5 text-amber-400" />
             SMART Goals Framework
           </h4>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <div className="space-y-2">
               <div>
-                <span className="font-bold text-blue-400">Specific:</span>
-                <span className="text-gray-300"> Define exactly what you want to achieve</span>
+                <span className="font-black uppercase tracking-wider text-amber-400">Specific:</span>
+                <span className="text-neutral-300 uppercase tracking-wider font-bold"> Define exactly what you want to achieve</span>
               </div>
               <div>
-                <span className="font-bold text-purple-400">Measurable:</span>
-                <span className="text-gray-300"> Set clear numbers you can track</span>
+                <span className="font-black uppercase tracking-wider text-amber-400">Measurable:</span>
+                <span className="text-neutral-300 uppercase tracking-wider font-bold"> Set clear numbers you can track</span>
               </div>
               <div>
-                <span className="font-bold text-green-400">Achievable:</span>
-                <span className="text-gray-300"> Be ambitious but realistic</span>
+                <span className="font-black uppercase tracking-wider text-amber-400">Achievable:</span>
+                <span className="text-neutral-300 uppercase tracking-wider font-bold"> Be ambitious but realistic</span>
               </div>
             </div>
             <div className="space-y-2">
               <div>
-                <span className="font-bold text-orange-400">Relevant:</span>
-                <span className="text-gray-300"> Align with your overall fitness vision</span>
+                <span className="font-black uppercase tracking-wider text-amber-400">Relevant:</span>
+                <span className="text-neutral-300 uppercase tracking-wider font-bold"> Align with your overall fitness vision</span>
               </div>
               <div>
-                <span className="font-bold text-pink-400">Time-bound:</span>
-                <span className="text-gray-300"> Set a deadline to stay accountable</span>
+                <span className="font-black uppercase tracking-wider text-amber-400">Time-bound:</span>
+                <span className="text-neutral-300 uppercase tracking-wider font-bold"> Set a deadline to stay accountable</span>
               </div>
             </div>
           </div>

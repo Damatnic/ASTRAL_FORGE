@@ -283,50 +283,50 @@ export default function SettingsPage() {
               </div>
 
               {/* Notifications */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <Bell className="w-6 h-6 text-yellow-400" />
+              <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+                <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
+                  <Bell className="w-6 h-6 text-amber-400" />
                   Notifications
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">All Notifications</div>
-                      <div className="text-sm text-gray-400">Master toggle for all notifications</div>
+                      <div className="font-black uppercase tracking-wider">All Notifications</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Master toggle for all notifications</div>
                     </div>
                     <ToggleSwitch checked={notifications} onChange={() => setNotifications(!notifications)} />
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Workout Reminders</div>
-                      <div className="text-sm text-gray-400">Get reminded about scheduled workouts</div>
+                      <div className="font-black uppercase tracking-wider">Workout Reminders</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Get reminded about scheduled workouts</div>
                     </div>
                     <ToggleSwitch 
                       checked={workoutReminders} 
                       onChange={() => setWorkoutReminders(!workoutReminders)} 
                     />
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Achievement Unlocked</div>
-                      <div className="text-sm text-gray-400">Celebrate when you unlock achievements</div>
+                      <div className="font-black uppercase tracking-wider">Achievement Unlocked</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Celebrate when you unlock achievements</div>
                     </div>
                     <ToggleSwitch 
                       checked={achievementNotifications} 
                       onChange={() => setAchievementNotifications(!achievementNotifications)} 
                     />
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Weekly Progress Report</div>
-                      <div className="text-sm text-gray-400">Receive weekly training summaries</div>
+                      <div className="font-black uppercase tracking-wider">Weekly Progress Report</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Receive weekly training summaries</div>
                     </div>
                     <ToggleSwitch checked={weeklyReport} onChange={() => setWeeklyReport(!weeklyReport)} />
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Rest Day Reminder</div>
-                      <div className="text-sm text-gray-400">Remind you to take rest days</div>
+                      <div className="font-black uppercase tracking-wider">Rest Day Reminder</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Remind you to take rest days</div>
                     </div>
                     <ToggleSwitch 
                       checked={restDayReminder} 
@@ -337,23 +337,23 @@ export default function SettingsPage() {
               </div>
 
               {/* App Behavior */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <Zap className="w-6 h-6 text-purple-400" />
+              <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+                <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
+                  <Zap className="w-6 h-6 text-amber-400" />
                   App Behavior
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Sound Effects</div>
-                      <div className="text-sm text-gray-400">Play sounds for achievements and actions</div>
+                      <div className="font-black uppercase tracking-wider">Sound Effects</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Play sounds for achievements and actions</div>
                     </div>
                     <ToggleSwitch checked={soundEffects} onChange={() => setSoundEffects(!soundEffects)} />
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div>
-                      <div className="font-medium">Auto-Save Workouts</div>
-                      <div className="text-sm text-gray-400">Automatically save workout progress</div>
+                      <div className="font-black uppercase tracking-wider">Auto-Save Workouts</div>
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Automatically save workout progress</div>
                     </div>
                     <ToggleSwitch checked={autoSave} onChange={() => setAutoSave(!autoSave)} />
                   </div>
@@ -366,89 +366,81 @@ export default function SettingsPage() {
           {activeTab === 'training' && (
             <div className="space-y-6">
               {/* Training Level */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <Target className="w-6 h-6 text-orange-400" />
-                  Training Experience Level
+                            {/* Training Level */}
+              <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+                <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
+                  <Target className="w-6 h-6 text-amber-400" />
+                  Training Level
                 </h2>
-                <p className="text-sm text-gray-400 mb-6">
-                  Your experience level helps us customize workout recommendations and progression.
-                </p>
-                <div className="space-y-3">
-                  <label className="flex items-start p-4 bg-slate-800/50 border-2 border-slate-700 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors group">
-                    <input 
-                      type="radio" 
-                      name="level" 
-                      value="beginner" 
-                      checked={level === 'beginner'}
-                      onChange={(e) => setLevel(e.target.value)}
-                      className="mt-1 mr-4" 
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium text-lg flex items-center gap-2">
-                        Beginner
-                        {level === 'beginner' && <CheckCircle2 className="w-5 h-5 text-green-400" />}
-                      </div>
-                      <div className="text-sm text-gray-400 mt-1">
-                        Less than 1 year of consistent training experience
-                      </div>
-                      <div className="text-xs text-gray-500 mt-2">
-                        • Focus on form and fundamentals<br/>
-                        • Linear progression programs<br/>
-                        • 3-4 training days per week
+                <div className="space-y-4">
+                  <button
+                    onClick={() => setLevel('beginner')}
+                    className={`w-full p-4 border-2 text-left transition-all ${
+                      level === 'beginner'
+                        ? 'bg-amber-900/20 border-amber-500/50'
+                        : 'bg-neutral-800/50 border-neutral-700 hover:border-amber-500/30'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 
+                        className={`w-5 h-5 mt-0.5 ${
+                          level === 'beginner' ? 'text-amber-400' : 'text-neutral-600'
+                        }`}
+                      />
+                      <div className="flex-1">
+                        <div className="font-black uppercase tracking-wider mb-2">Beginner</div>
+                        <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
+                          New to strength training or returning after a break
+                        </div>
                       </div>
                     </div>
-                  </label>
+                  </button>
 
-                  <label className="flex items-start p-4 bg-slate-800/50 border-2 border-slate-700 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors group">
-                    <input 
-                      type="radio" 
-                      name="level" 
-                      value="intermediate" 
-                      checked={level === 'intermediate'}
-                      onChange={(e) => setLevel(e.target.value)}
-                      className="mt-1 mr-4" 
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium text-lg flex items-center gap-2">
-                        Intermediate
-                        {level === 'intermediate' && <CheckCircle2 className="w-5 h-5 text-green-400" />}
-                      </div>
-                      <div className="text-sm text-gray-400 mt-1">
-                        1-3 years of consistent training with solid form
-                      </div>
-                      <div className="text-xs text-gray-500 mt-2">
-                        • Periodized training programs<br/>
-                        • Volume and intensity progression<br/>
-                        • 4-5 training days per week
+                  <button
+                    onClick={() => setLevel('intermediate')}
+                    className={`w-full p-4 border-2 text-left transition-all ${
+                      level === 'intermediate'
+                        ? 'bg-amber-900/20 border-amber-500/50'
+                        : 'bg-neutral-800/50 border-neutral-700 hover:border-amber-500/30'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 
+                        className={`w-5 h-5 mt-0.5 ${
+                          level === 'intermediate' ? 'text-amber-400' : 'text-neutral-600'
+                        }`}
+                      />
+                      <div className="flex-1">
+                        <div className="font-black uppercase tracking-wider mb-2">Intermediate</div>
+                        <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
+                          6+ months of consistent training experience
+                        </div>
                       </div>
                     </div>
-                  </label>
+                  </button>
 
-                  <label className="flex items-start p-4 bg-slate-800/50 border-2 border-slate-700 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors group">
-                    <input 
-                      type="radio" 
-                      name="level" 
-                      value="advanced" 
-                      checked={level === 'advanced'}
-                      onChange={(e) => setLevel(e.target.value)}
-                      className="mt-1 mr-4" 
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium text-lg flex items-center gap-2">
-                        Advanced
-                        {level === 'advanced' && <CheckCircle2 className="w-5 h-5 text-green-400" />}
-                      </div>
-                      <div className="text-sm text-gray-400 mt-1">
-                        3+ years of consistent training with competition experience
-                      </div>
-                      <div className="text-xs text-gray-500 mt-2">
-                        • Advanced periodization schemes<br/>
-                        • High volume and intensity tolerance<br/>
-                        • 5-6 training days per week
+                  <button
+                    onClick={() => setLevel('advanced')}
+                    className={`w-full p-4 border-2 text-left transition-all ${
+                      level === 'advanced'
+                        ? 'bg-amber-900/20 border-amber-500/50'
+                        : 'bg-neutral-800/50 border-neutral-700 hover:border-amber-500/30'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 
+                        className={`w-5 h-5 mt-0.5 ${
+                          level === 'advanced' ? 'text-amber-400' : 'text-neutral-600'
+                        }`}
+                      />
+                      <div className="flex-1">
+                        <div className="font-black uppercase tracking-wider mb-2">Advanced</div>
+                        <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
+                          2+ years of structured training, focusing on specific goals
+                        </div>
                       </div>
                     </div>
-                  </label>
+                  </button>
                 </div>
               </div>
 

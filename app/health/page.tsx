@@ -198,52 +198,52 @@ export default function HealthPage() {
               </div>
               <TrendingDown className="w-5 h-5 text-amber-400" />
             </div>
-            <div className="w-full bg-slate-800 rounded-full h-2">
+            <div className="w-full bg-neutral-800 h-2">
               <div
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full transition-all"
+                className="bg-gradient-to-r from-amber-600 to-amber-500 h-2 transition-all"
                 style={{ width: `${healthStats.hydration}%` }}
               />
             </div>
           </div>
 
           {/* Active Injuries */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+          <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-lg">
-                  <AlertTriangle className="w-6 h-6 text-yellow-400" />
+                <div className="p-2 bg-gradient-to-br from-amber-600/20 to-amber-500/20 border-2 border-amber-700/20">
+                  <AlertTriangle className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">Active Injuries</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                  <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Active Injuries</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                     {healthStats.activeInjuries}
                   </p>
                 </div>
               </div>
-              <Shield className="w-5 h-5 text-yellow-400" />
+              <Shield className="w-5 h-5 text-amber-400" />
             </div>
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
               Est. Recovery: {healthStats.recoveryDays} days
             </div>
           </div>
 
           {/* Recovery Status */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+          <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
-                  <Activity className="w-6 h-6 text-purple-400" />
+                <div className="p-2 bg-gradient-to-br from-amber-600/20 to-amber-500/20 border-2 border-amber-700/20">
+                  <Activity className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">Recovery</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Recovery</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">
                     Good
                   </p>
                 </div>
               </div>
-              <Zap className="w-5 h-5 text-purple-400" />
+              <Zap className="w-5 h-5 text-amber-400" />
             </div>
-            <div className="text-sm text-gray-400">Ready for training</div>
+            <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Ready for training</div>
           </div>
         </div>
 
@@ -255,10 +255,10 @@ export default function HealthPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 font-black uppercase tracking-wider whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-red-500/20 to-pink-500/20 text-red-400 border border-red-500/30'
-                    : 'bg-slate-900/50 text-gray-400 border border-slate-800 hover:border-slate-700 hover:text-gray-300'
+                    ? 'bg-gradient-to-r from-amber-600/20 to-amber-500/20 text-amber-400 border-2 border-amber-500/30'
+                    : 'bg-neutral-900/50 text-neutral-400 border-2 border-neutral-800 hover:border-neutral-700 hover:text-neutral-300'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -320,9 +320,9 @@ export default function HealthPage() {
                 />
 
                 {/* Recent Activity */}
-                <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                  <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                    <Activity className="w-5 h-5 text-purple-400" />
+                <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+                  <h2 className="text-xl font-black uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-amber-400" />
                     Recent Activity
                   </h2>
                   <div className="space-y-2">
@@ -331,18 +331,18 @@ export default function HealthPage() {
                       return (
                         <div
                           key={index}
-                          className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors"
+                          className="flex items-center justify-between p-3 bg-neutral-800/50 border-2 border-neutral-700 hover:bg-neutral-800 transition-colors"
                         >
                           <div className="flex items-center gap-2">
-                            <Icon className="w-4 h-4 text-gray-400" />
+                            <Icon className="w-4 h-4 text-neutral-400" />
                             <div>
-                              <p className="text-sm font-medium">{activity.type}</p>
-                              <p className="text-xs text-gray-500">{activity.date}</p>
+                              <p className="text-sm font-black uppercase tracking-wider">{activity.type}</p>
+                              <p className="text-xs text-neutral-500 uppercase tracking-wider font-bold">{activity.date}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm font-medium">{activity.value}</p>
-                            <p className="text-xs text-gray-500">Quality: {activity.quality}/10</p>
+                            <p className="text-sm font-black uppercase tracking-wider">{activity.value}</p>
+                            <p className="text-xs text-neutral-500 uppercase tracking-wider font-bold">Quality: {activity.quality}/10</p>
                           </div>
                         </div>
                       );
@@ -355,36 +355,36 @@ export default function HealthPage() {
 
           {/* Sleep Tab */}
           {activeTab === 'sleep' && (
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <Moon className="w-6 h-6 text-blue-400" />
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Moon className="w-6 h-6 text-amber-400" />
                 Sleep Tracking
               </h2>
               <div className="space-y-4">
                 {sleepData.map((day, index) => (
-                  <div key={index} className="p-4 bg-slate-800/50 rounded-lg">
+                  <div key={index} className="p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-gray-400" />
-                        <span className="font-medium">{day.date}</span>
+                        <Calendar className="w-5 h-5 text-neutral-400" />
+                        <span className="font-black uppercase tracking-wider">{day.date}</span>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-400">Quality: {day.quality}/10</span>
-                        <span className="font-medium text-blue-400">{day.hours} hrs</span>
+                        <span className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Quality: {day.quality}/10</span>
+                        <span className="font-black uppercase tracking-wider text-amber-400">{day.hours} hrs</span>
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-3 mt-3 text-sm">
-                      <div className="p-2 bg-slate-700/50 rounded">
-                        <p className="text-gray-400">Total</p>
-                        <p className="font-medium">{day.hours} hrs</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">Total</p>
+                        <p className="font-black uppercase tracking-wider">{day.hours} hrs</p>
                       </div>
-                      <div className="p-2 bg-slate-700/50 rounded">
-                        <p className="text-gray-400">Deep</p>
-                        <p className="font-medium">{day.deep} hrs</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">Deep</p>
+                        <p className="font-black uppercase tracking-wider">{day.deep} hrs</p>
                       </div>
-                      <div className="p-2 bg-slate-700/50 rounded">
-                        <p className="text-gray-400">REM</p>
-                        <p className="font-medium">{day.rem} hrs</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">REM</p>
+                        <p className="font-black uppercase tracking-wider">{day.rem} hrs</p>
                       </div>
                     </div>
                   </div>
@@ -395,36 +395,36 @@ export default function HealthPage() {
 
           {/* Nutrition Tab */}
           {activeTab === 'nutrition' && (
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <Apple className="w-6 h-6 text-orange-400" />
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Apple className="w-6 h-6 text-amber-400" />
                 Nutrition Log
               </h2>
               <div className="space-y-4">
                 {nutritionLog.map((meal, index) => (
-                  <div key={index} className="p-4 bg-slate-800/50 rounded-lg">
+                  <div key={index} className="p-4 bg-neutral-800/50 border-2 border-neutral-700">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <h3 className="font-medium text-lg">{meal.meal}</h3>
-                        <p className="text-sm text-gray-400">{meal.time}</p>
+                        <h3 className="font-black uppercase tracking-wider text-lg">{meal.meal}</h3>
+                        <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">{meal.time}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-orange-400">{meal.calories} cal</p>
-                        <p className="text-sm text-gray-400">Quality: {meal.quality}/10</p>
+                        <p className="font-black uppercase tracking-wider text-amber-400">{meal.calories} cal</p>
+                        <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Quality: {meal.quality}/10</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-3 text-sm">
-                      <div className="p-2 bg-slate-700/50 rounded text-center">
-                        <p className="text-gray-400">Protein</p>
-                        <p className="font-medium text-blue-400">{meal.protein}g</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600 text-center">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">Protein</p>
+                        <p className="font-black uppercase tracking-wider text-amber-400">{meal.protein}g</p>
                       </div>
-                      <div className="p-2 bg-slate-700/50 rounded text-center">
-                        <p className="text-gray-400">Carbs</p>
-                        <p className="font-medium text-green-400">{meal.carbs}g</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600 text-center">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">Carbs</p>
+                        <p className="font-black uppercase tracking-wider text-amber-400">{meal.carbs}g</p>
                       </div>
-                      <div className="p-2 bg-slate-700/50 rounded text-center">
-                        <p className="text-gray-400">Fats</p>
-                        <p className="font-medium text-yellow-400">{meal.fats}g</p>
+                      <div className="p-2 bg-neutral-700/50 border-2 border-neutral-600 text-center">
+                        <p className="text-neutral-400 uppercase tracking-wider font-bold">Fats</p>
+                        <p className="font-black uppercase tracking-wider text-amber-400">{meal.fats}g</p>
                       </div>
                     </div>
                   </div>
@@ -435,15 +435,15 @@ export default function HealthPage() {
 
           {/* Injuries Tab */}
           {activeTab === 'injuries' && (
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold flex items-center gap-2">
-                  <AlertTriangle className="w-6 h-6 text-yellow-400" />
+                <h2 className="text-2xl font-black uppercase tracking-wider flex items-center gap-2">
+                  <AlertTriangle className="w-6 h-6 text-amber-400" />
                   Injury Management
                 </h2>
                 <Link
                   href="/health/injuries"
-                  className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-lg font-medium hover:from-yellow-600 hover:to-orange-600 transition-all"
+                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-black font-black uppercase tracking-wider hover:from-amber-700 hover:to-amber-600 transition-all"
                 >
                   View Full History
                 </Link>
@@ -451,18 +451,18 @@ export default function HealthPage() {
               {injuries.length > 0 ? (
                 <div className="space-y-4">
                   {injuries.map((injury) => (
-                    <div key={injury.id} className="p-6 bg-slate-800/50 rounded-lg border border-yellow-500/20">
+                    <div key={injury.id} className="p-6 bg-neutral-800/50 border-2 border-amber-500/20">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="font-medium text-xl mb-1">{injury.name}</h3>
-                          <p className="text-gray-400">{injury.affectedArea}</p>
+                          <h3 className="font-black uppercase tracking-wider text-xl mb-1">{injury.name}</h3>
+                          <p className="text-neutral-400 uppercase tracking-wider font-bold">{injury.affectedArea}</p>
                         </div>
-                        <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">
+                        <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-sm font-black uppercase tracking-wider">
                           {injury.severity}
                         </span>
                       </div>
                       <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="p-3 bg-slate-700/50 rounded">
+                        <div className="p-3 bg-neutral-700/50">
                           <p className="text-sm text-gray-400 mb-1">Started</p>
                           <p className="font-medium">{injury.startDate}</p>
                         </div>
@@ -489,9 +489,9 @@ export default function HealthPage() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">No Active Injuries</h3>
-                  <p className="text-gray-400">You&apos;re injury-free! Keep up the good work.</p>
+                  <CheckCircle2 className="w-16 h-16 text-amber-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-black uppercase tracking-wider mb-2">No Active Injuries</h3>
+                  <p className="text-neutral-400 uppercase tracking-wider font-bold">You&apos;re injury-free! Keep up the good work.</p>
                 </div>
               )}
             </div>

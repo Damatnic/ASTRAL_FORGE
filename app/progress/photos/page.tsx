@@ -21,22 +21,22 @@ export default function ProgressPhotosPage() {
               <p className="text-gray-400">Track your transformation</p>
             </div>
           </div>
-          <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold flex items-center gap-2 transition-all">
+          <button className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 font-black uppercase tracking-wider flex items-center gap-2 transition-all">
             <Upload className="w-5 h-5" />
             Upload Photo
           </button>
         </div>
 
         {/* Empty State */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-12 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="bg-neutral-900/50 border-2 border-neutral-800 p-12 text-center">
+          <div className="w-20 h-20 bg-gradient-to-br from-amber-600 to-amber-500 flex items-center justify-center mx-auto mb-6">
             <Camera className="w-10 h-10" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">No Progress Photos Yet</h2>
-          <p className="text-gray-400 mb-6">
+          <h2 className="text-2xl font-black uppercase tracking-wider mb-2">No Progress Photos Yet</h2>
+          <p className="text-neutral-400 mb-6 uppercase tracking-wider font-bold">
             Upload photos to track your physical transformation over time
           </p>
-          <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold flex items-center gap-2 mx-auto transition-colors">
+          <button className="px-6 py-3 bg-amber-500 hover:bg-amber-600 font-black uppercase tracking-wider flex items-center gap-2 mx-auto transition-colors">
             <Upload className="w-5 h-5" />
             Upload Your First Photo
           </button>

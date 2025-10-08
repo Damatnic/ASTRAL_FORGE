@@ -22,8 +22,8 @@ export default function ProfilePage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
-            <p className="text-gray-400">Loading profile...</p>
+            <div className="animate-spin h-12 w-12 border-b-2 border-amber-500 mx-auto mb-4"></div>
+            <p className="text-neutral-400 uppercase tracking-wider font-bold">Loading profile...</p>
           </div>
         </div>
       </div>
@@ -49,10 +49,10 @@ export default function ProfilePage() {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text mb-2">
+        <h1 className="text-4xl font-black bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text mb-2 uppercase tracking-wider">
           Athlete Profile
         </h1>
-        <p className="text-gray-400">Your training progression and performance metrics</p>
+        <p className="text-neutral-400 uppercase tracking-wider font-bold">Your training progression and performance metrics</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -62,7 +62,7 @@ export default function ProfilePage() {
             <div className="flex items-start gap-6">
               {/* Profile Avatar */}
               <div className="flex-shrink-0">
-                <div className="w-32 h-32 bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-full flex items-center justify-center border-4 border-purple-500/50">
+                <div className="w-32 h-32 bg-gradient-to-br from-amber-900/50 to-amber-800/50 flex items-center justify-center border-2 border-amber-500/50">
                   <span className="text-6xl">{classInfo.icon}</span>
                 </div>
               </div>
@@ -70,28 +70,28 @@ export default function ProfilePage() {
               {/* Profile Info */}
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-3xl font-bold text-white">{classInfo.name}</h2>
-                  <span className="px-3 py-1 bg-purple-900/50 border border-purple-500/50 rounded-full text-sm font-semibold text-purple-300">
+                  <h2 className="text-3xl font-black text-white uppercase tracking-wider">{classInfo.name}</h2>
+                  <span className="px-3 py-1 bg-amber-900/50 border-2 border-amber-500/50 text-sm font-black text-amber-300 uppercase tracking-wider">
                     Level {character.level}
                   </span>
                 </div>
-                <p className="text-gray-400 mb-4">{classInfo.description}</p>
+                <p className="text-neutral-400 mb-4 uppercase tracking-wider font-bold">{classInfo.description}</p>
 
                 {/* Progress Points */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="text-gray-400">Progress to Next Tier</span>
-                    <span className="font-semibold text-purple-400">
+                    <span className="text-neutral-400 uppercase tracking-wider font-bold">Progress to Next Tier</span>
+                    <span className="font-black text-amber-400 uppercase tracking-wider">
                       {character.currentXP.toLocaleString()} / {character.xpToNextLevel.toLocaleString()} pts
                     </span>
                   </div>
-                  <div className="w-full bg-gray-700 rounded-full h-3">
+                  <div className="w-full bg-neutral-700 h-3">
                     <div
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all"
+                      className="bg-gradient-to-r from-amber-600 to-amber-500 h-3 transition-all"
                       style={{ width: `${Math.min(progressPercent, 100)}%` }}
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-neutral-500 mt-1 uppercase tracking-wider font-bold">
                     {(character.xpToNextLevel - character.currentXP).toLocaleString()} pts to next tier
                   </p>
                 </div>
@@ -120,42 +120,42 @@ export default function ProfilePage() {
             <Card className="p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Sword className="w-5 h-5 text-red-400" />
-                <h3 className="text-sm font-medium text-gray-400">Strength</h3>
+                <h3 className="text-sm font-black text-neutral-400 uppercase tracking-wider">Strength</h3>
               </div>
-              <p className="text-3xl font-bold text-white">{character.stats.strength}</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-3xl font-black text-white uppercase tracking-wider">{character.stats.strength}</p>
+              <p className="text-xs text-neutral-500 mt-1 uppercase tracking-wider font-bold">
                 +{Math.round((classInfo.bonuses.strength - 1) * 100)}% bonus
               </p>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-green-400" />
-                <h3 className="text-sm font-medium text-gray-400">Endurance</h3>
+                <TrendingUp className="w-5 h-5 text-amber-400" />
+                <h3 className="text-sm font-black text-neutral-400 uppercase tracking-wider">Endurance</h3>
               </div>
-              <p className="text-3xl font-bold text-white">{character.stats.endurance}</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-3xl font-black text-white uppercase tracking-wider">{character.stats.endurance}</p>
+              <p className="text-xs text-neutral-500 mt-1 uppercase tracking-wider font-bold">
                 +{Math.round((classInfo.bonuses.endurance - 1) * 100)}% bonus
               </p>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Zap className="w-5 h-5 text-yellow-400" />
-                <h3 className="text-sm font-medium text-gray-400">Power</h3>
+                <Zap className="w-5 h-5 text-amber-400" />
+                <h3 className="text-sm font-black text-neutral-400 uppercase tracking-wider">Power</h3>
               </div>
-              <p className="text-3xl font-bold text-white">{character.stats.power}</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-3xl font-black text-white uppercase tracking-wider">{character.stats.power}</p>
+              <p className="text-xs text-neutral-500 mt-1 uppercase tracking-wider font-bold">
                 +{Math.round((classInfo.bonuses.power - 1) * 100)}% bonus
               </p>
             </Card>
 
             <Card className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Shield className="w-5 h-5 text-blue-400" />
-                <h3 className="text-sm font-medium text-gray-400">Technique</h3>
+                <Shield className="w-5 h-5 text-amber-400" />
+                <h3 className="text-sm font-black text-neutral-400 uppercase tracking-wider">Technique</h3>
               </div>
-              <p className="text-3xl font-bold text-white">{character.stats.technique}</p>
+              <p className="text-3xl font-black text-white uppercase tracking-wider">{character.stats.technique}</p>
             </Card>
           </div>
         </div>
@@ -164,20 +164,20 @@ export default function ProfilePage() {
         <div>
           {/* Total Progress */}
           <Card className="p-6 mb-6">
-            <h3 className="text-lg font-bold text-white mb-4">Career Stats</h3>
+            <h3 className="text-lg font-black text-white mb-4 uppercase tracking-wider">Career Stats</h3>
             <div className="space-y-3">
               <div>
                 <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="text-gray-400">Total Progress Points</span>
-                  <span className="font-semibold text-purple-400">
+                  <span className="text-neutral-400 uppercase tracking-wider font-bold">Total Progress Points</span>
+                  <span className="font-black text-amber-400 uppercase tracking-wider">
                     {character.totalXP.toLocaleString()}
                   </span>
                 </div>
               </div>
               <div>
                 <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="text-gray-400">Training Tier</span>
-                  <span className="font-semibold text-white">{character.level}</span>
+                  <span className="text-neutral-400 uppercase tracking-wider font-bold">Training Tier</span>
+                  <span className="font-black text-white uppercase tracking-wider">{character.level}</span>
                 </div>
               </div>
             </div>
@@ -185,36 +185,36 @@ export default function ProfilePage() {
 
           {/* Class Bonuses */}
           <Card className="p-6">
-            <h3 className="text-lg font-bold text-white mb-4">Class Bonuses</h3>
+            <h3 className="text-lg font-black text-white mb-4 uppercase tracking-wider">Class Bonuses</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-400">Strength</span>
-                <span className={`font-semibold ${
-                  classInfo.bonuses.strength > 1 ? 'text-green-400' : 
+                <span className="text-neutral-400 uppercase tracking-wider font-bold">Strength</span>
+                <span className={`font-black uppercase tracking-wider ${
+                  classInfo.bonuses.strength > 1 ? 'text-amber-400' : 
                   classInfo.bonuses.strength < 1 ? 'text-red-400' : 
-                  'text-gray-400'
+                  'text-neutral-400'
                 }`}>
                   {classInfo.bonuses.strength > 1 ? '+' : ''}
                   {Math.round((classInfo.bonuses.strength - 1) * 100)}%
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-400">Endurance</span>
-                <span className={`font-semibold ${
-                  classInfo.bonuses.endurance > 1 ? 'text-green-400' : 
+                <span className="text-neutral-400 uppercase tracking-wider font-bold">Endurance</span>
+                <span className={`font-black uppercase tracking-wider ${
+                  classInfo.bonuses.endurance > 1 ? 'text-amber-400' : 
                   classInfo.bonuses.endurance < 1 ? 'text-red-400' : 
-                  'text-gray-400'
+                  'text-neutral-400'
                 }`}>
                   {classInfo.bonuses.endurance > 1 ? '+' : ''}
                   {Math.round((classInfo.bonuses.endurance - 1) * 100)}%
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-400">Power</span>
-                <span className={`font-semibold ${
-                  classInfo.bonuses.power > 1 ? 'text-green-400' : 
+                <span className="text-neutral-400 uppercase tracking-wider font-bold">Power</span>
+                <span className={`font-black uppercase tracking-wider ${
+                  classInfo.bonuses.power > 1 ? 'text-amber-400' : 
                   classInfo.bonuses.power < 1 ? 'text-red-400' : 
-                  'text-gray-400'
+                  'text-neutral-400'
                 }`}>
                   {classInfo.bonuses.power > 1 ? '+' : ''}
                   {Math.round((classInfo.bonuses.power - 1) * 100)}%

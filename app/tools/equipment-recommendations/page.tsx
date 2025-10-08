@@ -237,8 +237,8 @@ export default function EquipmentRecommendationsPage() {
               {progressionPath.map((phase, index) => (
                 <div key={index} className="bg-gray-900 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-lg font-semibold text-white">{phase.phase}</h3>
-                    <div className="text-purple-400 font-semibold">
+                    <h3 className="text-lg font-black uppercase tracking-wider text-white">{phase.phase}</h3>
+                    <div className="text-amber-400 font-black uppercase tracking-wider">
                       ${phase.estimatedCost.min} - ${phase.estimatedCost.max}
                     </div>
                   </div>
@@ -291,12 +291,12 @@ function RecommendationCard({
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <div className="text-purple-400 font-semibold">{recommendation.estimatedCost}</div>
+            <div className="text-amber-400 font-black uppercase tracking-wider">{recommendation.estimatedCost}</div>
           </div>
           {expanded ? (
-            <ChevronUp className="w-5 h-5 text-gray-400" />
+            <ChevronUp className="w-5 h-5 text-neutral-400" />
           ) : (
-            <ChevronDown className="w-5 h-5 text-gray-400" />
+            <ChevronDown className="w-5 h-5 text-neutral-400" />
           )}
         </div>
       </button>
@@ -313,11 +313,11 @@ function RecommendationCard({
           {/* Benefits */}
           {recommendation.benefits.length > 0 && (
             <div>
-              <h4 className="text-sm font-semibold text-gray-400 mb-2">Benefits</h4>
+              <h4 className="text-sm font-black uppercase tracking-wider text-neutral-400 mb-2">Benefits</h4>
               <ul className="space-y-1">
                 {recommendation.benefits.map((benefit, i) => (
-                  <li key={i} className="text-gray-300 text-sm flex items-start gap-2">
-                    <TrendingUp className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
+                  <li key={i} className="text-neutral-300 text-sm flex items-start gap-2 uppercase tracking-wider font-bold">
+                    <TrendingUp className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -340,7 +340,7 @@ function RecommendationCard({
                     </span>
                   ))}
                   {recommendation.unlocks.exercises.length > 6 && (
-                    <span className="px-2 py-1 bg-gray-900 rounded text-xs text-purple-400">
+                    <span className="px-2 py-1 bg-neutral-900 text-xs text-amber-400 uppercase tracking-wider font-bold">
                       +{recommendation.unlocks.exercises.length - 6} more
                     </span>
                   )}

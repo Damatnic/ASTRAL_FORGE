@@ -267,17 +267,17 @@ export default function WorkoutTemplatesBrowserPage() {
 
         {/* Stats Summary */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-green-400">{available.length}</div>
-            <div className="text-xs text-green-300/70">Ready to Start</div>
+          <div className="bg-amber-500/10 border-2 border-amber-500/30 p-3 text-center">
+            <div className="text-2xl font-black uppercase tracking-wider text-amber-400">{available.length}</div>
+            <div className="text-xs text-amber-300/70 uppercase tracking-wider font-bold">Ready to Start</div>
           </div>
-          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-yellow-400">{partial.length}</div>
-            <div className="text-xs text-yellow-300/70">Partial Equipment</div>
+          <div className="bg-amber-500/10 border-2 border-amber-500/30 p-3 text-center">
+            <div className="text-2xl font-black uppercase tracking-wider text-amber-400">{partial.length}</div>
+            <div className="text-xs text-amber-300/70 uppercase tracking-wider font-bold">Partial Equipment</div>
           </div>
-          <div className="bg-orange-500/10 border border-orange-500/30 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-orange-400">{unavailable.length}</div>
-            <div className="text-xs text-orange-300/70">Missing Equipment</div>
+          <div className="bg-amber-500/10 border-2 border-amber-500/30 p-3 text-center">
+            <div className="text-2xl font-black uppercase tracking-wider text-amber-400">{unavailable.length}</div>
+            <div className="text-xs text-amber-300/70 uppercase tracking-wider font-bold">Missing Equipment</div>
           </div>
         </div>
 

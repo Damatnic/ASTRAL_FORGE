@@ -63,7 +63,7 @@ const mockPrograms = [
     popularity: 4.8,
     enrolledUsers: 1250,
     progress: 0,
-    imageColor: 'from-blue-500 to-cyan-500',
+    imageColor: 'from-amber-600 to-amber-500',
   },
   {
     id: 2,
@@ -77,7 +77,7 @@ const mockPrograms = [
     enrolledUsers: 2100,
     progress: 45,
     isActive: true,
-    imageColor: 'from-purple-500 to-pink-500',
+    imageColor: 'from-amber-600 to-amber-500',
     schedule: {
       monday: 'Push',
       tuesday: 'Pull',
@@ -101,7 +101,7 @@ const mockPrograms = [
     popularity: 4.7,
     enrolledUsers: 850,
     progress: 0,
-    imageColor: 'from-orange-500 to-red-500',
+    imageColor: 'from-amber-600 to-amber-500',
   },
   {
     id: 4,
@@ -114,7 +114,7 @@ const mockPrograms = [
     popularity: 4.6,
     enrolledUsers: 950,
     progress: 0,
-    imageColor: 'from-green-500 to-emerald-500',
+    imageColor: 'from-amber-600 to-amber-500',
   },
   {
     id: 5,
@@ -127,7 +127,7 @@ const mockPrograms = [
     popularity: 4.8,
     enrolledUsers: 1500,
     progress: 0,
-    imageColor: 'from-indigo-500 to-purple-500',
+    imageColor: 'from-amber-600 to-amber-500',
   },
   {
     id: 6,
@@ -140,7 +140,7 @@ const mockPrograms = [
     popularity: 0,
     enrolledUsers: 1,
     progress: 23,
-    imageColor: 'from-yellow-500 to-orange-500',
+    imageColor: 'from-amber-600 to-amber-500',
   },
 ]
 
@@ -473,10 +473,10 @@ export default function ProgramsPage() {
           <section className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                <h2 className="text-lg font-semibold">Recommended for You</h2>
+                <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
+                <h2 className="text-lg font-black uppercase tracking-wider">Recommended for You</h2>
               </div>
-              <span className="text-xs text-gray-400 flex items-center space-x-1">
+              <span className="text-xs text-neutral-400 flex items-center space-x-1 uppercase tracking-wider font-bold">
                 <Target className="w-3 h-3" />
                 <span>Based on your level & goals</span>
               </span>
@@ -487,10 +487,10 @@ export default function ProgramsPage() {
                 <div
                   key={program.id}
                   onClick={() => handleProgramClick(program)}
-                  className="group relative bg-slate-900/50 border-2 border-yellow-500/30 rounded-xl p-6 hover:border-yellow-500/60 hover:shadow-lg hover:shadow-yellow-500/20 transition-all cursor-pointer overflow-hidden"
+                  className="group relative bg-neutral-900/50 border-2 border-amber-500/30 p-6 hover:border-amber-500/60 hover:shadow-lg hover:shadow-amber-500/20 transition-all cursor-pointer overflow-hidden"
                 >
                   {/* Recommended Badge */}
-                  <div className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-md text-xs font-bold text-black flex items-center space-x-1">
+                  <div className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-r from-amber-600 to-amber-500 text-xs font-black uppercase tracking-wider text-black flex items-center space-x-1">
                     <Star className="w-3 h-3 fill-black" />
                     <span>RECOMMENDED</span>
                   </div>
@@ -502,10 +502,10 @@ export default function ProgramsPage() {
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1 pr-16">
-                        <h3 className="text-lg font-semibold mb-1 group-hover:text-yellow-400 transition-colors">
+                        <h3 className="text-lg font-black uppercase tracking-wider mb-1 group-hover:text-amber-400 transition-colors">
                           {program.name}
                         </h3>
-                        <p className="text-sm text-gray-400 line-clamp-2">
+                        <p className="text-sm text-neutral-400 line-clamp-2">
                           {program.description}
                         </p>
                       </div>
@@ -514,48 +514,48 @@ export default function ProgramsPage() {
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
                       <div className="flex items-center space-x-2 text-sm">
-                        <Calendar className="w-4 h-4 text-blue-400" />
-                        <span className="text-gray-300">{program.duration}</span>
+                        <Calendar className="w-4 h-4 text-amber-400" />
+                        <span className="text-neutral-300 font-bold uppercase tracking-wider">{program.duration}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-sm">
-                        <Dumbbell className="w-4 h-4 text-purple-400" />
-                        <span className="text-gray-300">{program.daysPerWeek}x/week</span>
+                        <Dumbbell className="w-4 h-4 text-amber-400" />
+                        <span className="text-neutral-300 font-bold uppercase tracking-wider">{program.daysPerWeek}x/week</span>
                       </div>
                     </div>
 
                     {/* Difficulty Badge */}
                     <div className="flex items-center justify-between">
-                      <span className={`px-3 py-1 rounded-md text-xs font-semibold border ${difficultyColors[program.difficulty as keyof typeof difficultyColors]}`}>
+                      <span className={`px-3 py-1 text-xs font-black uppercase tracking-wider border-2 ${difficultyColors[program.difficulty as keyof typeof difficultyColors]}`}>
                         {program.difficulty}
                       </span>
                       
-                      <div className="flex items-center space-x-1 text-yellow-400">
-                        <Star className="w-4 h-4 fill-yellow-400" />
-                        <span className="text-sm font-semibold">{program.popularity}</span>
+                      <div className="flex items-center space-x-1 text-amber-400">
+                        <Star className="w-4 h-4 fill-amber-400" />
+                        <span className="text-sm font-black">{program.popularity}</span>
                       </div>
                     </div>
 
                     {/* Why Recommended */}
-                    <div className="mt-4 pt-4 border-t border-slate-700">
-                      <div className="text-xs text-gray-400 mb-2">Why we recommend this:</div>
+                    <div className="mt-4 pt-4 border-t-2 border-neutral-700">
+                      <div className="text-xs text-neutral-400 mb-2 uppercase tracking-wider font-bold">Why we recommend this:</div>
                       <div className="flex flex-wrap gap-1.5">
                         {program.difficulty === 'Intermediate' && (
-                          <span className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded text-xs border border-green-500/20">
+                          <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs border-2 border-amber-500/20 font-bold uppercase tracking-wider">
                             Matches your level
                           </span>
                         )}
                         {program.category === 'Hypertrophy' && (
-                          <span className="px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded text-xs border border-purple-500/20">
+                          <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs border-2 border-amber-500/20 font-bold uppercase tracking-wider">
                             Aligns with goals
                           </span>
                         )}
                         {program.popularity >= 4.7 && (
-                          <span className="px-2 py-0.5 bg-yellow-500/10 text-yellow-400 rounded text-xs border border-yellow-500/20">
+                          <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs border-2 border-amber-500/20 font-bold uppercase tracking-wider">
                             Highly rated
                           </span>
                         )}
                         {program.daysPerWeek >= 3 && program.daysPerWeek <= 5 && (
-                          <span className="px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded text-xs border border-blue-500/20">
+                          <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs border-2 border-amber-500/20 font-bold uppercase tracking-wider">
                             Optimal frequency
                           </span>
                         )}
@@ -563,7 +563,7 @@ export default function ProgramsPage() {
                     </div>
 
                     {/* Quick Action */}
-                    <button className="mt-4 w-full py-2 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 rounded-lg text-black font-semibold text-sm transition-all flex items-center justify-center space-x-2">
+                    <button className="mt-4 w-full py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-black font-black uppercase tracking-wider text-sm transition-all flex items-center justify-center space-x-2">
                       <span>Start This Program</span>
                       <ChevronRight className="w-4 h-4" />
                     </button>
@@ -798,7 +798,7 @@ export default function ProgramsPage() {
                     <span className="text-sm text-amber-400 group-hover:text-amber-300 transition-colors font-bold uppercase tracking-wider">
                       View Details
                     </span>
-                    <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-5 h-5 text-neutral-400 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
                   </div>
 
                   {/* Quick Action Menu - Modern hover menu */}
@@ -818,17 +818,17 @@ export default function ProgramsPage() {
           {/* Empty State */}
           {filteredPrograms.length === 0 && (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-slate-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-neutral-900/50 flex items-center justify-center mx-auto mb-4 border-2 border-neutral-700">
                 {activeTab === 'active' ? (
-                  <Target className="w-8 h-8 text-gray-400" />
+                  <Target className="w-8 h-8 text-neutral-400" />
                 ) : (
-                  <Search className="w-8 h-8 text-gray-400" />
+                  <Search className="w-8 h-8 text-neutral-400" />
                 )}
               </div>
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-lg font-black uppercase tracking-wider mb-2">
                 {activeTab === 'active' ? 'No active programs yet' : 'No programs found'}
               </h3>
-              <p className="text-sm text-gray-400 mb-4">
+              <p className="text-sm text-neutral-400 mb-4 uppercase tracking-wider font-bold">
                 {activeTab === 'active' 
                   ? 'Start a program from the Browse tab to begin your training journey' 
                   : 'Try adjusting your search or filters'}
@@ -836,7 +836,7 @@ export default function ProgramsPage() {
               {activeTab === 'active' && (
                 <button
                   onClick={() => setActiveTab('browse')}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold transition-all"
+                  className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 font-black uppercase tracking-wider transition-all"
                 >
                   Browse Programs
                 </button>
@@ -848,31 +848,31 @@ export default function ProgramsPage() {
         {/* Stats Section */}
         <section className="mt-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 border-2 border-amber-500/30 p-6">
               <div className="flex items-center space-x-3 mb-2">
-                <Target className="w-6 h-6 text-blue-400" />
-                <h3 className="font-semibold">Active Programs</h3>
+                <Target className="w-6 h-6 text-amber-400" />
+                <h3 className="font-black uppercase tracking-wider">Active Programs</h3>
               </div>
-              <p className="text-3xl font-bold text-blue-400">{activePrograms.length}</p>
-              <p className="text-sm text-gray-400 mt-1">Programs in progress</p>
+              <p className="text-3xl font-black text-amber-400">{activePrograms.length}</p>
+              <p className="text-sm text-neutral-400 mt-1 uppercase tracking-wider font-bold">Programs in progress</p>
             </div>
 
-            <div className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-500/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 border-2 border-amber-500/30 p-6">
               <div className="flex items-center space-x-3 mb-2">
-                <Flame className="w-6 h-6 text-green-400" />
-                <h3 className="font-semibold">Completion Rate</h3>
+                <Flame className="w-6 h-6 text-amber-400" />
+                <h3 className="font-black uppercase tracking-wider">Completion Rate</h3>
               </div>
-              <p className="text-3xl font-bold text-green-400">87%</p>
-              <p className="text-sm text-gray-400 mt-1">Average completion</p>
+              <p className="text-3xl font-black text-amber-400">87%</p>
+              <p className="text-sm text-neutral-400 mt-1 uppercase tracking-wider font-bold">Average completion</p>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-900/20 to-red-900/20 border border-orange-500/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 border-2 border-amber-500/30 p-6">
               <div className="flex items-center space-x-3 mb-2">
-                <TrendingUp className="w-6 h-6 text-orange-400" />
-                <h3 className="font-semibold">Total Workouts</h3>
+                <TrendingUp className="w-6 h-6 text-amber-400" />
+                <h3 className="font-black uppercase tracking-wider">Total Workouts</h3>
               </div>
-              <p className="text-3xl font-bold text-orange-400">142</p>
-              <p className="text-sm text-gray-400 mt-1">Across all programs</p>
+              <p className="text-3xl font-black text-amber-400">142</p>
+              <p className="text-sm text-neutral-400 mt-1 uppercase tracking-wider font-bold">Across all programs</p>
             </div>
           </div>
         </section>

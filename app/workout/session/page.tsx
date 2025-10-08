@@ -600,46 +600,46 @@ export default function WorkoutSessionPage() {
 
           {/* Advanced Features Toolbar */}
           {isWorkoutActive && exercises.length > 0 && (
-            <div className="flex flex-wrap gap-3 p-4 bg-slate-900/50 border border-slate-800 rounded-xl">
+            <div className="flex flex-wrap gap-3 p-4 bg-neutral-900/50 border-2 border-neutral-800">
               <button
                 onClick={() => setShowSupersetTemplates(true)}
-                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 hover:border-purple-500/70 rounded-lg font-semibold text-purple-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 font-black uppercase tracking-wider text-amber-300 transition-all flex items-center justify-center gap-2"
               >
                 📚 Load Template
               </button>
               <button
                 onClick={() => setShowAdvancedModes(true)}
-                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 hover:border-blue-500/70 rounded-lg font-semibold text-blue-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 font-black uppercase tracking-wider text-amber-300 transition-all flex items-center justify-center gap-2"
               >
                 ⚡ Training Mode
               </button>
               <button
                 onClick={() => setUseEnhancedCalculator(!useEnhancedCalculator)}
-                className={`flex-1 min-w-[200px] px-4 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+                className={`flex-1 min-w-[200px] px-4 py-3 font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                   useEnhancedCalculator
-                    ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 hover:border-green-500/70 text-green-300'
-                    : 'bg-slate-800 border border-slate-700 hover:border-slate-600 text-slate-400'
+                    ? 'bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 text-amber-300'
+                    : 'bg-neutral-800 border-2 border-neutral-700 hover:border-neutral-600 text-neutral-400'
                 }`}
               >
                 🧮 {useEnhancedCalculator ? 'Enhanced' : 'Basic'} Calc
               </button>
               <button
                 onClick={() => setShowCustomTemplateCreator(true)}
-                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 hover:border-purple-500/70 rounded-lg font-semibold text-purple-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 font-black uppercase tracking-wider text-amber-300 transition-all flex items-center justify-center gap-2"
                 title="Create Custom Templates"
               >
                 ⚙️ Custom Templates
               </button>
               <button
                 onClick={() => setShowWeightPresets(true)}
-                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 hover:border-green-500/70 rounded-lg font-semibold text-green-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 font-black uppercase tracking-wider text-amber-300 transition-all flex items-center justify-center gap-2"
                 title="Weight Presets"
               >
                 💪 Weight Presets
               </button>
               <button
                 onClick={() => setShowTemplateAnalytics(true)}
-                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 hover:border-blue-500/70 rounded-lg font-semibold text-blue-300 transition-all flex items-center justify-center gap-2"
+                className="flex-1 min-w-[200px] px-4 py-3 bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 hover:border-amber-500/70 font-black uppercase tracking-wider text-amber-300 transition-all flex items-center justify-center gap-2"
                 title="Template Analytics"
               >
                 📊 Analytics
@@ -651,13 +651,13 @@ export default function WorkoutSessionPage() {
           {selectedExercisesForSuperset.length >= 2 && (
             <button
               onClick={createSuperset}
-              className="w-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50 hover:border-purple-500 rounded-xl p-6 text-center transition-all shadow-lg shadow-purple-500/20"
+              className="w-full bg-gradient-to-r from-amber-600/20 to-amber-500/20 border-2 border-amber-500/50 hover:border-amber-500 p-6 text-center transition-all shadow-lg shadow-amber-500/20"
             >
-              <LinkIcon className="w-8 h-8 mx-auto mb-2 text-purple-400" />
-              <p className="font-semibold text-purple-300">
+              <LinkIcon className="w-8 h-8 mx-auto mb-2 text-amber-400" />
+              <p className="font-black uppercase tracking-wider text-amber-300">
                 Create Superset ({selectedExercisesForSuperset.length} exercises selected)
               </p>
-              <p className="text-sm text-purple-400/70 mt-1">
+              <p className="text-sm text-amber-400/70 mt-1 font-bold uppercase tracking-wider">
                 Group these exercises together for alternating sets
               </p>
             </button>
@@ -667,19 +667,19 @@ export default function WorkoutSessionPage() {
           {isWorkoutActive && (
             <button
               onClick={() => setShowExerciseSearch(true)}
-              className="w-full bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 rounded-xl p-12 text-center transition-colors"
+              className="w-full bg-neutral-900/50 border-2 border-neutral-800 hover:border-amber-500/50 p-12 text-center transition-colors"
             >
-              <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-              <p className="font-semibold">Add Exercise</p>
+              <Plus className="w-8 h-8 mx-auto mb-2 text-neutral-400" />
+              <p className="font-black uppercase tracking-wider">Add Exercise</p>
             </button>
           )}
 
           {exercises.length === 0 && !isWorkoutActive && (
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-12 text-center">
-              <p className="text-gray-400 mb-4">Start a workout to begin tracking your exercises</p>
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-12 text-center">
+              <p className="text-neutral-400 mb-4 uppercase tracking-wider font-bold">Start a workout to begin tracking your exercises</p>
               <button
                 onClick={startWorkout}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold flex items-center gap-2 mx-auto transition-all"
+                className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 font-black uppercase tracking-wider flex items-center gap-2 mx-auto transition-all"
               >
                 <Play className="w-5 h-5" />
                 Start Workout

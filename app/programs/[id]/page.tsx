@@ -29,12 +29,12 @@ export default function ProgramDetailPage() {
         <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8">
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Training Program</h2>
-              <p className="text-gray-400">
+              <h2 className="text-2xl font-black uppercase tracking-wider mb-2">Training Program</h2>
+              <p className="text-neutral-400 uppercase tracking-wider font-bold">
                 View program details and start training
               </p>
             </div>
-            <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg font-semibold flex items-center gap-2 transition-all">
+            <button className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 font-black uppercase tracking-wider flex items-center gap-2 transition-all">
               <Play className="w-5 h-5" />
               Start Program
             </button>
@@ -42,20 +42,20 @@ export default function ProgramDetailPage() {
 
           {/* Program Stats */}
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="bg-slate-800/50 rounded-lg p-4 text-center">
-              <Calendar className="w-6 h-6 mx-auto mb-2 text-blue-400" />
-              <div className="text-xl font-bold">12 weeks</div>
-              <div className="text-sm text-gray-400">Duration</div>
+            <div className="bg-neutral-800/50 border-2 border-neutral-700 p-4 text-center">
+              <Calendar className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+              <div className="text-xl font-black uppercase tracking-wider">12 weeks</div>
+              <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Duration</div>
             </div>
-            <div className="bg-slate-800/50 rounded-lg p-4 text-center">
-              <Dumbbell className="w-6 h-6 mx-auto mb-2 text-purple-400" />
-              <div className="text-xl font-bold">4-5 days</div>
-              <div className="text-sm text-gray-400">Per Week</div>
+            <div className="bg-neutral-800/50 border-2 border-neutral-700 p-4 text-center">
+              <Dumbbell className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+              <div className="text-xl font-black uppercase tracking-wider">4-5 days</div>
+              <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Per Week</div>
             </div>
-            <div className="bg-slate-800/50 rounded-lg p-4 text-center">
-              <Target className="w-6 h-6 mx-auto mb-2 text-green-400" />
-              <div className="text-xl font-bold">Strength</div>
-              <div className="text-sm text-gray-400">Focus</div>
+            <div className="bg-neutral-800/50 border-2 border-neutral-700 p-4 text-center">
+              <Target className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+              <div className="text-xl font-black uppercase tracking-wider">Strength</div>
+              <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Focus</div>
             </div>
           </div>
         </div>

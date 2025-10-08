@@ -180,9 +180,9 @@ export default function EquipmentSettingsPage() {
         </div>
 
         {/* Tips */}
-        <div className="mt-6 bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-400 mb-2">💡 Pro Tips</h3>
-          <ul className="text-sm text-gray-300 space-y-1">
+        <div className="mt-6 bg-amber-500/10 border-2 border-amber-500/30 p-4">
+          <h3 className="font-black uppercase tracking-wider text-amber-400 mb-2">💡 Pro Tips</h3>
+          <ul className="text-sm text-neutral-300 space-y-1 uppercase tracking-wider font-bold">
             <li>• Use presets for quick setup (Home Gym, Commercial Gym, etc.)</li>
             <li>• Create multiple locations if you train at different gyms</li>
             <li>• Exercises will automatically filter based on your equipment</li>

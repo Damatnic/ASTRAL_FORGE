@@ -159,47 +159,47 @@ export default function SharingPage() {
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Page Header */}
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-            <Share2 className="w-10 h-10 text-purple-500" />
+          <h1 className="text-4xl md:text-5xl font-black uppercase tracking-wider text-white mb-4 flex items-center justify-center gap-3">
+            <Share2 className="w-10 h-10 text-amber-500" />
             Workout Sharing
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-neutral-300 text-lg uppercase tracking-wider font-bold">
             Share your achievements and discover workouts from the community
           </p>
         </div>
 
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/20 rounded-lg border border-purple-500/30 p-4">
-            <div className="flex items-center gap-2 text-purple-400 mb-1">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4">
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <Share2 className="w-5 h-5" />
-              <span className="text-sm font-medium">My Shared Workouts</span>
+              <span className="text-sm font-black uppercase tracking-wider">My Shared Workouts</span>
             </div>
-            <div className="text-3xl font-bold text-white">{mockMyWorkouts.length}</div>
+            <div className="text-3xl font-black text-white">{mockMyWorkouts.length}</div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 rounded-lg border border-green-500/30 p-4">
-            <div className="flex items-center gap-2 text-green-400 mb-1">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4">
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <TrendingUp className="w-5 h-5" />
-              <span className="text-sm font-medium">Total Likes Received</span>
+              <span className="text-sm font-black uppercase tracking-wider">Total Likes Received</span>
             </div>
-            <div className="text-3xl font-bold text-white">1,247</div>
+            <div className="text-3xl font-black text-white">1,247</div>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-900/30 to-yellow-900/20 rounded-lg border border-orange-500/30 p-4">
-            <div className="flex items-center gap-2 text-orange-400 mb-1">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4">
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <Library className="w-5 h-5" />
-              <span className="text-sm font-medium">Saved from Library</span>
+              <span className="text-sm font-black uppercase tracking-wider">Saved from Library</span>
             </div>
-            <div className="text-3xl font-bold text-white">8</div>
+            <div className="text-3xl font-black text-white">8</div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-900/30 to-cyan-900/20 rounded-lg border border-blue-500/30 p-4">
-            <div className="flex items-center gap-2 text-blue-400 mb-1">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4">
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <Users className="w-5 h-5" />
-              <span className="text-sm font-medium">Following</span>
+              <span className="text-sm font-black uppercase tracking-wider">Following</span>
             </div>
-            <div className="text-3xl font-bold text-white">23</div>
+            <div className="text-3xl font-black text-white">23</div>
           </div>
         </div>
 
@@ -255,7 +255,7 @@ export default function SharingPage() {
                           </span>
                         )}
                         {workout.prCount > 0 && (
-                          <span className="px-2 py-1 bg-yellow-900/30 border border-yellow-500/30 rounded text-xs text-yellow-400 font-semibold">
+                          <span className="px-2 py-1 bg-amber-900/30 border-2 border-amber-500/30 text-xs text-amber-400 font-black uppercase tracking-wider">
                             {workout.prCount} PR{workout.prCount > 1 ? 's' : ''}
                           </span>
                         )}
@@ -264,32 +264,32 @@ export default function SharingPage() {
 
                     {/* Stats */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="bg-gray-800/50 rounded p-2 text-center">
-                        <div className="text-lg font-bold text-purple-400">{workout.duration}</div>
-                        <div className="text-xs text-gray-400">Minutes</div>
+                      <div className="bg-neutral-800/50 border-2 border-neutral-700 p-2 text-center">
+                        <div className="text-lg font-black text-amber-400 uppercase tracking-wider">{workout.duration}</div>
+                        <div className="text-xs text-neutral-400 uppercase tracking-wider font-bold">Minutes</div>
                       </div>
-                      <div className="bg-gray-800/50 rounded p-2 text-center">
-                        <div className="text-lg font-bold text-purple-400">
+                      <div className="bg-neutral-800/50 border-2 border-neutral-700 p-2 text-center">
+                        <div className="text-lg font-black text-amber-400 uppercase tracking-wider">
                           {workout.xpEarned}
                         </div>
-                        <div className="text-xs text-gray-400">XP</div>
+                        <div className="text-xs text-neutral-400 uppercase tracking-wider font-bold">XP</div>
                       </div>
-                      <div className="bg-gray-800/50 rounded p-2 text-center">
-                        <div className="text-lg font-bold text-purple-400">
+                      <div className="bg-neutral-800/50 border-2 border-neutral-700 p-2 text-center">
+                        <div className="text-lg font-black text-amber-400 uppercase tracking-wider">
                           {(workout.totalVolume / 1000).toFixed(1)}K
                         </div>
-                        <div className="text-xs text-gray-400">lbs</div>
+                        <div className="text-xs text-neutral-400 uppercase tracking-wider font-bold">lbs</div>
                       </div>
-                      <div className="bg-gray-800/50 rounded p-2 text-center">
-                        <div className="text-lg font-bold text-purple-400">
+                      <div className="bg-neutral-800/50 border-2 border-neutral-700 p-2 text-center">
+                        <div className="text-lg font-black text-amber-400 uppercase tracking-wider">
                           {workout.exercises.length}
                         </div>
-                        <div className="text-xs text-gray-400">Exercises</div>
+                        <div className="text-xs text-neutral-400 uppercase tracking-wider font-bold">Exercises</div>
                       </div>
                     </div>
 
                     {/* Date */}
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                       {workout.date.toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',

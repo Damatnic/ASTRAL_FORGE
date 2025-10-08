@@ -23,37 +23,37 @@ export default function PlateInventoryPage() {
         <PlateInventoryManager location="home" />
 
         {/* Tips Section */}
-        <div className="mt-8 bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Tips for Managing Your Plate Inventory</h2>
+        <div className="mt-8 bg-neutral-800 p-6">
+          <h2 className="text-xl font-black uppercase tracking-wider text-white mb-4">Tips for Managing Your Plate Inventory</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold text-purple-400 mb-2">Progressive Overload</h3>
-              <p className="text-sm text-gray-400">
+              <h3 className="font-black uppercase tracking-wider text-amber-400 mb-2">Progressive Overload</h3>
+              <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                 Ensure you have small increment plates (1.25kg, 2.5kg) to progressively increase weight
                 week-to-week for optimal strength gains.
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-purple-400 mb-2">Efficient Loading</h3>
-              <p className="text-sm text-gray-400">
+              <h3 className="font-black uppercase tracking-wider text-amber-400 mb-2">Efficient Loading</h3>
+              <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                 Having pairs of standard plates (5kg, 10kg, 20kg) allows for quick loading and
                 symmetric bar loading during workouts.
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-purple-400 mb-2">Budget Planning</h3>
-              <p className="text-sm text-gray-400">
+              <h3 className="font-black uppercase tracking-wider text-amber-400 mb-2">Budget Planning</h3>
+              <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                 Start with a basic set and add heavier plates as you progress. 25kg plates become
                 essential once you&apos;re lifting 140kg+.
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-purple-400 mb-2">Space Efficiency</h3>
-              <p className="text-sm text-gray-400">
+              <h3 className="font-black uppercase tracking-wider text-amber-400 mb-2">Space Efficiency</h3>
+              <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                 Fewer larger plates take up less space than many smaller plates of the same total
                 weight. Consider 25kg plates for heavy lifters.
               </p>

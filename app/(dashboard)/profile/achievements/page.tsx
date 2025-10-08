@@ -13,8 +13,8 @@ export default function AchievementsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
-            <p className="text-gray-400">Loading achievements...</p>
+            <div className="animate-spin h-12 w-12 border-b-2 border-amber-500 mx-auto mb-4"></div>
+            <p className="text-neutral-400 uppercase tracking-wider font-bold">Loading achievements...</p>
           </div>
         </div>
       </div>
@@ -60,29 +60,29 @@ export default function AchievementsPage() {
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text mb-2">
+        <h1 className="text-4xl font-black bg-gradient-to-r from-amber-400 to-amber-500 text-transparent bg-clip-text mb-2 uppercase tracking-wider">
           Achievements
         </h1>
-        <p className="text-gray-400">Track your training milestones and accomplishments</p>
+        <p className="text-neutral-400 uppercase tracking-wider font-bold">Track your training milestones and accomplishments</p>
       </div>
 
       {/* Overall Progress */}
       <Card className="p-6 mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-1">Your Progress</h2>
-            <p className="text-gray-400">
+            <h2 className="text-2xl font-black text-white mb-1 uppercase tracking-wider">Your Progress</h2>
+            <p className="text-neutral-400 uppercase tracking-wider font-bold">
               {unlockedCount} of {totalCount} achievements unlocked
             </p>
           </div>
           <div className="text-right">
-            <div className="text-4xl font-bold text-purple-400">{Math.round(completionPercent)}%</div>
-            <p className="text-sm text-gray-500">Complete</p>
+            <div className="text-4xl font-black text-amber-400 uppercase tracking-wider">{Math.round(completionPercent)}%</div>
+            <p className="text-sm text-neutral-500 uppercase tracking-wider font-bold">Complete</p>
           </div>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-3">
+        <div className="w-full bg-neutral-700 h-3">
           <div
-            className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all"
+            className="bg-gradient-to-r from-amber-600 to-amber-500 h-3 transition-all"
             style={{ width: `${completionPercent}%` }}
           />
         </div>
@@ -93,8 +93,8 @@ export default function AchievementsPage() {
         {/* Workout Milestones */}
         {workoutAchievements.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-              <Trophy className="w-6 h-6 text-yellow-400" />
+            <h2 className="text-2xl font-black text-white mb-4 flex items-center gap-2 uppercase tracking-wider">
+              <Trophy className="w-6 h-6 text-amber-400" />
               Workout Milestones
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -174,8 +174,8 @@ function AchievementCard({ achievement }: { achievement: any }) {
     <Card
       className={`p-4 ${
         isUnlocked
-          ? 'bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-yellow-500/50'
-          : 'bg-gray-800/50 border-gray-700'
+          ? 'bg-gradient-to-br from-amber-900/30 to-amber-800/30 border-2 border-amber-500/50'
+          : 'bg-neutral-800/50 border-2 border-neutral-700'
       }`}
     >
       <div className="flex items-start gap-3 mb-3">
@@ -188,40 +188,40 @@ function AchievementCard({ achievement }: { achievement: any }) {
         </div>
         <div className="flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className={`font-bold ${isUnlocked ? 'text-yellow-300' : 'text-gray-400'}`}>
+            <h3 className={`font-black uppercase tracking-wider ${isUnlocked ? 'text-amber-300' : 'text-neutral-400'}`}>
               {achievement.title}
             </h3>
             {isUnlocked ? (
-              <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0" />
             ) : (
-              <Lock className="w-5 h-5 text-gray-600 flex-shrink-0" />
+              <Lock className="w-5 h-5 text-neutral-600 flex-shrink-0" />
             )}
           </div>
-          <p className="text-sm text-gray-400 mt-1">{achievement.description}</p>
+          <p className="text-sm text-neutral-400 mt-1 uppercase tracking-wider font-bold">{achievement.description}</p>
         </div>
       </div>
 
       {isUnlocked ? (
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-neutral-500 uppercase tracking-wider font-bold">
           Unlocked {new Date(achievement.unlockedAt).toLocaleDateString()}
         </p>
       ) : hasProgress ? (
         <div>
           <div className="flex items-center justify-between text-xs mb-1">
-            <span className="text-gray-500">Progress</span>
-            <span className="text-gray-400">
+            <span className="text-neutral-500 uppercase tracking-wider font-bold">Progress</span>
+            <span className="text-neutral-400 uppercase tracking-wider font-bold">
               {achievement.progress} / {achievement.total}
             </span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2">
+          <div className="w-full bg-neutral-700 h-2">
             <div
-              className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all"
+              className="bg-gradient-to-r from-amber-600 to-amber-500 h-2 transition-all"
               style={{ width: `${Math.min(progressPercent, 100)}%` }}
             />
           </div>
         </div>
       ) : (
-        <p className="text-xs text-gray-600">Not yet unlocked</p>
+        <p className="text-xs text-neutral-600 uppercase tracking-wider font-bold">Not yet unlocked</p>
       )}
     </Card>
   )

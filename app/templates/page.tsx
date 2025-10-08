@@ -54,8 +54,8 @@ export default function TemplatesPage() {
   }
 
   const getDifficultyColor = (diff: string) => {
-    if (diff === 'beginner') return 'text-green-400 bg-green-900/30'
-    if (diff === 'intermediate') return 'text-yellow-400 bg-yellow-900/30'
+    if (diff === 'beginner') return 'text-amber-400 bg-amber-900/30'
+    if (diff === 'intermediate') return 'text-amber-400 bg-amber-900/30'
     return 'text-red-400 bg-red-900/30'
   }
 

@@ -28,7 +28,7 @@ export default function ProgressPage() {
       <AppLayout>
         <PageContainer>
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+            <Loader2 className="h-8 w-8 animate-spin text-amber-400" />
           </div>
         </PageContainer>
       </AppLayout>
@@ -39,9 +39,9 @@ export default function ProgressPage() {
     return (
       <AppLayout>
         <PageContainer>
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-6 text-center">
-            <div className="text-red-400 font-semibold mb-2">Failed to load progress data</div>
-            <p className="text-sm text-gray-400">Please try refreshing the page</p>
+          <div className="bg-red-500/10 border-2 border-red-500/30 p-6 text-center">
+            <div className="text-red-400 font-black uppercase tracking-wider mb-2">Failed to load progress data</div>
+            <p className="text-sm text-neutral-400 uppercase tracking-wider font-bold">Please try refreshing the page</p>
           </div>
         </PageContainer>
       </AppLayout>
@@ -66,7 +66,7 @@ export default function ProgressPage() {
           action={
             <Link
               href="/progress/photos"
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center gap-2"
+              className="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 font-black uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center gap-2"
             >
               <Camera className="w-5 h-5" />
               Add Photo
@@ -144,15 +144,15 @@ export default function ProgressPage() {
           {/* Left Column - Achievements & Workouts */}
           <div className="lg:col-span-2 space-y-8">
             {/* Recent Achievements */}
-            <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <Award className="w-6 h-6 text-yellow-400" />
-                  <h2 className="text-xl font-bold">Recent Achievements</h2>
+                  <Award className="w-6 h-6 text-amber-400" />
+                  <h2 className="text-xl font-black uppercase tracking-wider">Recent Achievements</h2>
                 </div>
                 <Link
                   href="/achievements"
-                  className="text-sm text-blue-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                  className="text-sm text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-bold uppercase tracking-wider"
                 >
                   View All
                   <ChevronRight className="w-4 h-4" />
@@ -164,19 +164,19 @@ export default function ProgressPage() {
                   {recentAchievements.map((achievement: any) => (
                     <div
                       key={achievement.id}
-                      className="flex items-start gap-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-yellow-500/50 transition-colors"
+                      className="flex items-start gap-4 p-4 bg-neutral-800/50 border-2 border-neutral-700 hover:border-amber-500/50 transition-colors"
                     >
-                      <div className="p-2 bg-yellow-500/10 rounded-lg">
-                        <Trophy className="w-5 h-5 text-yellow-400" />
+                      <div className="p-2 bg-amber-500/10 border-2 border-amber-700/20">
+                        <Trophy className="w-5 h-5 text-amber-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-white font-medium mb-1">
+                        <h3 className="text-white font-black uppercase tracking-wider mb-1">
                           {achievement.title}
                         </h3>
-                        <p className="text-sm text-gray-400 line-clamp-2">
+                        <p className="text-sm text-neutral-400 line-clamp-2 uppercase tracking-wider font-bold">
                           {achievement.description}
                         </p>
-                        <div className="mt-2 flex items-center gap-3 text-xs text-gray-500">
+                        <div className="mt-2 flex items-center gap-3 text-xs text-neutral-500 uppercase tracking-wider font-bold">
                           <span className="capitalize">{achievement.type}</span>
                           <span>•</span>
                           <span>
@@ -188,24 +188,24 @@ export default function ProgressPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-neutral-500">
                   <Trophy className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p className="font-medium">No recent achievements</p>
-                  <p className="text-sm mt-2">Keep training to earn more trophies!</p>
+                  <p className="font-black uppercase tracking-wider">No recent achievements</p>
+                  <p className="text-sm mt-2 uppercase tracking-wider font-bold">Keep training to earn more trophies!</p>
                 </div>
               )}
             </div>
 
             {/* Recent Workouts */}
-            <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <Calendar className="w-6 h-6 text-blue-400" />
-                  <h2 className="text-xl font-bold">Recent Workouts</h2>
+                  <Calendar className="w-6 h-6 text-amber-400" />
+                  <h2 className="text-xl font-black uppercase tracking-wider">Recent Workouts</h2>
                 </div>
                 <Link
                   href="/history"
-                  className="text-sm text-blue-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                  className="text-sm text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-bold uppercase tracking-wider"
                 >
                   View History
                   <ChevronRight className="w-4 h-4" />
@@ -218,17 +218,17 @@ export default function ProgressPage() {
                     <Link
                       key={workout.id}
                       href={`/history/${workout.id}`}
-                      className="block p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-blue-500/50 transition-colors"
+                      className="block p-4 bg-neutral-800/50 border-2 border-neutral-700 hover:border-amber-500/50 transition-colors"
                     >
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-white font-medium">
+                        <h3 className="text-white font-black uppercase tracking-wider">
                           {workout.name || 'Untitled Workout'}
                         </h3>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-neutral-500 uppercase tracking-wider font-bold">
                           {new Date(workout.date).toLocaleDateString()}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 text-sm text-gray-400 flex-wrap">
+                      <div className="flex items-center gap-3 text-sm text-neutral-400 flex-wrap uppercase tracking-wider font-bold">
                         <span className="flex items-center gap-1">
                           <Activity className="w-4 h-4" />
                           {workout.exercises} exercises
@@ -242,7 +242,7 @@ export default function ProgressPage() {
                         {workout.avgRPE && (
                           <>
                             <span>•</span>
-                            <span className="text-orange-400 font-medium">
+                            <span className="text-amber-400 font-black">
                               RPE {workout.avgRPE.toFixed(1)}
                             </span>
                           </>
@@ -252,10 +252,10 @@ export default function ProgressPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-neutral-500">
                   <Dumbbell className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p className="font-medium">No workouts yet</p>
-                  <p className="text-sm mt-2">Start your fitness journey today!</p>
+                  <p className="font-black uppercase tracking-wider">No workouts yet</p>
+                  <p className="text-sm mt-2 uppercase tracking-wider font-bold">Start your fitness journey today!</p>
                 </div>
               )}
             </div>
@@ -264,15 +264,15 @@ export default function ProgressPage() {
           {/* Right Column - Goals, Photos, Measurements */}
           <div className="space-y-8">
             {/* Active Goals */}
-            <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <Target className="w-6 h-6 text-green-400" />
-                  <h2 className="text-xl font-bold">Active Goals</h2>
+                  <Target className="w-6 h-6 text-amber-400" />
+                  <h2 className="text-xl font-black uppercase tracking-wider">Active Goals</h2>
                 </div>
                 <Link
                   href="/goals"
-                  className="text-sm text-blue-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                  className="text-sm text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-bold uppercase tracking-wider"
                 >
                   Manage
                   <ChevronRight className="w-4 h-4" />
@@ -284,22 +284,22 @@ export default function ProgressPage() {
                   {goalProgress.slice(0, 3).map((goal: any) => (
                     <div
                       key={goal.id}
-                      className="p-4 bg-slate-800/50 rounded-lg border border-slate-700"
+                      className="p-4 bg-neutral-800/50 border-2 border-neutral-700"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <h3 className="text-white font-medium mb-1">
+                          <h3 className="text-white font-black uppercase tracking-wider mb-1">
                             {goal.title}
                           </h3>
-                          <p className="text-xs text-gray-400 capitalize">
+                          <p className="text-xs text-neutral-400 uppercase tracking-wider font-bold">
                             {goal.goalType.replace('_', ' ')}
                           </p>
                         </div>
                         <span
-                          className={`text-xs px-2 py-1 rounded ${
+                          className={`text-xs px-2 py-1 border-2 font-black uppercase tracking-wider ${
                             goal.status === 'completed'
-                              ? 'bg-green-500/20 text-green-400'
-                              : 'bg-blue-500/20 text-blue-400'
+                              ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+                              : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
                           }`}
                         >
                           {goal.status}
@@ -308,30 +308,30 @@ export default function ProgressPage() {
 
                       {/* Progress Bar */}
                       <div className="mb-2">
-                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                        <div className="flex justify-between text-xs text-neutral-400 mb-1 uppercase tracking-wider font-bold">
                           <span>
                             {goal.currentValue || 0} / {goal.targetValue}{' '}
                             {goal.unit}
                           </span>
-                          <span className="font-medium text-blue-400">
+                          <span className="font-black text-amber-400">
                             {goal.progress.toFixed(0)}%
                           </span>
                         </div>
-                        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-2 bg-neutral-800 overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
+                            className="h-full bg-gradient-to-r from-amber-600 to-amber-500 transition-all duration-500"
                             style={{ width: `${Math.min(goal.progress, 100)}%` }}
                           />
                         </div>
                       </div>
 
                       {goal.daysRemaining !== null && (
-                        <div className={`text-xs ${
+                        <div className={`text-xs uppercase tracking-wider font-bold ${
                           goal.daysRemaining < 0 
                             ? 'text-red-400' 
                             : goal.daysRemaining < 30 
-                            ? 'text-orange-400' 
-                            : 'text-gray-500'
+                            ? 'text-amber-400' 
+                            : 'text-neutral-500'
                         }`}>
                           {goal.daysRemaining > 0
                             ? `${goal.daysRemaining} days remaining`
@@ -344,12 +344,12 @@ export default function ProgressPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-neutral-500">
                   <Target className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p className="font-medium">No active goals</p>
+                  <p className="font-black uppercase tracking-wider">No active goals</p>
                   <Link
                     href="/goals"
-                    className="text-sm text-blue-400 hover:text-purple-400 mt-3 inline-block"
+                    className="text-sm text-amber-400 hover:text-amber-300 mt-3 inline-block font-bold uppercase tracking-wider"
                   >
                     Create your first goal →
                   </Link>
@@ -358,15 +358,15 @@ export default function ProgressPage() {
             </div>
 
             {/* Progress Photos */}
-            <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <ImageIcon className="w-6 h-6 text-purple-400" />
-                  <h2 className="text-xl font-bold">Progress Photos</h2>
+                  <ImageIcon className="w-6 h-6 text-amber-400" />
+                  <h2 className="text-xl font-black uppercase tracking-wider">Progress Photos</h2>
                 </div>
                 <Link
                   href="/progress/photos"
-                  className="text-sm text-blue-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                  className="text-sm text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-bold uppercase tracking-wider"
                 >
                   View All
                   <ChevronRight className="w-4 h-4" />
@@ -378,7 +378,7 @@ export default function ProgressPage() {
                   {progressPhotos.slice(0, 6).map((photo: any) => (
                     <div
                       key={photo.id}
-                      className="aspect-square rounded-lg overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-colors relative group"
+                      className="aspect-square overflow-hidden border-2 border-neutral-700 hover:border-amber-500/50 transition-colors relative group"
                     >
                       <img
                         src={photo.photoUrl}
@@ -387,11 +387,11 @@ export default function ProgressPage() {
                       />
                       <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <div className="text-center text-xs text-white p-2">
-                          <div className="font-medium mb-1">
+                          <div className="font-black uppercase tracking-wider mb-1">
                             {new Date(photo.date).toLocaleDateString()}
                           </div>
                           {photo.weight && (
-                            <div className="text-gray-300">
+                            <div className="text-neutral-300 uppercase tracking-wider font-bold">
                               {photo.weight} lbs
                             </div>
                           )}
@@ -401,12 +401,12 @@ export default function ProgressPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-neutral-500">
                   <Camera className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p className="font-medium">No photos yet</p>
+                  <p className="font-black uppercase tracking-wider">No photos yet</p>
                   <Link
                     href="/progress/photos"
-                    className="text-sm text-blue-400 hover:text-purple-400 mt-3 inline-block"
+                    className="text-sm text-amber-400 hover:text-amber-300 mt-3 inline-block font-bold uppercase tracking-wider"
                   >
                     Add your first photo →
                   </Link>
@@ -415,15 +415,15 @@ export default function ProgressPage() {
             </div>
 
             {/* Latest Measurements */}
-            <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+            <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <BarChart3 className="w-6 h-6 text-cyan-400" />
-                  <h2 className="text-xl font-bold">Measurements</h2>
+                  <BarChart3 className="w-6 h-6 text-amber-400" />
+                  <h2 className="text-xl font-black uppercase tracking-wider">Measurements</h2>
                 </div>
                 <Link
                   href="/measurements"
-                  className="text-sm text-blue-400 hover:text-purple-400 transition-colors flex items-center gap-1"
+                  className="text-sm text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-bold uppercase tracking-wider"
                 >
                   View Trends
                   <ChevronRight className="w-4 h-4" />
@@ -433,35 +433,35 @@ export default function ProgressPage() {
               {quickStats.latestWeight || quickStats.latestBodyFat ? (
                 <div className="space-y-3">
                   {quickStats.latestWeight && (
-                    <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <div className="flex items-center justify-between p-3 bg-neutral-800/50 border-2 border-neutral-700">
                       <div className="flex items-center gap-2">
-                        <Ruler className="w-4 h-4 text-cyan-400" />
-                        <span className="text-gray-400">Weight</span>
+                        <Ruler className="w-4 h-4 text-amber-400" />
+                        <span className="text-neutral-400 uppercase tracking-wider font-bold">Weight</span>
                       </div>
-                      <span className="text-white font-semibold">
+                      <span className="text-white font-black uppercase tracking-wider">
                         {quickStats.latestWeight} lbs
                       </span>
                     </div>
                   )}
                   {quickStats.latestBodyFat && (
-                    <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <div className="flex items-center justify-between p-3 bg-neutral-800/50 border-2 border-neutral-700">
                       <div className="flex items-center gap-2">
-                        <Activity className="w-4 h-4 text-cyan-400" />
-                        <span className="text-gray-400">Body Fat</span>
+                        <Activity className="w-4 h-4 text-amber-400" />
+                        <span className="text-neutral-400 uppercase tracking-wider font-bold">Body Fat</span>
                       </div>
-                      <span className="text-white font-semibold">
+                      <span className="text-white font-black uppercase tracking-wider">
                         {quickStats.latestBodyFat}%
                       </span>
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-neutral-500">
                   <Ruler className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                  <p className="font-medium">No measurements yet</p>
+                  <p className="font-black uppercase tracking-wider">No measurements yet</p>
                   <Link
                     href="/measurements"
-                    className="text-sm text-blue-400 hover:text-purple-400 mt-3 inline-block"
+                    className="text-sm text-amber-400 hover:text-amber-300 mt-3 inline-block font-bold uppercase tracking-wider"
                   >
                     Track your progress →
                   </Link>

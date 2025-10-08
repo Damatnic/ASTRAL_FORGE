@@ -153,7 +153,7 @@ export default function ChallengeDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
+        <Loader2 className="w-8 h-8 text-amber-400 animate-spin" />
       </div>
     );
   }
@@ -162,11 +162,11 @@ export default function ChallengeDetailPage() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">Challenge Not Found</h1>
+          <Trophy className="w-16 h-16 text-amber-400 mx-auto mb-4" />
+          <h1 className="text-2xl font-black text-white mb-2 uppercase tracking-wider">Challenge Not Found</h1>
           <button
             onClick={() => router.push('/challenges')}
-            className="text-purple-400 hover:text-purple-300"
+            className="text-amber-400 hover:text-amber-300 font-black uppercase tracking-wider"
           >
             Back to Challenges
           </button>
@@ -273,12 +273,12 @@ export default function ChallengeDetailPage() {
             </p>
           </div>
 
-          <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-700">
-            <h3 className="text-lg font-semibold text-white mb-2">Status</h3>
-            <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-              status === 'active' ? 'bg-green-500/20 text-green-400' :
-              status === 'upcoming' ? 'bg-blue-500/20 text-blue-400' :
-              'bg-gray-500/20 text-gray-400'
+          <div className="bg-neutral-800/50 p-6 border-2 border-neutral-700">
+            <h3 className="text-lg font-black text-white mb-2 uppercase tracking-wider">Status</h3>
+            <span className={`inline-block px-3 py-1 text-sm font-black uppercase tracking-wider ${
+              status === 'active' ? 'bg-amber-500/20 border-2 border-amber-500/30 text-amber-400' :
+              status === 'upcoming' ? 'bg-amber-500/20 border-2 border-amber-500/30 text-amber-400' :
+              'bg-neutral-500/20 border-2 border-neutral-500/30 text-neutral-400'
             }`}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
             </span>

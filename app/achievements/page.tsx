@@ -501,8 +501,8 @@ export default function AchievementsPage() {
         </div>
 
         {/* Milestone Rewards */}
-        <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <div className="bg-gradient-to-br from-amber-600/10 to-amber-500/10 border-2 border-amber-500/30 p-6 mb-8">
+          <h2 className="text-2xl font-black uppercase tracking-wider text-white mb-6 flex items-center gap-3">
             <Crown className="w-7 h-7 text-amber-400" />
             <span>Milestone Rewards</span>
           </h2>
@@ -510,39 +510,39 @@ export default function AchievementsPage() {
             {milestones.map((milestone, index) => (
               <div
                 key={index}
-                className={`relative rounded-xl p-4 border-2 transition-all ${
+                className={`relative p-4 border-2 transition-all ${
                   milestone.unlocked
-                    ? 'bg-gradient-to-br from-amber-500/20 to-orange-500/20 border-amber-500'
-                    : 'bg-slate-800/50 border-slate-700'
+                    ? 'bg-gradient-to-br from-amber-600/20 to-amber-500/20 border-amber-500'
+                    : 'bg-neutral-800/50 border-neutral-700'
                 }`}
               >
                 {/* Checkmark for unlocked */}
                 {milestone.unlocked && (
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 flex items-center justify-center text-white text-xl font-bold shadow-lg border-2 border-green-600">
                     ✓
                   </div>
                 )}
 
                 <div className="text-center">
                   <div className={`text-3xl font-black mb-2 ${
-                    milestone.unlocked ? 'text-amber-400' : 'text-gray-600'
+                    milestone.unlocked ? 'text-amber-400' : 'text-neutral-600'
                   }`}>
                     {milestone.percentage}%
                   </div>
-                  <div className="text-sm text-gray-400 mb-2">
+                  <div className="text-sm text-neutral-400 mb-2 uppercase tracking-wider font-bold">
                     {milestone.count}/{achievements.length} achievements
                   </div>
-                  <div className={`text-xs font-semibold ${
-                    milestone.unlocked ? 'text-amber-400' : 'text-gray-500'
+                  <div className={`text-xs font-black uppercase tracking-wider ${
+                    milestone.unlocked ? 'text-amber-400' : 'text-neutral-500'
                   }`}>
                     {milestone.reward}
                   </div>
                 </div>
 
                 {/* Progress bar */}
-                <div className="mt-3 h-2 bg-slate-900 rounded-full overflow-hidden">
+                <div className="mt-3 h-2 bg-neutral-900 overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-amber-600 to-amber-500 transition-all duration-500"
                     style={{
                       width: `${Math.min((unlockedCount / milestone.count) * 100, 100)}%`
                     }}
@@ -562,9 +562,9 @@ export default function AchievementsPage() {
         </div>
 
         {/* Rarity Legend */}
-        <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-lg p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <Trophy className="w-6 h-6 text-purple-400" />
+        <div className="bg-gradient-to-br from-amber-900/20 to-amber-800/20 border-2 border-amber-500/30 p-6">
+          <h3 className="text-xl font-black uppercase tracking-wider text-white mb-6 flex items-center gap-2">
+            <Trophy className="w-6 h-6 text-amber-400" />
             <span>Rarity Tiers</span>
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -577,7 +577,7 @@ export default function AchievementsPage() {
             ].map(tier => (
               <div 
                 key={tier.rarity} 
-                className="bg-slate-800/50 rounded-xl p-4 border-2 border-slate-700 hover:border-slate-600 transition-all"
+                className="bg-neutral-800/50 p-4 border-2 border-neutral-700 hover:border-neutral-600 transition-all"
               >
                 <div className="text-4xl mb-2 text-center">{tier.icon}</div>
                 <div className="text-center">

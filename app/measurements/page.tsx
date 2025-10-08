@@ -326,19 +326,19 @@ export default function BodyMeasurementsPage() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 rounded-lg border border-green-500/30 p-4 sm:p-5 md:p-6">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4 sm:p-5 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-green-500/20 rounded-lg">
-                <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+              <div className="p-2 sm:p-3 bg-amber-500/20 border-2 border-amber-600/20">
+                <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-white">Waist</h3>
+              <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white">Waist</h3>
             </div>
             <div className="flex items-end gap-2 mb-2">
-              <div className="text-3xl sm:text-4xl font-bold text-white">{stats.current.waist.toFixed(1)}</div>
-              <div className="text-gray-400 mb-1 text-sm sm:text-base">in</div>
+              <div className="text-3xl sm:text-4xl font-black text-white">{stats.current.waist.toFixed(1)}</div>
+              <div className="text-neutral-400 mb-1 text-sm sm:text-base uppercase tracking-wider font-bold">in</div>
             </div>
-            <div className={`flex items-center gap-1 text-xs sm:text-sm ${
-              stats.changes.waist < 0 ? 'text-green-400' : 'text-red-400'
+            <div className={`flex items-center gap-1 text-xs sm:text-sm uppercase tracking-wider font-bold ${
+              stats.changes.waist < 0 ? 'text-amber-400' : 'text-red-400'
             }`}>
               {stats.changes.waist < 0 ? (
                 <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -347,24 +347,24 @@ export default function BodyMeasurementsPage() {
               )}
               {Math.abs(stats.changes.waist).toFixed(1)} in
             </div>
-            <div className="mt-2 text-xs sm:text-sm text-gray-400">
+            <div className="mt-2 text-xs sm:text-sm text-neutral-400 uppercase tracking-wider font-bold">
               Goal: {stats.goal.waist} in ({(stats.current.waist - stats.goal.waist).toFixed(1)} in to go)
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/20 rounded-lg border border-yellow-500/30 p-4 sm:p-5 md:p-6">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4 sm:p-5 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-yellow-500/20 rounded-lg">
-                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+              <div className="p-2 sm:p-3 bg-amber-500/20 border-2 border-amber-600/20">
+                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-white">Muscle Mass</h3>
+              <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white">Muscle Mass</h3>
             </div>
             <div className="flex items-end gap-2 mb-2">
-              <div className="text-3xl sm:text-4xl font-bold text-white">{stats.current.muscleMass.toFixed(1)}</div>
-              <div className="text-gray-400 mb-1 text-sm sm:text-base">lbs</div>
+              <div className="text-3xl sm:text-4xl font-black text-white">{stats.current.muscleMass.toFixed(1)}</div>
+              <div className="text-neutral-400 mb-1 text-sm sm:text-base uppercase tracking-wider font-bold">lbs</div>
             </div>
-            <div className={`flex items-center gap-1 text-xs sm:text-sm ${
-              stats.changes.muscleMass > 0 ? 'text-green-400' : 'text-red-400'
+            <div className={`flex items-center gap-1 text-xs sm:text-sm uppercase tracking-wider font-bold ${
+              stats.changes.muscleMass > 0 ? 'text-amber-400' : 'text-red-400'
             }`}>
               {stats.changes.muscleMass > 0 ? (
                 <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -373,39 +373,39 @@ export default function BodyMeasurementsPage() {
               )}
               {Math.abs(stats.changes.muscleMass).toFixed(1)} lbs
             </div>
-            <div className="mt-2 text-xs sm:text-sm text-gray-400">
+            <div className="mt-2 text-xs sm:text-sm text-neutral-400 uppercase tracking-wider font-bold">
               Gaining muscle while cutting fat!
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-900/30 to-red-900/20 rounded-lg border border-orange-500/30 p-4 sm:p-5 md:p-6">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4 sm:p-5 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-orange-500/20 rounded-lg">
-                <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" />
+              <div className="p-2 sm:p-3 bg-amber-500/20 border-2 border-amber-600/20">
+                <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-white">Chest</h3>
+              <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white">Chest</h3>
             </div>
             <div className="flex items-end gap-2 mb-2">
-              <div className="text-3xl sm:text-4xl font-bold text-white">{stats.current.chest.toFixed(1)}</div>
-              <div className="text-gray-400 mb-1 text-sm sm:text-base">in</div>
+              <div className="text-3xl sm:text-4xl font-black text-white">{stats.current.chest.toFixed(1)}</div>
+              <div className="text-neutral-400 mb-1 text-sm sm:text-base uppercase tracking-wider font-bold">in</div>
             </div>
-            <div className="flex items-center gap-1 text-xs sm:text-sm text-green-400">
+            <div className="flex items-center gap-1 text-xs sm:text-sm text-amber-400 uppercase tracking-wider font-bold">
               <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
               Building chest size
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-900/30 to-purple-900/20 rounded-lg border border-pink-500/30 p-4 sm:p-5 md:p-6">
+          <div className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border-2 border-amber-500/30 p-4 sm:p-5 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-pink-500/20 rounded-lg">
-                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
+              <div className="p-2 sm:p-3 bg-amber-500/20 border-2 border-amber-600/20">
+                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-white">BMI</h3>
+              <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white">BMI</h3>
             </div>
             <div className="flex items-end gap-2 mb-2">
-              <div className="text-3xl sm:text-4xl font-bold text-white">{stats.current.bmi.toFixed(1)}</div>
+              <div className="text-3xl sm:text-4xl font-black text-white">{stats.current.bmi.toFixed(1)}</div>
             </div>
-            <div className="text-xs sm:text-sm text-green-400">
+            <div className="text-xs sm:text-sm text-amber-400 uppercase tracking-wider font-bold">
               Healthy Range (18.5 - 24.9)
             </div>
           </div>
@@ -485,10 +485,10 @@ export default function BodyMeasurementsPage() {
           {/* Photo Gallery */}
           <div className="space-y-4 sm:space-y-6">
             {photosByDate.map(({ date, photos }) => (
-              <div key={date} className="bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-5 md:p-6">
+              <div key={date} className="bg-neutral-800 border-2 border-neutral-700 p-4 sm:p-5 md:p-6">
                 <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-white">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-black uppercase tracking-wider text-white">
                     {new Date(date).toLocaleDateString('en-US', { 
                       month: 'long', 
                       day: 'numeric', 
@@ -503,7 +503,7 @@ export default function BodyMeasurementsPage() {
                       onClick={() => comparisonMode && togglePhotoSelection(photo.id)}
                       className={`relative group cursor-pointer touch-manipulation ${
                         comparisonMode && selectedPhotos.includes(photo.id)
-                          ? 'ring-4 ring-purple-500 rounded-lg'
+                          ? 'ring-4 ring-amber-500'
                           : ''
                       }`}
                     >

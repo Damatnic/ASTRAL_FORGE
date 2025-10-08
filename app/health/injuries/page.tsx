@@ -110,15 +110,15 @@ export default function InjuriesPage() {
   }
 
   const getSeverityColor = (severity: string) => {
-    if (severity === 'minor') return 'bg-yellow-900/30 text-yellow-400'
-    if (severity === 'moderate') return 'bg-orange-900/30 text-orange-400'
+    if (severity === 'minor') return 'bg-amber-900/30 text-amber-400'
+    if (severity === 'moderate') return 'bg-amber-900/30 text-amber-400'
     return 'bg-red-900/30 text-red-400'
   }
 
   const getStatusColor = (status: string) => {
     if (status === 'active') return 'bg-red-900/30 text-red-400'
-    if (status === 'recovering') return 'bg-yellow-900/30 text-yellow-400'
-    return 'bg-green-900/30 text-green-400'
+    if (status === 'recovering') return 'bg-amber-900/30 text-amber-400'
+    return 'bg-amber-900/30 text-amber-400'
   }
 
   if (loading) {

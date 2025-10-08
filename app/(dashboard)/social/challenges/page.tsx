@@ -48,38 +48,38 @@ export default function ChallengesPage() {
   }
 
   const getChallengeColor = (isActive: boolean, isComplete: boolean) => {
-    if (isComplete) return 'from-green-500/20 to-emerald-500/20 border-green-500/30'
-    if (isActive) return 'from-blue-500/20 to-purple-500/20 border-purple-500/30'
-    return 'from-slate-700/20 to-slate-600/20 border-slate-600/30'
+    if (isComplete) return 'from-amber-600/20 to-amber-500/20 border-amber-500/30'
+    if (isActive) return 'from-amber-600/20 to-amber-500/20 border-amber-500/30'
+    return 'from-neutral-700/20 to-neutral-600/20 border-neutral-600/30'
   }
 
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-black uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">
           Challenges
         </h1>
       </div>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-green-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Active Challenges</div>
-          <div className="text-3xl font-bold text-green-400">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border-2 border-amber-500/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Active Challenges</div>
+          <div className="text-3xl font-black uppercase tracking-wider text-amber-400">
             {loading ? '...' : data?.challenges?.filter((c: any) => c.isActive).length || 0}
           </div>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">In Progress</div>
-          <div className="text-3xl font-bold text-purple-400">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border-2 border-amber-500/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">In Progress</div>
+          <div className="text-3xl font-black uppercase tracking-wider text-amber-400">
             {loading ? '...' : Object.values(challengeProgress).filter((p: any) => p?.current > 0 && p?.current < p?.goal).length || 0}
           </div>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-yellow-500/20 rounded-xl p-6">
-          <div className="text-sm text-slate-400 mb-1">Completed</div>
-          <div className="text-3xl font-bold text-yellow-400">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border-2 border-amber-500/20 p-6">
+          <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Completed</div>
+          <div className="text-3xl font-black uppercase tracking-wider text-amber-400">
             {loading ? '...' : Object.values(challengeProgress).filter((p: any) => p?.current >= p?.goal).length || 0}
           </div>
         </div>
@@ -114,19 +114,19 @@ export default function ChallengesPage() {
                       <div className="text-5xl">{getChallengeIcon(challenge.type)}</div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-2xl font-bold text-white">{challenge.title}</h3>
+                          <h3 className="text-2xl font-black uppercase tracking-wider text-white">{challenge.title}</h3>
                           {challenge.isActive && (
-                            <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-xs font-semibold">
+                            <span className="px-2 py-1 bg-amber-500/20 border-2 border-amber-500/30 text-amber-400 text-xs font-black uppercase tracking-wider">
                               Active
                             </span>
                           )}
                           {isComplete && (
-                            <span className="px-2 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-400 text-xs font-semibold">
+                            <span className="px-2 py-1 bg-amber-500/20 border-2 border-amber-500/30 text-amber-400 text-xs font-black uppercase tracking-wider">
                               ✓ Complete
                             </span>
                           )}
                         </div>
-                        <p className="text-slate-300 mb-2">{challenge.description}</p>
+                        <p className="text-neutral-300 mb-2 uppercase tracking-wider font-bold">{challenge.description}</p>
                         
                         {/* Challenge Details */}
                         <div className="flex flex-wrap gap-4 text-sm text-slate-400">
@@ -163,17 +163,17 @@ export default function ChallengesPage() {
                             {progress.current} / {progress.goal} {challenge.unit}
                           </span>
                         </div>
-                        <div className="relative w-full h-3 bg-slate-900/50 rounded-full overflow-hidden">
+                        <div className="relative w-full h-3 bg-neutral-900/50 overflow-hidden">
                           <div
-                            className={`absolute top-0 left-0 h-full rounded-full transition-all duration-500 ${
+                            className={`absolute top-0 left-0 h-full transition-all duration-500 ${
                               isComplete 
-                                ? 'bg-gradient-to-r from-green-400 to-emerald-500'
-                                : 'bg-gradient-to-r from-purple-400 to-pink-500'
+                                ? 'bg-gradient-to-r from-amber-600 to-amber-500'
+                                : 'bg-gradient-to-r from-amber-600 to-amber-500'
                             }`}
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
-                        <div className="text-right mt-1 text-xs text-slate-500">
+                        <div className="text-right mt-1 text-xs text-neutral-500 uppercase tracking-wider font-bold">
                           {percentage}% complete
                         </div>
                       </div>
@@ -181,23 +181,23 @@ export default function ChallengesPage() {
                   </div>
 
                   {/* Reward Card */}
-                  <div className="bg-slate-900/50 border border-slate-700/50 rounded-lg p-4 text-center min-w-[140px]">
-                    <div className="text-sm text-slate-400 mb-1">Reward</div>
-                    <div className="text-3xl font-bold text-yellow-400 mb-1">
+                  <div className="bg-neutral-900/50 border-2 border-neutral-700/50 p-4 text-center min-w-[140px]">
+                    <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Reward</div>
+                    <div className="text-3xl font-black uppercase tracking-wider text-amber-400 mb-1">
                       +{challenge.reward}
                     </div>
-                    <div className="text-sm text-slate-500">XP</div>
+                    <div className="text-sm text-neutral-500 uppercase tracking-wider font-bold">XP</div>
                     
                     {isComplete ? (
-                      <button className="mt-3 w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-lg font-semibold text-black transition-colors text-sm">
+                      <button className="mt-3 w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 font-black uppercase tracking-wider text-black transition-colors text-sm">
                         Claim Reward
                       </button>
                     ) : challenge.isActive ? (
-                      <button className="mt-3 w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg font-semibold transition-colors text-sm">
+                      <button className="mt-3 w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 font-black uppercase tracking-wider transition-colors text-sm">
                         View Details
                       </button>
                     ) : (
-                      <div className="mt-3 text-xs text-slate-500">Inactive</div>
+                      <div className="mt-3 text-xs text-neutral-500 uppercase tracking-wider font-bold">Inactive</div>
                     )}
                   </div>
                 </div>
@@ -208,9 +208,9 @@ export default function ChallengesPage() {
       </div>
 
       {/* Challenge Tips */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-xl p-6">
-        <h3 className="text-xl font-bold text-blue-400 mb-3">💡 Challenge Tips</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
+      <div className="bg-neutral-800/50 backdrop-blur-sm border-2 border-amber-500/20 p-6">
+        <h3 className="text-xl font-black text-amber-400 mb-3 uppercase tracking-wider">💡 Challenge Tips</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-neutral-300">
           <div className="flex gap-3">
             <span className="text-xl">🎯</span>
             <div>

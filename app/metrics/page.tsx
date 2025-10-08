@@ -335,9 +335,9 @@ export default function MetricsPage() {
                 {latestMetric.bodyFat || '—'}%
               </div>
             </div>
-            <div className="bg-astral-gray border border-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400 mb-1">BMI</div>
-              <div className="text-2xl font-bold text-green-400">
+            <div className="bg-astral-gray border-2 border-neutral-800 p-4">
+              <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">BMI</div>
+              <div className="text-2xl font-black uppercase tracking-wider text-amber-400">
                 {bmi || '—'}
               </div>
             </div>

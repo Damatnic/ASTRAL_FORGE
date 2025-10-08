@@ -61,11 +61,11 @@ export default function PlateCalculatorPage() {
         </div>
 
         {/* Common Exercises */}
-        <div className="mt-6 bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-400 mb-3">
+        <div className="mt-6 bg-amber-500/10 border-2 border-amber-500/30 p-4">
+          <h3 className="font-black uppercase tracking-wider text-amber-400 mb-3">
             📊 Common Barbell Exercises
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-gray-300">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-neutral-300 uppercase tracking-wider font-bold">
             <div>• Squat</div>
             <div>• Bench Press</div>
             <div>• Deadlift</div>

@@ -22,10 +22,10 @@ export default function LeaderboardsPage() {
 
   const getColorClasses = (color: string) => {
     const colors: any = {
-      purple: 'border-purple-500/20 bg-purple-500/10 text-purple-400',
-      blue: 'border-blue-500/20 bg-blue-500/10 text-blue-400',
-      green: 'border-green-500/20 bg-green-500/10 text-green-400',
-      orange: 'border-orange-500/20 bg-orange-500/10 text-orange-400',
+      purple: 'border-amber-500/20 bg-amber-500/10 text-amber-400',
+      blue: 'border-amber-500/20 bg-amber-500/10 text-amber-400',
+      green: 'border-amber-500/20 bg-amber-500/10 text-amber-400',
+      orange: 'border-amber-500/20 bg-amber-500/10 text-amber-400',
       red: 'border-red-500/20 bg-red-500/10 text-red-400',
     }
     return colors[color] || colors.purple
@@ -66,19 +66,19 @@ export default function LeaderboardsPage() {
 
       {/* User Rank Card */}
       {rank && !rankLoading && (
-        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-6">
+        <div className="bg-gradient-to-r from-amber-600/10 to-amber-500/10 border-2 border-amber-500/20 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-sm text-slate-400 mb-1">Your Position</div>
-              <div className="text-4xl font-bold text-purple-400">#{rank.rank}</div>
+              <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Your Position</div>
+              <div className="text-4xl font-black uppercase tracking-wider text-amber-400">#{rank.rank}</div>
             </div>
             <div className="text-right">
-              <div className="text-sm text-slate-400 mb-1">Percentile</div>
-              <div className="text-2xl font-bold text-yellow-400">Top {rank.percentile}%</div>
+              <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Percentile</div>
+              <div className="text-2xl font-black uppercase tracking-wider text-amber-400">Top {rank.percentile}%</div>
             </div>
             <div className="text-right">
-              <div className="text-sm text-slate-400 mb-1">Total Warriors</div>
-              <div className="text-2xl font-bold text-blue-400">{rank.total}</div>
+              <div className="text-sm text-neutral-400 mb-1 uppercase tracking-wider font-bold">Total Warriors</div>
+              <div className="text-2xl font-black uppercase tracking-wider text-amber-400">{rank.total}</div>
             </div>
           </div>
         </div>
@@ -125,11 +125,11 @@ export default function LeaderboardsPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 flex-1">
                     {/* Rank Badge */}
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
-                      entry.rank === 1 ? 'bg-yellow-500/20 text-yellow-400 border-2 border-yellow-500/50' :
-                      entry.rank === 2 ? 'bg-slate-400/20 text-slate-300 border-2 border-slate-400/50' :
-                      entry.rank === 3 ? 'bg-orange-600/20 text-orange-400 border-2 border-orange-600/50' :
-                      'bg-slate-700/50 text-slate-400'
+                    <div className={`w-12 h-12 flex items-center justify-center font-black uppercase tracking-wider text-lg ${
+                      entry.rank === 1 ? 'bg-amber-500/20 text-amber-400 border-2 border-amber-500/50' :
+                      entry.rank === 2 ? 'bg-neutral-400/20 text-neutral-300 border-2 border-neutral-400/50' :
+                      entry.rank === 3 ? 'bg-amber-600/20 text-amber-400 border-2 border-amber-600/50' :
+                      'bg-neutral-700/50 text-neutral-400'
                     }`}>
                       {entry.rank === 1 ? '🥇' :
                        entry.rank === 2 ? '🥈' :
@@ -139,21 +139,21 @@ export default function LeaderboardsPage() {
 
                     {/* User Info */}
                     <div className="flex-1">
-                      <div className="font-semibold text-white text-lg">
+                      <div className="font-black uppercase tracking-wider text-white text-lg">
                         {entry.userName}
                       </div>
-                      <div className="text-sm text-slate-400">
+                      <div className="text-sm text-neutral-400 uppercase tracking-wider font-bold">
                         Level {entry.level} {entry.characterClass}
                       </div>
                     </div>
 
                     {/* Score */}
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-purple-400">
+                      <div className="text-2xl font-black uppercase tracking-wider text-amber-400">
                         {formatValue(entry.value, activeTab)}
                       </div>
                       {entry.change > 0 && (
-                        <div className="text-sm text-green-400 flex items-center justify-end gap-1">
+                        <div className="text-sm text-amber-400 flex items-center justify-end gap-1 uppercase tracking-wider font-bold">
                           <span>↑</span>
                           <span>{entry.change}</span>
                         </div>
@@ -175,8 +175,8 @@ export default function LeaderboardsPage() {
 
       {/* Trophy Showcase for Top 3 */}
       {leaderboard?.entries && leaderboard.entries.length >= 3 && (
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-yellow-500/20 rounded-xl p-6">
-          <h3 className="text-xl font-bold text-yellow-400 mb-4 text-center">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border-2 border-amber-500/20 p-6">
+          <h3 className="text-xl font-black uppercase tracking-wider text-amber-400 mb-4 text-center">
             🏆 Hall of Champions 🏆
           </h3>
           
@@ -184,13 +184,13 @@ export default function LeaderboardsPage() {
             {/* Second Place */}
             <div className="text-center pt-8">
               <div className="text-6xl mb-2">🥈</div>
-              <div className="font-bold text-white mb-1">
+              <div className="font-black uppercase tracking-wider text-white mb-1">
                 {leaderboard.entries[1]?.userName}
               </div>
-              <div className="text-sm text-slate-400 mb-2">
+              <div className="text-sm text-neutral-400 mb-2 uppercase tracking-wider font-bold">
                 Level {leaderboard.entries[1]?.level}
               </div>
-              <div className="text-lg font-semibold text-slate-300">
+              <div className="text-lg font-black uppercase tracking-wider text-amber-300">
                 {formatValue(leaderboard.entries[1]?.value, activeTab)}
               </div>
             </div>
@@ -198,13 +198,13 @@ export default function LeaderboardsPage() {
             {/* First Place */}
             <div className="text-center">
               <div className="text-7xl mb-2">🥇</div>
-              <div className="font-bold text-yellow-400 text-lg mb-1">
+              <div className="font-black uppercase tracking-wider text-amber-400 text-lg mb-1">
                 {leaderboard.entries[0]?.userName}
               </div>
-              <div className="text-sm text-slate-400 mb-2">
+              <div className="text-sm text-neutral-400 mb-2 uppercase tracking-wider font-bold">
                 Level {leaderboard.entries[0]?.level}
               </div>
-              <div className="text-2xl font-bold text-yellow-400">
+              <div className="text-2xl font-black uppercase tracking-wider text-amber-400">
                 {formatValue(leaderboard.entries[0]?.value, activeTab)}
               </div>
             </div>
@@ -212,13 +212,13 @@ export default function LeaderboardsPage() {
             {/* Third Place */}
             <div className="text-center pt-8">
               <div className="text-6xl mb-2">🥉</div>
-              <div className="font-bold text-white mb-1">
+              <div className="font-black uppercase tracking-wider text-white mb-1">
                 {leaderboard.entries[2]?.userName}
               </div>
-              <div className="text-sm text-slate-400 mb-2">
+              <div className="text-sm text-neutral-400 mb-2 uppercase tracking-wider font-bold">
                 Level {leaderboard.entries[2]?.level}
               </div>
-              <div className="text-lg font-semibold text-orange-400">
+              <div className="text-lg font-black uppercase tracking-wider text-amber-400">
                 {formatValue(leaderboard.entries[2]?.value, activeTab)}
               </div>
             </div>

@@ -105,12 +105,56 @@ export default function HealthPage() {
           description="Monitor your warrior vitality, recovery, and combat readiness"
           icon={<Heart className="w-8 h-8 text-amber-400" />}
           action={
-            <button className="px-6 py-2.5 bg-amber-950/50 border-2 border-amber-700 hover:bg-amber-900/50 font-bold uppercase tracking-wider transition-all flex items-center gap-2 text-amber-400">
-              <Plus className="w-5 h-5" />
-              Log Activity
-            </button>
+            <div className="flex items-center gap-3">
+              <Link href="/dashboard" className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors">
+                ← Dashboard
+              </Link>
+              <button className="px-6 py-2.5 bg-amber-950/50 border-2 border-amber-700 hover:bg-amber-900/50 font-bold uppercase tracking-wider transition-all flex items-center gap-2 text-amber-400">
+                <Plus className="w-5 h-5" />
+                Log Activity
+              </button>
+            </div>
           }
         />
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <Link
+            href="/exercises"
+            className="bg-neutral-900 border-2 border-neutral-800 hover:border-amber-500/50 p-4 text-center transition-all group"
+          >
+            <Activity className="w-8 h-8 text-amber-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-sm font-black uppercase tracking-wider text-amber-400">Exercises</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold mt-1">Browse & Track</div>
+          </Link>
+          
+          <Link
+            href="/programs"
+            className="bg-neutral-900 border-2 border-neutral-800 hover:border-amber-500/50 p-4 text-center transition-all group"
+          >
+            <Target className="w-8 h-8 text-amber-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-sm font-black uppercase tracking-wider text-amber-400">Programs</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold mt-1">Training Plans</div>
+          </Link>
+          
+          <Link
+            href="/measurements"
+            className="bg-neutral-900 border-2 border-neutral-800 hover:border-amber-500/50 p-4 text-center transition-all group"
+          >
+            <TrendingUp className="w-8 h-8 text-amber-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-sm font-black uppercase tracking-wider text-amber-400">Measurements</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold mt-1">Track Progress</div>
+          </Link>
+          
+          <Link
+            href="/health/injuries"
+            className="bg-neutral-900 border-2 border-neutral-800 hover:border-amber-500/50 p-4 text-center transition-all group"
+          >
+            <AlertTriangle className="w-8 h-8 text-amber-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-sm font-black uppercase tracking-wider text-amber-400">Injuries</div>
+            <div className="text-xs text-neutral-500 uppercase tracking-wider font-bold mt-1">Manage Recovery</div>
+          </Link>
+        </div>
 
         {/* Stats Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

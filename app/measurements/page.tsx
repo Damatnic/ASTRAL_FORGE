@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { ChartSkeleton } from '@/components/chart-skeleton';
 import {
   Scale,
@@ -234,10 +235,15 @@ export default function BodyMeasurementsPage() {
       <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         {/* Page Header */}
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400 mb-3 sm:mb-4 flex items-center justify-center gap-2 sm:gap-3">
-            <Ruler className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
-            Body Measurements
-          </h1>
+          <div className="flex items-center justify-center gap-4 mb-3 sm:mb-4">
+            <Link href="/dashboard" className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors text-sm">
+              ← Dashboard
+            </Link>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400 flex items-center gap-2 sm:gap-3">
+              <Ruler className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
+              Body Measurements
+            </h1>
+          </div>
           <p className="text-neutral-300 text-sm sm:text-base md:text-lg px-4 font-medium">
             Track your warrior transformation with measurements and battle photos
           </p>

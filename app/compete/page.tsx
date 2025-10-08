@@ -9,9 +9,16 @@ export default function CompetePage() {
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-black bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent uppercase tracking-wider">
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-4xl font-black bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent uppercase tracking-wider">
             COMPETITION HUB
-          </h1>
+            </h1>
+            <div>
+              <Link href="/dashboard" className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-wider border-2 border-amber-600" aria-label="Back to dashboard">
+                ← Back to Dashboard
+              </Link>
+            </div>
+          </div>
           <p className="text-neutral-400 uppercase tracking-wider font-bold">
             Challenge yourself and compete with others
           </p>
@@ -45,7 +52,7 @@ export default function CompetePage() {
 
           {/* Leaderboards */}
           <Link 
-            href="/(dashboard)/social/leaderboards"
+            href="/social/leaderboards"
             className="group bg-neutral-900/50 border-2 border-neutral-800 hover:border-amber-500/50 p-8 transition-colors"
           >
             <div className="flex items-start gap-4 mb-4">
@@ -93,7 +100,7 @@ export default function CompetePage() {
 
           {/* Guild Competitions */}
           <Link 
-            href="/(dashboard)/social/guilds"
+            href="/social/guilds"
             className="group bg-neutral-900/50 border-2 border-neutral-800 hover:border-amber-500/50 p-8 transition-colors"
           >
             <div className="flex items-start gap-4 mb-4">

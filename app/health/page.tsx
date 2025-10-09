@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/layout/PageHeader';
 import { InjuryTracker } from '@/components/health/injury-tracker';
 import { NutritionDashboard } from '@/components/health/nutrition-dashboard';
 import { SleepRecovery } from '@/components/health/sleep-recovery';
+import { HealthActivityModal } from '@/components/health/health-activity-modal';
 import {
   Heart,
   Activity,
@@ -28,9 +29,12 @@ import {
 } from 'lucide-react';
 
 type HealthTab = 'overview' | 'sleep' | 'nutrition' | 'injuries' | 'goals';
+type ActivityType = 'sleep' | 'meal' | 'water' | 'injury' | 'workout';
 
 export default function HealthPage() {
   const [activeTab, setActiveTab] = useState<HealthTab>('overview');
+  const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
+  const [activityType, setActivityType] = useState<ActivityType>('sleep');
 
   // Mock data - replace with real API calls
   const healthStats = {
@@ -109,7 +113,13 @@ export default function HealthPage() {
               <Link href="/dashboard" className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors">
                 ← Dashboard
               </Link>
-              <button className="px-6 py-2.5 bg-amber-950/50 border-2 border-amber-700 hover:bg-amber-900/50 font-bold uppercase tracking-wider transition-all flex items-center gap-2 text-amber-400">
+              <button 
+                onClick={() => {
+                  setActivityType('workout');
+                  setIsActivityModalOpen(true);
+                }}
+                className="px-6 py-2.5 bg-amber-950/50 border-2 border-amber-700 hover:bg-amber-900/50 font-bold uppercase tracking-wider transition-all flex items-center gap-2 text-amber-400"
+              >
                 <Plus className="w-5 h-5" />
                 Log Activity
               </button>
@@ -400,10 +410,22 @@ export default function HealthPage() {
           {/* Sleep Tab */}
           {activeTab === 'sleep' && (
             <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
-                <Moon className="w-6 h-6 text-amber-400" />
-                Sleep Tracking
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-black uppercase tracking-wider flex items-center gap-2">
+                  <Moon className="w-6 h-6 text-amber-400" />
+                  Sleep Tracking
+                </h2>
+                <button
+                  onClick={() => {
+                    setActivityType('sleep');
+                    setIsActivityModalOpen(true);
+                  }}
+                  className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Log Sleep
+                </button>
+              </div>
               <div className="space-y-4">
                 {sleepData.map((day, index) => (
                   <div key={index} className="p-4 bg-neutral-800/50 border-2 border-neutral-700">
@@ -440,10 +462,34 @@ export default function HealthPage() {
           {/* Nutrition Tab */}
           {activeTab === 'nutrition' && (
             <div className="bg-neutral-900/50 border-2 border-neutral-800 p-6">
-              <h2 className="text-2xl font-black uppercase tracking-wider mb-6 flex items-center gap-2">
-                <Apple className="w-6 h-6 text-amber-400" />
-                Nutrition Log
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-black uppercase tracking-wider flex items-center gap-2">
+                  <Apple className="w-6 h-6 text-amber-400" />
+                  Nutrition Log
+                </h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setActivityType('water');
+                      setIsActivityModalOpen(true);
+                    }}
+                    className="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-amber-400 border-2 border-neutral-700 hover:border-amber-700 font-black uppercase tracking-wider transition-colors flex items-center gap-2"
+                  >
+                    <Droplet className="w-4 h-4" />
+                    Log Water
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActivityType('meal');
+                      setIsActivityModalOpen(true);
+                    }}
+                    className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Log Meal
+                  </button>
+                </div>
+              </div>
               <div className="space-y-4">
                 {nutritionLog.map((meal, index) => (
                   <div key={index} className="p-4 bg-neutral-800/50 border-2 border-neutral-700">
@@ -485,12 +531,24 @@ export default function HealthPage() {
                   <AlertTriangle className="w-6 h-6 text-amber-400" />
                   Injury Management
                 </h2>
-                <Link
-                  href="/health/injuries"
-                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 text-black font-black uppercase tracking-wider hover:from-amber-700 hover:to-amber-600 transition-all"
-                >
-                  View Full History
-                </Link>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setActivityType('injury');
+                      setIsActivityModalOpen(true);
+                    }}
+                    className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-black border-2 border-amber-600 font-black uppercase tracking-wider transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Log Injury
+                  </button>
+                  <Link
+                    href="/health/injuries"
+                    className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-amber-400 border-2 border-neutral-700 hover:border-amber-700 font-black uppercase tracking-wider transition-all"
+                  >
+                    View Full History
+                  </Link>
+                </div>
               </div>
               {injuries.length > 0 ? (
                 <div className="space-y-4">
@@ -583,6 +641,13 @@ export default function HealthPage() {
           )}
         </div>
       </PageContainer>
+      
+      {/* Health Activity Modal */}
+      <HealthActivityModal
+        isOpen={isActivityModalOpen}
+        onClose={() => setIsActivityModalOpen(false)}
+        activityType={activityType}
+      />
     </AppLayout>
   );
 }
